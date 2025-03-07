@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CRUD_TYPES } from '../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../constants/crudTypes';
 import { rem } from '../../../utils/styling/rem';
 import { DIALOG_NAME } from './constants';
 import { ConfirmResourcesUpdatesDialogProps } from './types';
@@ -74,11 +74,11 @@ export const ConfirmResourcesUpdatesDialog: React.FC<ConfirmResourcesUpdatesDial
                             </Typography>
                             <Typography variant={'body2'} component={'span'}>
                               will be{' '}
-                              {actionType === CRUD_TYPES.EDIT
+                              {actionType === CRUD_TYPE.EDIT
                                 ? 'updated'
-                                : CRUD_TYPES.DELETE
+                                : CRUD_TYPE.DELETE
                                 ? 'deleted'
-                                : CRUD_TYPES.CREATE
+                                : CRUD_TYPE.CREATE
                                 ? 'created'
                                 : ''}
                             </Typography>

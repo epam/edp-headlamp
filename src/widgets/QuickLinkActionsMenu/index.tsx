@@ -1,8 +1,8 @@
 import React from 'react';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
-import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
-import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
+import { ACTION_MENU_TYPE } from '../../constants/actionMenuTypes';
+import { RESOURCE_ACTION } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObject } from '../../k8s/groups/EDP/QuickLink';
 import { isSystemQuickLink } from '../../k8s/groups/EDP/QuickLink/utils/isSystemQuickLink';
@@ -32,8 +32,8 @@ export const QuickLinkActionsMenu = ({
 
     return [
       createResourceAction({
-        type: RESOURCE_ACTIONS.EDIT,
-        label: capitalizeFirstLetter(RESOURCE_ACTIONS.EDIT),
+        type: RESOURCE_ACTION.EDIT,
+        label: capitalizeFirstLetter(RESOURCE_ACTION.EDIT),
         icon: ICONS.PENCIL,
         item: data,
         disabled: {
@@ -41,7 +41,7 @@ export const QuickLinkActionsMenu = ({
           reason: permissions?.update?.QuickLink.reason,
         },
         callback: (data) => {
-          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+          if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
 
@@ -52,8 +52,8 @@ export const QuickLinkActionsMenu = ({
         },
       }),
       createResourceAction({
-        type: RESOURCE_ACTIONS.DELETE,
-        label: capitalizeFirstLetter(RESOURCE_ACTIONS.DELETE),
+        type: RESOURCE_ACTION.DELETE,
+        label: capitalizeFirstLetter(RESOURCE_ACTION.DELETE),
         icon: ICONS.BUCKET,
         item: data,
         disabled: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CODEBASE_VERSIONING_TYPES } from '../../../../../../constants/codebaseVersioningTypes';
+import { CODEBASE_VERSIONING_TYPE } from '../../../../../../constants/codebaseVersioningTypes';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../../../names';
 
@@ -14,8 +14,8 @@ export const useUpdateVersioningFields = (): void => {
 
   React.useEffect(() => {
     if (
-      (versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.EDP ||
-        versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.SEMVER) &&
+      (versioningTypeFieldValue === CODEBASE_VERSIONING_TYPE.EDP ||
+        versioningTypeFieldValue === CODEBASE_VERSIONING_TYPE.SEMVER) &&
       !versioningStartFromFieldValue
     ) {
       setValue(
@@ -24,7 +24,7 @@ export const useUpdateVersioningFields = (): void => {
       );
     }
 
-    if (versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.DEFAULT) {
+    if (versioningTypeFieldValue === CODEBASE_VERSIONING_TYPE.DEFAULT) {
       setValue(CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFrom.name, undefined);
     }
 

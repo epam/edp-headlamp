@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../constants/codebaseTypes';
 import { ApplicationKubeObject } from '../../../../k8s/groups/ArgoCD/Application';
 import {
   APPLICATION_LABEL_SELECTOR_APP_NAME,
@@ -35,7 +35,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
 
   const [applications, applicationsError] = CodebaseKubeObject.useList({
     namespace,
-    labelSelector: `${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${CODEBASE_TYPES.APPLICATION}`,
+    labelSelector: `${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${CODEBASE_TYPE.APPLICATION}`,
   });
 
   const [argoApplications, argoApplicationsError] = ApplicationKubeObject.useList({

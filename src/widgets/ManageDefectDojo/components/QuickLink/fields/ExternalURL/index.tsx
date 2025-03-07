@@ -1,5 +1,5 @@
 import React from 'react';
-import { VALIDATED_PROTOCOLS } from '../../../../../../constants/validatedProtocols';
+import { VALIDATED_PROTOCOL } from '../../../../../../constants/validatedProtocols';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { FORM_MODES } from '../../../../../../types/forms';
 import { getValidURLPattern } from '../../../../../../utils/checks/getValidURLPattern';
@@ -28,7 +28,7 @@ export const ExternalURL = () => {
       {...register(QUICK_LINK_FORM_NAMES.externalUrl.name, {
         required: 'Enter the external DefectDojo URL.',
         pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.STRICT_HTTPS),
+          value: getValidURLPattern(VALIDATED_PROTOCOL.STRICT_HTTPS),
           message: 'Enter a valid URL with HTTPS protocol.',
         },
         onChange: ({ target: { value } }) => {

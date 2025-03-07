@@ -1,7 +1,7 @@
 import React from 'react';
 import { EmptyList } from '../../components/EmptyList';
 import { Table } from '../../components/Table';
-import { TABLES } from '../../constants/tables';
+import { TABLE } from '../../constants/tables';
 import { Filter } from '../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
@@ -17,8 +17,8 @@ export const TaskList = ({ tasks, isLoading, error }: TaskListProps) => {
 
   return (
     <Table
-      id={TABLES.TASK_LIST.id}
-      name={TABLES.TASK_LIST.name}
+      id={TABLE.TASK_LIST.id}
+      name={TABLE.TASK_LIST.name}
       blockerError={error}
       columns={columns}
       data={tasks}

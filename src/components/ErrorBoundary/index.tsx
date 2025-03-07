@@ -17,7 +17,7 @@ class ErrorBoundary extends React.Component<Props, State> {
     this.state = { error: '' };
   }
 
-  componentDidCatch(error) {
+  componentDidCatch(error: Error) {
     const errorMessage = `${error.name}: ${error.message}`;
     this.setState({ error: errorMessage });
     this.props.enqueueSnackbar(errorMessage, {

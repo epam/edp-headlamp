@@ -1,11 +1,9 @@
+import { KubeObjectClass } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { ApplicationKubeObject } from '../../k8s/groups/ArgoCD/Application';
-import { APPLICATION_HEALTH_STATUS } from '../../k8s/groups/ArgoCD/Application/constants';
 import { CDPipelineKubeObject } from '../../k8s/groups/EDP/CDPipeline';
 import { CDPipelineKubeObjectConfig } from '../../k8s/groups/EDP/CDPipeline/config';
 import { StageKubeObject } from '../../k8s/groups/EDP/Stage';
 import { StageKubeObjectConfig } from '../../k8s/groups/EDP/Stage/config';
-import { ValueOf } from '../../types/global';
-import { StageWithApplicationsData } from './providers/DynamicData/types';
 import { MatchFunctions } from './types';
 
 export const stagesFilterControlNames = {
@@ -15,7 +13,7 @@ export const stagesFilterControlNames = {
 } as const;
 
 export const matchFunctions: MatchFunctions = {
-  [stagesFilterControlNames.STAGES]: (item: StageWithApplicationsData, value: string[]) => {
+  [stagesFilterControlNames.STAGES]: (item, value) => {
     if (!value.length) {
       return true;
     }
@@ -24,10 +22,7 @@ export const matchFunctions: MatchFunctions = {
   },
   [stagesFilterControlNames.APPLICATION]: () => true, // same applications exist in each stage
 
-  [stagesFilterControlNames.HEALTH]: (
-    item: StageWithApplicationsData,
-    value: 'All' | ValueOf<typeof APPLICATION_HEALTH_STATUS>
-  ) => {
+  [stagesFilterControlNames.HEALTH]: (item, value) => {
     return item.applications.some((app) =>
       value === 'All' ? true : ApplicationKubeObject.parseStatus(app.argoApplication) === value
     );
@@ -35,7 +30,19 @@ export const matchFunctions: MatchFunctions = {
 };
 
 export const permissionsToCheckConfig = {
-  create: [{ instance: StageKubeObject, config: StageKubeObjectConfig }],
-  update: [{ instance: CDPipelineKubeObject, config: CDPipelineKubeObjectConfig }],
-  delete: [{ instance: CDPipelineKubeObject, config: CDPipelineKubeObjectConfig }],
+  create: [
+    { instance: StageKubeObject as unknown as KubeObjectClass, config: StageKubeObjectConfig },
+  ],
+  update: [
+    {
+      instance: CDPipelineKubeObject as unknown as KubeObjectClass,
+      config: CDPipelineKubeObjectConfig,
+    },
+  ],
+  delete: [
+    {
+      instance: CDPipelineKubeObject as unknown as KubeObjectClass,
+      config: CDPipelineKubeObjectConfig,
+    },
+  ],
 };

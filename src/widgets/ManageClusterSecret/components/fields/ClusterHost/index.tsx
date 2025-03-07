@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { VALIDATED_PROTOCOLS } from '../../../../../constants/validatedProtocols';
+import { VALIDATED_PROTOCOL } from '../../../../../constants/validatedProtocols';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
@@ -24,7 +24,7 @@ export const ClusterHost = () => {
       {...register(CLUSTER_FORM_NAMES.CLUSTER_HOST, {
         required: 'Enter the cluster URL assigned to the host.',
         pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.STRICT_HTTPS),
+          value: getValidURLPattern(VALIDATED_PROTOCOL.STRICT_HTTPS),
           message: 'Enter a valid URL with HTTPS protocol.',
         },
       })}

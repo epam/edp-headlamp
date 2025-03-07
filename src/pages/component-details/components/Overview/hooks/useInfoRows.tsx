@@ -10,8 +10,8 @@ import {
   FRAMEWORK_ICON_MAPPING,
   LANGUAGE_ICON_MAPPING,
 } from '../../../../../configs/icon-mappings';
-import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
-import { CODEBASE_VERSIONING_TYPES } from '../../../../../constants/codebaseVersioningTypes';
+import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
+import { CODEBASE_VERSIONING_TYPE } from '../../../../../constants/codebaseVersioningTypes';
 import { MAIN_COLOR } from '../../../../../constants/colors';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { CodebaseKubeObject } from '../../../../../k8s/groups/EDP/Codebase';
@@ -23,15 +23,15 @@ import { ComponentDetailsRouteParams } from '../../../types';
 
 const getColorByType = (type: string) => {
   switch (type) {
-    case CODEBASE_TYPES.SYSTEM:
+    case CODEBASE_TYPE.SYSTEM:
       return MAIN_COLOR.GREY;
-    case CODEBASE_TYPES.INFRASTRUCTURE:
+    case CODEBASE_TYPE.INFRASTRUCTURE:
       return MAIN_COLOR.DARK_PURPLE;
-    case CODEBASE_TYPES.APPLICATION:
+    case CODEBASE_TYPE.APPLICATION:
       return MAIN_COLOR.GREEN;
-    case CODEBASE_TYPES.AUTOTEST:
+    case CODEBASE_TYPE.AUTOTEST:
       return MAIN_COLOR.ORANGE;
-    case CODEBASE_TYPES.LIBRARY:
+    case CODEBASE_TYPE.LIBRARY:
       return MAIN_COLOR.BLUE;
     default:
       return MAIN_COLOR.GREY;
@@ -155,8 +155,8 @@ export const useInfoRows = (): InfoRow[] | null => {
           label: 'Versioning Type',
           text: versioningType,
         },
-        ...(versioningType === CODEBASE_VERSIONING_TYPES.EDP ||
-        versioningType === CODEBASE_VERSIONING_TYPES.SEMVER
+        ...(versioningType === CODEBASE_VERSIONING_TYPE.EDP ||
+        versioningType === CODEBASE_VERSIONING_TYPE.SEMVER
           ? [
               {
                 label: 'Versioning Start From',

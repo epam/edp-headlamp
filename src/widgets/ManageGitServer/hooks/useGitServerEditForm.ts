@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CRUD_TYPES } from '../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 import { editResource } from '../../../k8s/common/editResource';
 import { GitServerKubeObject } from '../../../k8s/groups/EDP/GitServer';
@@ -20,10 +20,10 @@ export const useGitServerEditForm = ({
   webhookURL: string;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const editMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, CRUD_TYPES.EDIT>(
+  const editMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, CRUD_TYPE.EDIT>(
     'gitServerEditMutation',
     GitServerKubeObject,
-    CRUD_TYPES.EDIT
+    CRUD_TYPE.EDIT
   );
 
   const webhookURLValue = gitServer?.spec?.webhookUrl || webhookURL || '';

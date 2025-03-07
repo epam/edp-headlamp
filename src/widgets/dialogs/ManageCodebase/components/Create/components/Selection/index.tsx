@@ -13,9 +13,9 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { TabPanel } from '../../../../../../../components/TabPanel';
-import { CODEBASE_TYPES } from '../../../../../../../constants/codebaseTypes';
-import { DEPLOYMENT_SCRIPTS } from '../../../../../../../constants/deploymentScripts';
-import { TEST_REPORT_FRAMEWORKS } from '../../../../../../../constants/testReportFrameworks';
+import { CODEBASE_TYPE } from '../../../../../../../constants/codebaseTypes';
+import { DEPLOYMENT_SCRIPT } from '../../../../../../../constants/deploymentScripts';
+import { TEST_REPORT_FRAMEWORK } from '../../../../../../../constants/testReportFrameworks';
 import { MainRadioGroup } from '../../../../../../../providers/Form/components/MainRadioGroup';
 import { useStepperContext } from '../../../../../../../providers/Stepper/hooks';
 import { FieldEvent } from '../../../../../../../types/forms';
@@ -74,19 +74,19 @@ export const Selection = ({ setActiveTab }: SelectionProps) => {
                 {...register(CODEBASE_FORM_NAMES.type.name, {
                   onChange: ({ target: { value } }: FieldEvent) => {
                     switch (value) {
-                      case CODEBASE_TYPES.APPLICATION:
+                      case CODEBASE_TYPE.APPLICATION:
                         setValue(
                           CODEBASE_FORM_NAMES.deploymentScript.name,
-                          DEPLOYMENT_SCRIPTS.HELM_CHART,
+                          DEPLOYMENT_SCRIPT.HELM_CHART,
                           {
                             shouldDirty: false,
                           }
                         );
                         break;
-                      case CODEBASE_TYPES.AUTOTEST:
+                      case CODEBASE_TYPE.AUTOTEST:
                         setValue(
                           CODEBASE_FORM_NAMES.testReportFramework.name,
-                          TEST_REPORT_FRAMEWORKS.ALLURE,
+                          TEST_REPORT_FRAMEWORK.ALLURE,
                           {
                             shouldDirty: false,
                           }

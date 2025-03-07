@@ -1,5 +1,5 @@
 import React from 'react';
-import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
 import { useCDPipelineListQuery } from '../../../../../k8s/groups/EDP/CDPipeline/hooks/useCDPipelineListQuery';
 import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
 import { useCDPipelineStageListQuery } from '../../../../../k8s/groups/EDP/Stage/hooks/useCDPipelineStageListQuery';
@@ -48,14 +48,11 @@ export const useDeletionConflicts = (
       const componentObject = componentsByNameMap.get(component);
       const componentType = componentObject.spec?.type;
 
-      if (componentType === CODEBASE_TYPES.SYSTEM) {
+      if (componentType === CODEBASE_TYPE.SYSTEM) {
         continue;
       }
 
-      if (
-        componentType !== CODEBASE_TYPES.APPLICATION &&
-        componentType !== CODEBASE_TYPES.AUTOTEST
-      ) {
+      if (componentType !== CODEBASE_TYPE.APPLICATION && componentType !== CODEBASE_TYPE.AUTOTEST) {
         componentsCanBeDeleted.set(component, componentObject);
         continue;
       }

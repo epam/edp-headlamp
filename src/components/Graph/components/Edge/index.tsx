@@ -4,20 +4,25 @@ import React from 'react';
 import { EdgeProps } from './types';
 
 export const Edge = ({ direction, color, sections: _sections, noArrow }: EdgeProps) => {
-  const sections = _sections[0];
+  const section = _sections?.[0];
+
+  if (!section) {
+    return null;
+  }
+
   const path = d3Path();
 
-  path.moveTo(sections.startPoint.x, sections.startPoint.y);
+  path.moveTo(section.startPoint.x, section.startPoint.y);
 
-  if (sections.bendPoints) {
-    sections.bendPoints.forEach((b) => {
+  if (section.bendPoints) {
+    section.bendPoints.forEach((b) => {
       path.lineTo(b.x, b.y);
     });
   }
 
   path.lineTo(
-    sections.endPoint.x - (direction === 'RIGHT' ? 3 : 0),
-    sections.endPoint.y - (direction === 'RIGHT' ? 0 : 3)
+    section.endPoint.x - (direction === 'RIGHT' ? 3 : 0),
+    section.endPoint.y - (direction === 'RIGHT' ? 0 : 3)
   );
 
   return (

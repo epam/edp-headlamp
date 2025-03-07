@@ -1,5 +1,5 @@
 import React from 'react';
-import { GIT_SERVERS } from '../../../../../../constants/gitServers';
+import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../../../types/forms';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
@@ -25,7 +25,7 @@ export const Name = () => {
     const normalizedValue = normalizeNameValue(value);
     if (
       Object.hasOwn(dirtyFields, CODEBASE_FROM_TEMPLATE_FORM_NAMES.gitUrlPath.name) ||
-      gitServerFieldValue !== GIT_SERVERS.GERRIT
+      gitServerFieldValue !== GIT_PROVIDER.GERRIT
     )
       return;
 

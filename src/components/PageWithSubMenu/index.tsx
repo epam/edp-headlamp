@@ -24,20 +24,20 @@ export const PageWithSubMenu: React.FC<PageWithSubMenuProps> = ({ title, list, c
   const handleChangeGroupTab = React.useCallback(
     (event: React.ChangeEvent<{}>, newActiveTabId: string) => {
       setActiveGroupTabId(newActiveTabId);
-      const newActiveMenuItem = list.find((el) => el.id === newActiveTabId);
+      const newActiveMenuItem = list.find((el) => el.id === newActiveTabId)!;
       const newActiveChild = newActiveMenuItem.children[0];
-      const newRoute = Router.createRouteURL(newActiveChild.routePath);
+      const newRoute = Router.createRouteURL(newActiveChild?.routePath);
       history.push(newRoute);
     },
     [history, list]
   );
 
-  const activeGroupItem = list.find((el) => el.id === activeGroupTabId);
+  const activeGroupItem = list.find((el) => el.id === activeGroupTabId)!;
 
   const [activeTabId, setActiveTabId] = React.useState<string>(() => {
     const activeItem = activeGroupItem.children.find((el) =>
       location.pathname.includes(el.routePath)
-    );
+    )!;
     return activeItem.id || activeGroupItem.children[0].id;
   });
 

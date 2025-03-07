@@ -1,5 +1,5 @@
 import React from 'react';
-import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 import { CodebaseBranchKubeObject } from '..';
 import { CodebaseBranchKubeObjectInterface } from '../types';
@@ -30,13 +30,13 @@ export const useCodebaseBranchCRUD = ({
 
   const codebaseBranchCreateMutation = useResourceCRUDMutation<
     CodebaseBranchKubeObjectInterface,
-    CRUD_TYPES.CREATE
-  >('codebaseBranchCreateMutation', CodebaseBranchKubeObject, CRUD_TYPES.CREATE);
+    CRUD_TYPE.CREATE
+  >('codebaseBranchCreateMutation', CodebaseBranchKubeObject, CRUD_TYPE.CREATE);
 
   const codebaseBranchEditMutation = useResourceCRUDMutation<
     CodebaseBranchKubeObjectInterface,
-    CRUD_TYPES.EDIT
-  >('codebaseBranchEditMutation', CodebaseBranchKubeObject, CRUD_TYPES.EDIT);
+    CRUD_TYPE.EDIT
+  >('codebaseBranchEditMutation', CodebaseBranchKubeObject, CRUD_TYPE.EDIT);
 
   const createCodebaseBranch = React.useCallback(
     async ({ codebaseBranchData, defaultCodebaseBranchData }: CreateCodebaseBranchProps) => {

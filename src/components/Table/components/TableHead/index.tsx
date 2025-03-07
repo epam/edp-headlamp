@@ -3,7 +3,7 @@ import React from 'react';
 import { TableRow } from './components/TableRow';
 import { TableHeadProps } from './types';
 
-export const TableHead = ({
+export const TableHead = <DataType extends unknown>({
   tableId,
   columns,
   colGroupRef,
@@ -13,7 +13,7 @@ export const TableHead = ({
   selectableRowCount,
   selected,
   handleSelectAllClick,
-}: TableHeadProps) => {
+}: TableHeadProps<DataType>) => {
   return (
     <MuiTableHead>
       <TableRow

@@ -1,4 +1,4 @@
-import { CODEBASE_TYPES } from '../../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../../../constants/codebaseTypes';
 import { CODEBASE_FORM_NAMES } from '../../../../../../widgets/dialogs/ManageCodebase/names';
 import { createCodebaseInstance } from './index';
 
@@ -18,7 +18,7 @@ describe('testing createCodebaseExample', () => {
         versioningStartFrom: '0.0.0-SNAPSHOT',
         deploymentScript: 'helm-chart',
         name: 'test',
-        type: CODEBASE_TYPES.APPLICATION,
+        type: CODEBASE_TYPE.APPLICATION,
       });
 
       expect(object).toMatchObject({
@@ -56,7 +56,7 @@ describe('testing createCodebaseExample', () => {
         versioningStartFrom: '0.0.0-SNAPSHOT',
         deploymentScript: 'helm-chart',
         name: 'test',
-        type: CODEBASE_TYPES.LIBRARY,
+        type: CODEBASE_TYPE.LIBRARY,
       });
 
       expect(object).toMatchObject({
@@ -95,7 +95,7 @@ describe('testing createCodebaseExample', () => {
         testReportFramework: 'allure',
         versioningType: 'edp',
         versioningStartFrom: '0.0.0-SNAPSHOT',
-        type: CODEBASE_TYPES.AUTOTEST,
+        type: CODEBASE_TYPE.AUTOTEST,
       });
 
       expect(object).toMatchObject({

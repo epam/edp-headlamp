@@ -1,9 +1,9 @@
 import React from 'react';
-import { CI_TOOLS } from '../../../constants/ciTools';
-import { CODEBASE_TYPES } from '../../../constants/codebaseTypes';
-import { CODEBASE_VERSIONING_TYPES } from '../../../constants/codebaseVersioningTypes';
-import { CODEBASE_CREATION_STRATEGIES } from '../../../constants/creationStrategies';
-import { DEPLOYMENT_SCRIPTS } from '../../../constants/deploymentScripts';
+import { CI_TOOL } from '../../../constants/ciTools';
+import { CODEBASE_TYPE } from '../../../constants/codebaseTypes';
+import { CODEBASE_VERSIONING_TYPE } from '../../../constants/codebaseVersioningTypes';
+import { CODEBASE_CREATION_STRATEGY } from '../../../constants/creationStrategies';
+import { DEPLOYMENT_SCRIPT } from '../../../constants/deploymentScripts';
 import { useGitServerListQuery } from '../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { GIT_OPS_CODEBASE_NAME } from '../constants';
 import { CODEBASE_FORM_NAMES } from '../names';
@@ -26,14 +26,14 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
         [CODEBASE_FORM_NAMES.lang.name]: 'helm',
         [CODEBASE_FORM_NAMES.framework.name]: 'gitops',
         [CODEBASE_FORM_NAMES.buildTool.name]: 'helm',
-        [CODEBASE_FORM_NAMES.ciTool.name]: CI_TOOLS.TEKTON,
+        [CODEBASE_FORM_NAMES.ciTool.name]: CI_TOOL.TEKTON,
         [CODEBASE_FORM_NAMES.gitServer.name]: firstValidGitServer?.metadata.name || '',
         [CODEBASE_FORM_NAMES.defaultBranch.name]: 'main',
-        [CODEBASE_FORM_NAMES.deploymentScript.name]: DEPLOYMENT_SCRIPTS.HELM_CHART,
+        [CODEBASE_FORM_NAMES.deploymentScript.name]: DEPLOYMENT_SCRIPT.HELM_CHART,
         [CODEBASE_FORM_NAMES.description.name]: 'Custom values for deploy applications',
-        [CODEBASE_FORM_NAMES.strategy.name]: CODEBASE_CREATION_STRATEGIES.CREATE,
-        [CODEBASE_FORM_NAMES.type.name]: CODEBASE_TYPES.SYSTEM,
-        [CODEBASE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPES.SEMVER,
+        [CODEBASE_FORM_NAMES.strategy.name]: CODEBASE_CREATION_STRATEGY.CREATE,
+        [CODEBASE_FORM_NAMES.type.name]: CODEBASE_TYPE.SYSTEM,
+        [CODEBASE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPE.SEMVER,
         [CODEBASE_FORM_NAMES.versioningStartFrom.name]: '0.1.0-SNAPSHOT',
         [CODEBASE_FORM_NAMES.systemTypeLabel.name]: 'gitops',
       };

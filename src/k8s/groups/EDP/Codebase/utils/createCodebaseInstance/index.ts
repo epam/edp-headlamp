@@ -1,5 +1,5 @@
 import { set } from 'lodash';
-import { CI_TOOLS } from '../../../../../../constants/ciTools';
+import { CI_TOOL } from '../../../../../../constants/ciTools';
 import { FormNameObject } from '../../../../../../types/forms';
 import { DeepPartial } from '../../../../../../types/global';
 import { CodebaseKubeObjectConfig } from '../../config';
@@ -30,7 +30,7 @@ export const createCodebaseInstance = (
       },
     },
     spec: {
-      ciTool: CI_TOOLS.TEKTON,
+      ciTool: CI_TOOL.TEKTON,
     },
   };
 

@@ -2,7 +2,7 @@ import Editor from '@monaco-editor/react';
 import * as yaml from 'js-yaml';
 import React from 'react';
 
-export const ViewYAML = ({ item }) => {
+export const ViewYAML = ({ item }: { item: object }) => {
   return (
     <Editor
       language={'yaml'}

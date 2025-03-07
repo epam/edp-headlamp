@@ -1,5 +1,5 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import { RESOURCE_ACTIONS } from '../../../constants/resourceActions';
+import { RESOURCE_ACTION } from '../../../constants/resourceActions';
 import { RESOURCE_LABEL_SELECTOR_PROTECTED } from '../../../k8s/common/labels';
 import { createResourceAction } from './index';
 
@@ -13,14 +13,14 @@ describe('createResourceAction', () => {
   it('should create an action with the given parameters', () => {
     const action = createResourceAction({
       item: mockItem,
-      type: RESOURCE_ACTIONS.EDIT,
+      type: RESOURCE_ACTION.EDIT,
       label: 'Edit',
       callback: jest.fn(),
       icon: 'edit-icon',
       isTextButton: true,
     });
 
-    expect(action.name).toBe(RESOURCE_ACTIONS.EDIT);
+    expect(action.name).toBe(RESOURCE_ACTION.EDIT);
     expect(action.label).toBe('Edit');
     expect(action.icon).toBe('edit-icon');
     expect(action.disabled.status).toBe(false);
@@ -39,7 +39,7 @@ describe('createResourceAction', () => {
 
     const action = createResourceAction({
       item: protectedItem,
-      type: RESOURCE_ACTIONS.DELETE,
+      type: RESOURCE_ACTION.DELETE,
       label: 'Delete',
       callback: jest.fn(),
     });
@@ -60,7 +60,7 @@ describe('createResourceAction', () => {
 
     const actionDelete = createResourceAction({
       item: protectedItem,
-      type: RESOURCE_ACTIONS.DELETE,
+      type: RESOURCE_ACTION.DELETE,
       label: 'Delete',
       callback: jest.fn(),
     });
@@ -70,7 +70,7 @@ describe('createResourceAction', () => {
 
     const actionUpdate = createResourceAction({
       item: protectedItem,
-      type: RESOURCE_ACTIONS.EDIT,
+      type: RESOURCE_ACTION.EDIT,
       label: 'Edit',
       callback: jest.fn(),
     });
@@ -83,7 +83,7 @@ describe('createResourceAction', () => {
     const mockCallback = jest.fn();
     const action = createResourceAction({
       item: mockItem,
-      type: RESOURCE_ACTIONS.EDIT,
+      type: RESOURCE_ACTION.EDIT,
       label: 'Edit',
       callback: mockCallback,
     });

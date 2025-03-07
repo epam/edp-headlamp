@@ -1,3 +1,4 @@
+import { KubeObjectClass } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { SecretKubeObject } from '../../k8s/groups/default/Secret';
 import { SecretKubeObjectConfig } from '../../k8s/groups/default/Secret/config';
 import { CodemieKubeObject } from '../../k8s/groups/EDP/Codemie';
@@ -13,13 +14,18 @@ export const FORM_NAMES = {
 
 export const widgetPermissionsToCheck = {
   create: [
-    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
-    { instance: CodemieKubeObject, config: CodemieKubeObjectConfig },
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
+    { instance: CodemieKubeObject as unknown as KubeObjectClass, config: CodemieKubeObjectConfig },
   ],
   update: [
-    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
-    { instance: CodemieKubeObject, config: CodemieKubeObjectConfig },
-    { instance: QuickLinkKubeObject, config: QuickLinkKubeObjectConfig },
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
+    { instance: CodemieKubeObject as unknown as KubeObjectClass, config: CodemieKubeObjectConfig },
+    {
+      instance: QuickLinkKubeObject as unknown as KubeObjectClass,
+      config: QuickLinkKubeObjectConfig,
+    },
   ],
-  delete: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
+  delete: [
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
+  ],
 };

@@ -19,7 +19,7 @@ export const editResource = <T extends EDPKubeObjectInterface>(
     }
 
     const propPath = names[propKey].path;
-    set(base, propPath, propValue);
+    propPath && set(base, propPath, propValue);
   }
 
   return base;

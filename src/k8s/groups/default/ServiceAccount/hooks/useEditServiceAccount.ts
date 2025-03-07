@@ -1,6 +1,6 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
-import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 import { ServiceAccountKubeObject } from '../index';
 import { ServiceAccountKubeObjectInterface } from '../types';
@@ -19,10 +19,10 @@ export const useEditServiceAccount = ({
   const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-  const serviceAccountEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.EDIT>(
+  const serviceAccountEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPE.EDIT>(
     'serviceAccountEditMutation',
     ServiceAccountKubeObject,
-    CRUD_TYPES.EDIT
+    CRUD_TYPE.EDIT
   );
 
   const editServiceAccount = React.useCallback(

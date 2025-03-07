@@ -1,7 +1,7 @@
 import { Box, Grid, Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
-import { CODEBASE_TYPES } from '../../../../../../../../../../../constants/codebaseTypes';
-import { CODEBASE_CREATION_STRATEGIES } from '../../../../../../../../../../../constants/creationStrategies';
+import { CODEBASE_TYPE } from '../../../../../../../../../../../constants/codebaseTypes';
+import { CODEBASE_CREATION_STRATEGY } from '../../../../../../../../../../../constants/creationStrategies';
 import { Resources } from '../../../../../../../../../../../icons/sprites/Resources';
 import { useTypedFormContext } from '../../../../../../../../hooks/useFormContext';
 import { CODEBASE_FORM_NAMES } from '../../../../../../../../names';
@@ -76,7 +76,7 @@ export const Info = () => {
         <Grid item xs={12}>
           <Description />
         </Grid>
-        {strategyFieldValue === CODEBASE_CREATION_STRATEGIES.CREATE && (
+        {strategyFieldValue === CODEBASE_CREATION_STRATEGY.CREATE && (
           <Grid item xs={12}>
             <EmptyProject />
           </Grid>
@@ -94,7 +94,7 @@ export const Info = () => {
             <BuildTool />
           </Grid>
         )}
-        {typeFieldValue === CODEBASE_TYPES.AUTOTEST && (
+        {typeFieldValue === CODEBASE_TYPE.AUTOTEST && (
           <Grid item xs={12}>
             <TestReportFramework />
           </Grid>

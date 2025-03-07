@@ -1,3 +1,4 @@
+import { KubeObjectClass } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { PIPELINE_TYPE } from '../../constants/pipelineTypes';
 import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunKubeObjectConfig } from '../../k8s/groups/Tekton/PipelineRun/config';
@@ -5,7 +6,6 @@ import {
   PIPELINE_RUN_LABEL_SELECTOR_CODEBASE,
   PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
 } from '../../k8s/groups/Tekton/PipelineRun/labels';
-import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 import { MatchFunctions } from './types';
 
 export const pipelineRunFilterControlNames = {
@@ -27,10 +27,7 @@ export const columnNames = {
 } as const;
 
 export const matchFunctions: MatchFunctions = {
-  [pipelineRunFilterControlNames.CODEBASES]: (
-    item: PipelineRunKubeObjectInterface,
-    value: string[]
-  ) => {
+  [pipelineRunFilterControlNames.CODEBASES]: (item, value) => {
     if (!value || value.length === 0) return true;
 
     const pipelineType = item?.metadata.labels?.[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE];
@@ -51,19 +48,20 @@ export const matchFunctions: MatchFunctions = {
 
     const itemCodebase = item?.metadata.labels?.[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE];
 
+    if (!itemCodebase) {
+      return false;
+    }
+
     return value.includes(itemCodebase);
   },
-  [pipelineRunFilterControlNames.STATUS]: (item: PipelineRunKubeObjectInterface, value: string) => {
+  [pipelineRunFilterControlNames.STATUS]: (item, value) => {
     if (value === 'All') {
       return true;
     }
 
     return item?.status?.conditions?.[0]?.status?.toLowerCase() === value;
   },
-  [pipelineRunFilterControlNames.PIPELINE_TYPE]: (
-    item: PipelineRunKubeObjectInterface,
-    value: string
-  ) => {
+  [pipelineRunFilterControlNames.PIPELINE_TYPE]: (item, value) => {
     if (value === PIPELINE_TYPE.ALL) {
       return true;
     }
@@ -73,7 +71,22 @@ export const matchFunctions: MatchFunctions = {
 };
 
 export const widgetPermissionsToCheck = {
-  create: [{ instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig }],
-  update: [{ instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig }],
-  delete: [{ instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig }],
+  create: [
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+  ],
+  update: [
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+  ],
+  delete: [
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+  ],
 };

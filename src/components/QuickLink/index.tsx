@@ -12,7 +12,7 @@ export const QuickLink = ({
   icon,
   iconBase64,
   externalLink,
-  enabledText = `Open in ${name.label}`,
+  enabledText = `Open in ${name?.label}`,
   configurationLink,
   QuickLinkComponent,
   isTextButton = false,
@@ -25,13 +25,14 @@ export const QuickLink = ({
     return (
       <>
         <Grid container spacing={1}>
-          <Grid item>Link to {name.label} is not available.</Grid>
+          <Grid item>Link to {name?.label} is not available.</Grid>
           {!!configurationLink && (
             <Grid item>
-              Please, set up {name.label}{' '}
+              Please, set up {name?.label}{' '}
               <Link
                 routeName={configurationLink?.routeName}
                 params={configurationLink?.routeParams}
+                kubeObject={undefined}
               >
                 here
               </Link>
@@ -39,7 +40,7 @@ export const QuickLink = ({
           )}
           {!!QuickLinkComponent && (
             <Grid item>
-              Please, set up {name.label}{' '}
+              Please, set up {name?.label}{' '}
               <MuiLink
                 component="button"
                 onClick={() =>
@@ -56,7 +57,7 @@ export const QuickLink = ({
         </Grid>
       </>
     );
-  }, [QuickLinkComponent, configurationLink, name.label, setDialog]);
+  }, [QuickLinkComponent, configurationLink, name?.label, setDialog]);
 
   return externalLink ? (
     <ResourceIconLink
@@ -67,7 +68,7 @@ export const QuickLink = ({
       variant={variant}
       isTextButton={isTextButton}
       size={size}
-      name={name.label}
+      name={name?.label}
     />
   ) : (
     <ResourceIconLink
@@ -75,7 +76,7 @@ export const QuickLink = ({
       icon={icon}
       iconBase64={iconBase64}
       tooltipTitle={renderDisabledTooltip()}
-      name={name.label}
+      name={name?.label}
       variant={variant}
       isTextButton={isTextButton}
       size={size}

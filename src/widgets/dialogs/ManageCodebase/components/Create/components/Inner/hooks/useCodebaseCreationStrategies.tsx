@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import React from 'react';
-import { CODEBASE_TYPES } from '../../../../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../../../../../constants/codebaseTypes';
 import { useTypedFormContext } from '../../../../../hooks/useFormContext';
 import { CODEBASE_FORM_NAMES } from '../../../../../names';
 
@@ -10,7 +10,7 @@ export const useCodebaseCreationStrategies = () => {
 
   return React.useMemo(
     () => [
-      ...(typeFieldValue !== CODEBASE_TYPES.AUTOTEST
+      ...(typeFieldValue !== CODEBASE_TYPE.AUTOTEST
         ? [
             {
               value: 'create',
@@ -32,7 +32,7 @@ export const useCodebaseCreationStrategies = () => {
                   color="#002446"
                 />
               ),
-              disabled: !typeFieldValue || typeFieldValue === CODEBASE_TYPES.AUTOTEST,
+              disabled: !typeFieldValue || typeFieldValue === CODEBASE_TYPE.AUTOTEST,
             },
           ]
         : []),

@@ -1,5 +1,5 @@
 import React from 'react';
-import { VALIDATED_PROTOCOLS } from '../../../../../../constants/validatedProtocols';
+import { VALIDATED_PROTOCOL } from '../../../../../../constants/validatedProtocols';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { getValidURLPattern } from '../../../../../../utils/checks/getValidURLPattern';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
@@ -17,7 +17,7 @@ export const URL = () => {
       {...register(QUICK_LINK_FORM_NAMES.url.name, {
         required: 'Enter service endpoint URL.',
         pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.HTTP_OR_HTTPS),
+          value: getValidURLPattern(VALIDATED_PROTOCOL.HTTP_OR_HTTPS),
           message: 'Enter a valid URL with HTTP/HTTPS protocol.',
         },
       })}

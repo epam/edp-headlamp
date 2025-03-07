@@ -1,5 +1,5 @@
 import React from 'react';
-import { VALIDATED_PROTOCOLS } from '../../../../../../constants/validatedProtocols';
+import { VALIDATED_PROTOCOL } from '../../../../../../constants/validatedProtocols';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { FORM_MODES } from '../../../../../../types/forms';
 import { getValidURLPattern } from '../../../../../../utils/checks/getValidURLPattern';
@@ -27,7 +27,7 @@ export const ApiUrl = () => {
       {...register(INTEGRATION_SECRET_FORM_NAMES.apiUrl.name, {
         required: 'Enter CodeMie API URL.',
         pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.HTTP_OR_HTTPS),
+          value: getValidURLPattern(VALIDATED_PROTOCOL.HTTP_OR_HTTPS),
           message: 'Enter a valid URL with HTTP/HTTPS protocol.',
         },
       })}

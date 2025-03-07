@@ -11,10 +11,10 @@ import {
   FRAMEWORK_ICON_MAPPING,
   LANGUAGE_ICON_MAPPING,
 } from '../../../../../configs/icon-mappings';
-import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
 import { MAIN_COLOR } from '../../../../../constants/colors';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
-import { TABLES } from '../../../../../constants/tables';
+import { CUSTOM_RESOURCE_STATUS } from '../../../../../constants/statuses';
+import { TABLE } from '../../../../../constants/tables';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { CodebaseKubeObject } from '../../../../../k8s/groups/EDP/Codebase';
@@ -30,15 +30,15 @@ import { columnNames } from '../constants';
 
 const getColorByType = (type: string) => {
   switch (type) {
-    case CODEBASE_TYPES.SYSTEM:
+    case CODEBASE_TYPE.SYSTEM:
       return MAIN_COLOR.GREY;
-    case CODEBASE_TYPES.INFRASTRUCTURE:
+    case CODEBASE_TYPE.INFRASTRUCTURE:
       return MAIN_COLOR.DARK_PURPLE;
-    case CODEBASE_TYPES.APPLICATION:
+    case CODEBASE_TYPE.APPLICATION:
       return MAIN_COLOR.GREEN;
-    case CODEBASE_TYPES.AUTOTEST:
+    case CODEBASE_TYPE.AUTOTEST:
       return MAIN_COLOR.ORANGE;
-    case CODEBASE_TYPES.LIBRARY:
+    case CODEBASE_TYPE.LIBRARY:
       return MAIN_COLOR.BLUE;
     default:
       return MAIN_COLOR.GREY;
@@ -58,7 +58,7 @@ const getChipSX = (type: string) => {
 export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectInterface>>[] => {
   const permissions = useTypedPermissions();
 
-  const { loadSettings } = useTableSettings(TABLES.COMPONENT_LIST.id);
+  const { loadSettings } = useTableSettings(TABLE.COMPONENT_LIST.id);
 
   const tableSettings = loadSettings();
 
@@ -80,7 +80,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
                 <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
                   {`Status: ${status || 'Unknown'}`}
                 </Typography>
-                {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
+                {status === CUSTOM_RESOURCE_STATUS.FAILED && (
                   <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
                     {detailedMessage}
                   </Typography>
@@ -264,7 +264,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CodebaseKubeObjectI
                 resource={data?.jsonData ?? data}
                 permissions={permissions}
                 disabled={{
-                  boolean: data.spec.type === CODEBASE_TYPES.SYSTEM,
+                  boolean: data.spec.type === CODEBASE_TYPE.SYSTEM,
                   reason: 'System components cannot be managed',
                 }}
               />

@@ -1,14 +1,11 @@
-import { DEPLOYMENT_TYPES } from '../../constants/deploymentTypes';
+import { DEPLOYMENT_TYPE } from '../../constants/deploymentTypes';
 import { SelectOption } from '../../types/forms';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 
 export const deploymentTypeSelectOptions: SelectOption[] = [
-  {
-    label: capitalizeFirstLetter(DEPLOYMENT_TYPES['CONTAINER']),
-    value: DEPLOYMENT_TYPES['CONTAINER'],
-  },
-  {
-    label: capitalizeFirstLetter(DEPLOYMENT_TYPES['CUSTOM']),
-    value: DEPLOYMENT_TYPES['CUSTOM'],
-  },
-];
+  DEPLOYMENT_TYPE.CONTAINER,
+  DEPLOYMENT_TYPE.CUSTOM,
+].map((value) => ({
+  label: capitalizeFirstLetter(value),
+  value,
+}));

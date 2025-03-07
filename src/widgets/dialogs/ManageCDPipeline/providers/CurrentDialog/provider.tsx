@@ -1,6 +1,6 @@
 import React from 'react';
 import { LoadingWrapper } from '../../../../../components/LoadingWrapper';
-import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
 import { useCodebasesByTypeLabelQuery } from '../../../../../k8s/groups/EDP/Codebase/hooks/useCodebasesByTypeLabelQuery';
 import { CurrentDialogContext } from './context';
 import { CurrentDialogContextProviderProps } from './types';
@@ -13,7 +13,7 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
   const { data, isLoading } = useCodebasesByTypeLabelQuery({
     props: {
       namespace: props.CDPipelineData?.metadata.namespace,
-      codebaseType: CODEBASE_TYPES.APPLICATION,
+      codebaseType: CODEBASE_TYPE.APPLICATION,
     },
     options: {
       cacheTime: 0,

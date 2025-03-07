@@ -1,3 +1,4 @@
+import { KubeObjectClass } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { ApprovalTaskKubeObject } from '../../k8s/groups/EDP/ApprovalTask';
 import { ApprovalTaskKubeObjectConfig } from '../../k8s/groups/EDP/ApprovalTask/config';
 import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
@@ -8,10 +9,26 @@ export const permissionChecks = {
 } as const;
 
 export const permissionsToCheckConfig = {
-  create: [{ instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig }],
-  update: [
-    { instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig },
-    { instance: ApprovalTaskKubeObject, config: ApprovalTaskKubeObjectConfig },
+  create: [
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
   ],
-  delete: [{ instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig }],
+  update: [
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+    {
+      instance: ApprovalTaskKubeObject as unknown as KubeObjectClass,
+      config: ApprovalTaskKubeObjectConfig,
+    },
+  ],
+  delete: [
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+  ],
 };

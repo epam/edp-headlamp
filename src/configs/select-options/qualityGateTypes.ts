@@ -1,14 +1,11 @@
-import { QUALITY_GATE_TYPES } from '../../constants/qualityGateTypes';
+import { QUALITY_GATE_TYPE } from '../../constants/qualityGateTypes';
 import { SelectOption } from '../../types/forms';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 
 export const qualityGateTypeSelectOptions: SelectOption[] = [
-  {
-    label: capitalizeFirstLetter(QUALITY_GATE_TYPES['MANUAL']),
-    value: QUALITY_GATE_TYPES['MANUAL'],
-  },
-  {
-    label: capitalizeFirstLetter(QUALITY_GATE_TYPES['AUTOTESTS']),
-    value: QUALITY_GATE_TYPES['AUTOTESTS'],
-  },
-];
+  QUALITY_GATE_TYPE.MANUAL,
+  QUALITY_GATE_TYPE.AUTOTESTS,
+].map((value) => ({
+  label: capitalizeFirstLetter(value),
+  value,
+}));

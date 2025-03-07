@@ -1,6 +1,6 @@
 import { InputAdornment } from '@mui/material';
 import React from 'react';
-import { GIT_SERVERS } from '../../../../../../constants/gitServers';
+import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { validateField, validationRules } from '../../../../../../utils/formFieldValidation';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
@@ -19,7 +19,7 @@ export const GitUrlPath = () => {
   const gitServerFieldValue = watch(CODEBASE_FROM_TEMPLATE_FORM_NAMES.gitServer.name);
 
   const title =
-    gitServerFieldValue === GIT_SERVERS.GITLAB
+    gitServerFieldValue === GIT_PROVIDER.GITLAB
       ? 'Specify the codebase repository name in the following format: username/repository_name.'
       : 'Specify the codebase repository name.';
 

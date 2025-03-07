@@ -9,15 +9,9 @@ export interface CodebaseMappingItemInterface {
 
 export interface CodebaseInterface {
   language: CodebaseMappingItemInterface;
-  frameworks: {
-    [key: string]: CodebaseMappingItemInterface;
-  };
-  buildTools: {
-    [key: string]: CodebaseMappingItemInterface;
-  };
-  autoTestReportFrameworks?: {
-    [key: string]: CodebaseMappingItemInterface;
-  };
+  frameworks: Record<string, CodebaseMappingItemInterface>;
+  buildTools: Record<string, CodebaseMappingItemInterface>;
+  autoTestReportFrameworks?: Record<string, CodebaseMappingItemInterface>;
 }
 
 export type CodebaseMappingKey = ValueOf<typeof CODEBASE_COMMON_LANGUAGES>;

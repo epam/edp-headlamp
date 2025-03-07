@@ -1,5 +1,5 @@
-import { CI_TOOLS } from '../../constants/ciTools';
-import { GIT_PROVIDERS } from '../../constants/gitProviders';
+import { CI_TOOL } from '../../constants/ciTools';
+import { GIT_PROVIDER } from '../../constants/gitProviders';
 import { RESOURCE_ICON_NAMES } from '../../icons/sprites/Resources/names';
 import { CONTAINER_REGISTRY_TYPE } from '../../k8s/groups/default/ConfigMap/constants';
 import {
@@ -73,14 +73,14 @@ export const BUILD_TOOL_ICON_MAPPING = {
 } as const;
 
 export const CI_TOOL_ICON_MAPPING = {
-  [CI_TOOLS.TEKTON]: RESOURCE_ICON_NAMES.TEKTON,
+  [CI_TOOL.TEKTON]: RESOURCE_ICON_NAMES.TEKTON,
 } as const;
 
 export const GIT_PROVIDER_ICON_MAPPING = {
-  [GIT_PROVIDERS.GERRIT]: RESOURCE_ICON_NAMES.GERRIT,
-  [GIT_PROVIDERS.GITHUB]: RESOURCE_ICON_NAMES.GITHUB,
-  [GIT_PROVIDERS.GITLAB]: RESOURCE_ICON_NAMES.GITLAB,
-  [GIT_PROVIDERS.BITBUCKET]: RESOURCE_ICON_NAMES.BITBUCKET,
+  [GIT_PROVIDER.GERRIT]: RESOURCE_ICON_NAMES.GERRIT,
+  [GIT_PROVIDER.GITHUB]: RESOURCE_ICON_NAMES.GITHUB,
+  [GIT_PROVIDER.GITLAB]: RESOURCE_ICON_NAMES.GITLAB,
+  [GIT_PROVIDER.BITBUCKET]: RESOURCE_ICON_NAMES.BITBUCKET,
 } as const;
 
 export const REGISTRY_TYPE_ICON_MAPPING = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
-import { CRUD_TYPES } from '../../../constants/crudTypes';
-import { GIT_PROVIDERS } from '../../../constants/gitProviders';
+import { CRUD_TYPE } from '../../../constants/crudTypes';
+import { GIT_PROVIDER } from '../../../constants/gitProviders';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 import { SecretKubeObject } from '../../../k8s/groups/default/Secret';
 import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
@@ -23,10 +23,10 @@ export const useCredentialsCreateForm = ({
   sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const createMutation = useResourceCRUDMutation<SecretKubeObjectInterface, CRUD_TYPES.CREATE>(
+  const createMutation = useResourceCRUDMutation<SecretKubeObjectInterface, CRUD_TYPE.CREATE>(
     'gitServerCreateMutation',
     SecretKubeObject,
-    CRUD_TYPES.CREATE
+    CRUD_TYPE.CREATE
   );
 
   const form = useForm<CredentialsFormValues>();
@@ -41,24 +41,24 @@ export const useCredentialsCreateForm = ({
 
       const newGitServerSecret = (() => {
         switch (sharedValues.gitProvider) {
-          case GIT_PROVIDERS.GERRIT:
+          case GIT_PROVIDER.GERRIT:
             return createGerritGitServerSecretInstance({
               sshPrivateKey: values.sshPrivateKey,
               sshPublicKey: values.sshPublicKey,
               username: GIT_USER.GERRIT,
             });
-          case GIT_PROVIDERS.GITHUB:
+          case GIT_PROVIDER.GITHUB:
             return createGithubGitServerSecretInstance({
               sshPrivateKey: values.sshPrivateKey,
               token: values.token,
               username: GIT_USER.GITHUB,
             });
-          case GIT_PROVIDERS.GITLAB:
+          case GIT_PROVIDER.GITLAB:
             return createGitlabGitServerSecretInstance({
               sshPrivateKey: values.sshPrivateKey,
               token: values.token,
             });
-          case GIT_PROVIDERS.BITBUCKET:
+          case GIT_PROVIDER.BITBUCKET:
             return createBitbucketGitServerSecretInstance({
               sshPrivateKey: values.sshPrivateKey,
               token: values.token,

@@ -1,8 +1,8 @@
 import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/components/common';
 import { Grid } from '@mui/material';
 import React from 'react';
-import { CODEBASE_VERSIONING_TYPES } from '../../../../../../../constants/codebaseVersioningTypes';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../constants/statuses';
+import { CODEBASE_VERSIONING_TYPE } from '../../../../../../../constants/codebaseVersioningTypes';
+import { CUSTOM_RESOURCE_STATUS } from '../../../../../../../constants/statuses';
 import { useHandleEditorSave } from '../../../../../../../hooks/useHandleEditorSave';
 import { CodebaseBranchKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/CodebaseBranch/types';
 import { getUsedValues } from '../../../../../../../utils/forms/getUsedValues';
@@ -35,10 +35,10 @@ export const Form = ({ editorOpen, setEditorOpen, editorData }: FormProps) => {
 
   const canCreateReleaseBranch = React.useMemo(
     () =>
-      (codebase.spec.versioning.type === CODEBASE_VERSIONING_TYPES.EDP ||
-        codebase.spec.versioning.type === CODEBASE_VERSIONING_TYPES.SEMVER) &&
+      (codebase.spec.versioning.type === CODEBASE_VERSIONING_TYPE.EDP ||
+        codebase.spec.versioning.type === CODEBASE_VERSIONING_TYPE.SEMVER) &&
       defaultBranch &&
-      defaultBranch.status.status === CUSTOM_RESOURCE_STATUSES.CREATED,
+      defaultBranch.status.status === CUSTOM_RESOURCE_STATUS.CREATED,
     [codebase.spec.versioning.type, defaultBranch]
   );
 

@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions } from 'react-query';
-import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { CodebaseType } from '../../../../../constants/codebaseTypes';
 import { KubeObjectListInterface } from '../../../../../types/k8s';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 import { CodebaseKubeObject } from '../index';
@@ -8,7 +8,7 @@ import { CodebaseKubeObjectInterface } from '../types';
 
 interface UseCodebasesByTypeLabelQueryProps<ReturnType> {
   props: {
-    codebaseType: CODEBASE_TYPES;
+    codebaseType: CodebaseType;
     namespace?: string;
   };
   options?: UseQueryOptions<

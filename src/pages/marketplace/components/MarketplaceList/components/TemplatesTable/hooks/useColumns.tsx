@@ -9,7 +9,7 @@ import {
   FRAMEWORK_ICON_MAPPING,
   LANGUAGE_ICON_MAPPING,
 } from '../../../../../../../configs/icon-mappings';
-import { TABLES } from '../../../../../../../constants/tables';
+import { TABLE } from '../../../../../../../constants/tables';
 import { RESOURCE_ICON_NAMES } from '../../../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../../../icons/UseSpriteSymbol';
 import { TemplateKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/Template/types';
@@ -18,7 +18,7 @@ import { rem } from '../../../../../../../utils/styling/rem';
 import { columnNames } from '../constants';
 
 export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
-  const { loadSettings } = useTableSettings(TABLES.TEMPLATE_LIST.id);
+  const { loadSettings } = useTableSettings(TABLE.TEMPLATE_LIST.id);
   const tableSettings = loadSettings();
 
   return React.useMemo(

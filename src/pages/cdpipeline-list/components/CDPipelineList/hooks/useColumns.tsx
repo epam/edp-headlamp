@@ -8,8 +8,8 @@ import { getSyncedColumnData } from '../../../../../components/Table/components/
 import { TableColumn } from '../../../../../components/Table/types';
 import { TextWithTooltip } from '../../../../../components/TextWithTooltip';
 import { MAIN_COLOR } from '../../../../../constants/colors';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../../constants/statuses';
-import { TABLES } from '../../../../../constants/tables';
+import { CUSTOM_RESOURCE_STATUS } from '../../../../../constants/statuses';
+import { TABLE } from '../../../../../constants/tables';
 import { CDPipelineKubeObject } from '../../../../../k8s/groups/EDP/CDPipeline';
 import { CDPipelineKubeObjectInterface } from '../../../../../k8s/groups/EDP/CDPipeline/types';
 import { HeadlampKubeObject } from '../../../../../types/k8s';
@@ -24,7 +24,7 @@ import { columnNames } from '../constants';
 export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjectInterface>>[] => {
   const permissions = useTypedPermissions();
 
-  const { loadSettings } = useTableSettings(TABLES.CDPIPELINE_LIST.id);
+  const { loadSettings } = useTableSettings(TABLE.CDPIPELINE_LIST.id);
   const tableSettings = loadSettings();
 
   return React.useMemo(
@@ -45,7 +45,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjec
                 <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
                   {`Status: ${status || 'Unknown'}`}
                 </Typography>
-                {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
+                {status === CUSTOM_RESOURCE_STATUS.FAILED && (
                   <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
                     {detailedMessage}
                   </Typography>

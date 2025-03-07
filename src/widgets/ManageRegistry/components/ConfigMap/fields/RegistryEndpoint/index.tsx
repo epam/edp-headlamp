@@ -1,5 +1,5 @@
 import React from 'react';
-import { VALIDATED_PROTOCOLS } from '../../../../../../constants/validatedProtocols';
+import { VALIDATED_PROTOCOL } from '../../../../../../constants/validatedProtocols';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/groups/default/ConfigMap/constants';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../../../types/forms';
@@ -63,7 +63,7 @@ export const RegistryEndpoint = () => {
         },
         required: TYPE_EMPTY_MESSAGE_MAP[registryTypeFieldValue] || 'Enter registry endpoint URL.',
         pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.NO_PROTOCOL),
+          value: getValidURLPattern(VALIDATED_PROTOCOL.NO_PROTOCOL),
           message: 'Enter a valid URL without protocol.',
         },
       })}

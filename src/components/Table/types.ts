@@ -12,7 +12,7 @@ export interface TableColumn<DataType> {
       data,
       meta,
     }: {
-      data?: DataType;
+      data: DataType;
       meta?: {
         selectionLength: number;
       };
@@ -55,10 +55,10 @@ export interface TableSelection<DataType> {
 }
 
 export interface TablePagination {
-  show?: boolean;
-  rowsPerPage?: number;
-  initialPage?: number;
-  reflectInURL?: boolean;
+  show: boolean;
+  rowsPerPage: number;
+  initialPage: number;
+  reflectInURL: boolean;
 }
 
 export interface TableSettings {
@@ -78,7 +78,7 @@ export interface TableProps<DataType = unknown> {
   emptyListComponent?: React.ReactNode;
   blockerError?: ApiError;
   errors?: ApiError[] | null;
-  filterFunction?: ((...args: DataType[]) => boolean) | null;
+  filterFunction?: (el: DataType) => boolean;
   handleRowClick?: (event: React.MouseEvent<HTMLTableRowElement>, row: DataType) => void;
   slots?: {
     header?: React.ReactElement;

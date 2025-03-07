@@ -3,15 +3,15 @@ import { OptionsObject, VariantType } from 'notistack';
 import React from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { Snackbar } from '../../components/Snackbar';
-import { CRUD_TYPES } from '../../constants/crudTypes';
+import { CRUD_TYPE, CRUDType } from '../../constants/crudTypes';
 import { EDPKubeObjectInterface } from '../../types/k8s';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { useRequestStatusMessages } from '../useResourceRequestStatusMessages';
 
 type UseResourceCRUDMutationReturnType<
   KubeObjectData,
-  Mode extends CRUD_TYPES
-> = Mode extends CRUD_TYPES.DELETE ? void : KubeObjectData;
+  Mode extends CRUDType
+> = Mode extends typeof CRUD_TYPE.DELETE ? void : KubeObjectData;
 
 interface Message {
   message: string;
@@ -37,7 +37,7 @@ const getDefaultOptions = (variant: VariantType) => {
       horizontal: 'left',
     },
     variant,
-    content: (key, message) => (
+    content: (key: string, message: string) => (
       <Snackbar snackbarKey={key} text={String(message)} variant={variant} />
     ),
   } as const;
@@ -45,7 +45,7 @@ const getDefaultOptions = (variant: VariantType) => {
 
 export const useResourceCRUDMutation = <
   KubeObjectData extends EDPKubeObjectInterface,
-  Mode extends CRUD_TYPES
+  Mode extends CRUDType
 >(
   mutationKey: string,
   kubeObject: KubeObjectIface<any>,
@@ -87,11 +87,11 @@ export const useResourceCRUDMutation = <
       }
 
       switch (mode) {
-        case CRUD_TYPES.CREATE:
+        case CRUD_TYPE.CREATE:
           return kubeObject.apiEndpoint.post(dataCopy);
-        case CRUD_TYPES.EDIT:
+        case CRUD_TYPE.EDIT:
           return kubeObject.apiEndpoint.put(dataCopy);
-        case CRUD_TYPES.DELETE:
+        case CRUD_TYPE.DELETE:
           return kubeObject.apiEndpoint.delete(dataCopy.metadata.namespace, dataCopy.metadata.name);
       }
     },
@@ -115,7 +115,7 @@ export const useResourceCRUDMutation = <
 
           showBeforeRequestMessage(mode, {
             customMessage: {
-              message: customMessage.message,
+              message: customMessage?.message || '',
               options: mergedOptions,
             },
           });
@@ -140,7 +140,7 @@ export const useResourceCRUDMutation = <
 
           showRequestSuccessMessage(mode, {
             customMessage: {
-              message: customMessage.message,
+              message: customMessage?.message || '',
               options: mergedOptions,
             },
           });
@@ -165,7 +165,7 @@ export const useResourceCRUDMutation = <
 
           showRequestErrorMessage(mode, {
             customMessage: {
-              message: customMessage.message,
+              message: customMessage?.message || '',
               options: mergedOptions,
             },
           });

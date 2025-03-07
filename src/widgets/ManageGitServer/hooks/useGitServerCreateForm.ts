@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CRUD_TYPES } from '../../../constants/crudTypes';
-import { GIT_PROVIDERS } from '../../../constants/gitProviders';
+import { CRUD_TYPE } from '../../../constants/crudTypes';
+import { GIT_PROVIDER } from '../../../constants/gitProviders';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 import { GitServerKubeObject } from '../../../k8s/groups/EDP/GitServer';
 import { GitServerKubeObjectInterface } from '../../../k8s/groups/EDP/GitServer/types';
@@ -20,15 +20,15 @@ export const useGitServerCreateForm = ({
   handleClosePanel: () => void;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const createMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, CRUD_TYPES.CREATE>(
+  const createMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, CRUD_TYPE.CREATE>(
     'gitServerCreateMutation',
     GitServerKubeObject,
-    CRUD_TYPES.CREATE
+    CRUD_TYPE.CREATE
   );
 
   const defaultValues = React.useMemo(() => {
     return {
-      [GIT_SERVER_FORM_NAMES.gitProvider.name]: GIT_PROVIDERS.GERRIT,
+      [GIT_SERVER_FORM_NAMES.gitProvider.name]: GIT_PROVIDER.GERRIT,
       [GIT_SERVER_FORM_NAMES.sshPort.name]: 22,
       [GIT_SERVER_FORM_NAMES.httpsPort.name]: 443,
       [GIT_SERVER_FORM_NAMES.gitUser.name]: GIT_USER.GERRIT,

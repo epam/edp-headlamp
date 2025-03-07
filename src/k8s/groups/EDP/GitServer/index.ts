@@ -28,7 +28,7 @@ export class GitServerKubeObject extends K8s.cluster.makeKubeObject<GitServerKub
     return this.jsonData!.status;
   }
 
-  static getStatusIcon(connected: boolean): [string, string, boolean?] {
+  static getStatusIcon(connected: boolean | undefined): [string, string, boolean?] {
     if (connected === undefined) {
       return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }

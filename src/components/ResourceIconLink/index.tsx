@@ -57,14 +57,14 @@ const DisabledResourceIconLink = ({
               style={{ width: theme.typography.pxToRem(16), height: theme.typography.pxToRem(16) }}
               alt=""
             />
-          ) : (
+          ) : icon ? (
             <Icon
               icon={icon}
               color={theme.palette.grey['500']}
               width={iconSize}
               height={iconSize}
             />
-          )}
+          ) : null}
         </IconButton>
       </div>
     </Tooltip>
@@ -127,14 +127,14 @@ const EnabledResourceIconLink = ({
               style={{ width: theme.typography.pxToRem(16), height: theme.typography.pxToRem(16) }}
               alt=""
             />
-          ) : (
+          ) : icon ? (
             <Icon
               icon={icon}
               color={theme.palette.grey['500']}
               width={iconSize}
               height={iconSize}
             />
-          )}
+          ) : null}
         </IconButton>
       </span>
     </Tooltip>

@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React from 'react';
 import { codebaseTypeSelectOptions } from '../../../../../configs/select-options/codebaseTypeSelectOptions';
-import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
 import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
 import { NamespaceControl } from '../../../../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../../../../providers/Filter/components/Filter/components/SearchControl';
@@ -45,7 +45,7 @@ export const useFilter = (): {
                   e.target.value as CODEBASE_TYPES
                 )
               }
-              defaultValue={CODEBASE_TYPES.ALL}
+              defaultValue={CODEBASE_TYPE.ALL}
               fullWidth
             >
               {codebaseTypeSelectOptions.map(({ label, value, disabled = false }, idx) => {

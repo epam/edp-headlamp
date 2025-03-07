@@ -1,6 +1,6 @@
 import { K8s } from '@kinvolk/headlamp-plugin/lib';
 import React from 'react';
-import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 import { EDPKubeObjectInterface } from '../../../../../types/k8s';
 import { CodebaseAuthData } from '../../../../../widgets/dialogs/ManageCodebase/types';
@@ -34,23 +34,24 @@ export const useCodebaseCRUD = ({
 
   const codebaseCreateMutation = useResourceCRUDMutation<
     CodebaseKubeObjectInterface,
-    CRUD_TYPES.CREATE
-  >('codebaseCreateMutation', CodebaseKubeObject, CRUD_TYPES.CREATE);
+    CRUD_TYPE.CREATE
+  >('codebaseCreateMutation', CodebaseKubeObject, CRUD_TYPE.CREATE);
 
   const codebaseSecretDeleteMutation = useResourceCRUDMutation<
     EDPKubeObjectInterface,
-    CRUD_TYPES.DELETE
-  >('codebaseSecretDeleteMutation', K8s.secret.default, CRUD_TYPES.DELETE);
+    CRUD_TYPE.DELETE
+  >('codebaseSecretDeleteMutation', K8s.secret.default, CRUD_TYPE.DELETE);
 
   const codebaseSecretCreateMutation = useResourceCRUDMutation<
     EDPKubeObjectInterface,
-    CRUD_TYPES.CREATE
-  >('codebaseSecretCreateMutation', K8s.secret.default, CRUD_TYPES.CREATE);
+    CRUD_TYPE.CREATE
+  >('codebaseSecretCreateMutation', K8s.secret.default, CRUD_TYPE.CREATE);
 
-  const codebaseEditMutation = useResourceCRUDMutation<
-    CodebaseKubeObjectInterface,
-    CRUD_TYPES.EDIT
-  >('codebaseEditMutation', CodebaseKubeObject, CRUD_TYPES.EDIT);
+  const codebaseEditMutation = useResourceCRUDMutation<CodebaseKubeObjectInterface, CRUD_TYPE.EDIT>(
+    'codebaseEditMutation',
+    CodebaseKubeObject,
+    CRUD_TYPE.EDIT
+  );
 
   const createCodebase = React.useCallback(
     async ({ codebaseData, codebaseAuthData }: CreateCodebaseProps) => {

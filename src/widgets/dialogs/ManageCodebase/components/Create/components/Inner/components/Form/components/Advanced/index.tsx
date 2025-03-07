@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-import { CODEBASE_TYPES } from '../../../../../../../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../../../../../../../../constants/codebaseTypes';
 import { useJiraServerNameListQuery } from '../../../../../../../../../../../k8s/groups/EDP/JiraServer/hooks/useJiraServerNameListQuery';
 import { useTypedFormContext } from '../../../../../../../../hooks/useFormContext';
 import { CODEBASE_FORM_NAMES } from '../../../../../../../../names';
@@ -31,7 +31,7 @@ export const Advanced = () => {
       <Grid item xs={12}>
         <DefaultBranch />
       </Grid>
-      {codebaseTypeFieldValue === CODEBASE_TYPES.APPLICATION && (
+      {codebaseTypeFieldValue === CODEBASE_TYPE.APPLICATION && (
         <Grid item xs={12}>
           <DeploymentScript />
         </Grid>

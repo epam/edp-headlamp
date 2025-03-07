@@ -1,7 +1,7 @@
 import { OptionsObject, useSnackbar, VariantType } from 'notistack';
 import React from 'react';
 import { Snackbar } from '../../components/Snackbar';
-import { CRUD_TYPES } from '../../constants/crudTypes';
+import { CRUD_TYPE, CRUDType } from '../../constants/crudTypes';
 
 interface Options {
   entityName?: string;
@@ -19,7 +19,7 @@ const getDefaultOptions = (variant: VariantType, autoHideDuration: number = 5000
       horizontal: 'left',
     },
     variant,
-    content: (key, message) => (
+    content: (key: string, message: string) => (
       <Snackbar snackbarKey={key} text={String(message)} variant={variant} />
     ),
   } as const;
@@ -28,14 +28,14 @@ const getDefaultOptions = (variant: VariantType, autoHideDuration: number = 5000
 export const useRequestStatusMessages = () => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const showBeforeRequestMessage = (mode: CRUD_TYPES, { entityName, customMessage }: Options) => {
+  const showBeforeRequestMessage = (mode: CRUDType, { entityName, customMessage }: Options) => {
     const beforeRequestMessage = (() => {
       switch (mode) {
-        case CRUD_TYPES.CREATE:
+        case CRUD_TYPE.CREATE:
           return `Applying ${entityName}`;
-        case CRUD_TYPES.EDIT:
+        case CRUD_TYPE.EDIT:
           return `Updating ${entityName}`;
-        case CRUD_TYPES.DELETE:
+        case CRUD_TYPE.DELETE:
           return `Deleting ${entityName}`;
       }
     })();
@@ -54,14 +54,14 @@ export const useRequestStatusMessages = () => {
     }
   };
 
-  const showRequestSuccessMessage = (mode: CRUD_TYPES, { entityName, customMessage }: Options) => {
+  const showRequestSuccessMessage = (mode: CRUDType, { entityName, customMessage }: Options) => {
     const requestSuccessMessage = (() => {
       switch (mode) {
-        case CRUD_TYPES.CREATE:
+        case CRUD_TYPE.CREATE:
           return `${entityName} has been successfully applied`;
-        case CRUD_TYPES.EDIT:
+        case CRUD_TYPE.EDIT:
           return `${entityName} has been successfully updated`;
-        case CRUD_TYPES.DELETE:
+        case CRUD_TYPE.DELETE:
           return `${entityName} has been successfully deleted`;
       }
     })();
@@ -81,14 +81,14 @@ export const useRequestStatusMessages = () => {
     }
   };
 
-  const showRequestErrorMessage = (mode: CRUD_TYPES, { entityName, customMessage }: Options) => {
+  const showRequestErrorMessage = (mode: CRUDType, { entityName, customMessage }: Options) => {
     const requestErrorMessage = (() => {
       switch (mode) {
-        case CRUD_TYPES.CREATE:
+        case CRUD_TYPE.CREATE:
           return `Failed to apply ${entityName}`;
-        case CRUD_TYPES.EDIT:
+        case CRUD_TYPE.EDIT:
           return `Failed to update ${entityName}`;
-        case CRUD_TYPES.DELETE:
+        case CRUD_TYPE.DELETE:
           return `Failed to delete ${entityName}`;
       }
     })();
@@ -108,7 +108,7 @@ export const useRequestStatusMessages = () => {
   };
 
   const showRequestErrorDetailedMessage = (error: unknown) => {
-    enqueueSnackbar(error.toString(), {
+    enqueueSnackbar(error?.toString(), {
       autoHideDuration: 5000,
       anchorOrigin: {
         vertical: 'bottom',

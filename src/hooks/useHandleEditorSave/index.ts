@@ -26,7 +26,7 @@ export const useHandleEditorSave = ({
       for (const formValueKey of Object.keys(formValues)) {
         const propNameObjectPath = names[formValueKey].path;
 
-        if (has(editorPropsObject, propNameObjectPath)) {
+        if (propNameObjectPath && has(editorPropsObject, propNameObjectPath)) {
           continue;
         }
 
@@ -38,11 +38,11 @@ export const useHandleEditorSave = ({
 
   const recursiveSetFieldValueBasedOnBackwardsMappingName = React.useCallback(
     (children: BackwardNameMappingChildren, value: any): void => {
-      if (Object.hasOwn(children, 'formItemName')) {
-        setValue(names[children['formItemName']].name, value);
+      if (children.formItemName) {
+        setValue(names[children.formItemName].name, value);
       }
 
-      if (Object.hasOwn(children, 'children')) {
+      if (children.children) {
         for (const [childKey, childValue] of Object.entries(children.children)) {
           recursiveSetFieldValueBasedOnBackwardsMappingName(childValue, value[childKey]);
         }

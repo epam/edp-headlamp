@@ -4,9 +4,9 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
 import { Snackbar } from '../../components/Snackbar';
-import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
-import { CRUD_TYPES } from '../../constants/crudTypes';
-import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
+import { ACTION_MENU_TYPE } from '../../constants/actionMenuTypes';
+import { CRUD_TYPE } from '../../constants/crudTypes';
+import { RESOURCE_ACTION } from '../../constants/resourceActions';
 import { useResourceCRUDMutation } from '../../hooks/useResourceCRUDMutation';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
@@ -34,8 +34,8 @@ export const PipelineRunActionsMenu = ({
 
   const pipelineRunCreateMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
-    CRUD_TYPES.CREATE
-  >('pipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE, {
+    CRUD_TYPE.CREATE
+  >('pipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPE.CREATE, {
     createCustomMessages: (item) => ({
       onMutate: {
         message: 'Creating a new PipelineRun',
@@ -71,8 +71,8 @@ export const PipelineRunActionsMenu = ({
 
   const pipelineRunEditMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
-    CRUD_TYPES.EDIT
-  >('pipelineRunEditMutation', PipelineRunKubeObject, CRUD_TYPES.EDIT, {
+    CRUD_TYPE.EDIT
+  >('pipelineRunEditMutation', PipelineRunKubeObject, CRUD_TYPE.EDIT, {
     createCustomMessages: () => ({
       onMutate: {
         message: 'Stopping PipelineRun',
@@ -88,8 +88,8 @@ export const PipelineRunActionsMenu = ({
 
   const pipelineRunDeleteMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
-    CRUD_TYPES.DELETE
-  >('pipelineRunDeleteMutation', PipelineRunKubeObject, CRUD_TYPES.DELETE, {
+    CRUD_TYPE.DELETE
+  >('pipelineRunDeleteMutation', PipelineRunKubeObject, CRUD_TYPE.DELETE, {
     createCustomMessages: () => ({
       onMutate: {
         message: 'Deleting PipelineRun',
@@ -129,7 +129,7 @@ export const PipelineRunActionsMenu = ({
   const handleEditorSave = (data: KubeObjectInterface[]) => {
     const [item] = data;
 
-    if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+    if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {
       handleCloseResourceActionListMenu();
     }
 
@@ -148,7 +148,7 @@ export const PipelineRunActionsMenu = ({
 
     return [
       createResourceAction({
-        type: RESOURCE_ACTIONS.CREATE,
+        type: RESOURCE_ACTION.CREATE,
         label: 'Run again',
         icon: ICONS.REDO,
         item: pipelineRun,
@@ -157,7 +157,7 @@ export const PipelineRunActionsMenu = ({
           reason: permissions?.create?.PipelineRun.reason,
         },
         callback: (pipelineRun) => {
-          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+          if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
 
@@ -167,7 +167,7 @@ export const PipelineRunActionsMenu = ({
         },
       }),
       createResourceAction({
-        type: RESOURCE_ACTIONS.CREATE,
+        type: RESOURCE_ACTION.CREATE,
         label: 'Run with params',
         icon: ICONS.SETTINGS_REDO,
         item: pipelineRun,
@@ -184,7 +184,7 @@ export const PipelineRunActionsMenu = ({
       ...(isInProgress
         ? [
             createResourceAction({
-              type: RESOURCE_ACTIONS.EDIT,
+              type: RESOURCE_ACTION.EDIT,
               label: 'Stop run',
               icon: ICONS.CANCEL,
               item: pipelineRun,
@@ -197,7 +197,7 @@ export const PipelineRunActionsMenu = ({
                   : undefined,
               },
               callback: (pipelineRun) => {
-                if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+                if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {
                   handleCloseResourceActionListMenu();
                 }
 
@@ -210,8 +210,8 @@ export const PipelineRunActionsMenu = ({
           ]
         : []),
       createResourceAction({
-        type: RESOURCE_ACTIONS.DELETE,
-        label: capitalizeFirstLetter(RESOURCE_ACTIONS.DELETE),
+        type: RESOURCE_ACTION.DELETE,
+        label: capitalizeFirstLetter(RESOURCE_ACTION.DELETE),
         icon: ICONS.BUCKET,
         item: pipelineRun,
         disabled: {
@@ -219,7 +219,7 @@ export const PipelineRunActionsMenu = ({
           reason: permissions?.delete?.PipelineRun.reason,
         },
         callback: (pipelineRun) => {
-          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+          if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
 
@@ -259,13 +259,13 @@ export const PipelineRunActionsMenu = ({
           onSave={handleEditorSave}
         />
       )}
-      {variant === ACTION_MENU_TYPES.INLINE ? (
+      {variant === ACTION_MENU_TYPE.INLINE ? (
         <CustomActionsInlineList
           groupActions={groupActions}
           inlineActions={inlineActions}
           permissions={permissions}
         />
-      ) : variant === ACTION_MENU_TYPES.MENU && anchorEl ? (
+      ) : variant === ACTION_MENU_TYPE.MENU && anchorEl ? (
         <ActionsMenuList
           actions={actions}
           anchorEl={anchorEl}

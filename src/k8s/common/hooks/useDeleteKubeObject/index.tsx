@@ -1,9 +1,9 @@
-import { KubeObject } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { KubeObject, KubeObjectClass } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { OptionsObject, VariantType } from 'notistack';
 import React from 'react';
 import { useMutation, UseMutationResult } from 'react-query';
 import { Snackbar } from '../../../../components/Snackbar';
-import { CRUD_TYPES } from '../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../constants/crudTypes';
 import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
@@ -32,7 +32,7 @@ const getDefaultOptions = (variant: VariantType) => {
       horizontal: 'left',
     },
     variant,
-    content: (key, message) => (
+    content: (key: string, message: string) => (
       <Snackbar snackbarKey={key} text={String(message)} variant={variant} />
     ),
   } as const;
@@ -49,7 +49,11 @@ export const useDeleteKubeObject = ({
 }): {
   deleteKubeObject: (props: DeleteKubeObjectProps) => Promise<void>;
   mutations: {
-    kubeObjectDeleteMutation: UseMutationResult<void, Error, { variables: EDPKubeObjectInterface }>;
+    kubeObjectDeleteMutation: UseMutationResult<
+      void,
+      Error,
+      { variables: EDPKubeObjectInterface; kubeObject: KubeObject }
+    >;
   };
 } => {
   const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
@@ -63,7 +67,7 @@ export const useDeleteKubeObject = ({
     Error,
     {
       variables: EDPKubeObjectInterface;
-      kubeObject: KubeObject;
+      kubeObject: KubeObjectClass;
     }
   >(
     'kubeObjectDeleteMutation',
@@ -73,7 +77,7 @@ export const useDeleteKubeObject = ({
     {
       onMutate: ({ variables }) => {
         if (!createCustomMessages) {
-          showBeforeRequestMessage(CRUD_TYPES.DELETE, {
+          showBeforeRequestMessage(CRUD_TYPE.DELETE, {
             entityName: `${variables.kind} ${variables.metadata.name}`,
           });
         } else {
@@ -84,9 +88,9 @@ export const useDeleteKubeObject = ({
             ...(customMessage?.options || {}),
           };
 
-          showBeforeRequestMessage(CRUD_TYPES.DELETE, {
+          showBeforeRequestMessage(CRUD_TYPE.DELETE, {
             customMessage: {
-              message: customMessage.message,
+              message: customMessage?.message || '',
               options: mergedOptions,
             },
           });
@@ -94,7 +98,7 @@ export const useDeleteKubeObject = ({
       },
       onSuccess: (data, { variables }) => {
         if (!createCustomMessages) {
-          showRequestSuccessMessage(CRUD_TYPES.DELETE, {
+          showRequestSuccessMessage(CRUD_TYPE.DELETE, {
             entityName: `${variables.kind} ${variables.metadata.name}`,
           });
         } else {
@@ -105,9 +109,9 @@ export const useDeleteKubeObject = ({
             ...(customMessage?.options || {}),
           };
 
-          showRequestSuccessMessage(CRUD_TYPES.DELETE, {
+          showRequestSuccessMessage(CRUD_TYPE.DELETE, {
             customMessage: {
-              message: customMessage.message,
+              message: customMessage?.message || '',
               options: mergedOptions,
             },
           });
@@ -115,7 +119,7 @@ export const useDeleteKubeObject = ({
       },
       onError: (error, { variables }) => {
         if (!createCustomMessages) {
-          showRequestErrorMessage(CRUD_TYPES.DELETE, {
+          showRequestErrorMessage(CRUD_TYPE.DELETE, {
             entityName: `${variables.kind} ${variables.metadata.name}`,
           });
         } else {
@@ -126,9 +130,9 @@ export const useDeleteKubeObject = ({
             ...(customMessage?.options || {}),
           };
 
-          showRequestErrorMessage(CRUD_TYPES.DELETE, {
+          showRequestErrorMessage(CRUD_TYPE.DELETE, {
             customMessage: {
-              message: customMessage.message,
+              message: customMessage?.message || '',
               options: mergedOptions,
             },
           });

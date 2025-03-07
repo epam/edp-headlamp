@@ -9,7 +9,7 @@ export interface DataGridProps<DataType = unknown> {
   data: DataType[];
   blockerError?: ApiError;
   errors?: ApiError[] | null;
-  filterFunction?: ((...args: DataType[]) => boolean) | null;
+  filterFunction?: (el: DataType) => boolean;
   showPagination?: boolean;
   reflectInURL?: boolean;
   initialPage?: number;

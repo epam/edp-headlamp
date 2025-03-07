@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { qualityGateTypeSelectOptions } from '../../../../../../../../configs/select-options/qualityGateTypes';
-import { QUALITY_GATE_TYPES } from '../../../../../../../../constants/qualityGateTypes';
+import { QUALITY_GATE_TYPE } from '../../../../../../../../constants/qualityGateTypes';
 import { FormSelect } from '../../../../../../../../providers/Form/components/FormSelect';
 import { FormTextField } from '../../../../../../../../providers/Form/components/FormTextField';
 import { SelectOption } from '../../../../../../../../types/forms';
@@ -97,7 +97,7 @@ const getAvailableQualityGateTypeSelectOptions = (
   autotestsWithBranchesOptions: AutotestWithBranchesOption[]
 ) => {
   return qualityGateTypeSelectOptions.map((el) => {
-    if (el.value === QUALITY_GATE_TYPES.AUTOTESTS && !autotestsWithBranchesOptions.length) {
+    if (el.value === QUALITY_GATE_TYPE.AUTOTESTS && !autotestsWithBranchesOptions.length) {
       return {
         ...el,
         disabled: true,
@@ -156,7 +156,7 @@ export const QualityGateRow = ({
     (event) => {
       const chosenQualityGateType = event.target.value;
 
-      if (chosenQualityGateType === QUALITY_GATE_TYPES.MANUAL) {
+      if (chosenQualityGateType === QUALITY_GATE_TYPE.MANUAL) {
         // @ts-ignore
         resetField(createQualityGateAutotestFieldName(currentQualityGate.id));
         resetField(
@@ -170,7 +170,7 @@ export const QualityGateRow = ({
           return qualityGate;
         }
 
-        if (chosenQualityGateType === QUALITY_GATE_TYPES.MANUAL) {
+        if (chosenQualityGateType === QUALITY_GATE_TYPE.MANUAL) {
           return {
             ...qualityGate,
             autotestName: null,
@@ -276,7 +276,7 @@ export const QualityGateRow = ({
             />
           </Grid>
           {currentQualityGateTypeFieldValue &&
-            currentQualityGateTypeFieldValue !== QUALITY_GATE_TYPES.MANUAL && (
+            currentQualityGateTypeFieldValue !== QUALITY_GATE_TYPE.MANUAL && (
               <Grid item xs={3}>
                 <FormTextField
                   {...register(
@@ -299,7 +299,7 @@ export const QualityGateRow = ({
             )}
 
           {!!autotestsWithBranchesOptions.length &&
-          currentQualityGateTypeFieldValue === QUALITY_GATE_TYPES.AUTOTESTS ? (
+          currentQualityGateTypeFieldValue === QUALITY_GATE_TYPE.AUTOTESTS ? (
             <>
               <Grid item xs={3}>
                 <FormSelect

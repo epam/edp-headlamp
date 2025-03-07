@@ -17,11 +17,15 @@ export const createSortFunction =
     }
   };
 
-export const createCustomSortFunction = (
+export const createCustomSortFunction = <DataType extends unknown>(
   sortOrder: ValueOf<typeof SORT_ORDERS>,
-  customSortFn: (a: unknown, b: unknown) => number
+  customSortFn: ((a: DataType, b: DataType) => number) | undefined
 ) => {
-  return (a: unknown, b: unknown) => {
+  if (!customSortFn) {
+    return () => 0;
+  }
+
+  return (a: DataType, b: DataType) => {
     if (sortOrder === SORT_ORDERS.DESC) {
       return customSortFn(a, b);
     } else if (sortOrder === SORT_ORDERS.ASC) {

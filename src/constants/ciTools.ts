@@ -1,3 +1,3 @@
-export enum CI_TOOLS {
-  TEKTON = 'tekton',
-}
+export const CI_TOOL = {
+  TEKTON: 'tekton',
+} as const;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
-import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
-import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
+import { ACTION_MENU_TYPE } from '../../constants/actionMenuTypes';
+import { RESOURCE_ACTION } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { CodebaseBranchKubeObject } from '../../k8s/groups/EDP/CodebaseBranch';
 import { useDialogContext as useNewDialogContext } from '../../providers/Dialog/hooks';
@@ -55,8 +55,8 @@ export const CodebaseBranchActionsMenu = ({
 
     return [
       createResourceAction({
-        type: RESOURCE_ACTIONS.EDIT,
-        label: capitalizeFirstLetter(RESOURCE_ACTIONS.EDIT),
+        type: RESOURCE_ACTION.EDIT,
+        label: capitalizeFirstLetter(RESOURCE_ACTION.EDIT),
         item: branch,
         icon: ICONS.PENCIL,
         disabled: {
@@ -64,7 +64,7 @@ export const CodebaseBranchActionsMenu = ({
           reason: permissions?.update?.CodebaseBranch.reason,
         },
         callback: (branch) => {
-          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+          if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
 
@@ -80,8 +80,8 @@ export const CodebaseBranchActionsMenu = ({
         },
       }),
       createResourceAction({
-        type: RESOURCE_ACTIONS.DELETE,
-        label: capitalizeFirstLetter(RESOURCE_ACTIONS.DELETE),
+        type: RESOURCE_ACTION.DELETE,
+        label: capitalizeFirstLetter(RESOURCE_ACTION.DELETE),
         item: branch,
         icon: ICONS.BUCKET,
         disabled: {
@@ -91,7 +91,7 @@ export const CodebaseBranchActionsMenu = ({
             : permissions?.delete?.CodebaseBranch.reason,
         },
         callback: (branch) => {
-          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+          if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
 
@@ -120,9 +120,9 @@ export const CodebaseBranchActionsMenu = ({
     variant,
   ]);
 
-  return variant === ACTION_MENU_TYPES.INLINE ? (
+  return variant === ACTION_MENU_TYPE.INLINE ? (
     <ActionsInlineList actions={actions} />
-  ) : variant === ACTION_MENU_TYPES.MENU ? (
+  ) : variant === ACTION_MENU_TYPE.MENU ? (
     <ActionsMenuList
       actions={actions}
       anchorEl={anchorEl}

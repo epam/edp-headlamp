@@ -1,7 +1,7 @@
 import React from 'react';
 import { EmptyList } from '../../../../../../components/EmptyList';
 import { Table } from '../../../../../../components/Table';
-import { TABLES } from '../../../../../../constants/tables';
+import { TABLE } from '../../../../../../constants/tables';
 import { Shop } from '../../../../../../icons/other/Shop';
 import { TemplateKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Template/types';
 import { TemplateFilter } from '../../../Filter';
@@ -20,8 +20,8 @@ export const TemplatesTable = ({
 
   return (
     <Table<TemplateKubeObjectInterface>
-      id={TABLES.TEMPLATE_LIST.id}
-      name={TABLES.TEMPLATE_LIST.name}
+      id={TABLE.TEMPLATE_LIST.id}
+      name={TABLE.TEMPLATE_LIST.name}
       errors={errors}
       columns={columns}
       data={data}

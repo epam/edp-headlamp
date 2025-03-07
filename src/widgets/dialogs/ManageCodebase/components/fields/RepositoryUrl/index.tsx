@@ -1,5 +1,5 @@
 import React from 'react';
-import { GIT_SERVERS } from '../../../../../../constants/gitServers';
+import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { useGitServerListQuery } from '../../../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../../../types/forms';
@@ -23,7 +23,7 @@ export const RepositoryUrl = () => {
       return true;
     }
 
-    return !!gitServers?.items.find((el) => el.spec.gitProvider === GIT_SERVERS.GERRIT);
+    return !!gitServers?.items.find((el) => el.spec.gitProvider === GIT_PROVIDER.GERRIT);
   }, [gitServers]);
 
   return (

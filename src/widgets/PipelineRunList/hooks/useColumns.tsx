@@ -132,7 +132,7 @@ export const useColumns = ({
 
             return (
               <Tooltip title={<PipelineRunResults pipelineRun={data} />}>
-                <Stack direction="row" alignItems="center">
+                <Stack direction="row" alignItems="center" spacing={0.5}>
                   <Typography variant="body2" sx={{ borderBottom: '1px dashed black' }}>
                     {vcsTag}
                   </Typography>

@@ -1,9 +1,10 @@
-import { TEST_REPORT_FRAMEWORKS } from '../../constants/testReportFrameworks';
+import { TEST_REPORT_FRAMEWORK } from '../../constants/testReportFrameworks';
 import { SelectOption } from '../../types/forms';
+import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 
-export const testReportFrameworkSelectOptions: SelectOption[] = [
-  {
-    label: TEST_REPORT_FRAMEWORKS['ALLURE'],
-    value: TEST_REPORT_FRAMEWORKS['ALLURE'],
-  },
-];
+export const testReportFrameworkSelectOptions: SelectOption[] = [TEST_REPORT_FRAMEWORK.ALLURE].map(
+  (value) => ({
+    label: capitalizeFirstLetter(value),
+    value,
+  })
+);

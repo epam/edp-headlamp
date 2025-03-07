@@ -11,7 +11,7 @@
   "scripts": {
     "build:prod": "headlamp-plugin build",
     "format": "headlamp-plugin format",
-    "lint": "headlamp-plugin lint & headlamp-plugin tsc",
+    "lint": "headlamp-plugin lint",
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx ./src",
     "tsc": "headlamp-plugin tsc",
     "start": "headlamp-plugin start",

@@ -1,8 +1,8 @@
 import React from 'react';
 import { ActionsInlineList } from '../../components/ActionsInlineList';
 import { ActionsMenuList } from '../../components/ActionsMenuList';
-import { ACTION_MENU_TYPES } from '../../constants/actionMenuTypes';
-import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
+import { ACTION_MENU_TYPE } from '../../constants/actionMenuTypes';
+import { RESOURCE_ACTION } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { StageKubeObject } from '../../k8s/groups/EDP/Stage';
 import { useDialogContext } from '../../providers/Dialog/hooks';
@@ -31,15 +31,15 @@ export const StageActionsMenu = ({
     return [
       createResourceAction({
         item: stage,
-        type: RESOURCE_ACTIONS.EDIT,
-        label: capitalizeFirstLetter(RESOURCE_ACTIONS.EDIT),
+        type: RESOURCE_ACTION.EDIT,
+        label: capitalizeFirstLetter(RESOURCE_ACTION.EDIT),
         icon: ICONS.PENCIL,
         disabled: {
           status: !permissions?.update?.Stage.allowed,
           reason: permissions?.update?.Stage.reason,
         },
         callback: (stage) => {
-          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+          if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
 
@@ -55,7 +55,7 @@ export const StageActionsMenu = ({
         currentStage: stage,
         permissions,
         action: (stage) => {
-          if (variant === ACTION_MENU_TYPES.MENU && handleCloseResourceActionListMenu) {
+          if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {
             handleCloseResourceActionListMenu();
           }
 
@@ -92,9 +92,9 @@ export const StageActionsMenu = ({
     });
   }, [actions.length, getActions]);
 
-  return variant === ACTION_MENU_TYPES.INLINE ? (
+  return variant === ACTION_MENU_TYPE.INLINE ? (
     <ActionsInlineList actions={actions} />
-  ) : variant === ACTION_MENU_TYPES.MENU ? (
+  ) : variant === ACTION_MENU_TYPE.MENU ? (
     <ActionsMenuList
       actions={actions}
       anchorEl={anchorEl}

@@ -1,9 +1,9 @@
 import React from 'react';
 import { TableColumn } from '../../../../types';
 
-export interface TableRowProps<DataType = unknown> {
+export interface TableRowProps<DataType extends unknown> {
   item: DataType;
-  columns: readonly TableColumn<DataType>[];
+  columns: TableColumn<DataType>[];
   isRowSelected?: boolean;
   isRowSelectable?: boolean;
   handleRowClick?: (event: React.MouseEvent<HTMLTableRowElement>, row: DataType) => void;

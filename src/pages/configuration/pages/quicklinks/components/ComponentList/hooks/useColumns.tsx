@@ -4,7 +4,7 @@ import React from 'react';
 import { useTableSettings } from '../../../../../../../components/Table/components/TableSettings/hooks/useTableSettings';
 import { getSyncedColumnData } from '../../../../../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../../../../../components/Table/types';
-import { TABLES } from '../../../../../../../constants/tables';
+import { TABLE } from '../../../../../../../constants/tables';
 import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/QuickLink/types';
 import { HeadlampKubeObject } from '../../../../../../../types/k8s';
@@ -17,7 +17,7 @@ export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObject
   const classes = useStyles();
   const theme = useTheme();
 
-  const { loadSettings } = useTableSettings(TABLES.QUICKLINK_LIST.id);
+  const { loadSettings } = useTableSettings(TABLE.QUICKLINK_LIST.id);
   const tableSettings = loadSettings();
 
   const permissions = useTypedPermissions();

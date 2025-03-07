@@ -8,7 +8,7 @@ import { EmptyList } from '../../components/EmptyList';
 import { LearnMoreLink } from '../../components/LearnMoreLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
-import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { useCodebasesByTypeLabelQuery } from '../../k8s/groups/EDP/Codebase/hooks/useCodebasesByTypeLabelQuery';
@@ -25,7 +25,7 @@ export const PageView = () => {
   const gitOpsCodebaseQuery = useCodebasesByTypeLabelQuery({
     props: {
       namespace: getDefaultNamespace(),
-      codebaseType: CODEBASE_TYPES.SYSTEM,
+      codebaseType: CODEBASE_TYPE.SYSTEM,
     },
     options: {
       select: (data) => {

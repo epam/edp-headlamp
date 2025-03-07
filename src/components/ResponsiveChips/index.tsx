@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
 
-const defaultChipRender = (label, key, size = 'small') => (
+const defaultChipRender = (label: string, key: string, size = 'small') => (
   <Chip
     sx={{ backgroundColor: (t) => t.palette.secondary.main }}
     label={label}
@@ -12,7 +12,7 @@ const defaultChipRender = (label, key, size = 'small') => (
   />
 );
 
-const defaultTooltipRender = (chipsToHide) => (
+const defaultTooltipRender = (chipsToHide: string[]) => (
   <Box sx={{ py: (t) => t.typography.pxToRem(6), px: (t) => t.typography.pxToRem(10) }}>
     <Stack spacing={1.5} flexWrap="wrap" sx={{ fontWeight: 400 }}>
       {chipsToHide.map((chip) => defaultChipRender(chip, chip))}
@@ -32,10 +32,14 @@ export const ResponsiveChips = ({
   renderChip: (chip: string, key: string, size?: string) => React.ReactElement;
   renderTooltip: (chipsToHide: string[], chipsToShow: string[]) => React.ReactElement;
 }) => {
-  const containerRef = React.useRef(null);
-  const showMoreButtonRef = React.useRef(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const showMoreButtonRef = React.useRef<HTMLDivElement>(null);
 
-  const [data, setData] = React.useState({
+  const [data, setData] = React.useState<{
+    chipsToShow: string[];
+    chipsToHide: string[];
+    occupiedWidth: number;
+  }>({
     chipsToShow: [],
     chipsToHide: [],
     occupiedWidth: 0,

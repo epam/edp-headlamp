@@ -23,17 +23,17 @@ const getFlexPropertyByTextAlign = (textAlign: string) => {
   }
 };
 
-export const TableRow = ({
+export const TableRow = <DataType extends unknown>({
   item,
   columns,
   handleRowClick,
   handleSelectRowClick,
   isRowSelected,
   isRowSelectable,
-}: TableRowProps) => {
+}: TableRowProps<DataType>) => {
   const theme = useTheme();
 
-  const selectableRowProps = (row: unknown, isSelected: boolean) => {
+  const selectableRowProps = (row: DataType, isSelected: boolean) => {
     return handleRowClick
       ? {
           hover: true,
@@ -59,7 +59,7 @@ export const TableRow = ({
   );
 
   return (
-    <MuiTableRow {...selectableRowProps(item, isRowSelected)}>
+    <MuiTableRow {...selectableRowProps(item, !!isRowSelected)}>
       {!!handleSelectRowClick && (
         <TableCell
           component="td"

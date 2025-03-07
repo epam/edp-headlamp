@@ -1,6 +1,6 @@
 import React from 'react';
 import { CODEBASE_COMMON_LANGUAGES } from '../../../../../../configs/codebase-mappings';
-import { CODEBASE_CREATION_STRATEGIES } from '../../../../../../constants/creationStrategies';
+import { CODEBASE_CREATION_STRATEGY } from '../../../../../../constants/creationStrategies';
 import { UseSpriteSymbol } from '../../../../../../icons/UseSpriteSymbol';
 import { FormRadioGroup } from '../../../../../../providers/Form/components/FormRadioGroup';
 import { FormRadioOption } from '../../../../../../providers/Form/components/FormRadioGroup/types';
@@ -39,7 +39,7 @@ export const Lang = () => {
 
       const isDisabled =
         value === CODEBASE_COMMON_LANGUAGES.OTHER &&
-        strategyValue === CODEBASE_CREATION_STRATEGIES.CREATE;
+        strategyValue === CODEBASE_CREATION_STRATEGY.CREATE;
 
       resultOptions.push({
         value,

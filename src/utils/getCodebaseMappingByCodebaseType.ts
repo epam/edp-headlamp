@@ -3,18 +3,18 @@ import { AUTOTEST_MAPPING } from '../configs/codebase-mappings/autotest';
 import { INFRASTRUCTURE_MAPPING } from '../configs/codebase-mappings/infrastructure';
 import { LIBRARY_MAPPING } from '../configs/codebase-mappings/library';
 import { SYSTEM_MAPPING } from '../configs/codebase-mappings/system';
-import { CODEBASE_TYPES } from '../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../constants/codebaseTypes';
 
 export const getCodebaseMappingByCodebaseType = (type: CODEBASE_TYPES | string) => {
-  return type === CODEBASE_TYPES.APPLICATION
+  return type === CODEBASE_TYPE.APPLICATION
     ? APPLICATION_MAPPING
-    : type === CODEBASE_TYPES.LIBRARY
+    : type === CODEBASE_TYPE.LIBRARY
     ? LIBRARY_MAPPING
-    : type === CODEBASE_TYPES.AUTOTEST
+    : type === CODEBASE_TYPE.AUTOTEST
     ? AUTOTEST_MAPPING
-    : type === CODEBASE_TYPES.INFRASTRUCTURE
+    : type === CODEBASE_TYPE.INFRASTRUCTURE
     ? INFRASTRUCTURE_MAPPING
-    : type === CODEBASE_TYPES.SYSTEM
+    : type === CODEBASE_TYPE.SYSTEM
     ? SYSTEM_MAPPING
     : null;
 };

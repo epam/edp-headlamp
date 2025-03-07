@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash';
-import { GIT_PROVIDERS } from '../../../../../../constants/gitProviders';
+import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { PIPELINE_TYPE } from '../../../../../../constants/pipelineTypes';
 import { createRandomString } from '../../../../../../utils/createRandomString';
 import { truncateName } from '../../../../../../utils/truncateName';
@@ -82,7 +82,7 @@ export const createBuildPipelineRunInstance = ({
     switch (param.name) {
       case 'git-source-url':
         param.value =
-          codebaseGitServer === GIT_PROVIDERS.GERRIT
+          codebaseGitServer === GIT_PROVIDER.GERRIT
             ? `ssh://${gitUser}@${gitHost}:${sshPort}/${gitUrlPathWithoutSlashAtStart}`
             : `${gitUser}@${gitHost}:${gitUrlPathWithoutSlashAtStart}`;
         break;

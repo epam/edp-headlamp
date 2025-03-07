@@ -5,7 +5,7 @@ export const MAIN_COLOR = {
   GREEN: '#18BE94',
   RED: '#FF005C',
   GREY: '#A2A7B7',
-};
+} as const;
 
 export const STATUS_COLOR = {
   SUCCESS: MAIN_COLOR.GREEN,

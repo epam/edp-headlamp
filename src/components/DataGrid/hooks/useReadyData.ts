@@ -2,7 +2,7 @@ import React from 'react';
 
 interface UseReadyDataProps<DataType = unknown> {
   data: DataType[];
-  filterFunction: (el: DataType) => boolean;
+  filterFunction: ((el: DataType) => boolean) | undefined;
   isLoading: boolean;
   error: unknown;
 }

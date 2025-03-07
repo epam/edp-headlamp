@@ -1,4 +1,4 @@
-import { CODEBASE_CREATION_STRATEGIES } from '../../../constants/creationStrategies';
+import { CODEBASE_CREATION_STRATEGY } from '../../../constants/creationStrategies';
 
 export const isCloneStrategy = (strategyValue) =>
-  strategyValue === CODEBASE_CREATION_STRATEGIES.CLONE;
+  strategyValue === CODEBASE_CREATION_STRATEGY.CLONE;

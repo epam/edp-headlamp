@@ -1,5 +1,11 @@
 export const SonarQubeURLService = {
-  createDashboardLink: ({ baseURL, codebaseName }: { baseURL: string; codebaseName: string }) => {
+  createDashboardLink: ({
+    baseURL,
+    codebaseName,
+  }: {
+    baseURL: string | undefined;
+    codebaseName: string;
+  }) => {
     if (!baseURL) {
       return undefined;
     }

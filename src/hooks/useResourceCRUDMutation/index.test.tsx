@@ -6,7 +6,7 @@ import { jest } from '@jest/globals';
 import { act, renderHook } from '@testing-library/react-hooks';
 import React, { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { CRUD_TYPES } from '../../constants/crudTypes';
+import { CRUD_TYPE } from '../../constants/crudTypes';
 import { QuickLinkKubeObject } from '../../k8s/groups/EDP/QuickLink';
 import { mutationDataMock } from './data.mock';
 import { useResourceCRUDMutation } from './index';
@@ -48,7 +48,7 @@ describe('testing useResourceCRUDMutation hook', () => {
 
     await act(async () => {
       const { result } = renderHook(
-        () => useResourceCRUDMutation('test', QuickLinkKubeObject, CRUD_TYPES.CREATE),
+        () => useResourceCRUDMutation('test', QuickLinkKubeObject, CRUD_TYPE.CREATE),
         {
           wrapper: wrapper,
         }
@@ -60,11 +60,11 @@ describe('testing useResourceCRUDMutation hook', () => {
 
       expect(result.current.data).toEqual(mutationDataMock);
       expect(result.current.variables).toEqual(mutationDataMock);
-      expect(mockShowBeforeRequestMessage).toHaveBeenCalledWith(CRUD_TYPES.CREATE, {
-        entityName: `${result.current.variables.kind} ${result.current.variables.metadata.name}`,
+      expect(mockShowBeforeRequestMessage).toHaveBeenCalledWith(CRUD_TYPE.CREATE, {
+        entityName: `${result.current.variables!.kind} ${result.current.variables!.metadata.name}`,
       });
-      expect(mockShowRequestSuccessMessage).toHaveBeenCalledWith(CRUD_TYPES.CREATE, {
-        entityName: `${result.current.variables.kind} ${result.current.variables.metadata.name}`,
+      expect(mockShowRequestSuccessMessage).toHaveBeenCalledWith(CRUD_TYPE.CREATE, {
+        entityName: `${result.current.variables!.kind} ${result.current.variables!.metadata.name}`,
       });
       expect(mockShowRequestErrorMessage).not.toHaveBeenCalled();
       expect(mockShowRequestErrorDetailedMessage).not.toHaveBeenCalled();
@@ -75,7 +75,7 @@ describe('testing useResourceCRUDMutation hook', () => {
 
     await act(async () => {
       const { result } = renderHook(
-        () => useResourceCRUDMutation('test', QuickLinkKubeObject, CRUD_TYPES.EDIT),
+        () => useResourceCRUDMutation('test', QuickLinkKubeObject, CRUD_TYPE.EDIT),
         {
           wrapper: wrapper,
         }
@@ -89,14 +89,14 @@ describe('testing useResourceCRUDMutation hook', () => {
       expect(result.current.error).toEqual({ error: 'error' });
       expect(result.current.variables).toEqual(mutationDataMock);
 
-      expect(mockShowBeforeRequestMessage).toHaveBeenCalledWith(CRUD_TYPES.EDIT, {
-        entityName: `${result.current.variables.kind} ${result.current.variables.metadata.name}`,
+      expect(mockShowBeforeRequestMessage).toHaveBeenCalledWith(CRUD_TYPE.EDIT, {
+        entityName: `${result.current.variables!.kind} ${result.current.variables!.metadata.name}`,
       });
 
       expect(mockShowRequestSuccessMessage).not.toHaveBeenCalled();
 
-      expect(mockShowRequestErrorMessage).toHaveBeenCalledWith(CRUD_TYPES.EDIT, {
-        entityName: `${result.current.variables.kind} ${result.current.variables.metadata.name}`,
+      expect(mockShowRequestErrorMessage).toHaveBeenCalledWith(CRUD_TYPE.EDIT, {
+        entityName: `${result.current.variables!.kind} ${result.current.variables!.metadata.name}`,
       });
     });
   });

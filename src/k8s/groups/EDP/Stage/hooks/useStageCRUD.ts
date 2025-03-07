@@ -1,5 +1,5 @@
 import React from 'react';
-import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 import { StageKubeObject } from '..';
 import { StageKubeObjectInterface } from '../types';
@@ -27,16 +27,16 @@ export const useStageCRUD = ({
   );
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-  const stageCreateMutation = useResourceCRUDMutation<StageKubeObjectInterface, CRUD_TYPES.CREATE>(
+  const stageCreateMutation = useResourceCRUDMutation<StageKubeObjectInterface, CRUD_TYPE.CREATE>(
     'stageCreateMutation',
     StageKubeObject,
-    CRUD_TYPES.CREATE
+    CRUD_TYPE.CREATE
   );
 
-  const stageEditMutation = useResourceCRUDMutation<StageKubeObjectInterface, CRUD_TYPES.EDIT>(
+  const stageEditMutation = useResourceCRUDMutation<StageKubeObjectInterface, CRUD_TYPE.EDIT>(
     'stageEditMutation',
     StageKubeObject,
-    CRUD_TYPES.EDIT
+    CRUD_TYPE.EDIT
   );
 
   const createStage = React.useCallback(

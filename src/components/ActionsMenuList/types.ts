@@ -2,6 +2,6 @@ import { KubeObjectAction } from '../../types/actions';
 
 export interface ActionsMenuListProps {
   actions: KubeObjectAction[];
-  handleCloseActionsMenu?(): void;
+  handleCloseActionsMenu: (event: MouseEvent | TouchEvent) => void;
   anchorEl: HTMLElement | null;
 }
