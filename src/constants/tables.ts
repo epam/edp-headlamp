@@ -1,4 +1,4 @@
-export const TABLES = {
+export const TABLE = {
   GENERAL_PIPELINE_RUN_LIST: {
     id: 'generalPipelineRunList',
     name: 'Pipeline Run List',

@@ -141,20 +141,22 @@ export const Table = <DataType extends unknown>({
   }, [page, filteredData, _rowsPerPage]);
 
   const selectableRowCount = React.useMemo(
-    () => paginatedData.items.filter(selectionSettings.isRowSelectable).length,
+    () =>
+      selectionSettings.isRowSelectable &&
+      paginatedData.items.filter(selectionSettings.isRowSelectable).length,
     [paginatedData.items, selectionSettings.isRowSelectable]
   );
 
   const _handleSelectAllClick = React.useMemo(
     () =>
-      selectionSettings.handleSelectAll && filteredData?.length
+      filteredData?.length && selectionSettings.handleSelectAll
         ? (event: React.ChangeEvent<HTMLInputElement>) =>
             selectionSettings.handleSelectAll(event, paginatedData.items)
         : null,
     [paginatedData.items, filteredData?.length, selectionSettings]
   );
 
-  const colGroupRef = React.useRef<HTMLTableColElement>(null);
+  const colGroupRef = React.useRef<HTMLTableColElement | null>(null);
 
   return (
     <Paper
@@ -186,7 +188,7 @@ export const Table = <DataType extends unknown>({
               </Box>
             </Stack>
           ) : null}
-          {selectionSettings.renderSelectionInfo && (
+          {selectionSettings.renderSelectionInfo && selectionSettings.selected && (
             <Box sx={{ pl: (t) => t.typography.pxToRem(11) }}>
               {selectionSettings.renderSelectionInfo(selectionSettings.selected.length)}
             </Box>
@@ -195,9 +197,11 @@ export const Table = <DataType extends unknown>({
 
         <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
           <colgroup ref={colGroupRef}>
-            {selectableRowCount > 0 && selectionSettings.handleSelectRow && (
-              <col key={'select-checkbox'} width={`${TABLE_CELL_DEFAULTS.WIDTH}%`} />
-            )}
+            {!!selectableRowCount &&
+              selectableRowCount > 0 &&
+              selectionSettings.handleSelectRow && (
+                <col key={'select-checkbox'} width={`${TABLE_CELL_DEFAULTS.WIDTH}%`} />
+              )}
             {columns.map(
               (column) =>
                 column.cell.show !== false && (

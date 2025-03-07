@@ -1,3 +1,4 @@
+import { KubeObjectClass } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { ApplicationKubeObject } from '../../k8s/groups/ArgoCD/Application';
 import { ApplicationKubeObjectConfig } from '../../k8s/groups/ArgoCD/Application/config';
 import { StageKubeObject } from '../../k8s/groups/EDP/Stage';
@@ -21,14 +22,28 @@ export const VALUES_OVERRIDE_POSTFIX = '::values-override';
 export const IMAGE_TAG_POSTFIX = '::image-tag';
 
 export const permissionsToCheckConfig = {
-  create: [{ instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig }],
+  create: [
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+  ],
   update: [
-    { instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig },
-    { instance: StageKubeObject, config: StageKubeObjectConfig },
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+    { instance: StageKubeObject as unknown as KubeObjectClass, config: StageKubeObjectConfig },
   ],
   delete: [
-    { instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig },
-    { instance: StageKubeObject, config: StageKubeObjectConfig },
-    { instance: ApplicationKubeObject, config: ApplicationKubeObjectConfig },
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+    { instance: StageKubeObject as unknown as KubeObjectClass, config: StageKubeObjectConfig },
+    {
+      instance: ApplicationKubeObject as unknown as KubeObjectClass,
+      config: ApplicationKubeObjectConfig,
+    },
   ],
 };

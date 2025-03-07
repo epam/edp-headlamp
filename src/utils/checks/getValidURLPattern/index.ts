@@ -1,14 +1,14 @@
-import { VALIDATED_PROTOCOLS } from '../../../constants/validatedProtocols';
+import { VALIDATED_PROTOCOL } from '../../../constants/validatedProtocols';
 import { ValueOf } from '../../../types/global';
 
-export const getValidURLPattern = (protocol: ValueOf<typeof VALIDATED_PROTOCOLS>): RegExp => {
+export const getValidURLPattern = (protocol: ValueOf<typeof VALIDATED_PROTOCOL>): RegExp => {
   if (protocol === undefined) throw Error(`Invalid protocol: ${protocol}`);
 
   const protocols = {
-    [VALIDATED_PROTOCOLS.STRICT_HTTP]: '^(http:\\/\\/)',
-    [VALIDATED_PROTOCOLS.STRICT_HTTPS]: '^(https:\\/\\/)',
-    [VALIDATED_PROTOCOLS.HTTP_OR_HTTPS]: '^(http:\\/\\/|https:\\/\\/)',
-    [VALIDATED_PROTOCOLS.NO_PROTOCOL]: '^',
+    [VALIDATED_PROTOCOL.STRICT_HTTP]: '^(http:\\/\\/)',
+    [VALIDATED_PROTOCOL.STRICT_HTTPS]: '^(https:\\/\\/)',
+    [VALIDATED_PROTOCOL.HTTP_OR_HTTPS]: '^(http:\\/\\/|https:\\/\\/)',
+    [VALIDATED_PROTOCOL.NO_PROTOCOL]: '^',
   };
 
   const protocolPattern = protocols[protocol] || '';

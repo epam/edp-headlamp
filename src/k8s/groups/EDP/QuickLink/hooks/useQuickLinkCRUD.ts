@@ -1,5 +1,5 @@
 import React from 'react';
-import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 import { QuickLinkKubeObject } from '../index';
 import { QuickLinkKubeObjectInterface } from '../types';
@@ -24,13 +24,13 @@ export const useQuickLinkCRUD = ({
 
   const QuickLinkCreateMutation = useResourceCRUDMutation<
     QuickLinkKubeObjectInterface,
-    CRUD_TYPES.CREATE
-  >('QuickLinkCreateMutation', QuickLinkKubeObject, CRUD_TYPES.CREATE);
+    CRUD_TYPE.CREATE
+  >('QuickLinkCreateMutation', QuickLinkKubeObject, CRUD_TYPE.CREATE);
 
   const QuickLinkEditMutation = useResourceCRUDMutation<
     QuickLinkKubeObjectInterface,
-    CRUD_TYPES.EDIT
-  >('QuickLinkEditMutation', QuickLinkKubeObject, CRUD_TYPES.EDIT);
+    CRUD_TYPE.EDIT
+  >('QuickLinkEditMutation', QuickLinkKubeObject, CRUD_TYPE.EDIT);
 
   const createQuickLink = React.useCallback(
     async ({ QuickLinkData }: CreateQuickLinkProps) => {

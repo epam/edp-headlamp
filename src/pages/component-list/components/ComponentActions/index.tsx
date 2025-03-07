@@ -21,12 +21,12 @@ export const Actions = ({
   };
 }) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
-  const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement>(null);
+  const [anchor, setAnchor] = React.useState<(EventTarget & HTMLButtonElement) | null>(null);
 
   return (
     <>
       <ConditionalWrapper
-        condition={disabled?.boolean}
+        condition={!!disabled?.boolean}
         wrapper={(children) => (
           <Tooltip title={disabled?.reason}>
             <div>{children}</div>
@@ -43,7 +43,7 @@ export const Actions = ({
           <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
         </IconButton>
       </ConditionalWrapper>
-      {anchor && !disabled.boolean ? (
+      {anchor && !disabled?.boolean ? (
         <CodebaseActionsMenu
           variant="menu"
           data={{

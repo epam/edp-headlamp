@@ -1,5 +1,5 @@
 import React from 'react';
-import { GIT_SERVERS } from '../../../../../../constants/gitServers';
+import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { useGitServerListQuery } from '../../../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { validateField, validationRules } from '../../../../../../utils/formFieldValidation';
@@ -25,12 +25,12 @@ export const GitUrlPath = () => {
   const gitServerProvider = gitServer?.spec.gitProvider;
 
   const title =
-    gitServerProvider === GIT_SERVERS.GITLAB
+    gitServerProvider === GIT_PROVIDER.GITLAB
       ? 'Specify the codebase repository name in the following format: username/repository_name.'
       : 'Specify the codebase repository name.';
 
   const placeholder =
-    gitServerProvider === GIT_SERVERS.GERRIT
+    gitServerProvider === GIT_PROVIDER.GERRIT
       ? 'repository_name'
       : 'username_or_organization/repository_name';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface PaginationProps {
-  dataCount: number;
+  dataCount: number | null;
   rowsPerPage: number;
   page: number;
   handleChangePage: (event: unknown, newPage: number) => void;

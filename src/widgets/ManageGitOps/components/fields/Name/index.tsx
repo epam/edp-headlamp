@@ -1,7 +1,7 @@
 import { InputAdornment } from '@mui/material';
 import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { GIT_SERVERS } from '../../../../../constants/gitServers';
+import { GIT_PROVIDER } from '../../../../../constants/gitProviders';
 import { FormTextField } from '../../../../../providers/Form/components/FormTextField';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FieldEvent } from '../../../../../types/forms';
@@ -30,7 +30,7 @@ export const Name = () => {
     <FormTextField
       {...register(CODEBASE_FORM_NAMES.name.name, {
         onChange: ({ target: { value } }: FieldEvent) => {
-          const isGerrit = gitServerFieldValue === GIT_SERVERS.GERRIT;
+          const isGerrit = gitServerFieldValue === GIT_PROVIDER.GERRIT;
 
           setValue(
             CODEBASE_FORM_NAMES.gitUrlPath.name,

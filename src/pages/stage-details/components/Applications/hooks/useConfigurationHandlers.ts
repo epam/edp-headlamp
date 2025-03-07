@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useRequestStatusMessages } from '../../../../../hooks/useResourceRequestStatusMessages';
 import { useCreateCleanPipelineRun } from '../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateCleanPipelineRun';
 import { useCreateDeployPipelineRun } from '../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateDeployPipelineRun';
@@ -184,7 +184,7 @@ export const useConfigurationHandlers = ({
 
   const handleClean = React.useCallback(() => {
     if (!cleanPipelineRunTemplate) {
-      showRequestErrorMessage(CRUD_TYPES.CREATE, {
+      showRequestErrorMessage(CRUD_TYPE.CREATE, {
         customMessage: {
           message: 'Clean PipelineRun template is not found.',
           options: {

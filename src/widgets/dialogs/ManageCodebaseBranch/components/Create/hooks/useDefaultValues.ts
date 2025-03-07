@@ -1,5 +1,5 @@
 import React from 'react';
-import { CODEBASE_VERSIONING_TYPES } from '../../../../../../constants/codebaseVersioningTypes';
+import { CODEBASE_VERSIONING_TYPE } from '../../../../../../constants/codebaseVersioningTypes';
 import { getVersionAndPostfixFromVersioningString } from '../../../../../../utils/getVersionAndPostfixFromVersioningString';
 import { CODEBASE_BRANCH_FORM_NAMES } from '../../../names';
 import { useCurrentDialog } from '../../../providers/CurrentDialog/hooks';
@@ -26,8 +26,8 @@ export const useDefaultValues = () => {
     }
 
     if (
-      versioningType !== CODEBASE_VERSIONING_TYPES.EDP &&
-      versioningType !== CODEBASE_VERSIONING_TYPES.SEMVER
+      versioningType !== CODEBASE_VERSIONING_TYPE.EDP &&
+      versioningType !== CODEBASE_VERSIONING_TYPE.SEMVER
     ) {
       return base;
     }

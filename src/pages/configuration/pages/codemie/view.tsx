@@ -2,7 +2,7 @@ import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { Grid } from '@mui/material';
 import React from 'react';
-import { CRUD_TYPES } from '../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../hooks/useResourceCRUDMutation';
 import { CodemieApplicationKubeObject } from '../../../../k8s/groups/EDP/CodemieApplication';
 import { CodemieApplicationKubeObjectConfig } from '../../../../k8s/groups/EDP/CodemieApplication/config';
@@ -47,8 +47,8 @@ export const PageView = () => {
 
   const codemieProjectSettingsEditMutation = useResourceCRUDMutation<
     CodemieProjectSettingsKubeObjectInterface,
-    CRUD_TYPES.EDIT
-  >('codemieProjectSettingsEditMutation', CodemieProjectSettingsKubeObject, CRUD_TYPES.EDIT, {
+    CRUD_TYPE.EDIT
+  >('codemieProjectSettingsEditMutation', CodemieProjectSettingsKubeObject, CRUD_TYPE.EDIT, {
     createCustomMessages: () => ({
       onMutate: {
         message: 'Applying changes...',
@@ -64,8 +64,8 @@ export const PageView = () => {
 
   const codemieApplicationEditMutation = useResourceCRUDMutation<
     CodemieApplicationKubeObjectInterface,
-    CRUD_TYPES.EDIT
-  >('codemieApplicationEditMutation', CodemieApplicationKubeObject, CRUD_TYPES.EDIT, {
+    CRUD_TYPE.EDIT
+  >('codemieApplicationEditMutation', CodemieApplicationKubeObject, CRUD_TYPE.EDIT, {
     createCustomMessages: () => ({
       onMutate: {
         message: 'Applying changes...',

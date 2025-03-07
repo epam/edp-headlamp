@@ -1,5 +1,5 @@
 import React from 'react';
-import { DEPLOYMENT_SCRIPTS } from '../../../../../../constants/deploymentScripts';
+import { DEPLOYMENT_SCRIPT } from '../../../../../../constants/deploymentScripts';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
 import { CODEBASE_FORM_NAMES } from '../../../names';
@@ -11,7 +11,7 @@ export const DeploymentScript = () => {
     formState: { errors },
   } = useTypedFormContext();
 
-  const options = Object.values(DEPLOYMENT_SCRIPTS).map((script) => ({
+  const options = Object.values(DEPLOYMENT_SCRIPT).map((script) => ({
     label: script,
     value: script,
   }));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 import { ApplicationKubeObject } from '../index';
 import { ApplicationKubeObjectInterface } from '../types';
@@ -19,8 +19,8 @@ interface CreateArgoApplicationProps {
 export const useArgoApplicationCRUD = () => {
   const argoApplicationCreateMutation = useResourceCRUDMutation<
     ApplicationKubeObjectInterface,
-    CRUD_TYPES.CREATE
-  >('argoApplicationCreateMutation', ApplicationKubeObject, CRUD_TYPES.CREATE, {
+    typeof CRUD_TYPE.CREATE
+  >('argoApplicationCreateMutation', ApplicationKubeObject, CRUD_TYPE.CREATE, {
     createCustomMessages: () => ({
       onMutate: {
         message: 'Creating application...',
@@ -36,8 +36,8 @@ export const useArgoApplicationCRUD = () => {
 
   const argoApplicationDeleteMutation = useResourceCRUDMutation<
     ApplicationKubeObjectInterface,
-    CRUD_TYPES.DELETE
-  >('argoApplicationDeleteMutation', ApplicationKubeObject, CRUD_TYPES.DELETE, {
+    typeof CRUD_TYPE.DELETE
+  >('argoApplicationDeleteMutation', ApplicationKubeObject, CRUD_TYPE.DELETE, {
     createCustomMessages: () => ({
       onMutate: {
         message: 'Uninstalling application...',
@@ -53,8 +53,8 @@ export const useArgoApplicationCRUD = () => {
 
   const argoApplicationEditMutation = useResourceCRUDMutation<
     ApplicationKubeObjectInterface,
-    CRUD_TYPES.EDIT
-  >('argoApplicationEditMutation', ApplicationKubeObject, CRUD_TYPES.EDIT, {
+    typeof CRUD_TYPE.EDIT
+  >('argoApplicationEditMutation', ApplicationKubeObject, CRUD_TYPE.EDIT, {
     createCustomMessages: () => ({
       onMutate: {
         message: 'Updating application...',

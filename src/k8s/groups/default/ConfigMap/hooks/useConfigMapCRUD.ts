@@ -1,7 +1,7 @@
 import { K8s } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
-import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 import { ConfigMapKubeObjectInterface } from '../types';
 
@@ -19,10 +19,10 @@ export const useConfigMapCRUD = ({
   const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-  const configMapEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.EDIT>(
+  const configMapEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPE.EDIT>(
     'configMapEditMutation',
     K8s.configMap.default,
-    CRUD_TYPES.EDIT
+    CRUD_TYPE.EDIT
   );
 
   const editConfigMap = React.useCallback(

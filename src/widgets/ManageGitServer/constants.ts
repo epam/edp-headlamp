@@ -1,3 +1,4 @@
+import { KubeObjectClass } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { SecretKubeObject } from '../../k8s/groups/default/Secret';
 import { SecretKubeObjectConfig } from '../../k8s/groups/default/Secret/config';
 import { GitServerKubeObject } from '../../k8s/groups/EDP/GitServer';
@@ -18,15 +19,15 @@ export const GIT_USER = {
 
 export const widgetPermissionsToCheck = {
   create: [
-    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
-    { instance: GitServerKubeObject, config: GitServerKubeObjectConfig },
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
+    { instance: GitServerKubeObject as unknown as KubeObjectClass, config: GitServerKubeObjectConfig },
   ],
   update: [
-    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
-    { instance: GitServerKubeObject, config: GitServerKubeObjectConfig },
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
+    { instance: GitServerKubeObject as unknown as KubeObjectClass, config: GitServerKubeObjectConfig },
   ],
   delete: [
-    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
-    { instance: GitServerKubeObject, config: GitServerKubeObjectConfig },
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
+    { instance: GitServerKubeObject as unknown as KubeObjectClass, config: GitServerKubeObjectConfig },
   ],
 };

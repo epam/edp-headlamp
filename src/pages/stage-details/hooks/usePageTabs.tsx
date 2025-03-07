@@ -8,7 +8,7 @@ import { LearnMoreLink } from '../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../components/LoadingWrapper';
 import { TabSection } from '../../../components/TabSection';
 import { PIPELINE_TYPE } from '../../../constants/pipelineTypes';
-import { TABLES } from '../../../constants/tables';
+import { TABLE } from '../../../constants/tables';
 import { EDP_USER_GUIDE } from '../../../constants/urls';
 import { ApplicationKubeObjectInterface } from '../../../k8s/groups/ArgoCD/Application/types';
 import { ConfigMapKubeObjectInterface } from '../../../k8s/groups/default/ConfigMap/types';
@@ -170,8 +170,8 @@ export const usePageTabs = ({
                 saveToLocalStorage
               >
                 <PipelineRunList
-                  tableId={TABLES.STAGE_PIPELINE_RUN_LIST.id}
-                  tableName={TABLES.STAGE_PIPELINE_RUN_LIST.name}
+                  tableId={TABLE.STAGE_PIPELINE_RUN_LIST.id}
+                  tableName={TABLE.STAGE_PIPELINE_RUN_LIST.name}
                   pipelineRuns={pipelineRuns.data}
                   isLoading={pipelineRuns.isLoading && !pipelineRuns.error}
                   blockerError={pipelineRuns.error}

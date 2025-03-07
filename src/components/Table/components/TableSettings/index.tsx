@@ -124,18 +124,20 @@ export const TableSettings = <DataType extends unknown>({
       const totalFixedVisibleWidth = prev.reduce(
         (acc, column) =>
           acc +
-          (column.cell.isFixed && selected.includes(column.id)
-            ? originalColumns.find((origCol) => origCol.id === column.id).cell.baseWidth
-            : 0),
+          ((column.cell.isFixed &&
+            selected.includes(column.id) &&
+            originalColumns.find((origCol) => origCol.id === column.id)?.cell.baseWidth) ||
+            0),
         hasSelection ? TABLE_CELL_DEFAULTS.WIDTH : 0
       );
 
       const totalProportionalVisibleWidth = prev.reduce(
         (acc, column) =>
           acc +
-          (!column.cell.isFixed && selected.includes(column.id)
-            ? originalColumns.find((origCol) => origCol.id === column.id).cell.baseWidth
-            : 0),
+          ((!column.cell.isFixed &&
+            selected.includes(column.id) &&
+            originalColumns.find((origCol) => origCol.id === column.id)?.cell.baseWidth) ||
+            0),
         0
       );
 
@@ -145,12 +147,14 @@ export const TableSettings = <DataType extends unknown>({
 
       const scalingFactor = availableProportionalWidth / totalProportionalVisibleWidth;
 
-      const result = prev.reduce(
+      const result = prev.reduce<{
+        columns: TableColumn<DataType>[];
+        settings: Record<string, { id: string; show: boolean; width: number }>;
+      }>(
         (accumulator, column) => {
           const origColumn = originalColumns.find((origCol) => origCol.id === column.id);
 
-          if (column.cell.isFixed) {
-          }
+          if (!origColumn) return accumulator;
 
           // Correctly assigning newWidth
           const newWidth = column.cell.isFixed
@@ -214,7 +218,7 @@ export const TableSettings = <DataType extends unknown>({
                   id: 'column',
                   label: 'Column Name',
                   data: {
-                    render: ({ data }) => data.label,
+                    render: ({ data }) => data?.label || '',
                   },
                   cell: {
                     baseWidth: 95,
@@ -234,6 +238,8 @@ export const TableSettings = <DataType extends unknown>({
               pagination={{
                 rowsPerPage: columns.length,
                 show: false,
+                initialPage: 0,
+                reflectInURL: false,
               }}
             />
           </Stack>

@@ -1,13 +1,10 @@
-import { CODEBASE_VERSIONING_TYPES } from '../../constants/codebaseVersioningTypes';
+import { CODEBASE_VERSIONING_TYPE } from '../../constants/codebaseVersioningTypes';
 import { SelectOption } from '../../types/forms';
 
 export const codebaseVersioningTypeSelectOptions: SelectOption[] = [
-  {
-    label: CODEBASE_VERSIONING_TYPES.DEFAULT,
-    value: CODEBASE_VERSIONING_TYPES.DEFAULT,
-  },
-  {
-    label: CODEBASE_VERSIONING_TYPES.SEMVER,
-    value: CODEBASE_VERSIONING_TYPES.SEMVER,
-  },
-];
+  CODEBASE_VERSIONING_TYPE.DEFAULT,
+  CODEBASE_VERSIONING_TYPE.SEMVER,
+].map((value) => ({
+  label: value,
+  value,
+}));

@@ -11,10 +11,12 @@ import { ErrorContent } from '../../../ErrorContent';
 import { TableRow } from './components/TableRow';
 import { TableBodyProps } from './types';
 
-const isSelectedRow = (isSelected: (row: unknown) => boolean, row: unknown) =>
-  isSelected ? isSelected(row) : false;
+const isSelectedRow = <DataType extends unknown>(
+  isSelected: (row: DataType) => boolean,
+  row: DataType
+) => (isSelected ? isSelected(row) : false);
 
-export const TableBody = ({
+export const TableBody = <DataType extends unknown>({
   blockerError,
   errors,
   isLoading,
@@ -27,7 +29,8 @@ export const TableBody = ({
   rowsPerPage,
   isEmptyFilterResult,
   blockerComponent,
-}: TableBodyProps) => {
+}: TableBodyProps<DataType>) => {
+
   const renderTableBody = React.useCallback(() => {
     const columnsLength = columns.length;
 
@@ -94,7 +97,9 @@ export const TableBody = ({
           {data
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row, idx: number) => {
-              const _isSelected = isSelectedRow(selection?.isRowSelected, row);
+              const _isSelected = selection?.isRowSelected
+                ? isSelectedRow(selection.isRowSelected, row)
+                : false;
               const _isSelectable = selection?.isRowSelectable
                 ? selection?.isRowSelectable(row)
                 : true;

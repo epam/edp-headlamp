@@ -1,5 +1,5 @@
 import React from 'react';
-import { VALIDATED_PROTOCOLS } from '../../../../../../constants/validatedProtocols';
+import { VALIDATED_PROTOCOL } from '../../../../../../constants/validatedProtocols';
 import { FormTextFieldEditable } from '../../../../../../providers/Form/components/FormTextFieldEditable';
 import { FORM_MODES } from '../../../../../../types/forms';
 import { getValidURLPattern } from '../../../../../../utils/checks/getValidURLPattern';
@@ -27,7 +27,7 @@ export const URL = () => {
       {...register(INTEGRATION_SECRET_FORM_NAMES.url.name, {
         required: 'Enter the SonarQube URL.',
         pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.HTTP_OR_HTTPS),
+          value: getValidURLPattern(VALIDATED_PROTOCOL.HTTP_OR_HTTPS),
           message: 'Enter a valid URL with HTTP/HTTPS protocol.',
         },
       })}

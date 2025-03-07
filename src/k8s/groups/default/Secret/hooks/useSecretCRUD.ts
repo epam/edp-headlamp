@@ -1,7 +1,7 @@
 import { K8s } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
-import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 
 interface CreateSecretProps {
@@ -18,22 +18,22 @@ export const useSecretCRUD = ({
   const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-  const secretCreateMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.CREATE>(
+  const secretCreateMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPE.CREATE>(
     'secretCreateMutation',
     K8s.secret.default,
-    CRUD_TYPES.CREATE
+    CRUD_TYPE.CREATE
   );
 
-  const secretEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.EDIT>(
+  const secretEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPE.EDIT>(
     'secretEditMutation',
     K8s.secret.default,
-    CRUD_TYPES.EDIT
+    CRUD_TYPE.EDIT
   );
 
-  const secretDeleteMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.DELETE>(
+  const secretDeleteMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPE.DELETE>(
     'secretDeleteMutation',
     K8s.secret.default,
-    CRUD_TYPES.DELETE
+    CRUD_TYPE.DELETE
   );
 
   const createSecret = React.useCallback(

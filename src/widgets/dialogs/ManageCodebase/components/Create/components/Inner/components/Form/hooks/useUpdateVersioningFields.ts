@@ -1,5 +1,5 @@
 import React from 'react';
-import { CODEBASE_VERSIONING_TYPES } from '../../../../../../../../../../constants/codebaseVersioningTypes';
+import { CODEBASE_VERSIONING_TYPE } from '../../../../../../../../../../constants/codebaseVersioningTypes';
 import { useTypedFormContext } from '../../../../../../../hooks/useFormContext';
 import { CODEBASE_FORM_NAMES } from '../../../../../../../names';
 
@@ -13,8 +13,8 @@ export const useUpdateVersioningFields = () => {
 
   React.useEffect(() => {
     if (
-      (versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.EDP ||
-        versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.SEMVER) &&
+      (versioningTypeFieldValue === CODEBASE_VERSIONING_TYPE.EDP ||
+        versioningTypeFieldValue === CODEBASE_VERSIONING_TYPE.SEMVER) &&
       !versioningStartFromFieldValue
     ) {
       setValue(CODEBASE_FORM_NAMES.versioningStartFrom.name, defaultEDPVersioningValue, {
@@ -22,7 +22,7 @@ export const useUpdateVersioningFields = () => {
       });
     }
 
-    if (versioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.DEFAULT) {
+    if (versioningTypeFieldValue === CODEBASE_VERSIONING_TYPE.DEFAULT) {
       setValue(CODEBASE_FORM_NAMES.versioningStartFrom.name, undefined, {
         shouldDirty: false,
       });

@@ -16,14 +16,13 @@ export interface TableSettingColumn<DataType> {
   disabled: boolean;
 }
 
-export interface TableSettingsColumns<DataType> {
-  [key: string]: TableSettingColumn<DataType>;
-}
+export type TableSettingsColumns<DataType> = Record<string, TableSettingColumn<DataType>>;
 
-export interface SavedTableSettings {
-  [key: string]: {
+export type SavedTableSettings = Record<
+  string,
+  {
     id: string;
     show: boolean;
     width: number;
-  };
-}
+  }
+>;

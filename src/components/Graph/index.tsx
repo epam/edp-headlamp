@@ -40,7 +40,7 @@ export const Graph = ({
     [direction, type]
   );
 
-  const [positions, setPositions] = useState<ElkNode>(null);
+  const [positions, setPositions] = useState<ElkNode | null>(null);
 
   const graph = React.useMemo(
     () => ({
@@ -85,17 +85,17 @@ export const Graph = ({
             <React.Fragment>
               <TransformComponent>
                 <svg
-                  style={{ height: graphHeight + 100, width: graphWidth }}
+                  style={{ height: graphHeight || 0 + 100, width: graphWidth }}
                   viewBox={`0 0 ${graphWidth} ${graphHeight}`}
                   id="graph-svg"
                 >
                   <defs>
                     <ArrowRightMarker id="arrowRight" />
                   </defs>
-                  {graphEdges.map((edge, i) => {
+                  {graphEdges?.map((edge, i) => {
                     return <React.Fragment key={`edge_${i}`}>{renderEdge(edge)}</React.Fragment>;
                   })}
-                  {graphNodes.map((node, i) => {
+                  {graphNodes?.map((node, i) => {
                     return <React.Fragment key={`node_${i}`}>{renderNode(node)}</React.Fragment>;
                   })}
                 </svg>

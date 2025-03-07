@@ -1,5 +1,5 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
-import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
+import { CodebaseType } from '../../../../constants/codebaseTypes';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { KubeObjectListInterface } from '../../../../types/k8s';
@@ -66,7 +66,7 @@ export class CodebaseKubeObject extends K8s.cluster.makeKubeObject<CodebaseKubeO
 
   static getListByTypeLabel(
     namespace: string,
-    codebaseType: CODEBASE_TYPES
+    codebaseType: CodebaseType
   ): Promise<KubeObjectListInterface<CodebaseKubeObjectInterface>> {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${codebaseType}`;
     return ApiProxy.request(url);

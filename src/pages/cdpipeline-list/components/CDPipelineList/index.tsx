@@ -1,7 +1,7 @@
 import React from 'react';
 import { EmptyList } from '../../../../components/EmptyList';
 import { Table } from '../../../../components/Table';
-import { TABLES } from '../../../../constants/tables';
+import { TABLE } from '../../../../constants/tables';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { Filter } from '../../../../providers/Filter/components/Filter';
 import { ManageCDPipelineDialog } from '../../../../widgets/dialogs/ManageCDPipeline';
@@ -25,8 +25,8 @@ export const CDPipelineList = ({ blockerComponent }: CDPipelineListProps) => {
 
   return (
     <Table
-      id={TABLES.CDPIPELINE_LIST.id}
-      name={TABLES.CDPIPELINE_LIST.name}
+      id={TABLE.CDPIPELINE_LIST.id}
+      name={TABLE.CDPIPELINE_LIST.name}
       isLoading={CDPipelines.isLoading && (!CDPipelines.errors || !CDPipelines.errors.length)}
       data={CDPipelines.data}
       errors={CDPipelines.errors}

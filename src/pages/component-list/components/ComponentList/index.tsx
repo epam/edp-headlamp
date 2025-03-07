@@ -7,8 +7,8 @@ import { ButtonWithPermission } from '../../../../components/ButtonWithPermissio
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { EmptyList } from '../../../../components/EmptyList';
 import { Table } from '../../../../components/Table';
-import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
-import { TABLES } from '../../../../constants/tables';
+import { CODEBASE_TYPE } from '../../../../constants/codebaseTypes';
+import { TABLE } from '../../../../constants/tables';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { Resources } from '../../../../icons/sprites/Resources';
 import { CodebaseKubeObjectInterface } from '../../../../k8s/groups/EDP/Codebase/types';
@@ -99,8 +99,8 @@ export const ComponentList = () => {
         </ButtonWithPermission>
       </Stack>
       <Table<CodebaseKubeObjectInterface>
-        id={TABLES.COMPONENT_LIST.id}
-        name={TABLES.COMPONENT_LIST.name}
+        id={TABLE.COMPONENT_LIST.id}
+        name={TABLE.COMPONENT_LIST.name}
         data={codebases.data}
         isLoading={codebases.isLoading && (!codebases.errors || !codebases.errors.length)}
         errors={codebases.errors}
@@ -110,7 +110,7 @@ export const ComponentList = () => {
           handleSelectAll: handleSelectAllClick,
           handleSelectRow: handleSelectRowClick,
           isRowSelected: (row) => selected.indexOf(row.metadata.name) !== -1,
-          isRowSelectable: (row) => row.spec.type !== CODEBASE_TYPES.SYSTEM,
+          isRowSelectable: (row) => row.spec.type !== CODEBASE_TYPE.SYSTEM,
           renderSelectionInfo: (selectionLength) => (
             <Stack direction="row" alignItems="center" justifyContent="space-between">
               <Box

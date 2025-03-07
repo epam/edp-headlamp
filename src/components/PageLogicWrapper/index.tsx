@@ -2,7 +2,7 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ErrorBoundary from '../ErrorBoundary';
 
-let queryClientInstance;
+let queryClientInstance: QueryClient;
 
 export function getQueryClient() {
   if (!queryClientInstance) {

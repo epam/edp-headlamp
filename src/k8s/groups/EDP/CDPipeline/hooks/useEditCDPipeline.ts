@@ -1,5 +1,5 @@
 import React from 'react';
-import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 import { CDPipelineKubeObject } from '../index';
 import { CDPipelineKubeObjectInterface } from '../types';
@@ -20,8 +20,8 @@ export const useEditCDPipeline = ({
 
   const CDPipelineEditMutation = useResourceCRUDMutation<
     CDPipelineKubeObjectInterface,
-    CRUD_TYPES.EDIT
-  >('CDPipelineEditMutation', CDPipelineKubeObject, CRUD_TYPES.EDIT);
+    CRUD_TYPE.EDIT
+  >('CDPipelineEditMutation', CDPipelineKubeObject, CRUD_TYPE.EDIT);
 
   const editCDPipeline = React.useCallback(
     async ({ CDPipelineData }: EditCDPipelineProps) => {

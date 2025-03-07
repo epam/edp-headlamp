@@ -23,9 +23,10 @@ import {
   isDesc,
 } from '../../../../utils';
 import { useTableSettings } from '../../../TableSettings/hooks/useTableSettings';
+import { SavedTableSettings } from '../../../TableSettings/types';
 import { TableRowProps } from './types';
 
-export const TableRow = ({
+export const TableRow = <DataType extends unknown>({
   tableId,
   columns,
   colGroupRef,
@@ -35,14 +36,14 @@ export const TableRow = ({
   selected,
   handleSelectAllClick,
   selectableRowCount,
-}: TableRowProps) => {
+}: TableRowProps<DataType>) => {
   const theme = useTheme();
 
   const { loadSettings, saveSettings } = useTableSettings(tableId);
 
   const tableSettings = loadSettings();
 
-  const handleRequestSort = (column: TableColumn<any>) => {
+  const handleRequestSort = (column: TableColumn<DataType>) => {
     const _isDesc = isDesc(column.id, sort.sortBy, sort.order);
     const _isAsc = isAsc(column.id, sort.sortBy, sort.order);
     const newSortOrder = getSortOrder(_isDesc, _isAsc);
@@ -79,10 +80,12 @@ export const TableRow = ({
     const colGroup = colGroupRef.current;
     const cols = (colGroup ? Array.from(colGroup.children) : []) as HTMLTableColElement[];
 
-    const newSettings = columns.reduce((acc, cur) => {
+    const newSettings = columns.reduce<SavedTableSettings>((acc, cur) => {
       acc[cur.id] = {
         ...tableSettings[cur.id],
-        width: parseFloat(cols.find((col) => col.dataset.id === cur.id)?.getAttribute('width')),
+        width: parseFloat(
+          cols.find((col) => col.dataset.id === cur.id)?.getAttribute('width') || ''
+        ),
       };
 
       return acc;
@@ -122,10 +125,14 @@ export const TableRow = ({
 
       const originalWidth = targetCol.offsetWidth;
       const nextOriginalWidth = nextCol.offsetWidth;
-      const tableWidth = colGroup.parentElement.offsetWidth;
+      const tableWidth = colGroup?.parentElement?.offsetWidth;
 
-      const handleMouseMove = (moveEvent) => {
-        const deltaX = moveEvent.clientX - startX;
+      const handleMouseMove = (moveEvent: Event | React.MouseEvent) => {
+        if (!tableWidth) {
+          return;
+        }
+
+        const deltaX = (moveEvent as React.MouseEvent).clientX - startX;
 
         const column = columns.find((col) => col.id === resizableColumnId);
         const nextColumn = columns.find((col) => col.id === nextCol.dataset.id);
@@ -158,7 +165,8 @@ export const TableRow = ({
     [colGroupRef, columns, saveNewColumnsWidth]
   );
 
-  const selectedAllIndeterminate = selectedLength > 0 && selectedLength < rowCount;
+  const selectedAllIndeterminate =
+    !!selectedLength && selectedLength > 0 && selectedLength < rowCount;
   const selectAllChecked = selectedLength === selectableRowCount || selectedLength === rowCount;
 
   return (

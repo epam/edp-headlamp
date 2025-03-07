@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { GIT_SERVERS } from '../../../../constants/gitServers';
+import { GIT_PROVIDER } from '../../../../constants/gitProviders';
 import { useGitServerListQuery } from '../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { CODEBASE_FORM_NAMES } from '../../names';
 import { ManageGitOpsValues } from '../../types';
@@ -26,7 +26,7 @@ export const View = () => {
         <Grid item xs={4}>
           <GitServer />
         </Grid>
-        {gitServerProvider !== GIT_SERVERS.GERRIT && !!isFetched && (
+        {gitServerProvider !== GIT_PROVIDER.GERRIT && !!isFetched && (
           <Grid item xs={5}>
             <GitRepoPath />
           </Grid>

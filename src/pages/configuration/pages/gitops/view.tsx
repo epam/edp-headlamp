@@ -15,8 +15,8 @@ import { EmptyList } from '../../../../components/EmptyList';
 import { ErrorContent } from '../../../../components/ErrorContent';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { StatusIcon } from '../../../../components/StatusIcon';
-import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../constants/statuses';
+import { CODEBASE_TYPE } from '../../../../constants/codebaseTypes';
+import { CUSTOM_RESOURCE_STATUS } from '../../../../constants/statuses';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { CodebaseKubeObject } from '../../../../k8s/groups/EDP/Codebase';
 import {
@@ -36,7 +36,7 @@ import { useTypedPermissions } from './hooks/useTypedPermissions';
 export const PageView = () => {
   const [codebases, codebasesError] = CodebaseKubeObject.useList({
     namespace: getDefaultNamespace(),
-    labelSelector: `${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${CODEBASE_TYPES.SYSTEM}`,
+    labelSelector: `${CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE}=${CODEBASE_TYPE.SYSTEM}`,
   });
 
   const gitOpsCodebase =
@@ -112,7 +112,7 @@ export const PageView = () => {
                       <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
                         {`Status: ${status || 'Unknown'}`}
                       </Typography>
-                      {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
+                      {status === CUSTOM_RESOURCE_STATUS.FAILED && (
                         <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
                           {gitOpsCodebase?.status?.detailedMessage}
                         </Typography>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  ARGO_APPLICATION_HEALTH_STATUSES,
-  ARGO_APPLICATION_SYNC_STATUSES,
+  ARGO_APPLICATION_HEALTH_STATUS,
+  ARGO_APPLICATION_SYNC_STATUS,
 } from '../../../constants/statuses';
 import { EnrichedApplicationWithArgoApplication } from '../types';
 
@@ -23,10 +23,9 @@ export const useEveryArgoAppIsHealthyAndInSync = (
 
         const healthIsOk =
           argoApplication.status.health.status.toLowerCase() ===
-          ARGO_APPLICATION_HEALTH_STATUSES.HEALTHY;
+          ARGO_APPLICATION_HEALTH_STATUS.HEALTHY;
         const syncIsOk =
-          argoApplication.status.sync.status.toLowerCase() ===
-          ARGO_APPLICATION_SYNC_STATUSES.SYNCED;
+          argoApplication.status.sync.status.toLowerCase() === ARGO_APPLICATION_SYNC_STATUS.SYNCED;
 
         return healthIsOk && syncIsOk;
       }),

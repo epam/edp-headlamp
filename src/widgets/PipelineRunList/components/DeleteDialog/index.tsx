@@ -7,7 +7,7 @@ import {
   TextField,
 } from '@mui/material';
 import React from 'react';
-import { CRUD_TYPES } from '../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../constants/crudTypes';
 import { useRequestStatusMessages } from '../../../../hooks/useResourceRequestStatusMessages';
 import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/PipelineRun/types';
@@ -63,7 +63,7 @@ export const DeletionDialog = ({
       );
     });
 
-    showBeforeRequestMessage(CRUD_TYPES.DELETE, {
+    showBeforeRequestMessage(CRUD_TYPE.DELETE, {
       customMessage: {
         message: 'Selected PipelineRuns have been deleted',
       },

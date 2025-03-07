@@ -4,7 +4,7 @@ import React from 'react';
 import { ButtonWithPermission } from '../../../../../../components/ButtonWithPermission';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { Table } from '../../../../../../components/Table';
-import { TABLES } from '../../../../../../constants/tables';
+import { TABLE } from '../../../../../../constants/tables';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { useTypedPermissions } from '../../../../hooks/useTypedPermissions';
 import { EnrichedApplicationWithArgoApplication } from '../../../../types';
@@ -73,8 +73,8 @@ export const PreviewTable = ({
         </ButtonWithPermission>
       </Stack>
       <Table<EnrichedApplicationWithArgoApplication>
-        id={TABLES.STAGE_APPLICATION_LIST_PREVIEW.id}
-        name={TABLES.STAGE_APPLICATION_LIST_PREVIEW.name}
+        id={TABLE.STAGE_APPLICATION_LIST_PREVIEW.id}
+        name={TABLE.STAGE_APPLICATION_LIST_PREVIEW.name}
         data={data}
         columns={columns}
         selection={{

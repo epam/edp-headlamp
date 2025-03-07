@@ -1,7 +1,7 @@
 import React from 'react';
 import { EmptyList } from '../../components/EmptyList';
 import { Table } from '../../components/Table';
-import { TABLES } from '../../constants/tables';
+import { TABLE } from '../../constants/tables';
 import { Filter } from '../../providers/Filter/components/Filter';
 import { NamespaceControl } from '../../providers/Filter/components/Filter/components/NamespaceControl';
 import { SearchControl } from '../../providers/Filter/components/Filter/components/SearchControl';
@@ -22,8 +22,8 @@ export const PipelineList = ({ pipelines, isLoading, error }: PipelineListProps)
 
   return (
     <Table
-      id={TABLES.PIPELINE_LIST.id}
-      name={TABLES.PIPELINE_LIST.name}
+      id={TABLE.PIPELINE_LIST.id}
+      name={TABLE.PIPELINE_LIST.name}
       blockerError={error}
       columns={columns}
       data={sortedPipelines}

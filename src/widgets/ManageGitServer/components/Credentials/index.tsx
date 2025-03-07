@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { Grid, Tooltip, Typography } from '@mui/material';
 import React from 'react';
-import { GIT_PROVIDERS } from '../../../../constants/gitProviders';
+import { GIT_PROVIDER } from '../../../../constants/gitProviders';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { useFormsContext } from '../../hooks/useFormsContext';
 import { GIT_SERVER_FORM_NAMES } from '../../names';
@@ -17,7 +17,7 @@ export const CredentialsForm = ({ gitServerSecret }: CredentialsFormProps) => {
 
   const secretFieldsRenderer = React.useCallback(() => {
     switch (sharedGitProviderValue) {
-      case GIT_PROVIDERS.GERRIT:
+      case GIT_PROVIDER.GERRIT:
         return (
           <>
             <Grid item xs={12}>
@@ -28,7 +28,7 @@ export const CredentialsForm = ({ gitServerSecret }: CredentialsFormProps) => {
             </Grid>
           </>
         );
-      case GIT_PROVIDERS.GITHUB:
+      case GIT_PROVIDER.GITHUB:
         return (
           <>
             <Grid item xs={12}>
@@ -39,7 +39,7 @@ export const CredentialsForm = ({ gitServerSecret }: CredentialsFormProps) => {
             </Grid>
           </>
         );
-      case GIT_PROVIDERS.GITLAB:
+      case GIT_PROVIDER.GITLAB:
         return (
           <>
             <Grid item xs={12}>
@@ -50,7 +50,7 @@ export const CredentialsForm = ({ gitServerSecret }: CredentialsFormProps) => {
             </Grid>
           </>
         );
-      case GIT_PROVIDERS.BITBUCKET:
+      case GIT_PROVIDER.BITBUCKET:
         return (
           <>
             <Grid item xs={12}>

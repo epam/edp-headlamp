@@ -1,5 +1,5 @@
 import React from 'react';
-import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
 import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
 
 export const useSelection = () => {
@@ -10,7 +10,7 @@ export const useSelection = () => {
       if (event.target.checked) {
         const newSelected = paginatedItems
           .map(({ metadata: { name }, spec: { type } }) =>
-            type === CODEBASE_TYPES.SYSTEM ? null : name
+            type === CODEBASE_TYPE.SYSTEM ? null : name
           )
           .filter(Boolean);
         setSelected(newSelected);
@@ -23,7 +23,7 @@ export const useSelection = () => {
 
   const handleSelectRowClick = React.useCallback(
     (event: React.MouseEvent<unknown>, row: CodebaseKubeObjectInterface) => {
-      const isSystemCodebase = row.spec.type === CODEBASE_TYPES.SYSTEM;
+      const isSystemCodebase = row.spec.type === CODEBASE_TYPE.SYSTEM;
 
       if (isSystemCodebase) {
         return;

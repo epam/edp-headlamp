@@ -6,7 +6,7 @@ import { useTableSettings } from '../../../components/Table/components/TableSett
 import { getSyncedColumnData } from '../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../components/Table/types';
 import { TextWithTooltip } from '../../../components/TextWithTooltip';
-import { TABLES } from '../../../constants/tables';
+import { TABLE } from '../../../constants/tables';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { PipelineKubeObjectInterface } from '../../../k8s/groups/Tekton/Pipeline/types';
 import { routePipelineDetails } from '../../../pages/configuration/pages/pipeline-details/route';
@@ -16,7 +16,7 @@ import { columnNames } from '../constants';
 
 export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
   const { setDialog } = useDialogContext();
-  const { loadSettings } = useTableSettings(TABLES.PIPELINE_LIST.id);
+  const { loadSettings } = useTableSettings(TABLE.PIPELINE_LIST.id);
 
   const tableSettings = loadSettings();
 

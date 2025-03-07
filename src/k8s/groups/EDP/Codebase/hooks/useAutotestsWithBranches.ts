@@ -1,5 +1,5 @@
 import React from 'react';
-import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 import { AutotestWithBranchesOption } from '../../../../../widgets/dialogs/ManageStage/components/fields/QualityGates/types';
 import { CodebaseBranchKubeObject } from '../../CodebaseBranch';
@@ -14,7 +14,7 @@ export const useAutotestsWithBranches = (namespace: string): AutotestWithBranche
 
   useCodebasesByTypeLabelQuery({
     props: {
-      codebaseType: CODEBASE_TYPES.AUTOTEST,
+      codebaseType: CODEBASE_TYPE.AUTOTEST,
       namespace: _namespace,
     },
     options: {

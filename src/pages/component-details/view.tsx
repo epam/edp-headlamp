@@ -7,7 +7,7 @@ import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
-import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../constants/codebaseTypes';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { Resources } from '../../icons/sprites/Resources';
 import {
@@ -98,7 +98,7 @@ export const PageView = () => {
                   }}
                   isTextButton
                 />
-                {componentType !== CODEBASE_TYPES.SYSTEM && (
+                {componentType !== CODEBASE_TYPE.SYSTEM && (
                   <ResourceActionListContextProvider>
                     <CodebaseActionsMenu
                       data={{

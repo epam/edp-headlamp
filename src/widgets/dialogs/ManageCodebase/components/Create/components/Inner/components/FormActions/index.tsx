@@ -1,7 +1,7 @@
 import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { TabPanel } from '../../../../../../../../../components/TabPanel';
-import { CODEBASE_CREATION_STRATEGIES } from '../../../../../../../../../constants/creationStrategies';
+import { CODEBASE_CREATION_STRATEGY } from '../../../../../../../../../constants/creationStrategies';
 import { useCodebaseCRUD } from '../../../../../../../../../k8s/groups/EDP/Codebase/hooks/useCodebaseCRUD';
 import { CodebaseKubeObjectInterface } from '../../../../../../../../../k8s/groups/EDP/Codebase/types';
 import { createCodebaseInstance } from '../../../../../../../../../k8s/groups/EDP/Codebase/utils/createCodebaseInstance';
@@ -74,7 +74,7 @@ export const FormActions = ({ baseDefaultValues, setActiveTab }: FormActionsProp
       .filter(({ formPart }) => formPart === activeTabFormPartName)
       .map(({ name }) => name);
 
-    if (values.strategy === CODEBASE_CREATION_STRATEGIES.CLONE && !!values.hasCodebaseAuth) {
+    if (values.strategy === CODEBASE_CREATION_STRATEGY.CLONE && !!values.hasCodebaseAuth) {
       activeTabFormPartNames.push(CODEBASE_FORM_NAMES.repositoryLogin.name);
       activeTabFormPartNames.push(CODEBASE_FORM_NAMES.repositoryPasswordOrApiToken.name);
     }

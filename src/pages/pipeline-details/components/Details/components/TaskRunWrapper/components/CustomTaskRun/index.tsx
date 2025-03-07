@@ -2,7 +2,7 @@ import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
-import { CRUD_TYPES } from '../../../../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../../../../hooks/useResourceCRUDMutation';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { ApprovalTaskKubeObject } from '../../../../../../../../k8s/groups/EDP/ApprovalTask';
@@ -90,10 +90,10 @@ export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
 
   const tabs = useTabs({ taskRun: customTaskRun });
 
-  const approvalTaskEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPES.EDIT>(
+  const approvalTaskEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPE.EDIT>(
     'approvalTaskEditMutation',
     ApprovalTaskKubeObject,
-    CRUD_TYPES.EDIT
+    CRUD_TYPE.EDIT
   );
 
   const handleClickApproveOrReject = React.useCallback(

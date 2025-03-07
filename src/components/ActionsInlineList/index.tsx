@@ -16,24 +16,24 @@ export const ActionsInlineList = ({ actions }: ActionsInlineListProps) => {
             size="small"
             onClick={action}
             variant="outlined"
-            disabled={disabled.status}
-            endIcon={<Icon icon={icon} color={theme.palette.secondary.dark} width="16" />}
+            disabled={disabled?.status}
+            endIcon={icon && <Icon icon={icon} color={theme.palette.secondary.dark} width="16" />}
             sx={{ color: theme.palette.secondary.dark, borderColor: theme.palette.secondary.dark }}
           >
             {name}
           </Button>
         ) : (
           <div key={actionId}>
-            <Tooltip title={disabled.reason || label}>
+            <Tooltip title={disabled?.reason || label}>
               <div>
                 <IconButton
                   component="span"
-                  disabled={disabled.status}
+                  disabled={disabled?.status}
                   onClick={action}
                   size="medium"
                   sx={{ color: theme.palette.secondary.dark }}
                 >
-                  <Icon icon={icon} width={24} height={24} />
+                  {icon && <Icon icon={icon} width={24} height={24} />}
                 </IconButton>
               </div>
             </Tooltip>

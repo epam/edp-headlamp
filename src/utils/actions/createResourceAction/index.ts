@@ -1,5 +1,5 @@
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
-import { RESOURCE_ACTIONS } from '../../../constants/resourceActions';
+import { RESOURCE_ACTION } from '../../../constants/resourceActions';
 import { RESOURCE_LABEL_SELECTOR_PROTECTED } from '../../../k8s/common/labels';
 import { KubeObjectAction } from '../../../types/actions';
 import { ValueOf } from '../../../types/global';
@@ -40,7 +40,7 @@ const getDisabledProtectedState = (protectedLabel: string): ProtectedState => {
 const getDisabledState = (
   item: KubeObjectInterface,
   disabledDefaultValue: DisabledValue,
-  actionType: ValueOf<typeof RESOURCE_ACTIONS>
+  actionType: ValueOf<typeof RESOURCE_ACTION>
 ) => {
   const isProtected = item?.metadata?.labels?.[RESOURCE_LABEL_SELECTOR_PROTECTED];
 
@@ -53,7 +53,7 @@ const getDisabledState = (
 
   const protectedDisabledState = getDisabledProtectedState(isProtected);
 
-  const _actionType = actionType === RESOURCE_ACTIONS.EDIT ? 'update' : actionType; //because of the different naming
+  const _actionType = actionType === RESOURCE_ACTION.EDIT ? 'update' : actionType; //because of the different naming
 
   return protectedDisabledState[_actionType] || disabledDefaultValue;
 };
@@ -71,7 +71,7 @@ export const createResourceAction = <Item extends KubeObjectInterface>({
   isTextButton,
 }: {
   item: Item;
-  type: ValueOf<typeof RESOURCE_ACTIONS>;
+  type: ValueOf<typeof RESOURCE_ACTION>;
   label: string;
   callback?: (item: Item) => void;
   disabled?: DisabledValue;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
 import { SelectOption } from '../../../../../types/forms';
 import { isGroovyLibrary } from '../../../../../utils/checks/isGroovyLibrary';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
@@ -21,7 +21,7 @@ export const useGroovyLibrariesWithBranches = (): GroovyLibWithBranchesOption[] 
 
   useCodebasesByTypeLabelQuery({
     props: {
-      codebaseType: CODEBASE_TYPES.LIBRARY,
+      codebaseType: CODEBASE_TYPE.LIBRARY,
     },
     options: {
       onSuccess: async (data) => {

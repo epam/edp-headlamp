@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Snackbar } from '../../../../../components/Snackbar';
-import { CRUD_TYPES } from '../../../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
 import { routePipelineRunDetails } from '../../../../../pages/pipeline-details/route';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
@@ -19,8 +19,8 @@ export const useCreateBuildPipelineRun = ({
 
   const buildPipelineRunCreateMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
-    CRUD_TYPES.CREATE
-  >('buildPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPES.CREATE, {
+    CRUD_TYPE.CREATE
+  >('buildPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPE.CREATE, {
     createCustomMessages: (item) => ({
       onMutate: {
         message: 'Creating build PipelineRun',

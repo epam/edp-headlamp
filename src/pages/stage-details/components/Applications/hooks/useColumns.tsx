@@ -27,8 +27,7 @@ import {
   CODEBASE_COMMON_LANGUAGES,
 } from '../../../../../configs/codebase-mappings';
 import { DEFAULT_CLUSTER } from '../../../../../constants/clusters';
-import { GIT_PROVIDERS } from '../../../../../constants/gitProviders';
-import { TABLES } from '../../../../../constants/tables';
+import { TABLE } from '../../../../../constants/tables';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { ApplicationKubeObject } from '../../../../../k8s/groups/ArgoCD/Application';
 import {
@@ -84,9 +83,9 @@ export const useColumns = ({
     (argoApplication: ApplicationKubeObjectInterface) =>
       LinkCreationService.argocd.createApplicationLink(
         QuickLinksURLS?.[SYSTEM_QUICK_LINKS.ARGOCD],
-        argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_PIPELINE],
-        argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_STAGE],
-        argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_APP_NAME]
+        argoApplication.metadata?.labels?.[APPLICATION_LABEL_SELECTOR_PIPELINE],
+        argoApplication.metadata?.labels?.[APPLICATION_LABEL_SELECTOR_STAGE],
+        argoApplication.metadata?.labels?.[APPLICATION_LABEL_SELECTOR_APP_NAME]
       ),
     [QuickLinksURLS]
   );
@@ -117,8 +116,8 @@ export const useColumns = ({
 
   const { loadSettings } = useTableSettings(
     isPreviewMode
-      ? TABLES.STAGE_APPLICATION_LIST_PREVIEW.id
-      : TABLES.STAGE_APPLICATION_LIST_CONFIGURATION.id
+      ? TABLE.STAGE_APPLICATION_LIST_PREVIEW.id
+      : TABLE.STAGE_APPLICATION_LIST_CONFIGURATION.id
   );
 
   return React.useMemo(() => {

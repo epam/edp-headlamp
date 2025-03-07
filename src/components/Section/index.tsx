@@ -17,7 +17,7 @@ export const Section: React.FC<SectionProps> = ({
     <Stack spacing={4}>
       <Stack spacing={1}>
         {title && (
-          <Stack direction="row" alignItems={'center'}>
+          <Stack direction="row" spacing={0.5} alignItems={'center'}>
             {typeof title === 'string' ? (
               <Typography color="primary.dark" fontSize={theme.typography.pxToRem(48)}>
                 {title}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CRUD_TYPES } from '../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 import { CodemieKubeObject } from '../../../k8s/groups/EDP/Codemie';
 import { CodemieKubeObjectInterface } from '../../../k8s/groups/EDP/Codemie/types';
@@ -19,8 +19,8 @@ export const useCodemieCreateForm = ({
 }): FormItem => {
   const codemieCreateMutation = useResourceCRUDMutation<
     CodemieKubeObjectInterface,
-    CRUD_TYPES.CREATE
-  >('codemieCreateMutation', CodemieKubeObject, CRUD_TYPES.CREATE);
+    CRUD_TYPE.CREATE
+  >('codemieCreateMutation', CodemieKubeObject, CRUD_TYPE.CREATE);
 
   const defaultValues = React.useMemo(() => ({ [CODEMIE_FORM_NAMES.name.name]: 'codemie' }), []);
 

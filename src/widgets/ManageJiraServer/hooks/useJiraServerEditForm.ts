@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CRUD_TYPES } from '../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 import { JiraServerKubeObject } from '../../../k8s/groups/EDP/JiraServer';
 import { JiraServerKubeObjectInterface } from '../../../k8s/groups/EDP/JiraServer/types';
@@ -19,8 +19,8 @@ export const useJiraServerEditForm = ({
 }) => {
   const jiraServerEditMutation = useResourceCRUDMutation<
     JiraServerKubeObjectInterface,
-    CRUD_TYPES.EDIT
-  >('jiraServerEditMutation', JiraServerKubeObject, CRUD_TYPES.EDIT);
+    CRUD_TYPE.EDIT
+  >('jiraServerEditMutation', JiraServerKubeObject, CRUD_TYPE.EDIT);
 
   const defaultValues = React.useMemo(
     () => ({

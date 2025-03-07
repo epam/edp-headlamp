@@ -1,33 +1,29 @@
-import { CODEBASE_TYPES } from '../../constants/codebaseTypes';
-import { CODEBASE_CREATION_STRATEGIES } from '../../constants/creationStrategies';
+import { CODEBASE_TYPE } from '../../constants/codebaseTypes';
+import { CODEBASE_CREATION_STRATEGY } from '../../constants/creationStrategies';
 import { SelectOption } from '../../types/forms';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 
 export const creationStrategiesSelectOptions: SelectOption[] = [
-  {
-    label: capitalizeFirstLetter(CODEBASE_CREATION_STRATEGIES['CREATE']),
-    value: CODEBASE_CREATION_STRATEGIES['CREATE'],
-  },
-  {
-    label: capitalizeFirstLetter(CODEBASE_CREATION_STRATEGIES['CLONE']),
-    value: CODEBASE_CREATION_STRATEGIES['CLONE'],
-  },
-  {
-    label: capitalizeFirstLetter(CODEBASE_CREATION_STRATEGIES['IMPORT']),
-    value: CODEBASE_CREATION_STRATEGIES['IMPORT'],
-  },
-];
+  CODEBASE_CREATION_STRATEGY.CREATE,
+  CODEBASE_CREATION_STRATEGY.CLONE,
+  CODEBASE_CREATION_STRATEGY.IMPORT,
+].map((value) => ({
+  label: capitalizeFirstLetter(value),
+  value,
+}));
 
 export const getCreationStrategySelectOptionsByCodebaseType = (type: string): SelectOption[] => {
-  if (type === CODEBASE_TYPES['APPLICATION'] || type === CODEBASE_TYPES['LIBRARY']) {
-    return creationStrategiesSelectOptions;
-  }
+  switch (type) {
+    case CODEBASE_TYPE.APPLICATION:
+    case CODEBASE_TYPE.LIBRARY:
+      return creationStrategiesSelectOptions;
 
-  if (type === CODEBASE_TYPES['AUTOTEST']) {
-    return creationStrategiesSelectOptions.filter(
-      ({ value }) =>
-        value === CODEBASE_CREATION_STRATEGIES['CLONE'] ||
-        value === CODEBASE_CREATION_STRATEGIES['IMPORT']
-    );
+    case CODEBASE_TYPE.AUTOTEST:
+      return creationStrategiesSelectOptions.filter(
+        ({ value }) =>
+          value === CODEBASE_CREATION_STRATEGY.CLONE || value === CODEBASE_CREATION_STRATEGY.IMPORT
+      );
+    default:
+      return [];
   }
 };

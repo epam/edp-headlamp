@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { STATUS_COLOR } from '../../../constants/colors';
-import { TRIGGER_TYPES } from '../../../constants/triggerTypes';
+import { TRIGGER_TYPE } from '../../../constants/triggerTypes';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { StageKubeObject } from '../../../k8s/groups/EDP/Stage';
 import { rem } from '../../../utils/styling/rem';
@@ -77,7 +77,7 @@ export const useInfoColumns = () => {
         {
           label: 'Trigger Type',
           text:
-            stage?.spec.triggerType === TRIGGER_TYPES.MANUAL ? (
+            stage?.spec.triggerType === TRIGGER_TYPE.MANUAL ? (
               <Chip label="manual" className={clsx([classes.labelChip, classes.labelChipBlue])} />
             ) : (
               <Chip label="auto" className={clsx([classes.labelChip, classes.labelChipGreen])} />

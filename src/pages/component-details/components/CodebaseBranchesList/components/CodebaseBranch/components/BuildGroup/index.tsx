@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { ButtonWithPermission } from '../../../../../../../../components/ButtonWithPermission';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/statuses';
+import { CUSTOM_RESOURCE_STATUS } from '../../../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/constants';
@@ -83,7 +83,7 @@ export const BuildGroup = ({
     PIPELINE_RUN_REASON.RUNNING;
 
   const codebaseBranchStatusIsOk =
-    codebaseBranch?.status?.status === CUSTOM_RESOURCE_STATUSES.CREATED;
+    codebaseBranch?.status?.status === CUSTOM_RESOURCE_STATUS.CREATED;
 
   const buildButtonDisabled =
     !permissions?.create?.PipelineRun.allowed || latestBuildIsRunning || !codebaseBranchStatusIsOk;

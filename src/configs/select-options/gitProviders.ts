@@ -1,22 +1,13 @@
-import { GIT_PROVIDERS } from '../../constants/gitProviders';
+import { GIT_PROVIDER } from '../../constants/gitProviders';
 import { SelectOption } from '../../types/forms';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 
 export const gitProviderOptions: SelectOption[] = [
-  {
-    label: capitalizeFirstLetter(GIT_PROVIDERS.GERRIT),
-    value: GIT_PROVIDERS.GERRIT,
-  },
-  {
-    label: capitalizeFirstLetter(GIT_PROVIDERS.GITLAB),
-    value: GIT_PROVIDERS.GITLAB,
-  },
-  {
-    label: capitalizeFirstLetter(GIT_PROVIDERS.GITHUB),
-    value: GIT_PROVIDERS.GITHUB,
-  },
-  {
-    label: capitalizeFirstLetter(GIT_PROVIDERS.BITBUCKET),
-    value: GIT_PROVIDERS.BITBUCKET,
-  },
-];
+  GIT_PROVIDER.GERRIT,
+  GIT_PROVIDER.GITLAB,
+  GIT_PROVIDER.GITHUB,
+  GIT_PROVIDER.BITBUCKET,
+].map((value) => ({
+  label: capitalizeFirstLetter(value),
+  value,
+}));

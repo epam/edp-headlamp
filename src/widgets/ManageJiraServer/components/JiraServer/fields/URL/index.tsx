@@ -1,5 +1,5 @@
 import React from 'react';
-import { VALIDATED_PROTOCOLS } from '../../../../../../constants/validatedProtocols';
+import { VALIDATED_PROTOCOL } from '../../../../../../constants/validatedProtocols';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { getValidURLPattern } from '../../../../../../utils/checks/getValidURLPattern';
 import { useFormsContext } from '../../../../hooks/useFormsContext';
@@ -23,7 +23,7 @@ export const URL = () => {
       {...register(JIRA_SERVER_FORM_NAMES.url.name, {
         required: 'Enter Jira URL (e.g., https://your-jira-instance.com).',
         pattern: {
-          value: getValidURLPattern(VALIDATED_PROTOCOLS.STRICT_HTTPS),
+          value: getValidURLPattern(VALIDATED_PROTOCOL.STRICT_HTTPS),
           message: 'Enter a valid URL with HTTPS protocol.',
         },
       })}

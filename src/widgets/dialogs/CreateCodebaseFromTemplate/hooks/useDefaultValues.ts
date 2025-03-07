@@ -1,6 +1,6 @@
 import React from 'react';
-import { CODEBASE_VERSIONING_TYPES } from '../../../../constants/codebaseVersioningTypes';
-import { CODEBASE_CREATION_STRATEGIES } from '../../../../constants/creationStrategies';
+import { CODEBASE_VERSIONING_TYPE } from '../../../../constants/codebaseVersioningTypes';
+import { CODEBASE_CREATION_STRATEGY } from '../../../../constants/creationStrategies';
 import { useGitServerListQuery } from '../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
 import { TemplateKubeObjectInterface } from '../../../../k8s/groups/EDP/Template/types';
 import { CODEBASE_FROM_TEMPLATE_FORM_NAMES } from '../names';
@@ -21,9 +21,9 @@ export const useDefaultValues = (template: TemplateKubeObjectInterface) => {
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.buildTool.name]: template?.spec.buildTool,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.type.name]: template?.spec.type,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.repositoryUrl.name]: template?.spec.source,
-      [CODEBASE_FROM_TEMPLATE_FORM_NAMES.strategy.name]: CODEBASE_CREATION_STRATEGIES.CLONE,
+      [CODEBASE_FROM_TEMPLATE_FORM_NAMES.strategy.name]: CODEBASE_CREATION_STRATEGY.CLONE,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.defaultBranch.name]: defaultBranchName,
-      [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPES.SEMVER,
+      [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPE.SEMVER,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.emptyProject.name]: false,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.gitServer.name]: firstValidGitServer?.metadata.name || '',
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFrom.name]: defaultEDPVersioningValue,

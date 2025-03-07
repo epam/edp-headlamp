@@ -56,6 +56,10 @@ export const streamResults = (
     const fixedKind = kind.slice(0, -4); // Trim off the word "List" from the end of the string
     for (const item of items) {
       item.kind = fixedKind;
+      if (!item.metadata.uid) {
+        continue;
+      }
+
       results[item.metadata.uid] = item;
     }
 
@@ -73,13 +77,21 @@ export const streamResults = (
 
     switch (type) {
       case 'ADDED':
+        if (!object.metadata.uid) {
+          break;
+        }
+
         results[object.metadata.uid] = object;
         break;
       case 'MODIFIED': {
+        if (!object.metadata.uid) {
+          break;
+        }
+
         const existing = results[object.metadata.uid];
         if (existing) {
-          const currentVersion = parseInt(existing.metadata.resourceVersion, 10);
-          const newVersion = parseInt(object.metadata.resourceVersion, 10);
+          const currentVersion = parseInt(existing.metadata?.resourceVersion || '', 10);
+          const newVersion = parseInt(object.metadata?.resourceVersion || '', 10);
           if (currentVersion < newVersion) {
             Object.assign(existing, object);
           }
@@ -90,6 +102,10 @@ export const streamResults = (
         break;
       }
       case 'DELETED':
+        if (!object.metadata.uid) {
+          break;
+        }
+
         delete results[object.metadata.uid];
         break;
       case 'ERROR':

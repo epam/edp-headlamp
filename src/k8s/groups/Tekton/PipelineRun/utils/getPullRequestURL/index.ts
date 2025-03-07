@@ -1,4 +1,4 @@
-import { GIT_PROVIDERS } from '../../../../../../constants/gitProviders';
+import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { PipelineRunKubeObjectInterface } from '../../types';
 
 export const getPullRequestURL = (pipelineRun: PipelineRunKubeObjectInterface): string | null => {
@@ -31,13 +31,13 @@ export const getPullRequestURL = (pipelineRun: PipelineRunKubeObjectInterface): 
   }
 
   switch (gitProvider) {
-    case GIT_PROVIDERS.GITHUB:
+    case GIT_PROVIDER.GITHUB:
       url.pathname += `/pull/${changeNumber}`;
       break;
-    case GIT_PROVIDERS.GITLAB:
+    case GIT_PROVIDER.GITLAB:
       url.pathname += `/merge_requests/${changeNumber}`;
       break;
-    case GIT_PROVIDERS.BITBUCKET:
+    case GIT_PROVIDER.BITBUCKET:
       url.pathname += `/pull-requests/${changeNumber}`;
       break;
     default:

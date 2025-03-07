@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { ButtonWithPermission } from '../../../../../../components/ButtonWithPermission';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { Table } from '../../../../../../components/Table';
-import { TABLES } from '../../../../../../constants/tables';
+import { TABLE } from '../../../../../../constants/tables';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { APPLICATIONS_TABLE_MODE } from '../../../../constants';
 import { useTypedPermissions } from '../../../../hooks/useTypedPermissions';
@@ -98,8 +98,8 @@ export const ConfigurationTable = ({
       </Stack>
       <Table<EnrichedApplicationWithArgoApplication>
         key={key}
-        id={TABLES.STAGE_APPLICATION_LIST_CONFIGURATION.id}
-        name={TABLES.STAGE_APPLICATION_LIST_CONFIGURATION.name}
+        id={TABLE.STAGE_APPLICATION_LIST_CONFIGURATION.id}
+        name={TABLE.STAGE_APPLICATION_LIST_CONFIGURATION.name}
         data={data}
         columns={columns}
         isLoading={data === null}

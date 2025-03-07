@@ -1,7 +1,7 @@
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { CODEBASE_TYPES } from '../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../constants/codebaseTypes';
 import { useCDPipelineByNameQuery } from '../../../../k8s/groups/EDP/CDPipeline/hooks/useCDPipelineByNameQuery';
 import { useCodebasesByTypeLabelQuery } from '../../../../k8s/groups/EDP/Codebase/hooks/useCodebasesByTypeLabelQuery';
 import { useEnrichedApplicationsWithImageStreamsQuery } from '../../../../k8s/groups/EDP/Codebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
@@ -47,7 +47,7 @@ export const DataContextProvider: React.FC = ({ children }) => {
   const codebasesQuery = useCodebasesByTypeLabelQuery({
     props: {
       namespace,
-      codebaseType: CODEBASE_TYPES.SYSTEM,
+      codebaseType: CODEBASE_TYPE.SYSTEM,
     },
   });
 

@@ -6,8 +6,8 @@ import {
 import { createURLObjectFromURLOrigin } from '../index';
 
 export const ArgoCDURLService = {
-  createPipelineLink: (argoCDURLOrigin: string, pipelineName: string) => {
-    if (!argoCDURLOrigin) {
+  createPipelineLink: (argoCDURLOrigin: string | undefined, pipelineName: string | undefined) => {
+    if (!argoCDURLOrigin || !pipelineName) {
       return undefined;
     }
 
@@ -21,12 +21,12 @@ export const ArgoCDURLService = {
     return argoCDApplicationsURLObject.href;
   },
   createApplicationLink: (
-    argoCDURLOrigin: string,
-    pipelineName: string,
-    stageName: string,
-    appName: string
+    argoCDURLOrigin: string | undefined,
+    pipelineName: string | undefined,
+    stageName: string | undefined,
+    appName: string | undefined
   ) => {
-    if (!argoCDURLOrigin) {
+    if (!argoCDURLOrigin || !pipelineName || !stageName || !appName) {
       return undefined;
     }
 
@@ -39,8 +39,12 @@ export const ArgoCDURLService = {
 
     return argoCDApplicationsURLObject.href;
   },
-  createStageLink: (argoCDURLOrigin: string, pipelineName: string, stageName: string) => {
-    if (!argoCDURLOrigin) {
+  createStageLink: (
+    argoCDURLOrigin: string | undefined,
+    pipelineName: string | undefined,
+    stageName: string | undefined
+  ) => {
+    if (!argoCDURLOrigin || !pipelineName || !stageName) {
       return undefined;
     }
 

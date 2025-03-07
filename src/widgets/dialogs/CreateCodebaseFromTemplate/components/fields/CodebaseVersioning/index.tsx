@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { codebaseVersioningTypeSelectOptions } from '../../../../../../configs/select-options/codebaseVersioningTypes';
-import { CODEBASE_VERSIONING_TYPES } from '../../../../../../constants/codebaseVersioningTypes';
+import { CODEBASE_VERSIONING_TYPE } from '../../../../../../constants/codebaseVersioningTypes';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../../../types/forms';
@@ -55,8 +55,8 @@ export const CodebaseVersioning = () => {
           options={codebaseVersioningTypeSelectOptions}
         />
       </Grid>
-      {codebaseVersioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.EDP ||
-      codebaseVersioningTypeFieldValue === CODEBASE_VERSIONING_TYPES.SEMVER ? (
+      {codebaseVersioningTypeFieldValue === CODEBASE_VERSIONING_TYPE.EDP ||
+      codebaseVersioningTypeFieldValue === CODEBASE_VERSIONING_TYPE.SEMVER ? (
         <>
           <Grid item xs={4}>
             <FormTextField

@@ -1,6 +1,6 @@
 import React from 'react';
 import { UseQueryOptions } from 'react-query';
-import { CODEBASE_TYPES } from '../../../../../constants/codebaseTypes';
+import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
 import { KubeObjectListInterface } from '../../../../../types/k8s';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 import { CDPipelineKubeObjectInterface } from '../../CDPipeline/types';
@@ -55,7 +55,7 @@ export const useEnrichedApplicationsWithImageStreamsQuery = ({
   return useCodebasesByTypeLabelQuery<EnrichedApplicationWithItsImageStreams[]>({
     props: {
       namespace: CDPipelineData?.metadata.namespace,
-      codebaseType: CODEBASE_TYPES.APPLICATION,
+      codebaseType: CODEBASE_TYPE.APPLICATION,
     },
     options: {
       enabled: !!codebaseImageStreams,

@@ -77,7 +77,12 @@ const updateParams = (
   }
 };
 
-const updateValue = (fullKey: string, defaultValue: unknown, value: string | number, setValue) => {
+const updateValue = (
+  fullKey: string,
+  defaultValue: unknown,
+  value: string | number,
+  setValue: (value: any) => void
+) => {
   const newValue = getURLValue(fullKey, defaultValue, history);
   if (newValue === null) {
     if (defaultValue !== undefined && defaultValue !== value) {
@@ -135,7 +140,7 @@ export function useURLState<T extends string | number | undefined = string>(
 
   React.useEffect(
     () => {
-      updateValue(fullKey, defaultValue, value, setValue);
+      value && updateValue(fullKey, defaultValue, value, setValue);
     },
     // eslint-disable-next-line
     [history]
@@ -143,7 +148,7 @@ export function useURLState<T extends string | number | undefined = string>(
 
   React.useEffect(() => {
     // An empty key means that we don't want to use the state from the URL.
-    if (fullKey === '') {
+    if (fullKey === '' || !value) {
       return;
     }
 
@@ -186,6 +191,12 @@ export const usePagination = ({
   initialPage,
   rowsPerPage,
   entityName = 'tables',
+}: {
+  reflectInURL: boolean;
+  rowsPerPage: number;
+  initialPage: number;
+  prefix?: string;
+  entityName?: string;
 }) => {
   const entityRowsPerPageLSKey = `${entityName}_rows_per_page`;
   const [page, setPage] = usePageURLState(reflectInURL ? 'p' : '', prefix, initialPage);

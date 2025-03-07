@@ -1,7 +1,7 @@
 import React from 'react';
 import { GIT_PROVIDER_ICON_MAPPING } from '../../../../../../../configs/icon-mappings';
 import { gitProviderOptions } from '../../../../../../../configs/select-options/gitProviders';
-import { GIT_PROVIDERS } from '../../../../../../../constants/gitProviders';
+import { GIT_PROVIDER } from '../../../../../../../constants/gitProviders';
 import { Resources } from '../../../../../../../icons/sprites/Resources';
 import { RESOURCE_ICON_NAMES } from '../../../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../../../icons/UseSpriteSymbol';
@@ -26,16 +26,16 @@ export const GitProvider = () => {
       }
 
       switch (value) {
-        case GIT_PROVIDERS.GERRIT:
+        case GIT_PROVIDER.GERRIT:
           gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, GIT_USER.GERRIT);
           break;
-        case GIT_PROVIDERS.GITHUB:
+        case GIT_PROVIDER.GITHUB:
           gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, GIT_USER.GITHUB);
           break;
-        case GIT_PROVIDERS.GITLAB:
+        case GIT_PROVIDER.GITLAB:
           gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, GIT_USER.GITLAB);
           break;
-        case GIT_PROVIDERS.BITBUCKET:
+        case GIT_PROVIDER.BITBUCKET:
           gitServerForm.form.setValue(GIT_SERVER_FORM_NAMES.gitUser.name, GIT_USER.BITBUCKET);
           break;
       }

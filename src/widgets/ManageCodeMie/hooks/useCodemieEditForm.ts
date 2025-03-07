@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { CRUD_TYPES } from '../../../constants/crudTypes';
+import { CRUD_TYPE } from '../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../hooks/useResourceCRUDMutation';
 import { editResource } from '../../../k8s/common/editResource';
 import { CodemieKubeObject } from '../../../k8s/groups/EDP/Codemie';
@@ -19,10 +19,10 @@ export const useCodemieEditForm = ({
   codemie: CodemieKubeObjectInterface;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const codemieEditMutation = useResourceCRUDMutation<CodemieKubeObjectInterface, CRUD_TYPES.EDIT>(
+  const codemieEditMutation = useResourceCRUDMutation<CodemieKubeObjectInterface, CRUD_TYPE.EDIT>(
     'codemieEditMutation',
     CodemieKubeObject,
-    CRUD_TYPES.EDIT
+    CRUD_TYPE.EDIT
   );
 
   const defaultValues = React.useMemo(() => {

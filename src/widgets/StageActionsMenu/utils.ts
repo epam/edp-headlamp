@@ -1,4 +1,4 @@
-import { RESOURCE_ACTIONS } from '../../constants/resourceActions';
+import { RESOURCE_ACTION } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { RESOURCE_LABEL_SELECTOR_PROTECTED } from '../../k8s/common/labels';
 import { StageKubeObjectInterface } from '../../k8s/groups/EDP/Stage/types';
@@ -38,8 +38,8 @@ export const createDeleteAction = async ({
   // we don't let user remove last stage
   if (allStages.length === 1) {
     return createResourceAction({
-      type: RESOURCE_ACTIONS.DELETE,
-      label: capitalizeFirstLetter(RESOURCE_ACTIONS.DELETE),
+      type: RESOURCE_ACTION.DELETE,
+      label: capitalizeFirstLetter(RESOURCE_ACTION.DELETE),
       item: currentStage,
       icon: ICONS.BUCKET,
       disabled: {
@@ -65,8 +65,8 @@ export const createDeleteAction = async ({
 
   if (currentStageOrder > highestOtherStagesOrder) {
     return createResourceAction({
-      type: RESOURCE_ACTIONS.DELETE,
-      label: capitalizeFirstLetter(RESOURCE_ACTIONS.DELETE),
+      type: RESOURCE_ACTION.DELETE,
+      label: capitalizeFirstLetter(RESOURCE_ACTION.DELETE),
       item: currentStage,
       icon: ICONS.BUCKET,
       disabled: deleteActionDisabled,
@@ -75,8 +75,8 @@ export const createDeleteAction = async ({
   }
 
   return await createResourceAction({
-    type: RESOURCE_ACTIONS.DELETE,
-    label: capitalizeFirstLetter(RESOURCE_ACTIONS.DELETE),
+    type: RESOURCE_ACTION.DELETE,
+    label: capitalizeFirstLetter(RESOURCE_ACTION.DELETE),
     item: currentStage,
     icon: ICONS.BUCKET,
     disabled: {

@@ -41,17 +41,15 @@ export const ActionsMenuList = ({
                 return (
                   <div key={actionId}>
                     <ConditionalWrapper
-                      condition={disabled.status}
+                      condition={!!disabled?.status}
                       wrapper={(children) => (
-                        <Tooltip title={disabled.reason}>
+                        <Tooltip title={disabled?.reason}>
                           <div>{children}</div>
                         </Tooltip>
                       )}
                     >
-                      <ListItemButton disabled={disabled.status} onClick={action}>
-                        <ListItemIcon>
-                          <Icon icon={icon} width={'25'} />
-                        </ListItemIcon>
+                      <ListItemButton disabled={disabled?.status} onClick={action}>
+                        <ListItemIcon>{icon && <Icon icon={icon} width={'25'} />}</ListItemIcon>
                         <ListItemText primary={label} />
                       </ListItemButton>
                     </ConditionalWrapper>

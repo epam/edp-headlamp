@@ -5,9 +5,9 @@ import { CopyButton } from '../../../../../../../../components/CopyButton';
 import { QuickLink } from '../../../../../../../../components/QuickLink';
 import { StatusIcon } from '../../../../../../../../components/StatusIcon';
 import { TextWithTooltip } from '../../../../../../../../components/TextWithTooltip';
-import { CODEBASE_VERSIONING_TYPES } from '../../../../../../../../constants/codebaseVersioningTypes';
-import { GIT_PROVIDERS } from '../../../../../../../../constants/gitProviders';
-import { CUSTOM_RESOURCE_STATUSES } from '../../../../../../../../constants/statuses';
+import { CODEBASE_VERSIONING_TYPE } from '../../../../../../../../constants/codebaseVersioningTypes';
+import { GitProvider } from '../../../../../../../../constants/gitProviders';
+import { CUSTOM_RESOURCE_STATUS } from '../../../../../../../../constants/statuses';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { CodebaseBranchKubeObject } from '../../../../../../../../k8s/groups/EDP/CodebaseBranch';
 import { PipelineRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/PipelineRun';
@@ -47,8 +47,8 @@ export const Summary = ({
     );
 
   const isEDPVersioning =
-    codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES.EDP ||
-    codebaseData.spec.versioning.type === CODEBASE_VERSIONING_TYPES.SEMVER;
+    codebaseData?.spec.versioning.type === CODEBASE_VERSIONING_TYPE.EDP ||
+    codebaseData?.spec.versioning.type === CODEBASE_VERSIONING_TYPE.SEMVER;
 
   const theme = useTheme();
 
@@ -72,7 +72,7 @@ export const Summary = ({
                 <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
                   {`Status: ${status || 'Unknown'}`}
                 </Typography>
-                {status === CUSTOM_RESOURCE_STATUSES.FAILED && (
+                {status === CUSTOM_RESOURCE_STATUS.FAILED && (
                   <Typography
                     variant={'subtitle2'}
                     style={{ marginTop: theme.typography.pxToRem(10) }}
@@ -84,7 +84,7 @@ export const Summary = ({
             }
           />
 
-          <Stack direction="row" alignItems="center">
+          <Stack direction="row" alignItems="center" spacing={0.5}>
             <TextWithTooltip
               text={codebaseBranchData.spec.branchName}
               textSX={{
@@ -103,7 +103,7 @@ export const Summary = ({
             </Box>
           </Stack>
 
-          {isDefaultBranch(codebaseData, codebaseBranchData) && (
+          {codebaseData && isDefaultBranch(codebaseData, codebaseBranchData) && (
             <Chip
               label="default"
               size="small"
@@ -183,7 +183,7 @@ export const Summary = ({
                 name={{ label: 'GIT' }}
                 icon={ICONS.NEW_WINDOW}
                 externalLink={LinkCreationService.git.createRepoBranchLink(
-                  gitServerByCodebase?.spec.gitProvider as GIT_PROVIDERS,
+                  gitServerByCodebase?.spec.gitProvider as GitProvider,
                   codebaseData?.status?.gitWebUrl,
                   codebaseBranchData?.spec.branchName
                 )}

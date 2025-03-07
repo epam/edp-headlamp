@@ -8,7 +8,7 @@ export interface UseDataProps<DataType> {
     order: ValueOf<typeof SORT_ORDERS>;
     sortFn: (a: DataType, b: DataType) => number;
   };
-  filterFunction: (el: DataType) => boolean;
+  filterFunction?: (el: DataType) => boolean;
   isLoading: boolean;
   error: unknown;
 }
