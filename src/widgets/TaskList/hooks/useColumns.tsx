@@ -6,7 +6,7 @@ import { TableColumn } from '../../../components/Table/types';
 import { TextWithTooltip } from '../../../components/TextWithTooltip';
 import { TABLE } from '../../../constants/tables';
 import { TaskKubeObjectInterface } from '../../../k8s/groups/Tekton/Task/types';
-import { routeTaskDetails } from '../../../pages/configuration/pages/task-details/route';
+import { routeTaskDetails } from '../../../pages/pipelines/pages/task-details/route';
 import { columnNames } from '../constants';
 
 export const useColumns = (): TableColumn<TaskKubeObjectInterface>[] => {

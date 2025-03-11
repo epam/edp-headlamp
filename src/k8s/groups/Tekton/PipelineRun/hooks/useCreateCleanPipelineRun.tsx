@@ -2,7 +2,7 @@ import React from 'react';
 import { Snackbar } from '../../../../../components/Snackbar';
 import { CRUD_TYPE } from '../../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../../hooks/useResourceCRUDMutation';
-import { routePipelineRunDetails } from '../../../../../pages/pipeline-details/route';
+import { routePipelineRunDetails } from '../../../../../pages/pipelines/pages/pipeline-run-details/route';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 import { PipelineRunKubeObject } from '../index';
 import { PipelineRunKubeObjectInterface } from '../types';
@@ -23,7 +23,7 @@ export const useCreateCleanPipelineRun = ({
 
   const cleanPipelineRunCreateMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
-    CRUD_TYPE.CREATE
+    typeof CRUD_TYPE.CREATE
   >('cleanPipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPE.CREATE, {
     createCustomMessages: (item) => ({
       onMutate: {

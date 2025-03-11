@@ -11,8 +11,8 @@ import { sortKubeObjectByCreationTimestamp } from '../../utils/sort/sortKubeObje
 import { useColumns } from './hooks/useColumns';
 import { PipelineListProps } from './types';
 
-export const PipelineList = ({ pipelines, isLoading, error }: PipelineListProps) => {
-  const columns = useColumns();
+export const PipelineList = ({ pipelines, isLoading, error, permissions }: PipelineListProps) => {
+  const columns = useColumns({ permissions });
 
   const sortedPipelines = React.useMemo(() => {
     return pipelines?.sort(sortKubeObjectByCreationTimestamp);

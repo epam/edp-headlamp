@@ -27,28 +27,28 @@ import RouteJiraPage from '../pages/configuration/pages/jira/page';
 import { routeJira } from '../pages/configuration/pages/jira/route';
 import RouteNexusPage from '../pages/configuration/pages/nexus/page';
 import { routeNexus } from '../pages/configuration/pages/nexus/route';
-import RoutePipelineDetailsPage from '../pages/configuration/pages/pipeline-details/page';
-import { routePipelineDetails } from '../pages/configuration/pages/pipeline-details/route';
-import RoutePipelineListPage from '../pages/configuration/pages/pipeline-list/page';
-import { routePipelineList } from '../pages/configuration/pages/pipeline-list/route';
 import RouteQuickLinkListPage from '../pages/configuration/pages/quicklinks/page';
 import { routeQuickLinkList } from '../pages/configuration/pages/quicklinks/route';
 import RouteRegistryListPage from '../pages/configuration/pages/registry/page';
 import { routeRegistry } from '../pages/configuration/pages/registry/route';
 import RouteSonarPage from '../pages/configuration/pages/sonar/page';
 import { routeSonar } from '../pages/configuration/pages/sonar/route';
-import RouteTaskDetailsPage from '../pages/configuration/pages/task-details/page';
-import { routeTaskDetails } from '../pages/configuration/pages/task-details/route';
-import RouteTaskListPage from '../pages/configuration/pages/task-list/page';
-import { routeTaskList } from '../pages/configuration/pages/task-list/route';
 import RouteMarketplacePage from '../pages/marketplace/page';
 import { routeMarketplace } from '../pages/marketplace/route';
 import RouteOverviewListPage from '../pages/overview-list/page';
 import { routeOverviewList } from '../pages/overview-list/route';
-import RoutePipelineRunDetailsPage from '../pages/pipeline-details/page';
-import { routePipelineRunDetails } from '../pages/pipeline-details/route';
-import RoutePipelineRunListPage from '../pages/pipelines/page';
-import { routePipelineRunList } from '../pages/pipelines/route';
+import RoutePipelineDetailsPage from '../pages/pipelines/pages/pipeline-details/page';
+import { routePipelineDetails } from '../pages/pipelines/pages/pipeline-details/route';
+import RoutePipelineListPage from '../pages/pipelines/pages/pipeline-list/page';
+import { routePipelineList } from '../pages/pipelines/pages/pipeline-list/route';
+import RoutePipelineRunDetailsPage from '../pages/pipelines/pages/pipeline-run-details/page';
+import { routePipelineRunDetails } from '../pages/pipelines/pages/pipeline-run-details/route';
+import RoutePipelineRunListPage from '../pages/pipelines/pages/pipeline-run-list/page';
+import { routePipelineRunList } from '../pages/pipelines/pages/pipeline-run-list/route';
+import RouteTaskDetailsPage from '../pages/pipelines/pages/task-details/page';
+import { routeTaskDetails } from '../pages/pipelines/pages/task-details/route';
+import RouteTaskListPage from '../pages/pipelines/pages/task-list/page';
+import { routeTaskList } from '../pages/pipelines/pages/task-list/route';
 import RouteStageDetailsPage from '../pages/stage-details/page';
 import { routeStageDetails } from '../pages/stage-details/route';
 
@@ -59,6 +59,22 @@ export default [
   // Pipelines
   { ...routePipelineRunList, component: () => <RoutePipelineRunListPage /> },
   { ...routePipelineRunDetails, component: () => <RoutePipelineRunDetailsPage /> },
+  {
+    ...routePipelineList,
+    component: () => <RoutePipelineListPage />,
+  },
+  {
+    ...routePipelineDetails,
+    component: () => <RoutePipelineDetailsPage />,
+  },
+  {
+    ...routeTaskList,
+    component: () => <RouteTaskListPage />,
+  },
+  {
+    ...routeTaskDetails,
+    component: () => <RouteTaskDetailsPage />,
+  },
 
   // Components & children
   { ...routeComponentList, component: () => <RouteComponentListPage /> },
@@ -90,22 +106,7 @@ export default [
     ...routeQuickLinkList,
     component: () => <RouteQuickLinkListPage />,
   },
-  {
-    ...routePipelineList,
-    component: () => <RoutePipelineListPage />,
-  },
-  {
-    ...routePipelineDetails,
-    component: () => <RoutePipelineDetailsPage />,
-  },
-  {
-    ...routeTaskList,
-    component: () => <RouteTaskListPage />,
-  },
-  {
-    ...routeTaskDetails,
-    component: () => <RouteTaskDetailsPage />,
-  },
+
   // Marketplace
 
   { ...routeMarketplace, component: () => <RouteMarketplacePage /> },

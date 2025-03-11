@@ -1,6 +1,6 @@
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { SavedTableSettings } from '../../components/Table/components/TableSettings/types';
-import { PIPELINE_TYPE } from '../../constants/pipelineTypes';
+import { PipelineType } from '../../constants/pipelineTypes';
 import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 import { ControlName } from '../../providers/Filter/types';
 import { PermissionsConfig } from '../../providers/Permissions/types';
@@ -25,7 +25,7 @@ export interface PipelineRunListProps {
   tableSettings?: SavedTableSettings;
   blockerError?: ApiError;
   errors?: ApiError[] | null;
-  pipelineRunTypes?: PIPELINE_TYPE[];
+  pipelineRunTypes?: PipelineType[];
   filterControls?: PipelineRunFilterControlNames[];
 }
 
