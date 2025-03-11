@@ -16,7 +16,7 @@ import {
   getTaskRunStepReason,
   getTaskRunStepStatus,
 } from '../../k8s/groups/Tekton/TaskRun/utils/getStatus';
-import { routePipelineRunDetails } from '../../pages/pipeline-details/route';
+import { routePipelineRunDetails } from '../../pages/pipelines/pages/pipeline-run-details/route';
 import { humanize } from '../../utils/date/humanize';
 import { usePipelineRunGraphData } from './hooks/usePipelineRunGraphData';
 import { useStyles } from './styles';

@@ -13,7 +13,7 @@ import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
 import { PIPELINE_RUN_REASON } from '../../k8s/groups/Tekton/PipelineRun/constants';
 import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 import { createRerunPipelineRunInstance } from '../../k8s/groups/Tekton/PipelineRun/utils/createRerunPipelineRunInstance';
-import { routePipelineRunDetails } from '../../pages/pipeline-details/route';
+import { routePipelineRunDetails } from '../../pages/pipelines/pages/pipeline-run-details/route';
 import { createResourceAction } from '../../utils/actions/createResourceAction';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
@@ -34,7 +34,7 @@ export const PipelineRunActionsMenu = ({
 
   const pipelineRunCreateMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
-    CRUD_TYPE.CREATE
+    typeof CRUD_TYPE.CREATE
   >('pipelineRunCreateMutation', PipelineRunKubeObject, CRUD_TYPE.CREATE, {
     createCustomMessages: (item) => ({
       onMutate: {
@@ -71,7 +71,7 @@ export const PipelineRunActionsMenu = ({
 
   const pipelineRunEditMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
-    CRUD_TYPE.EDIT
+    typeof CRUD_TYPE.EDIT
   >('pipelineRunEditMutation', PipelineRunKubeObject, CRUD_TYPE.EDIT, {
     createCustomMessages: () => ({
       onMutate: {
@@ -88,7 +88,7 @@ export const PipelineRunActionsMenu = ({
 
   const pipelineRunDeleteMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
-    CRUD_TYPE.DELETE
+    typeof CRUD_TYPE.DELETE
   >('pipelineRunDeleteMutation', PipelineRunKubeObject, CRUD_TYPE.DELETE, {
     createCustomMessages: () => ({
       onMutate: {

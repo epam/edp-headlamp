@@ -3,8 +3,8 @@ import React from 'react';
 import { StatusIcon } from '../../../../components/StatusIcon';
 import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/PipelineRun/types';
-import { routePipelineDetails } from '../../../../pages/configuration/pages/pipeline-details/route';
-import { routePipelineRunDetails } from '../../../../pages/pipeline-details/route';
+import { routePipelineDetails } from '../../../../pages/pipelines/pages/pipeline-details/route';
+import { routePipelineRunDetails } from '../../../../pages/pipelines/pages/pipeline-run-details/route';
 import { formatFullYear, humanizeDefault } from '../../../../utils/date/humanize';
 
 export const useInfoRows = (pipelineRun: PipelineRunKubeObjectInterface) => {

@@ -1,4 +1,5 @@
 import { routeQuickLinkList } from '../pages/configuration/pages/quicklinks/route';
+import { routePipelineRunList } from '../pages/pipelines/pages/pipeline-run-list/route';
 import { createNewSidebarItem } from '../utils/routes/createNewSidebarItem';
 import { createSidebarItemName } from '../utils/routes/createSidebarItemName';
 import {
@@ -6,7 +7,6 @@ import {
   CONFIGURATION_ROUTE_NAME,
   DEPLOYMENT_FLOWS_ROUTE_NAME,
   MARKETPLACE_ROUTE_NAME,
-  PIPELINES_ROUTE_NAME,
 } from './names';
 import { SidebarItem } from './types';
 
@@ -20,7 +20,15 @@ export const SIDEBAR_LIST: SidebarItem[] = [
       icon: 'material-symbols:space-dashboard',
     },
   },
-  createNewSidebarItem('Pipelines', PIPELINES_ROUTE_NAME, 'fluent:pipeline-20-filled'),
+  {
+    parentName: null,
+    itemLabel: 'Pipelines',
+    itemName: createSidebarItemName('pipelines'),
+    url: routePipelineRunList.path,
+    opts: {
+      icon: 'fluent:pipeline-20-filled',
+    },
+  },
   createNewSidebarItem('Marketplace', MARKETPLACE_ROUTE_NAME, 'material-symbols:shopping-cart'),
   createNewSidebarItem('Components', COMPONENTS_ROUTE_NAME, 'material-symbols:layers'),
   createNewSidebarItem(

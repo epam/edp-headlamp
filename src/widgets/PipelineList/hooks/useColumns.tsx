@@ -9,12 +9,18 @@ import { TextWithTooltip } from '../../../components/TextWithTooltip';
 import { TABLE } from '../../../constants/tables';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { PipelineKubeObjectInterface } from '../../../k8s/groups/Tekton/Pipeline/types';
-import { routePipelineDetails } from '../../../pages/configuration/pages/pipeline-details/route';
+import { routePipelineDetails } from '../../../pages/pipelines/pages/pipeline-details/route';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
 import { PipelineGraphDialog } from '../../dialogs/PipelineGraph';
+import { Actions } from '../Actions';
 import { columnNames } from '../constants';
+import { WidgetPermissions } from '../types';
 
-export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
+export const useColumns = ({
+  permissions,
+}: {
+  permissions: WidgetPermissions;
+}): TableColumn<PipelineKubeObjectInterface>[] => {
   const { setDialog } = useDialogContext();
   const { loadSettings } = useTableSettings(TABLE.PIPELINE_LIST.id);
 
@@ -124,7 +130,19 @@ export const useColumns = (): TableColumn<PipelineKubeObjectInterface>[] => {
           },
         },
       },
+      {
+        id: columnNames.ACTIONS,
+        label: 'Actions',
+        data: {
+          render: ({ data }) => <Actions resource={data} permissions={permissions} />,
+        },
+        cell: {
+          isFixed: true,
+          customizable: false,
+          ...getSyncedColumnData(tableSettings, columnNames.ACTIONS, 5),
+        },
+      },
     ],
-    [setDialog, tableSettings]
+    [permissions, setDialog, tableSettings]
   );
 };

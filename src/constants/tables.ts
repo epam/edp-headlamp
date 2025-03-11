@@ -7,6 +7,10 @@ export const TABLE = {
     id: 'branchPipelineRunList',
     name: 'Branch Pipeline Run List',
   },
+  PIPELINE_PIPELINE_RUN_LIST: {
+    id: 'pipelinePipelineRunList',
+    name: 'Pipeline Pipeline Run List',
+  },
   STAGE_PIPELINE_RUN_LIST: {
     id: 'stagePipelineRunList',
     name: 'Environment Pipeline Run List',

@@ -3,4 +3,5 @@ export const columnNames = {
   DESCRIPTION: 'Description',
   CREATED_AT: 'Created At',
   DIAGRAM: 'Diagram',
+  ACTIONS: 'Actions',
 } as const;
