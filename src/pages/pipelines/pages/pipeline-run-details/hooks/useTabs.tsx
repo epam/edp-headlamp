@@ -1,8 +1,10 @@
 import { NameValueTable } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Box } from '@mui/material';
+import { Box, Link } from '@mui/material';
 import React from 'react';
 import { ViewYAML } from '../../../../../components/Editor';
+import { VALIDATED_PROTOCOL } from '../../../../../constants/validatedProtocols';
 import { useTabsContext } from '../../../../../providers/Tabs/hooks';
+import { getValidURLPattern } from '../../../../../utils/checks/getValidURLPattern';
 import { PipelineRunGraph } from '../../../../../widgets/PipelineRunGraph';
 import { Details } from '../components/Details';
 import { Overview } from '../components/Overview';
@@ -64,10 +66,20 @@ export const useTabs = () => {
             }}
           >
             <NameValueTable
-              rows={(pipelineRun.data?.status?.results || []).map((el) => ({
-                name: el.name,
-                value: el.value,
-              }))}
+              rows={(pipelineRun.data?.status?.results || []).map((el) => {
+                const isLink = getValidURLPattern(VALIDATED_PROTOCOL.HTTP_OR_HTTPS).test(el.value);
+
+                return {
+                  name: el.name,
+                  value: isLink ? (
+                    <Link href={el.value} target="_blank">
+                      {el.value}
+                    </Link>
+                  ) : (
+                    el.value
+                  ),
+                };
+              })}
             />
           </Box>
         ),
