@@ -9,7 +9,7 @@ import {
   CONTAINER_REGISTRY_PLATFORM,
   CONTAINER_REGISTRY_TYPE,
 } from '../../k8s/groups/default/ConfigMap/constants';
-import { createEdpConfigMapMock } from '../../k8s/groups/default/ConfigMap/mocks/edp-config-map.mock';
+import { createEdpConfigMapMock } from '../../k8s/groups/default/ConfigMap/mocks/krci-config-map.mock';
 import { ConfigMapKubeObjectInterface } from '../../k8s/groups/default/ConfigMap/types';
 import {
   ECRPushSecretMock,

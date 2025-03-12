@@ -5,7 +5,7 @@ export const createEmptyEdpConfigMapMock = (
   platform: ValueOf<typeof CONTAINER_REGISTRY_PLATFORM>
 ) => ({
   metadata: {
-    name: 'edp-config',
+    name: 'krci-config',
     namespace: 'test-namespace',
   },
   data: {
@@ -26,7 +26,7 @@ export const createEdpConfigMapMock = (
   platform: ValueOf<typeof CONTAINER_REGISTRY_PLATFORM>
 ) => ({
   metadata: {
-    name: 'edp-config',
+    name: 'krci-config',
     namespace: 'test-namespace',
   },
   data: {
