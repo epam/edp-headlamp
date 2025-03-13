@@ -10,8 +10,8 @@ import { getClusterSettings } from '../../utils/getClusterSettings';
 import { useColumns } from './hooks/useColumns';
 import { TaskListProps } from './types';
 
-export const TaskList = ({ tasks, isLoading, error }: TaskListProps) => {
-  const columns = useColumns();
+export const TaskList = ({ tasks, isLoading, error, permissions }: TaskListProps) => {
+  const columns = useColumns({ permissions });
 
   const { filterFunction } = useFilterContext();
 

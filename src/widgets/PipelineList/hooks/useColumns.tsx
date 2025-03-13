@@ -12,7 +12,7 @@ import { PipelineKubeObjectInterface } from '../../../k8s/groups/Tekton/Pipeline
 import { routePipelineDetails } from '../../../pages/pipelines/pages/pipeline-details/route';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
 import { PipelineGraphDialog } from '../../dialogs/PipelineGraph';
-import { Actions } from '../Actions';
+import { Actions } from '../components/Actions';
 import { columnNames } from '../constants';
 import { WidgetPermissions } from '../types';
 

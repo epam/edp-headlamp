@@ -7,9 +7,15 @@ import { TextWithTooltip } from '../../../components/TextWithTooltip';
 import { TABLE } from '../../../constants/tables';
 import { TaskKubeObjectInterface } from '../../../k8s/groups/Tekton/Task/types';
 import { routeTaskDetails } from '../../../pages/pipelines/pages/task-details/route';
+import { Actions } from '../components/Actions';
 import { columnNames } from '../constants';
+import { WidgetPermissions } from '../types';
 
-export const useColumns = (): TableColumn<TaskKubeObjectInterface>[] => {
+export const useColumns = ({
+  permissions,
+}: {
+  permissions: WidgetPermissions;
+}): TableColumn<TaskKubeObjectInterface>[] => {
   const { loadSettings } = useTableSettings(TABLE.TASK_LIST.id);
 
   const tableSettings = loadSettings();
@@ -91,7 +97,19 @@ export const useColumns = (): TableColumn<TaskKubeObjectInterface>[] => {
           ...getSyncedColumnData(tableSettings, columnNames.CREATED_AT, 25),
         },
       },
+      {
+        id: columnNames.ACTIONS,
+        label: 'Actions',
+        data: {
+          render: ({ data }) => <Actions resource={data} permissions={permissions} />,
+        },
+        cell: {
+          isFixed: true,
+          customizable: false,
+          ...getSyncedColumnData(tableSettings, columnNames.ACTIONS, 5),
+        },
+      },
     ],
-    [tableSettings]
+    [permissions, tableSettings]
   );
 };

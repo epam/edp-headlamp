@@ -1,5 +1,5 @@
 export const PipelineKubeObjectConfig = {
-  kind: 'PipelineRun',
+  kind: 'Pipeline',
   name: {
     singularForm: 'pipeline',
     pluralForm: 'pipelines',
