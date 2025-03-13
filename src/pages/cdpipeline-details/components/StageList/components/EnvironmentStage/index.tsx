@@ -143,7 +143,6 @@ export const EnvironmentStage = ({
                         label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.MONITORING],
                         value: SYSTEM_QUICK_LINKS.MONITORING,
                       }}
-                      icon={ICONS.GRAFANA}
                       iconBase64={monitoringQuickLink?.spec?.icon}
                       enabledText="Open Metrics"
                       externalLink={LinkCreationService.monitoring.createDashboardLink({
@@ -161,7 +160,6 @@ export const EnvironmentStage = ({
                         label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.LOGGING],
                         value: SYSTEM_QUICK_LINKS.LOGGING,
                       }}
-                      icon={ICONS.OPENSEARCH}
                       iconBase64={loggingQuickLink?.spec?.icon}
                       enabledText="Open Logs"
                       externalLink={LinkCreationService.logging.createDashboardLink({
