@@ -7,8 +7,10 @@ import { Section } from '../../../../components/Section';
 import { TaskKubeObject } from '../../../../k8s/groups/Tekton/Task';
 import { Tabs } from '../../../../providers/Tabs/components/Tabs';
 import { useTabsContext } from '../../../../providers/Tabs/hooks';
+import { TaskActionsMenu } from '../../../../widgets/TaskActionsMenu';
 import { routeTaskList } from '../task-list/route';
 import { useTabs } from './hooks/useTabs';
+import { useTypedPermissions } from './hooks/useTypedPermissions';
 import { TaskDetailsRouteParams } from './types';
 
 export const PageView = () => {
@@ -17,6 +19,8 @@ export const PageView = () => {
 
   const tabs = useTabs({ task: item });
   const { activeTab, handleChangeTab } = useTabsContext();
+
+  const permissions = useTypedPermissions();
 
   const renderPageContent = React.useCallback(() => {
     if (error) {
@@ -29,6 +33,8 @@ export const PageView = () => {
       </LoadingWrapper>
     );
   }, [activeTab, error, handleChangeTab, item, tabs]);
+
+  const resourceIsLoaded = item !== null && !error;
 
   return (
     <PageWrapper
@@ -44,6 +50,17 @@ export const PageView = () => {
           label: name,
         },
       ]}
+      headerSlot={
+        resourceIsLoaded && (
+          <TaskActionsMenu
+            data={{
+              task: item?.jsonData ?? item,
+            }}
+            permissions={permissions}
+            variant="inline"
+          />
+        )
+      }
     >
       <Section title={name} enableCopyTitle>
         {renderPageContent()}

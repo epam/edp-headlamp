@@ -1,4 +1,6 @@
 import { KubeObjectClass } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { PipelineKubeObject } from '../../../../k8s/groups/Tekton/Pipeline';
+import { PipelineKubeObjectConfig } from '../../../../k8s/groups/Tekton/Pipeline/config';
 import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunKubeObjectConfig } from '../../../../k8s/groups/Tekton/PipelineRun/config';
 
@@ -9,6 +11,20 @@ export const permissionsToCheckConfig = {
       config: PipelineRunKubeObjectConfig,
     },
   ],
-  update: [],
-  delete: [],
+  update: [
+    {
+      instance: PipelineKubeObject as unknown as KubeObjectClass,
+      config: PipelineKubeObjectConfig,
+    },
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+  ],
+  delete: [
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+  ],
 };

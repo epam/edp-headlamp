@@ -1,16 +1,16 @@
 import { Icon } from '@iconify/react';
 import { IconButton } from '@mui/material';
 import React from 'react';
-import { ICONS } from '../../../icons/iconify-icons-mapping';
-import { PipelineKubeObjectInterface } from '../../../k8s/groups/Tekton/Pipeline/types';
-import { PipelineActionsMenu } from '../../PipelineActionsMenu';
-import { WidgetPermissions } from '../types';
+import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { TaskKubeObjectInterface } from '../../../../k8s/groups/Tekton/Task/types';
+import { TaskActionsMenu } from '../../../TaskActionsMenu';
+import { WidgetPermissions } from '../../types';
 
 export const Actions = ({
   resource,
   permissions,
 }: {
-  resource: PipelineKubeObjectInterface;
+  resource: TaskKubeObjectInterface;
   permissions: WidgetPermissions;
 }) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
@@ -26,11 +26,11 @@ export const Actions = ({
       >
         <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />
       </IconButton>
-      <PipelineActionsMenu
+      <TaskActionsMenu
         variant="menu"
         permissions={permissions}
         data={{
-          pipeline: resource?.jsonData || resource,
+          task: resource?.jsonData || resource,
         }}
         anchorEl={anchor}
         handleCloseResourceActionListMenu={() => setAnchor(null)}
