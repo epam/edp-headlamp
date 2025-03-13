@@ -74,7 +74,8 @@ export const CodebaseVersioning = () => {
           options={codebaseVersioningTypeSelectOptions}
         />
       </Grid>
-      {codebaseVersioningTypeFieldValue === CODEBASE_VERSIONING_TYPE.EDP ? (
+      {codebaseVersioningTypeFieldValue === CODEBASE_VERSIONING_TYPE.EDP ||
+      codebaseVersioningTypeFieldValue === CODEBASE_VERSIONING_TYPE.SEMVER ? (
         <>
           <Grid item xs={6}>
             <FormTextField
