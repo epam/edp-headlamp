@@ -346,7 +346,6 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
                           disabled=""
                           name="skipTLSVerify"
                           type="checkbox"
-                          value="false"
                         />
                         <svg
                           aria-hidden="true"

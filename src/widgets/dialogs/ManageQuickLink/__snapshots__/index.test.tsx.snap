@@ -157,7 +157,6 @@ exports[`ManageQuickLinkDialog renders ManageQuickLink Edit component 1`] = `
                           data-indeterminate="false"
                           name="visible"
                           type="checkbox"
-                          value="true"
                         />
                         <svg
                           aria-hidden="true"
@@ -486,7 +485,6 @@ exports[`ManageQuickLinkDialog renders ManageQuickLinkDialog Create component 1`
                           data-indeterminate="false"
                           name="visible"
                           type="checkbox"
-                          value="true"
                         />
                         <svg
                           aria-hidden="true"

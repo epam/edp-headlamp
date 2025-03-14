@@ -2085,7 +2085,6 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Docke
                 data-indeterminate="false"
                 name="useSameAccount"
                 type="checkbox"
-                value="false"
               />
               <svg
                 aria-hidden="true"
@@ -4442,7 +4441,6 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Docke
                 data-indeterminate="false"
                 name="useSameAccount"
                 type="checkbox"
-                value="true"
               />
               <svg
                 aria-hidden="true"
@@ -8735,7 +8733,6 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with GHCR 
                 data-indeterminate="false"
                 name="useSameAccount"
                 type="checkbox"
-                value="false"
               />
               <svg
                 aria-hidden="true"
@@ -11069,7 +11066,6 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Harbo
                 data-indeterminate="false"
                 name="useSameAccount"
                 type="checkbox"
-                value="false"
               />
               <svg
                 aria-hidden="true"
@@ -13425,7 +13421,6 @@ exports[`testing ManageRegistry Edit renders ManageRegistry component with Harbo
                 data-indeterminate="false"
                 name="useSameAccount"
                 type="checkbox"
-                value="true"
               />
               <svg
                 aria-hidden="true"

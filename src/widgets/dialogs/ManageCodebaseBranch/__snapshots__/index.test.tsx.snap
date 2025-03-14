@@ -426,7 +426,6 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                       data-indeterminate="false"
                       name="release"
                       type="checkbox"
-                      value="false"
                     />
                     <svg
                       aria-hidden="true"

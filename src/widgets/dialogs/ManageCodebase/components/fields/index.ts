@@ -19,3 +19,4 @@ export * from './RepositoryUrl';
 export * from './TestReportFramework';
 export * from './TicketNamePattern';
 export * from './DeploymentScript';
+export * from './Private';

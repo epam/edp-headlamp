@@ -9,6 +9,7 @@ const NAMES = {
   GIT_SERVER: 'gitServer',
   GIT_URL_PATH: 'gitUrlPath',
   EMPTY_PROJECT: 'emptyProject',
+  PRIVATE: 'private',
   NAME: 'name',
   NAMESPACE: 'namespace',
   DESCRIPTION: 'description',
@@ -75,6 +76,11 @@ export const CODEBASE_FORM_NAMES = {
     name: NAMES.EMPTY_PROJECT,
     formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     path: ['spec', 'emptyProject'],
+  },
+  [NAMES.PRIVATE]: {
+    name: NAMES.PRIVATE,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
+    path: ['spec', 'private'],
   },
   [NAMES.NAME]: {
     name: NAMES.NAME,

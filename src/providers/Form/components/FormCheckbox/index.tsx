@@ -16,17 +16,17 @@ export const FormCheckbox = React.forwardRef(
       <Stack spacing={1}>
         <FormControl fullWidth>
           <Controller
-            render={({ field }) => {
+            render={({ field: { value, ...fieldRest } }) => {
               return (
                 <FormControlLabel
                   style={{ margin: 0 }}
                   control={
                     <Checkbox
-                      {...field}
+                      {...fieldRest}
                       color={'primary'}
-                      checked={!!field.value}
+                      checked={!!value}
                       inputRef={ref}
-                      onChange={(e) => field.onChange(e.target.checked)}
+                      onChange={(e) => fieldRest.onChange(e.target.checked)}
                       disabled={disabled}
                       sx={{ translate: '-9px 0' }}
                     />

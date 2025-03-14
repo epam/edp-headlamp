@@ -25,6 +25,7 @@ export const useDefaultValues = (template: TemplateKubeObjectInterface) => {
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.defaultBranch.name]: defaultBranchName,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPE.SEMVER,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.emptyProject.name]: false,
+      [CODEBASE_FROM_TEMPLATE_FORM_NAMES.private.name]: true,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.gitServer.name]: firstValidGitServer?.metadata.name || '',
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFrom.name]: defaultEDPVersioningValue,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFromVersion.name]:
