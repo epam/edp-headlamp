@@ -14,6 +14,7 @@ const NAMES = {
   GIT_URL_PATH: 'gitUrlPath',
   DEFAULT_BRANCH: 'defaultBranch',
   EMPTY_PROJECT: 'emptyProject',
+  PRIVATE: 'private',
 
   // NOT USED IN RESOURCE DATA
   VERSIONING_START_FROM_VERSION: 'versioningStartFromVersion',
@@ -80,6 +81,10 @@ export const CODEBASE_FROM_TEMPLATE_FORM_NAMES = {
   [NAMES.EMPTY_PROJECT]: {
     name: NAMES.EMPTY_PROJECT,
     path: ['spec', 'emptyProject'],
+  },
+  [NAMES.PRIVATE]: {
+    name: NAMES.PRIVATE,
+    path: ['spec', 'private'],
   },
 
   // NOT USED IN RESOURCE DATA

@@ -28,8 +28,11 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
   const onEditorSave = React.useCallback(
     (editorReturnValues: KubeObjectInterface[]) => {
       const formValues = getValues();
+
       const usedValues = getUsedValues(formValues, CODEBASE_FORM_NAMES);
+
       handleEditorSave(editorReturnValues, usedValues);
+
       handleCloseEditor();
     },
     [getValues, handleCloseEditor, handleEditorSave]

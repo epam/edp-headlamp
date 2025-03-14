@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-import { CodebaseVersioning, Description, GitServer, GitUrlPath, Name } from '../fields';
+import { CodebaseVersioning, Description, GitServer, GitUrlPath, Name, Private } from '../fields';
 import { useUpdateVersioningFields } from './hooks/useUpdateVersioningFields';
 
 export const Form = () => {
@@ -23,6 +23,9 @@ export const Form = () => {
             <GitUrlPath />
           </Grid>
         </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Private />
       </Grid>
       <Grid item xs={12}>
         <CodebaseVersioning />

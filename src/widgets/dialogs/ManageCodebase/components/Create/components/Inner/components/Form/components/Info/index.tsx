@@ -16,6 +16,7 @@ import {
   GitUrlPath,
   Lang,
   Name,
+  Private,
   RepositoryLogin,
   RepositoryPasswordOrApiToken,
   RepositoryUrl,
@@ -77,9 +78,14 @@ export const Info = () => {
           <Description />
         </Grid>
         {strategyFieldValue === CODEBASE_CREATION_STRATEGY.CREATE && (
-          <Grid item xs={12}>
-            <EmptyProject />
-          </Grid>
+          <>
+            <Grid item xs={12}>
+              <Private />
+            </Grid>
+            <Grid item xs={12}>
+              <EmptyProject />
+            </Grid>
+          </>
         )}
         <Grid item xs={12}>
           <Lang />

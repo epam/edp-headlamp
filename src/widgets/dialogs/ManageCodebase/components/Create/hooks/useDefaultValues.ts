@@ -19,6 +19,7 @@ export const useDefaultValues = () => {
     () => ({
       [CODEBASE_FORM_NAMES.defaultBranch.name]: 'main',
       [CODEBASE_FORM_NAMES.emptyProject.name]: false,
+      [CODEBASE_FORM_NAMES.private.name]: true,
       [CODEBASE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPE.SEMVER,
       [CODEBASE_FORM_NAMES.versioningStartFrom.name]: defaultEDPVersioningValue,
       [CODEBASE_FORM_NAMES.versioningStartFromVersion.name]: defaultEDPVersioningVersion,

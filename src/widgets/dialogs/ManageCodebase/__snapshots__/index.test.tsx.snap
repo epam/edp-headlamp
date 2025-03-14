@@ -608,7 +608,6 @@ exports[`ManageCodebaseDialog renders ManageCodebaseDialog Edit component 1`] = 
                               data-indeterminate="false"
                               name="hasJiraServerIntegration"
                               type="checkbox"
-                              value="false"
                             />
                             <svg
                               aria-hidden="true"
@@ -735,7 +734,6 @@ exports[`ManageCodebaseDialog renders ManageCodebaseDialog Edit component 1`] = 
                               disabled=""
                               name="hasCodemieIntegration"
                               type="checkbox"
-                              value="false"
                             />
                             <svg
                               aria-hidden="true"

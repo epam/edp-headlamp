@@ -2079,7 +2079,6 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                         data-indeterminate="false"
                         name="overrideWebhookURL"
                         type="checkbox"
-                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -2198,7 +2197,6 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                         data-indeterminate="false"
                         name="skipWebhookSSLVerification"
                         type="checkbox"
-                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -4545,7 +4543,6 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                         data-indeterminate="false"
                         name="overrideWebhookURL"
                         type="checkbox"
-                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -4664,7 +4661,6 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                         data-indeterminate="false"
                         name="skipWebhookSSLVerification"
                         type="checkbox"
-                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -7011,7 +7007,6 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                         data-indeterminate="false"
                         name="overrideWebhookURL"
                         type="checkbox"
-                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -7130,7 +7125,6 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                         data-indeterminate="false"
                         name="skipWebhookSSLVerification"
                         type="checkbox"
-                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -9477,7 +9471,6 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                         data-indeterminate="false"
                         name="overrideWebhookURL"
                         type="checkbox"
-                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -9596,7 +9589,6 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                         data-indeterminate="false"
                         name="skipWebhookSSLVerification"
                         type="checkbox"
-                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -11943,7 +11935,6 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                         data-indeterminate="false"
                         name="overrideWebhookURL"
                         type="checkbox"
-                        value="false"
                       />
                       <svg
                         aria-hidden="true"
@@ -12062,7 +12053,6 @@ exports[`testing ManageGitServer Create renders ManageGitServer component withou
                         data-indeterminate="false"
                         name="skipWebhookSSLVerification"
                         type="checkbox"
-                        value="false"
                       />
                       <svg
                         aria-hidden="true"

@@ -323,7 +323,6 @@ exports[`renders ManageClusterSecret Create component 1`] = `
                           data-indeterminate="false"
                           name="skipTLSVerify"
                           type="checkbox"
-                          value="false"
                         />
                         <svg
                           aria-hidden="true"
