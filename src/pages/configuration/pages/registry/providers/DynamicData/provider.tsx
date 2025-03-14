@@ -1,6 +1,6 @@
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
-import { ConfigMapKubeObject } from '../../../../../../k8s/groups/default/ConfigMap';
-import { EDP_CONFIG_CONFIG_MAP_NAME } from '../../../../../../k8s/groups/default/ConfigMap/constants';
+import { useEDPConfigMapQuery } from '../../../../../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
 import { SecretKubeObject } from '../../../../../../k8s/groups/default/Secret';
 import { REGISTRY_SECRET_NAMES } from '../../../../../../k8s/groups/default/Secret/constants';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../../../k8s/groups/default/Secret/labels';
@@ -9,13 +9,11 @@ import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace
 import { DynamicDataContext } from './context';
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
-  const [configMaps, configMapsError] = ConfigMapKubeObject.useList({
-    namespace: getDefaultNamespace(),
-  });
-
-  const EDPConfigMap = configMaps?.find(
-    (item) => item.metadata.name === EDP_CONFIG_CONFIG_MAP_NAME
-  );
+  const {
+    data: EDPConfigMap,
+    isLoading: isEDPConfigMapLoading,
+    error: EDPConfigMapError,
+  } = useEDPConfigMapQuery({});
 
   const [serviceAccounts, serviceAccountsError] = ServiceAccountKubeObject.useList({
     namespace: getDefaultNamespace(),
@@ -34,8 +32,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     () => ({
       EDPConfigMap: {
         data: EDPConfigMap?.jsonData,
-        isLoading: configMaps === null,
-        error: configMapsError,
+        isLoading: isEDPConfigMapLoading,
+        error: EDPConfigMapError as ApiError,
       },
       pushAccountSecret: {
         data: registrySecrets?.find(
@@ -57,9 +55,9 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       },
     }),
     [
-      EDPConfigMap,
-      configMaps,
-      configMapsError,
+      EDPConfigMap?.jsonData,
+      EDPConfigMapError,
+      isEDPConfigMapLoading,
       registrySecrets,
       registrySecretsError,
       serviceAccounts,

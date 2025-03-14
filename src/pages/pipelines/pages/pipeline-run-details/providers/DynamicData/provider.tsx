@@ -3,7 +3,6 @@ import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { EDP_CONFIG_CONFIG_MAP_NAME } from '../../../../../../k8s/groups/default/ConfigMap/constants';
 import { useEDPConfigMapQuery } from '../../../../../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
 import { ApprovalTaskKubeObject } from '../../../../../../k8s/groups/EDP/ApprovalTask';
 import { ApprovalTaskKubeObjectInterface } from '../../../../../../k8s/groups/EDP/ApprovalTask/types';
@@ -111,9 +110,6 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   });
 
   const { data: EDPConfigMap } = useEDPConfigMapQuery({
-    props: {
-      name: EDP_CONFIG_CONFIG_MAP_NAME,
-    },
     options: {
       enabled: !pipelineRun && !!pipelineRunError,
     },
