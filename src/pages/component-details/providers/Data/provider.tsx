@@ -3,8 +3,7 @@ import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { ConfigMapKubeObject } from '../../../../k8s/groups/default/ConfigMap';
-import { EDP_CONFIG_CONFIG_MAP_NAME } from '../../../../k8s/groups/default/ConfigMap/constants';
+import { useEDPConfigMapQuery } from '../../../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
 import { SYSTEM_QUICK_LINKS } from '../../../../k8s/groups/EDP/QuickLink/constants';
 import { useQuickLinksURLsQuery } from '../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import {
@@ -75,7 +74,8 @@ export const DataContextProvider: React.FC = ({ children }) => {
   const token = getToken(cluster);
   const { namespace, name } = useParams<ComponentDetailsRouteParams>();
 
-  const [EDPConfigMap] = ConfigMapKubeObject.useGet(EDP_CONFIG_CONFIG_MAP_NAME, namespace);
+  const { data: EDPConfigMap } = useEDPConfigMapQuery({});
+
 
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
 

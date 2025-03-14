@@ -4,7 +4,6 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { DEFAULT_CLUSTER } from '../../../../../../constants/clusters';
 import { EDP_USER_GUIDE } from '../../../../../../constants/urls';
-import { EDP_CONFIG_CONFIG_MAP_NAME } from '../../../../../../k8s/groups/default/ConfigMap/constants';
 import { useEDPConfigMapQuery } from '../../../../../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
 import { routeClusters } from '../../../../../../pages/configuration/pages/clusters/route';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
@@ -23,11 +22,7 @@ export const Cluster = () => {
     formState: { errors },
   } = useTypedFormContext();
 
-  const { data, isLoading } = useEDPConfigMapQuery({
-    props: {
-      name: EDP_CONFIG_CONFIG_MAP_NAME,
-    },
-  });
+  const { data, isLoading } = useEDPConfigMapQuery({});
 
   const clusterOptions = React.useMemo(() => {
     if (isLoading || !data?.data?.available_clusters) {

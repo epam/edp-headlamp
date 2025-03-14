@@ -1,6 +1,5 @@
 import React from 'react';
-import { ConfigMapKubeObject } from '../../../../../k8s/groups/default/ConfigMap';
-import { EDP_CONFIG_CONFIG_MAP_NAME } from '../../../../../k8s/groups/default/ConfigMap/constants';
+import { useEDPConfigMapQuery } from '../../../../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
 import { CurrentDialogContext } from './context';
 import { CurrentDialogContextProviderProps } from './types';
 
@@ -9,11 +8,8 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
   props,
   state,
 }) => {
-  const [configMaps] = ConfigMapKubeObject.useList();
+  const { data: EDPConfigMap } = useEDPConfigMapQuery({});
 
-  const EDPConfigMap = configMaps?.find(
-    (item) => item.metadata.name === EDP_CONFIG_CONFIG_MAP_NAME
-  );
   const CurrentDialogContextValue = React.useMemo(
     () => ({
       props,

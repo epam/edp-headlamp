@@ -1,4 +1,5 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
+import { KubeObjectListInterface } from '../../../../types/k8s';
 import { streamResults } from '../../../common/streamResults';
 import { ConfigMapKubeObjectConfig } from './config';
 import { ConfigMapKubeObjectInterface, StreamListProps } from './types';
@@ -16,6 +17,14 @@ export class ConfigMapKubeObject extends K8s.configMap.default {
 
   static getItemByName(namespace: string, name: string): Promise<ConfigMapKubeObjectInterface> {
     const url = `/api/${version}/namespaces/${namespace}/${pluralForm}/${name}`;
+
+    return ApiProxy.request(url);
+  }
+
+  static getList(
+    namespace: string
+  ): Promise<KubeObjectListInterface<ConfigMapKubeObjectInterface>> {
+    const url = `/api/${version}/namespaces/${namespace}/${pluralForm}`;
 
     return ApiProxy.request(url);
   }
