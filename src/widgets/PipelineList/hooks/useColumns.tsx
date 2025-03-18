@@ -9,6 +9,7 @@ import { TextWithTooltip } from '../../../components/TextWithTooltip';
 import { TABLE } from '../../../constants/tables';
 import { ICONS } from '../../../icons/iconify-icons-mapping';
 import { PipelineKubeObjectInterface } from '../../../k8s/groups/Tekton/Pipeline/types';
+import { TriggerTemplateKubeObjectInterface } from '../../../k8s/groups/Tekton/TriggerTemplate/types';
 import { routePipelineDetails } from '../../../pages/pipelines/pages/pipeline-details/route';
 import { useDialogContext } from '../../../providers/Dialog/hooks';
 import { PipelineGraphDialog } from '../../dialogs/PipelineGraph';
@@ -18,8 +19,10 @@ import { WidgetPermissions } from '../types';
 
 export const useColumns = ({
   permissions,
+  triggerTemplates,
 }: {
   permissions: WidgetPermissions;
+  triggerTemplates: TriggerTemplateKubeObjectInterface[];
 }): TableColumn<PipelineKubeObjectInterface>[] => {
   const { setDialog } = useDialogContext();
   const { loadSettings } = useTableSettings(TABLE.PIPELINE_LIST.id);
@@ -134,7 +137,13 @@ export const useColumns = ({
         id: columnNames.ACTIONS,
         label: 'Actions',
         data: {
-          render: ({ data }) => <Actions resource={data} permissions={permissions} />,
+          render: ({ data }) => (
+            <Actions
+              resource={data}
+              permissions={permissions}
+              triggerTemplates={triggerTemplates}
+            />
+          ),
         },
         cell: {
           isFixed: true,
@@ -143,6 +152,6 @@ export const useColumns = ({
         },
       },
     ],
-    [permissions, setDialog, tableSettings]
+    [permissions, setDialog, tableSettings, triggerTemplates]
   );
 };

@@ -1,5 +1,5 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
-import { Stack, Tab, Tabs, Typography } from '@mui/material';
+import { Link as MuiLink, Stack, Tab, Tabs, Typography } from '@mui/material';
 import React from 'react';
 import { PageWrapper } from '../../../components/PageWrapper';
 import { pageDescription as pipelineListPageDescription } from '../pages/pipeline-list/constants';
@@ -35,7 +35,10 @@ export const PipelinesPageWrapper = ({ children }: React.PropsWithChildren<{}>) 
             {activePage.label}
           </Typography>
           <Typography variant={'body1'}>
-            {activePage.description} <Link routeName={activePage.docLink}>Learn more.</Link>
+            {activePage.description}{' '}
+            <MuiLink href={activePage.docLink} target="_blank">
+              Learn more.
+            </MuiLink>
           </Typography>
         </Stack>
         <div>

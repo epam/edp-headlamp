@@ -6,7 +6,6 @@ import { useTableSettings } from '../../../../../../components/Table/components/
 import { TABLE } from '../../../../../../constants/tables';
 import { PipelineRunKubeObject } from '../../../../../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunList } from '../../../../../../widgets/PipelineRunList';
-import { pipelineRunFilterControlNames } from '../../../../../../widgets/PipelineRunList/constants';
 import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 import { useInfoRows } from './hooks/useInfoRows';
 
@@ -34,10 +33,7 @@ export const Overview = ({ pipeline }) => {
         pipelineRuns={pipelineRuns}
         isLoading={pipelineRuns === null && !pipelineRunsError}
         permissions={permissions}
-        filterControls={[
-          pipelineRunFilterControlNames.PIPELINE_TYPE,
-          pipelineRunFilterControlNames.STATUS,
-        ]}
+        filterControls={[]}
         tableId={TABLE.PIPELINE_PIPELINE_RUN_LIST.id}
         tableName={TABLE.PIPELINE_PIPELINE_RUN_LIST.name}
         tableSettings={tableSettings}
