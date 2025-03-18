@@ -5,8 +5,10 @@ import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { Section } from '../../../../components/Section';
 import { PipelineKubeObject } from '../../../../k8s/groups/Tekton/Pipeline';
+import { TriggerTemplateKubeObject } from '../../../../k8s/groups/Tekton/TriggerTemplate';
 import { Tabs } from '../../../../providers/Tabs/components/Tabs';
 import { useTabsContext } from '../../../../providers/Tabs/hooks';
+import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { PipelineActionsMenu } from '../../../../widgets/PipelineActionsMenu';
 import { routePipelineList } from '../pipeline-list/route';
 import { useTabs } from './hooks/useTabs';
@@ -15,27 +17,31 @@ import { PipelineDetailsRouteParams } from './types';
 
 export const PageView = () => {
   const { namespace, name } = useParams<PipelineDetailsRouteParams>();
-  const [item, error] = PipelineKubeObject.useGet(name, namespace);
+  const [pipeline, pipelineError] = PipelineKubeObject.useGet(name, namespace);
+  const [triggerTemplates, triggerTemplatesError] = TriggerTemplateKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
 
-  const tabs = useTabs({ pipeline: item });
+  const tabs = useTabs({ pipeline });
 
   const { activeTab, handleChangeTab } = useTabsContext();
 
   const renderPageContent = React.useCallback(() => {
-    if (error) {
-      return <ErrorContent error={error} />;
+    if (pipelineError) {
+      return <ErrorContent error={pipelineError} />;
     }
 
     return (
-      <LoadingWrapper isLoading={item === null}>
+      <LoadingWrapper isLoading={pipeline === null}>
         <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
       </LoadingWrapper>
     );
-  }, [activeTab, error, handleChangeTab, item, tabs]);
+  }, [activeTab, handleChangeTab, pipeline, pipelineError, tabs]);
 
   const permissions = useTypedPermissions();
 
-  const resourceIsLoaded = item !== null && !error;
+  const resourcesAreLoaded =
+    pipeline !== null && triggerTemplates !== null && !pipelineError && !triggerTemplatesError;
 
   return (
     <PageWrapper
@@ -52,10 +58,11 @@ export const PageView = () => {
         },
       ]}
       headerSlot={
-        resourceIsLoaded && (
+        resourcesAreLoaded && (
           <PipelineActionsMenu
             data={{
-              pipeline: item?.jsonData ?? item,
+              pipeline: pipeline?.jsonData ?? pipeline,
+              triggerTemplates,
             }}
             permissions={permissions}
             variant="inline"

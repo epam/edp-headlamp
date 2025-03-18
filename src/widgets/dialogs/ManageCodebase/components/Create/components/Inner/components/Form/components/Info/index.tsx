@@ -77,15 +77,16 @@ export const Info = () => {
         <Grid item xs={12}>
           <Description />
         </Grid>
+        {(strategyFieldValue === CODEBASE_CREATION_STRATEGY.CREATE ||
+          strategyFieldValue === CODEBASE_CREATION_STRATEGY.CLONE) && (
+          <Grid item xs={12}>
+            <Private />
+          </Grid>
+        )}
         {strategyFieldValue === CODEBASE_CREATION_STRATEGY.CREATE && (
-          <>
-            <Grid item xs={12}>
-              <Private />
-            </Grid>
-            <Grid item xs={12}>
-              <EmptyProject />
-            </Grid>
-          </>
+          <Grid item xs={12}>
+            <EmptyProject />
+          </Grid>
         )}
         <Grid item xs={12}>
           <Lang />

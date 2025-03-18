@@ -10,22 +10,56 @@ import { RESOURCE_ACTION } from '../../constants/resourceActions';
 import { useResourceCRUDMutation } from '../../hooks/useResourceCRUDMutation';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { PipelineKubeObject } from '../../k8s/groups/Tekton/Pipeline';
+import { PIPELINE_LABEL_SELECTOR_TRIGGER_TEMPLATE } from '../../k8s/groups/Tekton/Pipeline/labels';
 import { PipelineKubeObjectInterface } from '../../k8s/groups/Tekton/Pipeline/types';
 import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 import { createPipelineRunInstanceFromPipeline } from '../../k8s/groups/Tekton/PipelineRun/utils/createPipelineRunInstanceFromPipeline';
+import { TriggerTemplateKubeObjectInterface } from '../../k8s/groups/Tekton/TriggerTemplate/types';
 import { routePipelineRunDetails } from '../../pages/pipelines/pages/pipeline-run-details/route';
 import { createResourceAction } from '../../utils/actions/createResourceAction';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { PipelineActionsMenuProps } from './types';
 
+const getPipelineRunFromTriggerTemplate = (
+  triggerTemplate: TriggerTemplateKubeObjectInterface | undefined,
+  pipeline: PipelineKubeObjectInterface
+) => {
+  if (!triggerTemplate) {
+    return null;
+  }
+
+  const pipelineRun = triggerTemplate.spec.resourcetemplates?.[0];
+
+  if (pipelineRun && pipelineRun.spec && pipelineRun.spec.pipelineRef) {
+    pipelineRun.spec.pipelineRef.name = pipeline.metadata.name;
+  }
+
+  return pipelineRun;
+};
+
 export const PipelineActionsMenu = ({
   variant,
-  data: { pipeline: _pipeline },
+  data: { pipeline: _pipeline, triggerTemplates },
   anchorEl,
   handleCloseResourceActionListMenu,
   permissions,
 }: PipelineActionsMenuProps) => {
+  const pipelineTriggerTemplate =
+    _pipeline.metadata?.labels?.[PIPELINE_LABEL_SELECTOR_TRIGGER_TEMPLATE];
+
+  const pipelineTriggerTemplateByName =
+    pipelineTriggerTemplate && triggerTemplates !== null
+      ? triggerTemplates.find(
+          (triggerTemplate) => triggerTemplate.metadata.name === pipelineTriggerTemplate
+        )
+      : null;
+
+  const pipelineTriggerTemplatePipelineRun = getPipelineRunFromTriggerTemplate(
+    pipelineTriggerTemplateByName,
+    _pipeline
+  );
+
   const pipelineRunCreateMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
     typeof CRUD_TYPE.CREATE
@@ -135,15 +169,16 @@ export const PipelineActionsMenu = ({
     return [
       createResourceAction({
         type: RESOURCE_ACTION.CREATE,
-        label: 'Build with params',
-        icon: ICONS.SETTINGS_REDO,
+        label: 'Run with params',
+        icon: ICONS.PLAY,
         item: pipeline,
         disabled: {
           status: !permissions?.create?.PipelineRun.allowed,
           reason: permissions?.create?.PipelineRun.reason,
         },
         callback: (pipeline: PipelineKubeObjectInterface) => {
-          const newPipelineRun = createPipelineRunInstanceFromPipeline(pipeline);
+          const newPipelineRun =
+            pipelineTriggerTemplatePipelineRun || createPipelineRunInstanceFromPipeline(pipeline);
           handleOpenCreateEditor(newPipelineRun);
           handleCloseResourceActionListMenu();
         },
@@ -169,6 +204,7 @@ export const PipelineActionsMenu = ({
     permissions?.create?.PipelineRun.reason,
     permissions?.update?.Pipeline.allowed,
     permissions?.update?.Pipeline.reason,
+    pipelineTriggerTemplatePipelineRun,
     handleCloseResourceActionListMenu,
   ]);
 
