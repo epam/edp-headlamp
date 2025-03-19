@@ -8,6 +8,7 @@ import { TestWrapper } from '../../../mocks/wrappers/default';
 import { DefectDojoCISecretMock } from '../../k8s/groups/default/Secret/mocks/defectdojo-ci-secret.mock';
 import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import { SYSTEM_QUICK_LINKS } from '../../k8s/groups/EDP/QuickLink/constants';
+import { DEFAULT_ALLOWED_REASON } from '../../providers/Permissions/constants';
 import { FORM_MODES } from '../../types/forms';
 import { ManageDefectDojo } from './index';
 
@@ -39,19 +40,23 @@ test('renders ManageDefectDojo Edit component', () => {
           create: {
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
           update: {
             QuickLink: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
           delete: {
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
         }}

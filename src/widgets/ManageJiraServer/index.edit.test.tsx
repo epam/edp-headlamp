@@ -9,6 +9,7 @@ import { JiraCISecretMock } from '../../k8s/groups/default/Secret/mocks/jira-ci-
 import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import { JiraServerMock } from '../../k8s/groups/EDP/JiraServer/mocks/jira-server.mock';
 import { JiraServerKubeObjectInterface } from '../../k8s/groups/EDP/JiraServer/types';
+import { DEFAULT_ALLOWED_REASON } from '../../providers/Permissions/constants';
 import { ManageJiraServer } from './index';
 
 test('renders ManageJiraServer Edit component', () => {
@@ -22,22 +23,27 @@ test('renders ManageJiraServer Edit component', () => {
           create: {
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
             JiraServer: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
           update: {
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
             JiraServer: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
           delete: {
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
         }}

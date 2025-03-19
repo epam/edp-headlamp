@@ -8,33 +8,18 @@ import { EmptyList } from '../../components/EmptyList';
 import { LearnMoreLink } from '../../components/LearnMoreLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
-import { CODEBASE_TYPE } from '../../constants/codebaseTypes';
 import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
-import { useCodebasesByTypeLabelQuery } from '../../k8s/groups/EDP/Codebase/hooks/useCodebasesByTypeLabelQuery';
-import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../k8s/groups/EDP/Codebase/labels';
+import { useGitOpsCodebaseQuery } from '../../k8s/groups/EDP/Codebase/hooks/useGitOpsCodebaseQuery';
 import { useDialogContext } from '../../providers/Dialog/hooks';
 import { ResourceActionListContextProvider } from '../../providers/ResourceActionList/provider';
-import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { ManageCDPipelineDialog } from '../../widgets/dialogs/ManageCDPipeline';
 import { routeGitOps } from '../configuration/pages/gitops/route';
 import { CDPipelineList } from './components/CDPipelineList';
 import { useTypedPermissions } from './hooks/useTypedPermissions';
 
 export const PageView = () => {
-  const gitOpsCodebaseQuery = useCodebasesByTypeLabelQuery({
-    props: {
-      namespace: getDefaultNamespace(),
-      codebaseType: CODEBASE_TYPE.SYSTEM,
-    },
-    options: {
-      select: (data) => {
-        return data?.items.find(
-          (el) => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
-        );
-      },
-    },
-  });
+  const gitOpsCodebaseQuery = useGitOpsCodebaseQuery();
 
   const { setDialog } = useDialogContext();
 
@@ -68,8 +53,8 @@ export const PageView = () => {
                   }),
                 disabled: !gitOpsCodebaseQuery.data,
               }}
-              disabled={!permissions?.create?.CDPipeline.allowed}
-              reason={permissions?.create?.CDPipeline.reason}
+              disabled={!permissions.create.CDPipeline.allowed}
+              reason={permissions.create.CDPipeline.reason}
             >
               create deployment flow
             </ButtonWithPermission>

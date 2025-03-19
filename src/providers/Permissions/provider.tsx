@@ -3,6 +3,7 @@ import { useQueries } from 'react-query';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { Action } from '../../types/permissions';
 import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
+import { DEFAULT_ALLOWED_REASON } from './constants';
 import { PermissionsContext } from './context';
 import { PermissionConfig, PermissionsProviderProps } from './types';
 
@@ -45,6 +46,7 @@ export const PermissionsContextProvider = <T extends Record<string, PermissionCo
       if (!acc[action]) acc[action] = {};
       acc[action][kind] = {
         allowed,
+        reason: DEFAULT_ALLOWED_REASON,
       };
 
       if (!allowed) {

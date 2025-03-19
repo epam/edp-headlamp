@@ -47,7 +47,7 @@ export const PageView = () => {
 
   const codemieProjectSettingsEditMutation = useResourceCRUDMutation<
     CodemieProjectSettingsKubeObjectInterface,
-    CRUD_TYPE.EDIT
+    typeof CRUD_TYPE.EDIT
   >('codemieProjectSettingsEditMutation', CodemieProjectSettingsKubeObject, CRUD_TYPE.EDIT, {
     createCustomMessages: () => ({
       onMutate: {
@@ -64,7 +64,7 @@ export const PageView = () => {
 
   const codemieApplicationEditMutation = useResourceCRUDMutation<
     CodemieApplicationKubeObjectInterface,
-    CRUD_TYPE.EDIT
+    typeof CRUD_TYPE.EDIT
   >('codemieApplicationEditMutation', CodemieApplicationKubeObject, CRUD_TYPE.EDIT, {
     createCustomMessages: () => ({
       onMutate: {
@@ -118,8 +118,8 @@ export const PageView = () => {
         onClose: handleCloseCreateDialog,
         isDisabled: true,
         permission: {
-          allowed: permissions?.create?.Secret.allowed,
-          reason: permissions?.create?.Secret.reason,
+          allowed: permissions.create.Secret.allowed,
+          reason: permissions.create.Secret.reason,
         },
       }}
       pageDescription={pageDescription}

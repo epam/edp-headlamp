@@ -24,12 +24,12 @@ export const useQuickLinkCRUD = ({
 
   const QuickLinkCreateMutation = useResourceCRUDMutation<
     QuickLinkKubeObjectInterface,
-    CRUD_TYPE.CREATE
+    typeof CRUD_TYPE.CREATE
   >('QuickLinkCreateMutation', QuickLinkKubeObject, CRUD_TYPE.CREATE);
 
   const QuickLinkEditMutation = useResourceCRUDMutation<
     QuickLinkKubeObjectInterface,
-    CRUD_TYPE.EDIT
+    typeof CRUD_TYPE.EDIT
   >('QuickLinkEditMutation', QuickLinkKubeObject, CRUD_TYPE.EDIT);
 
   const createQuickLink = React.useCallback(

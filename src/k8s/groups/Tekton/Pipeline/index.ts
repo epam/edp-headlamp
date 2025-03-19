@@ -1,5 +1,5 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
-import { PIPELINE_TYPE } from '../../../../constants/pipelineTypes';
+import { PipelineType } from '../../../../constants/pipelineTypes';
 import { KubeObjectListInterface } from '../../../../types/k8s';
 import { PipelineKubeObjectConfig } from './config';
 import { PIPELINE_LABEL_SELECTOR_PIPELINE_TYPE } from './labels';
@@ -30,7 +30,7 @@ export class PipelineKubeObject extends K8s.cluster.makeKubeObject<PipelineKubeO
 
   static getListByPipelineType(
     namespace: string,
-    pipelineType: PIPELINE_TYPE
+    pipelineType: PipelineType
   ): Promise<KubeObjectListInterface<PipelineKubeObjectInterface>> {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}?labelSelector=${PIPELINE_LABEL_SELECTOR_PIPELINE_TYPE}=${pipelineType}`;
     return ApiProxy.request(url);

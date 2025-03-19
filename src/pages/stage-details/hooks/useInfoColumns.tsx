@@ -35,12 +35,11 @@ export const useInfoColumns = () => {
 
   const classes = useStyles();
 
-  const [icon, color, isRotating] = StageKubeObject.getStatusIcon(stage?.status?.status);
-
   return React.useMemo(() => {
-    if (isLoading) {
+    if (isLoading || !stage) {
       return [];
     }
+    const [icon, color, isRotating] = StageKubeObject.getStatusIcon(stage!.status?.status);
 
     return [
       [
@@ -57,11 +56,11 @@ export const useInfoColumns = () => {
                   Title={
                     <>
                       <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                        {`Status: ${stage?.status?.status || 'unknown'}`}
+                        {`Status: ${stage.status?.status || 'unknown'}`}
                       </Typography>
-                      {!!stage?.status?.detailed_message && (
+                      {!!stage.status?.detailed_message && (
                         <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                          {stage?.status?.detailed_message}
+                          {stage.status?.detailed_message}
                         </Typography>
                       )}
                     </>
@@ -69,7 +68,7 @@ export const useInfoColumns = () => {
                 />
               </Grid>
               <Grid item>
-                <Typography variant={'body2'}>{stage?.status?.status || 'unknown'}</Typography>
+                <Typography variant={'body2'}>{stage.status?.status || 'unknown'}</Typography>
               </Grid>
             </Grid>
           ),
@@ -77,7 +76,7 @@ export const useInfoColumns = () => {
         {
           label: 'Trigger Type',
           text:
-            stage?.spec.triggerType === TRIGGER_TYPE.MANUAL ? (
+            stage.spec.triggerType === TRIGGER_TYPE.MANUAL ? (
               <Chip label="manual" className={clsx([classes.labelChip, classes.labelChipBlue])} />
             ) : (
               <Chip label="auto" className={clsx([classes.labelChip, classes.labelChipGreen])} />
@@ -90,20 +89,20 @@ export const useInfoColumns = () => {
               <Grid item>
                 <Icon icon={ICONS.KUBERNETES} width={20} height={20} />
               </Grid>
-              <Grid item>{stage?.spec.clusterName}</Grid>
+              <Grid item>{stage.spec.clusterName}</Grid>
             </Grid>
           ),
         },
         {
           label: 'Namespace',
-          text: stage?.spec.namespace,
+          text: stage.spec.namespace,
         },
         {
           label: 'Deploy Pipeline',
-          text: (
+          text: stage.spec?.triggerTemplate && (
             <Pipeline
-              pipelineName={stage?.spec.triggerTemplate}
-              namespace={stage?.metadata.namespace}
+              pipelineName={stage.spec.triggerTemplate}
+              namespace={stage.metadata.namespace!}
             />
           ),
         },
@@ -111,17 +110,17 @@ export const useInfoColumns = () => {
           label: 'Clean Pipeline',
           text: (
             <Pipeline
-              pipelineName={stage?.spec.cleanTemplate}
-              namespace={stage?.metadata.namespace}
+              pipelineName={stage.spec.cleanTemplate}
+              namespace={stage.metadata.namespace!}
             />
           ),
         },
         {
           label: 'Description',
-          text: stage?.spec.description,
+          text: stage.spec.description,
           columnXs: 6,
         },
       ],
     ];
-  }, [classes, color, icon, isLoading, isRotating, stage]);
+  }, [classes, isLoading, stage]);
 };

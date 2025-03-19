@@ -90,7 +90,7 @@ export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
 
   const tabs = useTabs({ taskRun: customTaskRun });
 
-  const approvalTaskEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPE.EDIT>(
+  const approvalTaskEditMutation = useResourceCRUDMutation<KubeObjectInterface, typeof CRUD_TYPE.EDIT>(
     'approvalTaskEditMutation',
     ApprovalTaskKubeObject,
     CRUD_TYPE.EDIT

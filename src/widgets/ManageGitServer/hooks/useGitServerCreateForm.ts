@@ -20,7 +20,7 @@ export const useGitServerCreateForm = ({
   handleClosePanel: () => void;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const createMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, CRUD_TYPE.CREATE>(
+  const createMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, typeof CRUD_TYPE.CREATE>(
     'gitServerCreateMutation',
     GitServerKubeObject,
     CRUD_TYPE.CREATE
@@ -42,7 +42,7 @@ export const useGitServerCreateForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: GitServerFormValues) => {
-      if (!permissions?.create?.GitServer.allowed) {
+      if (!permissions.create.GitServer.allowed) {
         return false;
       }
 
@@ -71,7 +71,7 @@ export const useGitServerCreateForm = ({
         },
       });
     },
-    [createMutation, handleClosePanel, permissions?.create?.GitServer.allowed]
+    [createMutation, handleClosePanel, permissions.create.GitServer.allowed]
   );
 
   return React.useMemo(
@@ -81,16 +81,16 @@ export const useGitServerCreateForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: createMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions?.create?.GitServer.allowed,
-        reason: permissions?.create?.GitServer.reason,
+        isAllowed: permissions.create.GitServer.allowed,
+        reason: permissions.create.GitServer.reason,
       },
     }),
     [
       form,
       handleSubmit,
       createMutation.isLoading,
-      permissions?.create?.GitServer.allowed,
-      permissions?.create?.GitServer.reason,
+      permissions.create.GitServer.allowed,
+      permissions.create.GitServer.reason,
     ]
   );
 };

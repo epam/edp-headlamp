@@ -16,9 +16,9 @@ export const AddNewQuickLinkCard = () => {
 
   return (
     <ConditionalWrapper
-      condition={!permissions?.create?.QuickLink.allowed}
+      condition={!permissions.create.QuickLink.allowed}
       wrapper={(children) => (
-        <Tooltip title={permissions?.create?.QuickLink.reason}>
+        <Tooltip title={permissions.create.QuickLink.reason}>
           <div>{children}</div>
         </Tooltip>
       )}
@@ -26,7 +26,7 @@ export const AddNewQuickLinkCard = () => {
       <IconButton
         className={classes.cardRoot}
         onClick={() => setDialog(ManageQuickLinkDialog, { quickLink: null })}
-        disabled={!permissions?.create?.QuickLink.allowed}
+        disabled={!permissions.create.QuickLink.allowed}
       >
         <Stack direction="row" spacing={2} alignItems="center">
           <Icon icon={ICONS.PLUS} width={14} height={14} color={'inherit'} />

@@ -27,13 +27,13 @@ export const useStageCRUD = ({
   );
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-  const stageCreateMutation = useResourceCRUDMutation<StageKubeObjectInterface, CRUD_TYPE.CREATE>(
+  const stageCreateMutation = useResourceCRUDMutation<StageKubeObjectInterface, typeof CRUD_TYPE.CREATE>(
     'stageCreateMutation',
     StageKubeObject,
     CRUD_TYPE.CREATE
   );
 
-  const stageEditMutation = useResourceCRUDMutation<StageKubeObjectInterface, CRUD_TYPE.EDIT>(
+  const stageEditMutation = useResourceCRUDMutation<StageKubeObjectInterface, typeof CRUD_TYPE.EDIT>(
     'stageEditMutation',
     StageKubeObject,
     CRUD_TYPE.EDIT

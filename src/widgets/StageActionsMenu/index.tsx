@@ -35,8 +35,8 @@ export const StageActionsMenu = ({
         label: capitalizeFirstLetter(RESOURCE_ACTION.EDIT),
         icon: ICONS.PENCIL,
         disabled: {
-          status: !permissions?.update?.Stage.allowed,
-          reason: permissions?.update?.Stage.reason,
+          status: !permissions.update.Stage.allowed,
+          reason: permissions.update.Stage.reason,
         },
         callback: (stage) => {
           if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {

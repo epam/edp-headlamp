@@ -27,7 +27,7 @@ export const useCredentialsEditForm = ({
   gitServerSecret: SecretKubeObjectInterface;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const editMutation = useResourceCRUDMutation<SecretKubeObjectInterface, CRUD_TYPE.EDIT>(
+  const editMutation = useResourceCRUDMutation<SecretKubeObjectInterface, typeof CRUD_TYPE.EDIT>(
     'secretEditMutation',
     SecretKubeObject,
     CRUD_TYPE.EDIT
@@ -90,7 +90,7 @@ export const useCredentialsEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: CredentialsFormValues) => {
-      if (!permissions?.update?.Secret.allowed) {
+      if (!permissions.update.Secret.allowed) {
         return false;
       }
 
@@ -126,7 +126,7 @@ export const useCredentialsEditForm = ({
       })();
       editMutation.mutate(newGitServerSecret);
     },
-    [permissions?.update?.Secret.allowed, sharedForm, editMutation, gitServerSecret]
+    [permissions.update.Secret.allowed, sharedForm, editMutation, gitServerSecret]
   );
 
   return React.useMemo(
@@ -136,16 +136,16 @@ export const useCredentialsEditForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: editMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions?.update?.Secret.allowed,
-        reason: permissions?.update?.Secret.reason,
+        isAllowed: permissions.update.Secret.allowed,
+        reason: permissions.update.Secret.reason,
       },
     }),
     [
       form,
       handleSubmit,
       editMutation.isLoading,
-      permissions?.update?.Secret.allowed,
-      permissions?.update?.Secret.reason,
+      permissions.update.Secret.allowed,
+      permissions.update.Secret.reason,
     ]
   );
 };

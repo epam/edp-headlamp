@@ -5,6 +5,6 @@ export interface CurrentDialogContextProviderProps extends ManageCDPipelineDialo
 
 export interface CurrentDialogContextProviderValue extends CurrentDialogContextProviderProps {
   extra: {
-    applications: CodebaseKubeObjectInterface[];
+    applications: CodebaseKubeObjectInterface[] | undefined;
   };
 }

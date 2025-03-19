@@ -11,7 +11,7 @@ export type ExtractKinds<T extends PermissionConfig> = T['config']['kind'];
 
 export interface DetailedPermission {
   allowed: boolean;
-  reason?: string;
+  reason: string;
 }
 
 export type PermissionsMap<T extends PermissionConfig[]> = {

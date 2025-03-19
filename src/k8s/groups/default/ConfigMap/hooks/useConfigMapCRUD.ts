@@ -19,7 +19,7 @@ export const useConfigMapCRUD = ({
   const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-  const configMapEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPE.EDIT>(
+  const configMapEditMutation = useResourceCRUDMutation<KubeObjectInterface, typeof CRUD_TYPE.EDIT>(
     'configMapEditMutation',
     K8s.configMap.default,
     CRUD_TYPE.EDIT

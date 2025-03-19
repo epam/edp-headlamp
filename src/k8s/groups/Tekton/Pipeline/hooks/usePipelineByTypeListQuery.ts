@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions } from 'react-query';
-import { PIPELINE_TYPE } from '../../../../../constants/pipelineTypes';
+import { PipelineType } from '../../../../../constants/pipelineTypes';
 import { KubeObjectListInterface } from '../../../../../types/k8s';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 import { PipelineKubeObject } from '../index';
@@ -8,7 +8,7 @@ import { PipelineKubeObjectInterface } from '../types';
 
 interface UsePipelineByTypeListQueryProps<ReturnType> {
   props: {
-    pipelineType: PIPELINE_TYPE;
+    pipelineType: PipelineType;
     namespace?: string;
   };
   options?: UseQueryOptions<

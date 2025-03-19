@@ -44,8 +44,8 @@ export const PreviewTable = ({
             ),
             disabled: latestDeployPipelineRunIsRunning || latestCleanPipelineRunIsRunning,
           }}
-          disabled={!permissions?.create?.PipelineRun.allowed}
-          reason={permissions?.create?.PipelineRun.reason}
+          disabled={!permissions.create.PipelineRun.allowed}
+          reason={permissions.create.PipelineRun.reason}
         >
           Clean
         </ButtonWithPermission>
@@ -66,8 +66,8 @@ export const PreviewTable = ({
               latestCleanPipelineRunIsRunning ||
               deployBtnDisabled,
           }}
-          disabled={!permissions?.create?.PipelineRun.allowed}
-          reason={permissions?.create?.PipelineRun.reason}
+          disabled={!permissions.create.PipelineRun.allowed}
+          reason={permissions.create.PipelineRun.reason}
         >
           {deployBtnDisabled || latestDeployPipelineRunIsRunning ? 'Deploying' : 'Configure deploy'}
         </ButtonWithPermission>

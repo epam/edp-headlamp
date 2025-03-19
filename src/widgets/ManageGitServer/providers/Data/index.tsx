@@ -9,9 +9,7 @@ export const DataContextProvider: React.FC<DataContextProviderProps> = ({
   gitServerSecret,
   permissions,
 }) => {
-  const codebasesByGitServerQuery = useCodebasesByGitServerLabelQuery({
-    props: { codebaseGitServer: gitServer?.spec.gitProvider },
-  });
+  const codebasesByGitServerQuery = useCodebasesByGitServerLabelQuery(gitServer?.spec.gitProvider);
 
   return (
     <DataContext.Provider

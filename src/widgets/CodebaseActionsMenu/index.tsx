@@ -83,8 +83,8 @@ export const CodebaseActionsMenu = ({
         item: codebaseData,
         icon: ICONS.PENCIL,
         disabled: {
-          status: !permissions?.update?.Codebase.allowed,
-          reason: permissions?.update?.Codebase.reason,
+          status: !permissions.update.Codebase.allowed,
+          reason: permissions.update.Codebase.reason,
         },
         callback: (codebaseData) => {
           if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {

@@ -34,24 +34,23 @@ export const useCodebaseCRUD = ({
 
   const codebaseCreateMutation = useResourceCRUDMutation<
     CodebaseKubeObjectInterface,
-    CRUD_TYPE.CREATE
+    typeof CRUD_TYPE.CREATE
   >('codebaseCreateMutation', CodebaseKubeObject, CRUD_TYPE.CREATE);
 
   const codebaseSecretDeleteMutation = useResourceCRUDMutation<
     EDPKubeObjectInterface,
-    CRUD_TYPE.DELETE
+    typeof CRUD_TYPE.DELETE
   >('codebaseSecretDeleteMutation', K8s.secret.default, CRUD_TYPE.DELETE);
 
   const codebaseSecretCreateMutation = useResourceCRUDMutation<
     EDPKubeObjectInterface,
-    CRUD_TYPE.CREATE
+    typeof CRUD_TYPE.CREATE
   >('codebaseSecretCreateMutation', K8s.secret.default, CRUD_TYPE.CREATE);
 
-  const codebaseEditMutation = useResourceCRUDMutation<CodebaseKubeObjectInterface, CRUD_TYPE.EDIT>(
-    'codebaseEditMutation',
-    CodebaseKubeObject,
-    CRUD_TYPE.EDIT
-  );
+  const codebaseEditMutation = useResourceCRUDMutation<
+    CodebaseKubeObjectInterface,
+    typeof CRUD_TYPE.EDIT
+  >('codebaseEditMutation', CodebaseKubeObject, CRUD_TYPE.EDIT);
 
   const createCodebase = React.useCallback(
     async ({ codebaseData, codebaseAuthData }: CreateCodebaseProps) => {

@@ -49,8 +49,8 @@ export const ChoiceButtonGroup = ({
             startIcon: <Icon icon={options[0].icon} width={25} height={25} />,
             onClick: options[0].onClick,
           }}
-          disabled={!permissions?.update?.ApprovalTask.allowed}
-          reason={permissions?.update?.ApprovalTask.reason}
+          disabled={!permissions.update.ApprovalTask.allowed}
+          reason={permissions.update.ApprovalTask.reason}
         >
           {options[0].label}
         </ButtonWithPermission>
@@ -60,8 +60,8 @@ export const ChoiceButtonGroup = ({
             onClick: handleToggle,
             sx: { height: '100%' },
           }}
-          disabled={!permissions?.update?.ApprovalTask.allowed}
-          reason={permissions?.update?.ApprovalTask.reason}
+          disabled={!permissions.update.ApprovalTask.allowed}
+          reason={permissions.update.ApprovalTask.reason}
         >
           <Icon icon={ICONS.ARROW_DROPDOWN} width={15} height={15} />
         </ButtonWithPermission>

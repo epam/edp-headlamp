@@ -32,7 +32,7 @@ export const useCodemieSecretCreateForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: CodemieSecretFormValues) => {
-      if (!permissions?.create?.Secret.allowed) {
+      if (!permissions.create.Secret.allowed) {
         return false;
       }
 
@@ -40,7 +40,7 @@ export const useCodemieSecretCreateForm = ({
 
       await createSecret({ secretData: secretInstance as SecretKubeObjectInterface });
     },
-    [createSecret, permissions?.create?.Secret.allowed]
+    [createSecret, permissions.create.Secret.allowed]
   );
 
   return React.useMemo(
@@ -50,16 +50,16 @@ export const useCodemieSecretCreateForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: secretCreateMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions?.create?.Secret.allowed,
-        reason: permissions?.create?.Secret.reason,
+        isAllowed: permissions.create.Secret.allowed,
+        reason: permissions.create.Secret.reason,
       },
     }),
     [
       form,
       handleSubmit,
       secretCreateMutation.isLoading,
-      permissions?.create?.Secret.allowed,
-      permissions?.create?.Secret.reason,
+      permissions.create.Secret.allowed,
+      permissions.create.Secret.reason,
     ]
   );
 };

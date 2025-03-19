@@ -20,7 +20,7 @@ export const useGitServerEditForm = ({
   webhookURL: string;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const editMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, CRUD_TYPE.EDIT>(
+  const editMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, typeof CRUD_TYPE.EDIT>(
     'gitServerEditMutation',
     GitServerKubeObject,
     CRUD_TYPE.EDIT
@@ -60,7 +60,7 @@ export const useGitServerEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: GitServerFormValues) => {
-      if (!permissions?.update?.GitServer.allowed) {
+      if (!permissions.update.GitServer.allowed) {
         return false;
       }
 
@@ -87,7 +87,7 @@ export const useGitServerEditForm = ({
       const newGitServer = editResource(GIT_SERVER_FORM_NAMES, gitServer, gitServerValues);
       editMutation.mutate(newGitServer);
     },
-    [permissions?.update?.GitServer.allowed, gitServer, editMutation]
+    [permissions.update.GitServer.allowed, gitServer, editMutation]
   );
 
   return React.useMemo(
@@ -97,16 +97,16 @@ export const useGitServerEditForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: editMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions?.update?.GitServer.allowed,
-        reason: permissions?.update?.GitServer.reason,
+        isAllowed: permissions.update.GitServer.allowed,
+        reason: permissions.update.GitServer.reason,
       },
     }),
     [
       form,
       handleSubmit,
       editMutation.isLoading,
-      permissions?.update?.GitServer.allowed,
-      permissions?.update?.GitServer.reason,
+      permissions.update.GitServer.allowed,
+      permissions.update.GitServer.reason,
     ]
   );
 };

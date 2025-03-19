@@ -152,8 +152,8 @@ export const PageView = () => {
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!chatAssistantSecret,
         permission: {
-          allowed: permissions?.create?.Secret.allowed,
-          reason: permissions?.create?.Secret.reason,
+          allowed: permissions.create.Secret.allowed,
+          reason: permissions.create.Secret.reason,
         },
       }}
       pageDescription={pageDescription}

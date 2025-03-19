@@ -60,8 +60,8 @@ export const CodebaseBranchActionsMenu = ({
         item: branch,
         icon: ICONS.PENCIL,
         disabled: {
-          status: !permissions?.update?.CodebaseBranch.allowed,
-          reason: permissions?.update?.CodebaseBranch.reason,
+          status: !permissions.update.CodebaseBranch.allowed,
+          reason: permissions.update.CodebaseBranch.reason,
         },
         callback: (branch) => {
           if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {

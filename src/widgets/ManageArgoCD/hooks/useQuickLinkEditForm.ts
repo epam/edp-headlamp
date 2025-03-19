@@ -37,7 +37,7 @@ export const useQuickLinkEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: QuickLinkFormValues) => {
-      if (!permissions?.update?.QuickLink.allowed) {
+      if (!permissions.update.QuickLink.allowed) {
         return false;
       }
 
@@ -47,7 +47,7 @@ export const useQuickLinkEditForm = ({
         QuickLinkData: newQuickLinkData,
       });
     },
-    [permissions?.update?.QuickLink.allowed, quickLink, editQuickLink]
+    [permissions.update.QuickLink.allowed, quickLink, editQuickLink]
   );
 
   return React.useMemo(
@@ -57,16 +57,16 @@ export const useQuickLinkEditForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: QuickLinkEditMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions?.update?.QuickLink.allowed,
-        reason: permissions?.update?.QuickLink.reason,
+        isAllowed: permissions.update.QuickLink.allowed,
+        reason: permissions.update.QuickLink.reason,
       },
     }),
     [
       form,
       handleSubmit,
       QuickLinkEditMutation.isLoading,
-      permissions?.update?.QuickLink.allowed,
-      permissions?.update?.QuickLink.reason,
+      permissions.update.QuickLink.allowed,
+      permissions.update.QuickLink.reason,
     ]
   );
 };

@@ -160,8 +160,8 @@ export const PageView = () => {
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!dependencyTrackSecret,
         permission: {
-          allowed: permissions?.create?.Secret.allowed && permissions?.update?.QuickLink.allowed,
-          reason: permissions?.create?.Secret.reason || permissions?.update?.QuickLink.reason,
+          allowed: permissions.create.Secret.allowed && permissions.update.QuickLink.allowed,
+          reason: permissions.create.Secret.reason || permissions.update.QuickLink.reason,
         },
       }}
       pageDescription={pageDescription}

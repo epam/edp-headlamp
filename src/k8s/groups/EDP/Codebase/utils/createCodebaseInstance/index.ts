@@ -36,10 +36,15 @@ export const createCodebaseInstance = (
 
   for (const [propKey, propValue] of Object.entries(restProps)) {
     const propPath = names[propKey].path;
+
+    if (!propPath) {
+      continue;
+    }
+
     set(base, propPath, propValue);
   }
 
-  if (base.spec.gitUrlPath) {
+  if (base.spec?.gitUrlPath) {
     set(
       base,
       ['spec', 'gitUrlPath'],

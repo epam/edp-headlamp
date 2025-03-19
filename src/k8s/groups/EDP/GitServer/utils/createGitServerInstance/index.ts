@@ -39,7 +39,10 @@ export const createGitServerInstance = (
 
   for (const [propKey, propValue] of Object.entries(restProps)) {
     const propPath = names[propKey].path;
-    propPath && set(base, propPath, propValue);
+    if (!propPath) {
+      continue;
+    }
+    set(base, propPath, propValue);
   }
 
   return base as GitServerKubeObjectInterface;
