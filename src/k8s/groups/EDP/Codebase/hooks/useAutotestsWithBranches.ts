@@ -1,23 +1,27 @@
 import React from 'react';
+import { useQuery } from 'react-query';
 import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
+import { KubeObjectListInterface } from '../../../../../types/k8s';
 import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 import { AutotestWithBranchesOption } from '../../../../../widgets/dialogs/ManageStage/components/fields/QualityGates/types';
 import { CodebaseBranchKubeObject } from '../../CodebaseBranch';
-import { useCodebasesByTypeLabelQuery } from './useCodebasesByTypeLabelQuery';
+import { CodebaseKubeObject } from '..';
+import { REQUEST_KEY_QUERY_CODEBASE_LIST_BY_TYPE } from '../requestKeys';
+import { CodebaseKubeObjectInterface } from '../types';
 
-export const useAutotestsWithBranches = (namespace: string): AutotestWithBranchesOption[] => {
+export const useAutotestsWithBranches = (
+  namespace: string = getDefaultNamespace()
+): AutotestWithBranchesOption[] => {
   const [autotestsWithBranchesOptions, setAutotestsWithBranchesOptions] = React.useState<
     AutotestWithBranchesOption[]
   >([]);
 
   const _namespace = namespace || getDefaultNamespace();
 
-  useCodebasesByTypeLabelQuery({
-    props: {
-      codebaseType: CODEBASE_TYPE.AUTOTEST,
-      namespace: _namespace,
-    },
-    options: {
+  useQuery<KubeObjectListInterface<CodebaseKubeObjectInterface>, Error>(
+    [REQUEST_KEY_QUERY_CODEBASE_LIST_BY_TYPE, CODEBASE_TYPE.AUTOTEST],
+    () => CodebaseKubeObject.getListByTypeLabel(namespace, CODEBASE_TYPE.AUTOTEST),
+    {
       cacheTime: 0,
       onSuccess: async (data) => {
         if (!data) {
@@ -36,8 +40,8 @@ export const useAutotestsWithBranches = (namespace: string): AutotestWithBranche
         );
         setAutotestsWithBranchesOptions(autotestsWithBranches);
       },
-    },
-  });
+    }
+  );
 
   return autotestsWithBranchesOptions;
 };

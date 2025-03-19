@@ -20,6 +20,7 @@ import { regcredSecretWithOwnerMock } from '../../k8s/groups/default/Secret/mock
 import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import { tektonServiceAccountMock } from '../../k8s/groups/default/ServiceAccount/mocks/tekton.mock';
 import { ServiceAccountKubeObjectInterface } from '../../k8s/groups/default/ServiceAccount/types';
+import { DEFAULT_ALLOWED_REASON } from '../../providers/Permissions/constants';
 import { ManageRegistry } from './index';
 
 describe('testing ManageRegistry Edit', () => {
@@ -42,22 +43,27 @@ describe('testing ManageRegistry Edit', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               ConfigMap: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               ServiceAccount: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}
@@ -87,22 +93,27 @@ describe('testing ManageRegistry Edit', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               ConfigMap: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               ServiceAccount: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}
@@ -131,22 +142,27 @@ describe('testing ManageRegistry Edit', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               ConfigMap: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               ServiceAccount: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}
@@ -175,22 +191,27 @@ describe('testing ManageRegistry Edit', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               ConfigMap: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               ServiceAccount: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}
@@ -219,22 +240,27 @@ describe('testing ManageRegistry Edit', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               ConfigMap: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               ServiceAccount: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}
@@ -266,22 +292,27 @@ describe('testing ManageRegistry Edit', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               ConfigMap: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               ServiceAccount: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}
@@ -312,22 +343,27 @@ describe('testing ManageRegistry Edit', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               ConfigMap: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               ServiceAccount: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}

@@ -181,8 +181,8 @@ export const PageView = () => {
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading,
         permission: {
-          allowed: permissions?.create?.Secret.allowed && permissions?.create?.GitServer.allowed,
-          reason: permissions?.create?.Secret.reason || permissions?.create?.GitServer.reason,
+          allowed: permissions.create.Secret.allowed && permissions.create.GitServer.allowed,
+          reason: permissions.create.Secret.reason || permissions.create.GitServer.reason,
         },
       }}
       pageDescription={pageDescription}

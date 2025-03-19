@@ -1,55 +1,38 @@
 import React from 'react';
-import { UseQueryOptions } from 'react-query';
+import { useQuery } from 'react-query';
 import { KubeObjectListInterface } from '../../../../../types/k8s';
-import { useCDPipelineStageListQuery } from '../../Stage/hooks/useCDPipelineStageListQuery';
+import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
+import { StageKubeObject } from '../../Stage';
+import { REQUEST_KEY_QUERY_STAGE_LIST } from '../../Stage/requestKeys';
 import { StageKubeObjectInterface } from '../../Stage/types';
-import { CDPipelineKubeObjectInterface } from '../types';
 import { useCDPipelineByNameQuery } from './useCDPipelineByNameQuery';
 
-interface UseCDPipelineByAutotestItUsesInItsStagesQueryProps {
-  props: {
-    codebaseName: string;
-  };
-  options?: UseQueryOptions<
-    KubeObjectListInterface<StageKubeObjectInterface>,
-    Error,
-    CDPipelineKubeObjectInterface
-  >;
-}
+export const useCDPipelineByAutotestItUsesInItsStagesQuery = (
+  codebaseName: string | null,
+  namespace: string = getDefaultNamespace()
+) => {
+  const [CDPipelineName, setCDPipelineName] = React.useState<string | null>(null);
 
-export const useCDPipelineByAutotestItUsesInItsStagesQuery = ({
-  props,
-  options,
-}: UseCDPipelineByAutotestItUsesInItsStagesQueryProps) => {
-  const { codebaseName } = props;
+  useQuery<KubeObjectListInterface<StageKubeObjectInterface>, Error>(
+    REQUEST_KEY_QUERY_STAGE_LIST,
+    () => StageKubeObject.getList(namespace),
+    {
+      onSuccess: (data) => {
+        const stage = data?.items.find((item) => {
+          return item.spec.qualityGates.some((qualityGate) => {
+            return qualityGate.autotestName === codebaseName;
+          });
+        });
 
-  const [CDPipelineName, setCDPipelineName] = React.useState<string>(null);
-  const query = useCDPipelineByNameQuery({
-    props: {
-      name: CDPipelineName,
-    },
-    options: {
-      enabled: !!CDPipelineName,
-    },
-  });
+        const cdPipelineName = stage?.spec.cdPipeline;
 
-  useCDPipelineStageListQuery<CDPipelineKubeObjectInterface>({
-    options: {
-      onSuccess: async (data) => {
-        for (const {
-          spec: { qualityGates, cdPipeline },
-        } of data?.items) {
-          for (const { autotestName } of qualityGates) {
-            if (autotestName === codebaseName) {
-              setCDPipelineName(cdPipeline);
-            }
-          }
+        if (cdPipelineName) {
+          setCDPipelineName(cdPipelineName);
         }
       },
-      ...options,
-      enabled: options?.enabled && !!codebaseName,
-    },
-  });
+      enabled: !!codebaseName,
+    }
+  );
 
-  return React.useMemo(() => query, [query]);
+  return useCDPipelineByNameQuery(CDPipelineName);
 };

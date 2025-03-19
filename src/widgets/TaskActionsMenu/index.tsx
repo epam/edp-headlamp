@@ -69,8 +69,8 @@ export const TaskActionsMenu = ({
         icon: ICONS.PENCIL,
         item: task,
         disabled: {
-          status: !permissions?.update?.Task.allowed,
-          reason: permissions?.update?.Task.reason,
+          status: !permissions.update.Task.allowed,
+          reason: permissions.update.Task.reason,
         },
         callback: (task: TaskKubeObjectInterface) => {
           handleOpenEditEditor(task);
@@ -80,8 +80,8 @@ export const TaskActionsMenu = ({
     ];
   }, [
     _task,
-    permissions?.update?.Task.allowed,
-    permissions?.update?.Task.reason,
+    permissions.update.Task.allowed,
+    permissions.update.Task.reason,
     handleCloseResourceActionListMenu,
   ]);
 

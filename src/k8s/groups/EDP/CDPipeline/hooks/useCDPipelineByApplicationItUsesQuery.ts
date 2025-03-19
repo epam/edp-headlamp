@@ -1,39 +1,22 @@
-import React from 'react';
-import { UseQueryOptions } from 'react-query';
+import { useQuery } from 'react-query';
 import { KubeObjectListInterface } from '../../../../../types/k8s';
+import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
+import { CDPipelineKubeObject } from '..';
+import { REQUEST_KEY_QUERY_CD_PIPELINE_LIST } from '../requestKeys';
 import { CDPipelineKubeObjectInterface } from '../types';
-import { useCDPipelineListQuery } from './useCDPipelineListQuery';
 
-interface UseCDPipelineByApplicationItUsesQueryProps {
-  props: {
-    codebaseName: string;
-  };
-  options?: UseQueryOptions<
+export const useCDPipelineByApplicationItUsesQuery = (
+  codebaseName: string | null,
+  namespace: string = getDefaultNamespace()
+) => {
+  return useQuery<
     KubeObjectListInterface<CDPipelineKubeObjectInterface>,
     Error,
-    CDPipelineKubeObjectInterface
-  >;
-}
-
-export const useCDPipelineByApplicationItUsesQuery = ({
-  props,
-  options,
-}: UseCDPipelineByApplicationItUsesQueryProps) => {
-  const { codebaseName } = props;
-
-  const query = useCDPipelineListQuery<CDPipelineKubeObjectInterface>({
-    options: {
-      select: (data) => {
-        for (const item of data?.items) {
-          if (item.spec.applications.includes(codebaseName)) {
-            return item;
-          }
-        }
-      },
-      ...options,
-      enabled: options?.enabled && !!codebaseName,
+    CDPipelineKubeObjectInterface | undefined
+  >(REQUEST_KEY_QUERY_CD_PIPELINE_LIST, () => CDPipelineKubeObject.getList(namespace), {
+    select: (data) => {
+      return data?.items.find((item) => item.spec.applications.includes(codebaseName!));
     },
+    enabled: !!codebaseName,
   });
-
-  return React.useMemo(() => query, [query]);
 };

@@ -205,8 +205,8 @@ export const StageListFilter = () => {
               );
             },
           }}
-          disabled={!permissions?.create?.Stage.allowed}
-          reason={permissions?.create?.Stage.reason}
+          disabled={!permissions.create.Stage.allowed}
+          reason={permissions.create.Stage.reason}
         >
           create environment
         </ButtonWithPermission>

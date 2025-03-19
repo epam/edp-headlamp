@@ -18,23 +18,21 @@ export const useSecretCRUD = ({
   const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-  const secretCreateMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPE.CREATE>(
-    'secretCreateMutation',
-    K8s.secret.default,
-    CRUD_TYPE.CREATE
-  );
+  const secretCreateMutation = useResourceCRUDMutation<
+    KubeObjectInterface,
+    typeof CRUD_TYPE.CREATE
+  >('secretCreateMutation', K8s.secret.default, CRUD_TYPE.CREATE);
 
-  const secretEditMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPE.EDIT>(
+  const secretEditMutation = useResourceCRUDMutation<KubeObjectInterface, typeof CRUD_TYPE.EDIT>(
     'secretEditMutation',
     K8s.secret.default,
     CRUD_TYPE.EDIT
   );
 
-  const secretDeleteMutation = useResourceCRUDMutation<KubeObjectInterface, CRUD_TYPE.DELETE>(
-    'secretDeleteMutation',
-    K8s.secret.default,
-    CRUD_TYPE.DELETE
-  );
+  const secretDeleteMutation = useResourceCRUDMutation<
+    KubeObjectInterface,
+    typeof CRUD_TYPE.DELETE
+  >('secretDeleteMutation', K8s.secret.default, CRUD_TYPE.DELETE);
 
   const createSecret = React.useCallback(
     async ({ secretData }: CreateSecretProps) => {

@@ -41,8 +41,8 @@ export const ComponentList = () => {
   const emptyListComponent = React.useMemo(() => {
     const componentsAreLoaded = codebases.data !== null;
 
-    if (!permissions?.create?.Codebase.allowed) {
-      return <EmptyList customText={permissions?.create?.Codebase.reason} />;
+    if (!permissions.create.Codebase.allowed) {
+      return <EmptyList customText={permissions.create.Codebase.reason} />;
     }
 
     if (componentsAreLoaded && noGitServers) {
@@ -70,8 +70,8 @@ export const ComponentList = () => {
     gitServersConfigurationPageRoute,
     history,
     noGitServers,
-    permissions?.create?.Codebase.allowed,
-    permissions?.create?.Codebase.reason,
+    permissions.create.Codebase.allowed,
+    permissions.create.Codebase.reason,
     setDialog,
   ]);
 
@@ -92,8 +92,8 @@ export const ComponentList = () => {
             onClick: () =>
               setDialog(ManageCodebaseDialog, { codebaseData: null, gitServers: gitServers.data }),
           }}
-          disabled={!permissions?.create?.Codebase.allowed}
-          reason={permissions?.create?.Codebase.reason}
+          disabled={!permissions.create.Codebase.allowed}
+          reason={permissions.create.Codebase.reason}
         >
           create component
         </ButtonWithPermission>

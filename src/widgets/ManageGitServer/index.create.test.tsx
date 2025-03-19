@@ -12,6 +12,7 @@ import {
   GitlabCISecretWithOwnerMock,
 } from '../../k8s/groups/default/Secret/mocks/git-server-ci-secret.mock';
 import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
+import { DEFAULT_ALLOWED_REASON } from '../../providers/Permissions/constants';
 import { ManageGitServer } from './index';
 
 describe('testing ManageGitServer Create', () => {
@@ -29,25 +30,31 @@ describe('testing ManageGitServer Create', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}
@@ -73,25 +80,31 @@ describe('testing ManageGitServer Create', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}
@@ -117,25 +130,31 @@ describe('testing ManageGitServer Create', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}
@@ -161,25 +180,31 @@ describe('testing ManageGitServer Create', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}
@@ -207,25 +232,31 @@ describe('testing ManageGitServer Create', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               GitServer: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}

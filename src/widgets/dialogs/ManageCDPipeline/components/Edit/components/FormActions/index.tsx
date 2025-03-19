@@ -1,7 +1,7 @@
 import { Box, Button, Stack, useTheme } from '@mui/material';
 import React from 'react';
 import { editResource } from '../../../../../../../k8s/common/editResource';
-import { useEditCDPipeline } from '../../../../../../../k8s/groups/EDP/CDPipeline/hooks/useEditCDPipeline';
+import { useCDPipelineCRUD } from '../../../../../../../k8s/groups/EDP/CDPipeline/hooks/useCDPIpelineCRUD';
 import { getUsedValues } from '../../../../../../../utils/forms/getUsedValues';
 import { useTypedFormContext } from '../../../../hooks/useFormContext';
 import { CDPIPELINE_FORM_NAMES } from '../../../../names';
@@ -31,9 +31,7 @@ export const FormActions = () => {
   const {
     editCDPipeline,
     mutations: { CDPipelineEditMutation },
-  } = useEditCDPipeline({
-    onSuccess: handleClose,
-  });
+  } = useCDPipelineCRUD();
 
   const isLoading = React.useMemo(
     () => CDPipelineEditMutation.isLoading,
@@ -45,9 +43,9 @@ export const FormActions = () => {
       const usedValues = getUsedValues(values, CDPIPELINE_FORM_NAMES);
       const newCDPipelineData = editResource(CDPIPELINE_FORM_NAMES, CDPipelineData, usedValues);
 
-      await editCDPipeline({ CDPipelineData: newCDPipelineData });
+      await editCDPipeline({ CDPipelineData: newCDPipelineData, onSuccess: handleClose });
     },
-    [CDPipelineData, editCDPipeline]
+    [CDPipelineData, editCDPipeline, handleClose]
   );
 
   const theme = useTheme();

@@ -1,28 +1,22 @@
-import React from 'react';
-import { useCDPipelineStageListQuery } from '../../../../../../../k8s/groups/EDP/Stage/hooks/useCDPipelineStageListQuery';
+import { useQuery } from 'react-query';
+import { StageKubeObject } from '../../../../../../../k8s/groups/EDP/Stage';
+import { REQUEST_KEY_QUERY_STAGE_LIST } from '../../../../../../../k8s/groups/EDP/Stage/requestKeys';
 import { StageKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/Stage/types';
+import { KubeObjectListInterface } from '../../../../../../../types/k8s';
+import { getDefaultNamespace } from '../../../../../../../utils/getDefaultNamespace';
 
-export const useConflictedStage = (clusterName: string) => {
-  const [stage, setStage] = React.useState<StageKubeObjectInterface>(null);
+export const useConflictedStageQuery = (clusterName: string) => {
+  const namespace = getDefaultNamespace();
 
-  useCDPipelineStageListQuery({
-    options: {
-      onSuccess: async (data) => {
-        if (!data?.items) {
-          return;
-        }
-
-        for (const item of data?.items) {
-          const { spec } = item;
-          if (spec.clusterName === clusterName) {
-            setStage(item);
-            break;
-          }
-        }
-      },
-      enabled: !!clusterName,
-    },
+  return useQuery<
+    KubeObjectListInterface<StageKubeObjectInterface>,
+    Error,
+    StageKubeObjectInterface | undefined
+  >(REQUEST_KEY_QUERY_STAGE_LIST, () => StageKubeObject.getList(namespace), {
+    select: (data) =>
+      data?.items.find((item) => {
+        return item.spec.clusterName === clusterName;
+      }),
+    enabled: !!clusterName,
   });
-
-  return stage;
 };

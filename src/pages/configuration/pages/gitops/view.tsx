@@ -71,8 +71,8 @@ export const PageView = () => {
       return <ErrorContent error={forbiddenError} outlined />;
     }
 
-    if (!isLoading && !gitServers?.length && !permissions?.create?.Codebase.allowed) {
-      return <EmptyList customText={permissions?.create?.Codebase.reason} />;
+    if (!isLoading && !gitServers?.length && !permissions.create.Codebase.allowed) {
+      return <EmptyList customText={permissions.create.Codebase.reason} />;
     }
 
     if (!isLoading && !gitServers?.length) {
@@ -178,8 +178,8 @@ export const PageView = () => {
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading || !!gitOpsCodebase,
         permission: {
-          allowed: permissions?.create?.Codebase.allowed,
-          reason: permissions?.create?.Codebase.reason,
+          allowed: permissions.create.Codebase.allowed,
+          reason: permissions.create.Codebase.reason,
         },
       }}
       pageDescription={pageDescription}

@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { DEFAULT_ALLOWED_REASON } from '../../providers/Permissions/constants';
 import { ManageGitOps } from './index';
 
 test('renders ManageGitOps Create component', () => {
@@ -18,6 +19,7 @@ test('renders ManageGitOps Create component', () => {
             create: {
               Codebase: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {},

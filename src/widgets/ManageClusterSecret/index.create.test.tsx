@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { DEFAULT_ALLOWED_REASON } from '../../providers/Permissions/constants';
 import { FORM_MODES } from '../../types/forms';
 import { ManageClusterSecret } from './index';
 
@@ -19,16 +20,19 @@ test('renders ManageClusterSecret Create component', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           },

@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { DEFAULT_ALLOWED_REASON } from '../../providers/Permissions/constants';
 import { FORM_MODES } from '../../types/forms';
 import { ManageChatAssistant } from './index';
 
@@ -20,19 +21,23 @@ test('renders ManageChatAssistant Create component', () => {
           create: {
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
           update: {
             QuickLink: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
           delete: {
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
         }}

@@ -8,6 +8,7 @@ import { TestWrapper } from '../../../mocks/wrappers/default';
 import { NexusCISecretMock } from '../../k8s/groups/default/Secret/mocks/nexus-ci-secret.mock';
 import { SecretKubeObjectInterface } from '../../k8s/groups/default/Secret/types';
 import { SYSTEM_QUICK_LINKS } from '../../k8s/groups/EDP/QuickLink/constants';
+import { DEFAULT_ALLOWED_REASON } from '../../providers/Permissions/constants';
 import { FORM_MODES } from '../../types/forms';
 import { ManageNexus } from './index';
 
@@ -37,19 +38,23 @@ test('renders ManageNexus Edit component', () => {
           create: {
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
           update: {
             QuickLink: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
           delete: {
             Secret: {
               allowed: true,
+              reason: DEFAULT_ALLOWED_REASON,
             },
           },
         }}

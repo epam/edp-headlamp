@@ -40,7 +40,7 @@ export class ApplicationKubeObject extends K8s.cluster.makeKubeObject<Applicatio
     argoApp: ApplicationKubeObjectInterface
   ): ValueOf<typeof APPLICATION_HEALTH_STATUS> {
     return (
-      (argoApp?.status?.health?.status.toLowerCase() as ValueOf<
+      (argoApp?.status?.health?.status?.toLowerCase() as ValueOf<
         typeof APPLICATION_HEALTH_STATUS
       >) || 'unknown'
     );

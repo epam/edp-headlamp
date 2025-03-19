@@ -19,7 +19,7 @@ export const useCodemieEditForm = ({
   codemie: CodemieKubeObjectInterface;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const codemieEditMutation = useResourceCRUDMutation<CodemieKubeObjectInterface, CRUD_TYPE.EDIT>(
+  const codemieEditMutation = useResourceCRUDMutation<CodemieKubeObjectInterface, typeof CRUD_TYPE.EDIT>(
     'codemieEditMutation',
     CodemieKubeObject,
     CRUD_TYPE.EDIT
@@ -37,7 +37,7 @@ export const useCodemieEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: CodemieFormValues) => {
-      if (!permissions?.update?.Codemie.allowed) {
+      if (!permissions.update.Codemie.allowed) {
         return false;
       }
 
@@ -45,7 +45,7 @@ export const useCodemieEditForm = ({
 
       codemieEditMutation.mutate(updatedCodemieInstance, { onSuccess: handleClosePanel });
     },
-    [codemie?.jsonData, codemieEditMutation, handleClosePanel, permissions?.update?.Codemie.allowed]
+    [codemie?.jsonData, codemieEditMutation, handleClosePanel, permissions.update.Codemie.allowed]
   );
 
   return React.useMemo(
@@ -55,16 +55,16 @@ export const useCodemieEditForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: codemieEditMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions?.update?.Codemie.allowed,
-        reason: permissions?.update?.Codemie.reason,
+        isAllowed: permissions.update.Codemie.allowed,
+        reason: permissions.update.Codemie.reason,
       },
     }),
     [
       form,
       handleSubmit,
       codemieEditMutation.isLoading,
-      permissions?.update?.Codemie.allowed,
-      permissions?.update?.Codemie.reason,
+      permissions.update.Codemie.allowed,
+      permissions.update.Codemie.reason,
     ]
   );
 };

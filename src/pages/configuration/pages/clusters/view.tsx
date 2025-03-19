@@ -255,9 +255,9 @@ export const PageView = () => {
   //                       </IconButton>
   //                     </ConditionalWrapper>
   //                     <ConditionalWrapper
-  //                       condition={!permissions?.update?.Application.allowed}
+  //                       condition={!permissions.update.Application.allowed}
   //                       wrapper={(children) => (
-  //                         <Tooltip title={permissions?.update?.Application.reason}>
+  //                         <Tooltip title={permissions.update.Application.reason}>
   //                           <div>{children}</div>
   //                         </Tooltip>
   //                       )}
@@ -269,7 +269,7 @@ export const PageView = () => {
   //                         style={{ flexShrink: 0 }}
   //                         color="inherit"
   //                         onClick={() => handleOpenEditor(application)}
-  //                         disabled={!permissions?.update?.Application.allowed}
+  //                         disabled={!permissions.update.Application.allowed}
   //                       >
   //                         Edit YAML
   //                       </Button>
@@ -287,8 +287,8 @@ export const PageView = () => {
   //   handleDeleteApplication,
   //   permissions?.delete?.Application.allowed,
   //   permissions?.delete?.Application.reason,
-  //   permissions?.update?.Application.allowed,
-  //   permissions?.update?.Application.reason,
+  //   permissions.update.Application.allowed,
+  //   permissions.update.Application.reason,
   //   setDialog,
   //   vClusterApps,
   //   vClusterAppsError,
@@ -313,8 +313,8 @@ export const PageView = () => {
         onClose: handleCloseCreateDialog,
         isDisabled: isLoading,
         permission: {
-          allowed: permissions?.create?.Secret.allowed,
-          reason: permissions?.create?.Secret.reason,
+          allowed: permissions.create.Secret.allowed,
+          reason: permissions.create.Secret.reason,
         },
       }}
       pageDescription={pageDescription}
@@ -328,9 +328,9 @@ export const PageView = () => {
         <Stack spacing={3}>
           <Stack direction="row" justifyContent="flex-end">
             <ConditionalWrapper
-              condition={!permissions?.create?.Application.allowed}
+              condition={!permissions.create.Application.allowed}
               wrapper={(children) => (
-                <Tooltip title={permissions?.create?.Application.reason}>
+                <Tooltip title={permissions.create.Application.reason}>
                   <div>{children}</div>
                 </Tooltip>
               )}
@@ -340,7 +340,7 @@ export const PageView = () => {
                 onClick={() => {
                   setDialog(ManageVClusterDialog, {});
                 }}
-                disabled={!permissions?.create?.Application.allowed}
+                disabled={!permissions.create.Application.allowed}
                 startIcon={<Icon icon={ICONS.PLUS} width={20} />}
               >
                 Create cluster

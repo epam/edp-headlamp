@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { TestWrapper } from '../../../mocks/wrappers/default';
+import { DEFAULT_ALLOWED_REASON } from '../../providers/Permissions/constants';
 import { ManageRegistry } from './index';
 
 describe('testing ManageRegistry Create', () => {
@@ -20,22 +21,27 @@ describe('testing ManageRegistry Create', () => {
             create: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             update: {
               ConfigMap: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
               ServiceAccount: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
             delete: {
               Secret: {
                 allowed: true,
+                reason: DEFAULT_ALLOWED_REASON,
               },
             },
           }}

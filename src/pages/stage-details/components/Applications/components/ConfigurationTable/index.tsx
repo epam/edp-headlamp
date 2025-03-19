@@ -61,7 +61,7 @@ export const ConfigurationTable = ({
           cancel
         </Button>
         <ConditionalWrapper
-          condition={permissions?.create?.PipelineRun.allowed}
+          condition={permissions.create.PipelineRun.allowed}
           wrapper={(children) => (
             <Tooltip title={'Deploy selected applications with selected image stream version'}>
               {children}
@@ -89,8 +89,8 @@ export const ConfigurationTable = ({
               variant: 'contained',
               color: 'primary',
             }}
-            disabled={!permissions?.create?.PipelineRun.allowed}
-            reason={permissions?.create?.PipelineRun.reason}
+            disabled={!permissions.create.PipelineRun.allowed}
+            reason={permissions.create.PipelineRun.reason}
           >
             Start Deploy
           </ButtonWithPermission>

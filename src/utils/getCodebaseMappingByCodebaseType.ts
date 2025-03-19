@@ -3,9 +3,9 @@ import { AUTOTEST_MAPPING } from '../configs/codebase-mappings/autotest';
 import { INFRASTRUCTURE_MAPPING } from '../configs/codebase-mappings/infrastructure';
 import { LIBRARY_MAPPING } from '../configs/codebase-mappings/library';
 import { SYSTEM_MAPPING } from '../configs/codebase-mappings/system';
-import { CODEBASE_TYPE } from '../constants/codebaseTypes';
+import { CODEBASE_TYPE, CodebaseType } from '../constants/codebaseTypes';
 
-export const getCodebaseMappingByCodebaseType = (type: CODEBASE_TYPES | string) => {
+export const getCodebaseMappingByCodebaseType = (type: CodebaseType | string) => {
   return type === CODEBASE_TYPE.APPLICATION
     ? APPLICATION_MAPPING
     : type === CODEBASE_TYPE.LIBRARY

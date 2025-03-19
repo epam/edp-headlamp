@@ -7,5 +7,5 @@ export type ManageCDPipelineFormValues = FormValues<typeof CDPIPELINE_FORM_NAMES
 
 export interface ManageCDPipelineDialogProps
   extends DialogProps<{
-    CDPipelineData?: CDPipelineKubeObjectInterface;
+    CDPipelineData: CDPipelineKubeObjectInterface | null;
   }> {}

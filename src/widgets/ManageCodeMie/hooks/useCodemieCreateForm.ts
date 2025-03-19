@@ -19,7 +19,7 @@ export const useCodemieCreateForm = ({
 }): FormItem => {
   const codemieCreateMutation = useResourceCRUDMutation<
     CodemieKubeObjectInterface,
-    CRUD_TYPE.CREATE
+    typeof CRUD_TYPE.CREATE
   >('codemieCreateMutation', CodemieKubeObject, CRUD_TYPE.CREATE);
 
   const defaultValues = React.useMemo(() => ({ [CODEMIE_FORM_NAMES.name.name]: 'codemie' }), []);
@@ -28,7 +28,7 @@ export const useCodemieCreateForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: CodemieFormValues) => {
-      if (!permissions?.create?.Codemie.allowed) {
+      if (!permissions.create.Codemie.allowed) {
         return false;
       }
 
@@ -36,7 +36,7 @@ export const useCodemieCreateForm = ({
 
       codemieCreateMutation.mutate(codemieInstance, { onSuccess: handleClosePanel });
     },
-    [codemieCreateMutation, handleClosePanel, permissions?.create?.Codemie.allowed]
+    [codemieCreateMutation, handleClosePanel, permissions.create.Codemie.allowed]
   );
 
   return React.useMemo(
@@ -46,16 +46,16 @@ export const useCodemieCreateForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: codemieCreateMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions?.create?.Codemie.allowed,
-        reason: permissions?.create?.Codemie.reason,
+        isAllowed: permissions.create.Codemie.allowed,
+        reason: permissions.create.Codemie.reason,
       },
     }),
     [
       form,
       handleSubmit,
       codemieCreateMutation.isLoading,
-      permissions?.create?.Codemie.allowed,
-      permissions?.create?.Codemie.reason,
+      permissions.create.Codemie.allowed,
+      permissions.create.Codemie.reason,
     ]
   );
 };

@@ -150,8 +150,8 @@ export const PipelineActionsMenu = ({
         icon: ICONS.PLAY,
         item: pipeline,
         disabled: {
-          status: !permissions?.create?.PipelineRun.allowed,
-          reason: permissions?.create?.PipelineRun.reason,
+          status: !permissions.create.PipelineRun.allowed,
+          reason: permissions.create.PipelineRun.reason,
         },
         callback: (pipeline: PipelineKubeObjectInterface) => {
           const newPipelineRun = createPipelineRunInstanceFromPipeline(
@@ -168,8 +168,8 @@ export const PipelineActionsMenu = ({
         icon: ICONS.PENCIL,
         item: pipeline,
         disabled: {
-          status: !permissions?.update?.Pipeline.allowed,
-          reason: permissions?.update?.Pipeline.reason,
+          status: !permissions.update.Pipeline.allowed,
+          reason: permissions.update.Pipeline.reason,
         },
         callback: (pipeline: PipelineKubeObjectInterface) => {
           handleOpenEditEditor(pipeline);
@@ -179,10 +179,10 @@ export const PipelineActionsMenu = ({
     ];
   }, [
     _pipeline,
-    permissions?.create?.PipelineRun.allowed,
-    permissions?.create?.PipelineRun.reason,
-    permissions?.update?.Pipeline.allowed,
-    permissions?.update?.Pipeline.reason,
+    permissions.create.PipelineRun.allowed,
+    permissions.create.PipelineRun.reason,
+    permissions.update.Pipeline.allowed,
+    permissions.update.Pipeline.reason,
     pipelineTriggerTemplateByName,
     handleCloseResourceActionListMenu,
   ]);

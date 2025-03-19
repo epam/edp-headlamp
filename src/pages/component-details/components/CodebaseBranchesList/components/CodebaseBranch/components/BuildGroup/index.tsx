@@ -86,11 +86,11 @@ export const BuildGroup = ({
     codebaseBranch?.status?.status === CUSTOM_RESOURCE_STATUS.CREATED;
 
   const buildButtonDisabled =
-    !permissions?.create?.PipelineRun.allowed || latestBuildIsRunning || !codebaseBranchStatusIsOk;
+    !permissions.create.PipelineRun.allowed || latestBuildIsRunning || !codebaseBranchStatusIsOk;
 
   const buildButtonTooltip = (() => {
-    if (!permissions?.create?.PipelineRun.allowed) {
-      return permissions?.create?.PipelineRun.reason;
+    if (!permissions.create.PipelineRun.allowed) {
+      return permissions.create.PipelineRun.reason;
     }
 
     if (latestBuildIsRunning) {

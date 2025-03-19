@@ -27,6 +27,7 @@ import {
   CODEBASE_COMMON_LANGUAGES,
 } from '../../../../../configs/codebase-mappings';
 import { DEFAULT_CLUSTER } from '../../../../../constants/clusters';
+import { GitProvider } from '../../../../../constants/gitProviders';
 import { TABLE } from '../../../../../constants/tables';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { ApplicationKubeObject } from '../../../../../k8s/groups/ArgoCD/Application';
@@ -260,7 +261,7 @@ export const useColumns = ({
                   CDPipelineName,
                   stage?.spec.name,
                   appName,
-                  gitOpsGitServer?.spec.gitProvider as GIT_PROVIDERS
+                  gitOpsGitServer?.spec.gitProvider as GitProvider
                 )}
                 icon={ICONS.NEW_WINDOW}
                 name="source code"

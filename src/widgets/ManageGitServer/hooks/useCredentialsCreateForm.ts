@@ -23,7 +23,7 @@ export const useCredentialsCreateForm = ({
   sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const createMutation = useResourceCRUDMutation<SecretKubeObjectInterface, CRUD_TYPE.CREATE>(
+  const createMutation = useResourceCRUDMutation<SecretKubeObjectInterface, typeof CRUD_TYPE.CREATE>(
     'gitServerCreateMutation',
     SecretKubeObject,
     CRUD_TYPE.CREATE
@@ -33,7 +33,7 @@ export const useCredentialsCreateForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: CredentialsFormValues) => {
-      if (!permissions?.create?.Secret.allowed) {
+      if (!permissions.create.Secret.allowed) {
         return false;
       }
 
@@ -69,7 +69,7 @@ export const useCredentialsCreateForm = ({
       })();
       createMutation.mutate(newGitServerSecret);
     },
-    [permissions?.create?.Secret.allowed, sharedForm, createMutation]
+    [permissions.create.Secret.allowed, sharedForm, createMutation]
   );
 
   return React.useMemo(
@@ -79,16 +79,16 @@ export const useCredentialsCreateForm = ({
       onSubmit: form.handleSubmit(handleSubmit),
       isSubmitting: createMutation.isLoading,
       allowedToSubmit: {
-        isAllowed: permissions?.create?.Secret.allowed,
-        reason: permissions?.create?.Secret.reason,
+        isAllowed: permissions.create.Secret.allowed,
+        reason: permissions.create.Secret.reason,
       },
     }),
     [
       form,
       handleSubmit,
       createMutation.isLoading,
-      permissions?.create?.Secret.allowed,
-      permissions?.create?.Secret.reason,
+      permissions.create.Secret.allowed,
+      permissions.create.Secret.reason,
     ]
   );
 };

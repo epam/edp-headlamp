@@ -30,12 +30,12 @@ export const useCodebaseBranchCRUD = ({
 
   const codebaseBranchCreateMutation = useResourceCRUDMutation<
     CodebaseBranchKubeObjectInterface,
-    CRUD_TYPE.CREATE
+    typeof CRUD_TYPE.CREATE
   >('codebaseBranchCreateMutation', CodebaseBranchKubeObject, CRUD_TYPE.CREATE);
 
   const codebaseBranchEditMutation = useResourceCRUDMutation<
     CodebaseBranchKubeObjectInterface,
-    CRUD_TYPE.EDIT
+    typeof CRUD_TYPE.EDIT
   >('codebaseBranchEditMutation', CodebaseBranchKubeObject, CRUD_TYPE.EDIT);
 
   const createCodebaseBranch = React.useCallback(

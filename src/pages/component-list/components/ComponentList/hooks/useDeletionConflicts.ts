@@ -1,8 +1,13 @@
 import React from 'react';
+import { useQuery } from 'react-query';
 import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
-import { useCDPipelineListQuery } from '../../../../../k8s/groups/EDP/CDPipeline/hooks/useCDPipelineListQuery';
+import { CDPipelineKubeObject } from '../../../../../k8s/groups/EDP/CDPipeline';
+import { REQUEST_KEY_QUERY_CD_PIPELINE_LIST } from '../../../../../k8s/groups/EDP/CDPipeline/requestKeys';
+import { CDPipelineKubeObjectInterface } from '../../../../../k8s/groups/EDP/CDPipeline/types';
 import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
 import { useCDPipelineStageListQuery } from '../../../../../k8s/groups/EDP/Stage/hooks/useCDPipelineStageListQuery';
+import { KubeObjectListInterface } from '../../../../../types/k8s';
+import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
 import { ComponentsToDelete, ComponentsToDeleteConflicts } from '../types';
 
 export const useDeletionConflicts = (
@@ -12,11 +17,13 @@ export const useDeletionConflicts = (
   componentsToDelete: ComponentsToDelete | null;
   componentsToDeleteConflicts: ComponentsToDeleteConflicts | null;
 } => {
-  const CDPipelineListQuery = useCDPipelineListQuery({
-    options: {
-      enabled:
-        !!selectedComponents && selectedComponents.length > 0 && componentsByNameMap !== null,
-    },
+  const namespace = getDefaultNamespace();
+
+  const CDPipelineListQuery = useQuery<
+    KubeObjectListInterface<CDPipelineKubeObjectInterface>,
+    Error
+  >(REQUEST_KEY_QUERY_CD_PIPELINE_LIST, () => CDPipelineKubeObject.getList(namespace), {
+    enabled: !!selectedComponents && selectedComponents.length > 0 && componentsByNameMap !== null,
   });
 
   const CDPipelineStageListQuery = useCDPipelineStageListQuery({
@@ -45,7 +52,7 @@ export const useDeletionConflicts = (
     const stages = CDPipelineStageListQuery.data?.items || [];
 
     for (const component of selectedComponents) {
-      const componentObject = componentsByNameMap.get(component);
+      const componentObject = componentsByNameMap.get(component)!;
       const componentType = componentObject.spec?.type;
 
       if (componentType === CODEBASE_TYPE.SYSTEM) {

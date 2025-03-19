@@ -9,10 +9,15 @@ interface CreateCDPipelineProps {
   onSuccess: (CDPipelineData: CDPipelineKubeObjectInterface) => void;
 }
 
+interface EditCDPipelineProps {
+  CDPipelineData: CDPipelineKubeObjectInterface;
+  onSuccess: (CDPipelineData: CDPipelineKubeObjectInterface) => void;
+}
+
 export const useCDPipelineCRUD = () => {
   const CDPipelineCreateMutation = useResourceCRUDMutation<
     CDPipelineKubeObjectInterface,
-    CRUD_TYPE.CREATE
+    typeof CRUD_TYPE.CREATE
   >('CDPipelineCreateMutation', CDPipelineKubeObject, CRUD_TYPE.CREATE);
 
   const createCDPipeline = React.useCallback(
@@ -26,9 +31,26 @@ export const useCDPipelineCRUD = () => {
     [CDPipelineCreateMutation]
   );
 
+  const CDPipelineEditMutation = useResourceCRUDMutation<
+    CDPipelineKubeObjectInterface,
+    typeof CRUD_TYPE.EDIT
+  >('CDPipelineEditMutation', CDPipelineKubeObject, CRUD_TYPE.EDIT);
+
+  const editCDPipeline = React.useCallback(
+    async ({ CDPipelineData, onSuccess }: EditCDPipelineProps) => {
+      CDPipelineEditMutation.mutate(CDPipelineData, {
+        onSuccess: () => {
+          onSuccess(CDPipelineData);
+        },
+      });
+    },
+    [CDPipelineEditMutation]
+  );
+
   const mutations = {
     CDPipelineCreateMutation,
+    CDPipelineEditMutation,
   };
 
-  return { createCDPipeline, mutations };
+  return { createCDPipeline, editCDPipeline, mutations };
 };

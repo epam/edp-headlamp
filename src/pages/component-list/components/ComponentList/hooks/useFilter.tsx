@@ -40,10 +40,7 @@ export const useFilter = (): {
             <Select
               labelId="codebase-type"
               onChange={(e) =>
-                setFilterItem(
-                  codebaseListFilterControlNames.CODEBASE_TYPE,
-                  e.target.value as CODEBASE_TYPES
-                )
+                setFilterItem(codebaseListFilterControlNames.CODEBASE_TYPE, e.target.value)
               }
               defaultValue={CODEBASE_TYPE.ALL}
               fullWidth

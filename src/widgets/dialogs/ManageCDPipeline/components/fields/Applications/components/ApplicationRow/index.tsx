@@ -4,11 +4,10 @@ import React from 'react';
 import { LoadingWrapper } from '../../../../../../../../components/LoadingWrapper';
 import { FORM_CONTROL_LABEL_HEIGHT } from '../../../../../../../../constants/ui';
 import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
-import { useCodebaseBranchesByCodebaseNameLabelQuery } from '../../../../../../../../k8s/groups/EDP/CodebaseBranch/hooks/useCodebaseBranchesByCodebaseNameLabelQuery';
+import { useSortedCodebaseBranchesByCodebaseNameLabelQuery } from '../../../../../../../../k8s/groups/EDP/CodebaseBranch/hooks/useSortedCodebaseBranchesByCodebaseNameLabelQuery';
 import { FormAutocompleteSingle } from '../../../../../../../../providers/Form/components/FormAutocompleteSingle';
 import { FormTextField } from '../../../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../../../../../types/forms';
-import { sortKubeObjectByCreationTimestamp } from '../../../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { useTypedFormContext } from '../../../../../hooks/useFormContext';
 import { CDPIPELINE_FORM_NAMES } from '../../../../../names';
 import { useCurrentDialog } from '../../../../../providers/CurrentDialog/hooks';
@@ -34,16 +33,7 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
   } = useCurrentDialog();
 
   const { data: applicationBranchesList, isLoading: applicationBranchesListIsLoading } =
-    useCodebaseBranchesByCodebaseNameLabelQuery({
-      props: {
-        codebaseName: appName,
-        namespace: CDPipelineData?.metadata.namespace,
-      },
-      options: {
-        enabled: !!appName,
-        select: (data) => data.items.sort((a, b) => sortKubeObjectByCreationTimestamp(a, b, true)),
-      },
-    });
+    useSortedCodebaseBranchesByCodebaseNameLabelQuery(appName, CDPipelineData?.metadata.namespace);
 
   const rowAppNameField = `${CDPIPELINE_FORM_NAMES.applicationsFieldArray.name}.${index}.appName`;
   const rowAppBranchField = `${CDPIPELINE_FORM_NAMES.applicationsFieldArray.name}.${index}.appBranch`;

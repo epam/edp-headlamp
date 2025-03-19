@@ -37,8 +37,8 @@ export const QuickLinkActionsMenu = ({
         icon: ICONS.PENCIL,
         item: data,
         disabled: {
-          status: !permissions?.update?.QuickLink.allowed,
-          reason: permissions?.update?.QuickLink.reason,
+          status: !permissions.update.QuickLink.allowed,
+          reason: permissions.update.QuickLink.reason,
         },
         callback: (data) => {
           if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {

@@ -34,7 +34,7 @@ export const CDPipelineList = ({ blockerComponent }: CDPipelineListProps) => {
       filterFunction={filterFunction}
       blockerComponent={blockerComponent}
       emptyListComponent={
-        permissions?.create?.CDPipeline.allowed ? (
+        permissions.create.CDPipeline.allowed ? (
           <EmptyList
             missingItemName={'Deployment Flows'}
             handleClick={() => {
@@ -47,7 +47,7 @@ export const CDPipelineList = ({ blockerComponent }: CDPipelineListProps) => {
             }
           />
         ) : (
-          <EmptyList customText={permissions?.create?.CDPipeline.reason} />
+          <EmptyList customText={permissions.create.CDPipeline.reason} />
         )
       }
       slots={{

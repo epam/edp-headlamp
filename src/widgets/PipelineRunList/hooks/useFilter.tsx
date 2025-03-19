@@ -1,7 +1,7 @@
 import { Autocomplete, FormHelperText, TextField } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { PIPELINE_TYPE } from '../../../constants/pipelineTypes';
+import { PIPELINE_TYPE, PipelineType } from '../../../constants/pipelineTypes';
 import { PIPELINE_RUN_STATUS_SELECT_OPTIONS } from '../../../k8s/groups/Tekton/PipelineRun/constants';
 import { PIPELINE_RUN_LABEL_SELECTOR_CODEBASE } from '../../../k8s/groups/Tekton/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/groups/Tekton/PipelineRun/types';
@@ -24,7 +24,7 @@ export const useFilter = ({
   filterControls,
 }: {
   pipelineRuns: PipelineRunKubeObjectInterface[];
-  pipelineRunTypes: PIPELINE_TYPE[];
+  pipelineRunTypes: PipelineType[];
   filterControls: PipelineRunFilterAllControlNames[];
 }): {
   controls: FilterControlsType;

@@ -13,13 +13,17 @@ export const getDeployedVersion = (
       return sourcesHelm?.targetRevision?.split('/').at(-1);
     }
 
-    return sourcesHelm?.helm?.parameters?.find((el) => el.name === 'image.tag')?.value;
+    return sourcesHelm?.helm?.parameters?.find(
+      (el: { [key: string]: unknown }) => el.name === 'image.tag'
+    )?.value;
   } else {
     if (isHelm) {
-      return argoApplication?.spec?.source?.targetRevision?.split('/').at(-1);
+      return argoApplication?.spec?.source?.targetRevision?.split('/').at(-1) || '';
     }
 
-    return argoApplication?.spec?.source?.helm?.parameters?.find((el) => el.name === 'image.tag')
-      ?.value;
+    return (
+      argoApplication?.spec?.source?.helm?.parameters?.find((el) => el.name === 'image.tag')
+        ?.value || ''
+    );
   }
 };

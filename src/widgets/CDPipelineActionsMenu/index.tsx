@@ -34,8 +34,8 @@ export const CDPipelineActionsMenu = ({
         item: CDPipelineData,
         icon: ICONS.PENCIL,
         disabled: {
-          status: !permissions?.update?.CDPipeline.allowed,
-          reason: permissions?.update?.CDPipeline.reason,
+          status: !permissions.update.CDPipeline.allowed,
+          reason: permissions.update.CDPipeline.reason,
         },
         callback: (CDPipelineData) => {
           if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {

@@ -1,11 +1,9 @@
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { CODEBASE_TYPE } from '../../../../constants/codebaseTypes';
 import { useCDPipelineByNameQuery } from '../../../../k8s/groups/EDP/CDPipeline/hooks/useCDPipelineByNameQuery';
-import { useCodebasesByTypeLabelQuery } from '../../../../k8s/groups/EDP/Codebase/hooks/useCodebasesByTypeLabelQuery';
 import { useEnrichedApplicationsWithImageStreamsQuery } from '../../../../k8s/groups/EDP/Codebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
-import { CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE } from '../../../../k8s/groups/EDP/Codebase/labels';
+import { useGitOpsCodebaseQuery } from '../../../../k8s/groups/EDP/Codebase/hooks/useGitOpsCodebaseQuery';
 import { useQuickLinksQuery } from '../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksQuery';
 import { useQuickLinksURLsQuery } from '../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { useCDPipelineStageListByCDPipelineNameQuery } from '../../../../k8s/groups/EDP/Stage/hooks/useCDPipelineStageListByCDPipelineNameQuery';
@@ -15,15 +13,7 @@ import { DataContext } from './context';
 export const DataContextProvider: React.FC = ({ children }) => {
   const { CDPipelineName, namespace } = useParams<EDPStageDetailsRouteParams>();
 
-  const CDPipelineQuery = useCDPipelineByNameQuery({
-    props: {
-      name: CDPipelineName,
-      namespace,
-    },
-    options: {
-      enabled: !!CDPipelineName,
-    },
-  });
+  const CDPipelineQuery = useCDPipelineByNameQuery(CDPipelineName, namespace);
 
   const stagesQuery = useCDPipelineStageListByCDPipelineNameQuery({
     props: {
@@ -35,26 +25,9 @@ export const DataContextProvider: React.FC = ({ children }) => {
   const {
     isLoading: isEnrichedApplicationsWithImageStreamsQueryLoading,
     data: enrichedApplications,
-  } = useEnrichedApplicationsWithImageStreamsQuery({
-    props: {
-      CDPipelineData: CDPipelineQuery?.data,
-    },
-    options: {
-      enabled: CDPipelineQuery.isFetched,
-    },
-  });
+  } = useEnrichedApplicationsWithImageStreamsQuery(CDPipelineQuery.data);
 
-  const codebasesQuery = useCodebasesByTypeLabelQuery({
-    props: {
-      namespace,
-      codebaseType: CODEBASE_TYPE.SYSTEM,
-    },
-  });
-
-  const gitOpsCodebase =
-    codebasesQuery.data?.items.find(
-      (el) => el.metadata.labels[CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE_SYSTEM_TYPE] === 'gitops'
-    ) ?? null;
+  const gitOpsCodebaseQuery = useGitOpsCodebaseQuery();
 
   const QuickLinksQuery = useQuickLinksQuery({
     props: {
@@ -82,9 +55,9 @@ export const DataContextProvider: React.FC = ({ children }) => {
         error: null,
       },
       gitOpsCodebase: {
-        data: gitOpsCodebase,
-        isLoading: codebasesQuery.isLoading,
-        error: null,
+        data: gitOpsCodebaseQuery.data,
+        isLoading: gitOpsCodebaseQuery.isLoading,
+        error: gitOpsCodebaseQuery.error as ApiError,
       },
       QuickLinks: {
         data: QuickLinksQuery.data?.items,
@@ -107,11 +80,10 @@ export const DataContextProvider: React.FC = ({ children }) => {
       QuickLinksURLsQuery.data,
       QuickLinksURLsQuery.error,
       QuickLinksURLsQuery.isLoading,
-      codebasesQuery.isLoading,
       enrichedApplications,
-      gitOpsCodebase,
+      gitOpsCodebaseQuery,
       isEnrichedApplicationsWithImageStreamsQueryLoading,
-      stagesQuery.data,
+      stagesQuery.data?.items,
       stagesQuery.error,
       stagesQuery.isLoading,
     ]

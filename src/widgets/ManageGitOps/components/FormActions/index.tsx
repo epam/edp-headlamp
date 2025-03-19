@@ -53,7 +53,7 @@ export const FormActions = ({ permissions }: { permissions: WidgetPermissions })
 
   const onSubmit = React.useCallback(
     async (values: ManageGitOpsValues) => {
-      if (!permissions?.create?.Codebase.allowed) {
+      if (!permissions.create.Codebase.allowed) {
         return false;
       }
 
@@ -65,7 +65,7 @@ export const FormActions = ({ permissions }: { permissions: WidgetPermissions })
         codebaseAuthData: null,
       });
     },
-    [createCodebase, permissions?.create?.Codebase.allowed]
+    [createCodebase, permissions.create.Codebase.allowed]
   );
 
   return (
@@ -92,9 +92,9 @@ export const FormActions = ({ permissions }: { permissions: WidgetPermissions })
             </Grid>
             <Grid item>
               <ConditionalWrapper
-                condition={!permissions?.create?.Codebase.allowed}
+                condition={!permissions.create.Codebase.allowed}
                 wrapper={(children) => (
-                  <Tooltip title={permissions?.create?.Codebase.reason}>
+                  <Tooltip title={permissions.create.Codebase.reason}>
                     <div>{children}</div>
                   </Tooltip>
                 )}
@@ -105,7 +105,7 @@ export const FormActions = ({ permissions }: { permissions: WidgetPermissions })
                   component={'button'}
                   variant={'contained'}
                   color={'primary'}
-                  disabled={isLoading || isReadOnly || !permissions?.create?.Codebase.allowed}
+                  disabled={isLoading || isReadOnly || !permissions.create.Codebase.allowed}
                   onClick={handleSubmit(onSubmit)}
                 >
                   save

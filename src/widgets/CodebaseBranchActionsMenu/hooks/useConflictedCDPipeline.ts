@@ -3,38 +3,23 @@ import { useCDPipelineByCodebaseBranchItUsesQuery } from '../../../k8s/groups/ED
 import { CodebaseKubeObjectInterface } from '../../../k8s/groups/EDP/Codebase/types';
 import { CodebaseBranchKubeObjectInterface } from '../../../k8s/groups/EDP/CodebaseBranch/types';
 import { isAutotest } from '../../../utils/checks/isAutotest';
-import { isGroovyLibrary } from '../../../utils/checks/isGroovyLibrary';
 import { isLibrary } from '../../../utils/checks/isLibrary';
 
 export const useConflictedCDPipeline = (
   codebaseBranch: CodebaseBranchKubeObjectInterface,
   codebase: CodebaseKubeObjectInterface
 ) => {
-  const codebaseBranchSpecName = codebaseBranch?.spec.branchName;
-  const codebaseBranchMetadataName = codebaseBranch?.metadata.name;
+  const codebaseBranchSpecName = codebaseBranch.spec.branchName;
+  const codebaseBranchMetadataName = codebaseBranch.metadata.name;
 
   const CDPipelineByAutotestBranchItUsesInItsStagesQuery =
-    useCDPipelineByAutotestBranchItUsesInItsStagesQuery({
-      props: {
-        codebaseBranchName: codebaseBranchSpecName,
-      },
-      options: {
-        enabled: !!codebaseBranch && isAutotest(codebase),
-      },
-    });
+    useCDPipelineByAutotestBranchItUsesInItsStagesQuery(
+      isAutotest(codebase) ? codebaseBranchSpecName : null
+    );
 
-  const CDPipelineByCodebaseBranchItUsesQuery = useCDPipelineByCodebaseBranchItUsesQuery({
-    props: {
-      codebaseBranchName: codebaseBranchMetadataName,
-    },
-    options: {
-      enabled:
-        !!codebaseBranch &&
-        !isLibrary(codebase) &&
-        isGroovyLibrary(codebase) &&
-        !isAutotest(codebase),
-    },
-  });
+  const CDPipelineByCodebaseBranchItUsesQuery = useCDPipelineByCodebaseBranchItUsesQuery(
+    !isLibrary(codebase) && !isAutotest(codebase) ? codebaseBranchMetadataName : null
+  );
 
   if (CDPipelineByAutotestBranchItUsesInItsStagesQuery.data) {
     return CDPipelineByAutotestBranchItUsesInItsStagesQuery.data;

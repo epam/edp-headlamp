@@ -5,23 +5,13 @@ import { isApplication } from '../../../utils/checks/isApplication';
 import { isAutotest } from '../../../utils/checks/isAutotest';
 
 export const useDeletionConflict = (codebase: CodebaseKubeObjectInterface) => {
-  const CDPipelineByAutotestItUsesInItsStagesQuery = useCDPipelineByAutotestItUsesInItsStagesQuery({
-    props: {
-      codebaseName: codebase?.metadata.name,
-    },
-    options: {
-      enabled: !!codebase && isAutotest(codebase),
-    },
-  });
+  const CDPipelineByAutotestItUsesInItsStagesQuery = useCDPipelineByAutotestItUsesInItsStagesQuery(
+    isAutotest(codebase) ? codebase.metadata.name : undefined
+  );
 
-  const CDPipelineByApplicationItUsesQuery = useCDPipelineByApplicationItUsesQuery({
-    props: {
-      codebaseName: codebase?.metadata.name,
-    },
-    options: {
-      enabled: !!codebase && isApplication(codebase),
-    },
-  });
+  const CDPipelineByApplicationItUsesQuery = useCDPipelineByApplicationItUsesQuery(
+    isApplication(codebase) ? codebase.metadata.name : undefined
+  );
 
   if (!codebase) {
     return null;

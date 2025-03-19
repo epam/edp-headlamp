@@ -153,8 +153,8 @@ export const PipelineRunActionsMenu = ({
         icon: ICONS.REDO,
         item: pipelineRun,
         disabled: {
-          status: !permissions?.create?.PipelineRun.allowed,
-          reason: permissions?.create?.PipelineRun.reason,
+          status: !permissions.create.PipelineRun.allowed,
+          reason: permissions.create.PipelineRun.reason,
         },
         callback: (pipelineRun) => {
           if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {
@@ -172,8 +172,8 @@ export const PipelineRunActionsMenu = ({
         icon: ICONS.SETTINGS_REDO,
         item: pipelineRun,
         disabled: {
-          status: !permissions?.create?.PipelineRun.allowed,
-          reason: permissions?.create?.PipelineRun.reason,
+          status: !permissions.create.PipelineRun.allowed,
+          reason: permissions.create.PipelineRun.reason,
         },
         callback: (pipelineRun) => {
           const newPipelineRun = createRerunPipelineRunInstance(pipelineRun);
@@ -189,9 +189,9 @@ export const PipelineRunActionsMenu = ({
               icon: ICONS.CANCEL,
               item: pipelineRun,
               disabled: {
-                status: !permissions?.update?.PipelineRun.allowed || !isInProgress,
-                reason: !permissions?.update?.PipelineRun.allowed
-                  ? permissions?.update?.PipelineRun.reason
+                status: !permissions.update.PipelineRun.allowed || !isInProgress,
+                reason: !permissions.update.PipelineRun.allowed
+                  ? permissions.update.PipelineRun.reason
                   : !isInProgress
                   ? 'PipelineRun is no longer in progress'
                   : undefined,
@@ -231,10 +231,10 @@ export const PipelineRunActionsMenu = ({
     ];
   }, [
     _pipelineRun,
-    permissions?.create?.PipelineRun.allowed,
-    permissions?.create?.PipelineRun.reason,
-    permissions?.update?.PipelineRun.allowed,
-    permissions?.update?.PipelineRun.reason,
+    permissions.create.PipelineRun.allowed,
+    permissions.create.PipelineRun.reason,
+    permissions.update.PipelineRun.allowed,
+    permissions.update.PipelineRun.reason,
     permissions?.delete?.PipelineRun.allowed,
     permissions?.delete?.PipelineRun.reason,
     isInProgress,

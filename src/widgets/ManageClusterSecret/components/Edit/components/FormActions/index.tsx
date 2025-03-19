@@ -16,7 +16,7 @@ import { DeleteKubeObjectDialog } from '../../../../../dialogs/DeleteKubeObject'
 import { CLUSTER_TYPE } from '../../../../constants';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../../types';
 import { ClusterCDPipelineConflictError } from './components/ClusterCDPipelineConflictError';
-import { useConflictedStage } from './hooks/useConflictedStage';
+import { useConflictedStageQuery } from './hooks/useConflictedStage';
 
 export const FormActions = () => {
   const { setDialog } = useDialogContext();
@@ -45,7 +45,7 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageClusterSecretValues) => {
-      if (!permissions?.update?.Secret.allowed) {
+      if (!permissions.update.Secret.allowed) {
         return false;
       }
 
@@ -82,30 +82,30 @@ export const FormActions = () => {
         });
       }
     },
-    [editSecret, permissions?.update?.Secret.allowed]
+    [editSecret, permissions.update.Secret.allowed]
   );
 
   const clusterName = currentElement.metadata.name;
 
-  const conflictedStage = useConflictedStage(clusterName);
+  const conflictedStageQuery = useConflictedStageQuery(clusterName);
 
   const onBeforeSubmit = React.useCallback(
     async (setErrorTemplate, setLoadingActive) => {
       setLoadingActive(true);
-      if (!conflictedStage) {
+      if (!conflictedStageQuery.data) {
         setLoadingActive(false);
         return;
       }
 
       setErrorTemplate(
         <ClusterCDPipelineConflictError
-          conflictedStage={conflictedStage}
+          conflictedStage={conflictedStageQuery.data}
           clusterName={clusterName}
         />
       );
       setLoadingActive(false);
     },
-    [clusterName, conflictedStage]
+    [clusterName, conflictedStageQuery.data]
   );
 
   const handleClickDelete = React.useCallback(() => {
@@ -119,8 +119,8 @@ export const FormActions = () => {
   }, [clusterName, currentElement, onBeforeSubmit, setDialog]);
 
   const saveButtonTooltip = React.useMemo(() => {
-    if (!permissions?.update?.Secret.allowed) {
-      return permissions?.update?.Secret.reason;
+    if (!permissions.update.Secret.allowed) {
+      return permissions.update.Secret.reason;
     }
 
     if (ownerReference) {
@@ -128,7 +128,7 @@ export const FormActions = () => {
     }
 
     return '';
-  }, [ownerReference, permissions?.update?.Secret.allowed, permissions?.update?.Secret.reason]);
+  }, [ownerReference, permissions.update.Secret.allowed, permissions.update.Secret.reason]);
 
   const deleteButtonTooltip = React.useMemo(() => {
     if (!permissions?.delete?.Secret.allowed) {
@@ -172,7 +172,7 @@ export const FormActions = () => {
             </Grid>
             <Grid item>
               <ConditionalWrapper
-                condition={!permissions?.update?.Secret.allowed || !!ownerReference}
+                condition={!permissions.update.Secret.allowed || !!ownerReference}
                 wrapper={(children) => (
                   <Tooltip title={saveButtonTooltip}>
                     <div>{children}</div>
@@ -185,7 +185,7 @@ export const FormActions = () => {
                   component={'button'}
                   variant={'contained'}
                   color={'primary'}
-                  disabled={isLoading || !isDirty || !permissions?.update?.Secret.allowed}
+                  disabled={isLoading || !isDirty || !permissions.update.Secret.allowed}
                   onClick={handleSubmit(onSubmit)}
                 >
                   save

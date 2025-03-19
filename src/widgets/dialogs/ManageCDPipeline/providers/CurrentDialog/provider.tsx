@@ -10,15 +10,10 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
   props,
   state,
 }) => {
-  const { data, isLoading } = useCodebasesByTypeLabelQuery({
-    props: {
-      namespace: props.CDPipelineData?.metadata.namespace,
-      codebaseType: CODEBASE_TYPE.APPLICATION,
-    },
-    options: {
-      cacheTime: 0,
-    },
-  });
+  const { data, isLoading } = useCodebasesByTypeLabelQuery(
+    CODEBASE_TYPE.APPLICATION,
+    props.CDPipelineData?.metadata.namespace
+  );
 
   const CurrentDialogContextValue = React.useMemo(
     () => ({
