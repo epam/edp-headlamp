@@ -1,7 +1,11 @@
-import { Grid, Stack } from '@mui/material';
+import { Icon } from '@iconify/react';
+import { Grid, Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { EmptyList } from '../../../../../../components/EmptyList';
+import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
+import { ReserveLogs } from '../ReserveLogs';
 import { MenuAccordion } from './components/MenuAccordion';
 import { TaskRunStepWrapper } from './components/TaskRunStepWrapper';
 import { TaskRunWrapper } from './components/TaskRunWrapper';
@@ -9,13 +13,14 @@ import { TaskRunWrapper } from './components/TaskRunWrapper';
 export const Details = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-
   const history = useHistory();
 
   const {
+    pipelineRun,
     pipelineRunData: {
       data: { pipelineRunTasks, pipelineRunTasksByNameMap },
     },
+    logs,
   } = useDynamicDataContext();
 
   const setQueryParams = React.useCallback(
@@ -39,6 +44,7 @@ export const Details = () => {
   const queryParamStep = queryParams.get('step');
 
   const initialTaskRunName = pipelineRunTasks.allTasks?.[0]?.name;
+  const hasReserveLogs = !logs.isLoading && !logs.error && !!logs?.data?.all?.length;
 
   const renderDetails = React.useCallback(() => {
     const activePipelineRunTaskData = pipelineRunTasksByNameMap?.get(
@@ -64,6 +70,42 @@ export const Details = () => {
       setQueryParams(initialTaskRunName);
     }
   }, [initialTaskRunName, queryParamTaskRun, setQueryParams]);
+
+  if (!pipelineRunTasks.allTasks.length) {
+    return <EmptyList customText="Could not get required PipelineRun data (Tasks/TaskRuns)." />;
+  }
+
+  if (hasReserveLogs && pipelineRun.error) {
+    return (
+      <Stack spacing={1}>
+        <LoadingWrapper isLoading={logs.isLoading}>
+          <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
+            <Icon icon={'ph:warning-fill'} color="#A2A7B7" width={48} height={48} />
+            <Stack spacing={1} direction="row" alignItems="center">
+              <Typography
+                component="span"
+                fontSize={(t) => t.typography.pxToRem(14)}
+                color="#596D80"
+              >
+                {hasReserveLogs ? (
+                  'No pipeline runs were found for the requested resource. Logs have been retrieved from OpenSearch.'
+                ) : (
+                  <>
+                    <p>
+                      No logs were found for the requested pipeline run. This might have been caused
+                      by environment cleanup. Please ensure you have checked the correct resource.
+                    </p>
+                    {logs.error && logs.error?.message}
+                  </>
+                )}
+              </Typography>
+            </Stack>
+          </Stack>
+          {hasReserveLogs && <ReserveLogs />}
+        </LoadingWrapper>
+      </Stack>
+    );
+  }
 
   return (
     <Grid container rowSpacing={3}>

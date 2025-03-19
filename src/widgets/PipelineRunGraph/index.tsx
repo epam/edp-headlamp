@@ -1,6 +1,7 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Box, Grid, Stack, Tooltip, Typography } from '@mui/material';
 import React from 'react';
+import { EmptyList } from '../../components/EmptyList';
 import { Graph } from '../../components/Graph';
 import { Edge } from '../../components/Graph/components/Edge';
 import { Node } from '../../components/Graph/components/Node';
@@ -62,7 +63,7 @@ export const PipelineRunGraph = ({
 
   const { nodes, edges } = usePipelineRunGraphData(taskRuns, pipelineRun);
 
-  const diagramIsReady = nodes !== null && edges !== null;
+  const diagramIsReady = taskRuns !== null && nodes !== null && edges !== null;
 
   const renderTaskLegend = React.useCallback(
     (
@@ -267,6 +268,10 @@ export const PipelineRunGraph = ({
     ]
   );
 
+  if (taskRuns !== null && !taskRuns?.length) {
+    return <EmptyList customText="Could not get required PipelineRun data (Tasks/TaskRuns)." />;
+  }
+
   return (
     <LoadingWrapper isLoading={taskRuns === null && !diagramIsReady}>
       {diagramIsReady && (
@@ -281,11 +286,6 @@ export const PipelineRunGraph = ({
           />
         </div>
       )}
-      {taskRuns !== null && !taskRuns?.length ? (
-        <Typography variant={'body1'} align={'center'}>
-          Couldn't find TaskRuns for the PipelineRun
-        </Typography>
-      ) : null}
     </LoadingWrapper>
   );
 };
