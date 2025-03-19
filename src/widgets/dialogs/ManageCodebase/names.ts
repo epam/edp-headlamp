@@ -98,7 +98,7 @@ export const CODEBASE_FORM_NAMES = {
   },
   [NAMES.DEFAULT_BRANCH]: {
     name: NAMES.DEFAULT_BRANCH,
-    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
+    formPart: CONFIGURATION_STEPS.ADVANCED_SETTINGS,
     path: ['spec', 'defaultBranch'],
   },
   [NAMES.LANG]: {
