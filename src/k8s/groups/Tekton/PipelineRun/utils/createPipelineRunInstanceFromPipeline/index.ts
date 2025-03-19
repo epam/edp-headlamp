@@ -40,13 +40,6 @@ export const createPipelineRunInstanceFromPipeline = (
 
   const pipelineRunName = `${pipelineRunNamePrefix}${truncatedName}${pipelineRunNamePostfix}`;
 
-  const pipelineRunParams = pipeline.spec.params.map((param) => {
-    return {
-      name: param.name,
-      value: param.default || '',
-    };
-  });
-
   const pipelineRun: PipelineRunKubeObjectInterface = {
     apiVersion: 'tekton.dev/v1',
     kind: 'PipelineRun',
@@ -59,7 +52,12 @@ export const createPipelineRunInstanceFromPipeline = (
       pipelineRef: {
         name: pipeline.metadata.name,
       },
-      params: pipelineRunParams,
+      params: (pipeline.spec.params || []).map((param) => {
+        return {
+          name: param.name,
+          value: param.default || '',
+        };
+      }),
     },
   };
 

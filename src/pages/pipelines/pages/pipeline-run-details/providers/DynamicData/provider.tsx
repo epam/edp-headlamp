@@ -158,11 +158,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
           pipelineRunTasks,
           pipelineRunTasksByNameMap,
         },
-        isLoading:
-          taskRuns === null ||
-          tasks === null ||
-          pipelineRun === null ||
-          !pipelineRunTasks.allTasks.length,
+        isLoading: taskRuns === null || tasks === null || pipelineRun === null,
         error: taskRunErrors || tasksError || pipelineRunError || approvalTasksError,
       },
       logs: {
