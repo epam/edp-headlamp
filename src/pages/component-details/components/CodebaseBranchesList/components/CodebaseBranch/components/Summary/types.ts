@@ -4,10 +4,7 @@ import { PipelineRunKubeObjectInterface } from '../../../../../../../../k8s/grou
 
 export interface SummaryProps {
   codebaseBranchData: CodebaseBranchKubeObjectInterface;
-  pipelineRuns: {
-    all: PipelineRunKubeObjectInterface[];
-    latestBuildPipelineRun: PipelineRunKubeObjectInterface;
-  };
+  latestBuildPipelineRun: PipelineRunKubeObjectInterface | null | undefined;
   handleOpenEditor: (data: KubeObjectInterface) => void;
   menuAnchorEl: HTMLElement | null;
   handleClickMenu: (event: React.MouseEvent<HTMLElement>) => void;

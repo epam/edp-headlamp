@@ -71,9 +71,9 @@ export const ApplicationCard = ({
     (argoApplication: ApplicationKubeObjectInterface) =>
       LinkCreationService.argocd.createApplicationLink(
         QuickLinksURLS?.[SYSTEM_QUICK_LINKS.ARGOCD],
-        argoApplication?.metadata.labels[APPLICATION_LABEL_SELECTOR_PIPELINE],
-        argoApplication?.metadata.labels[APPLICATION_LABEL_SELECTOR_STAGE],
-        argoApplication?.metadata.labels[APPLICATION_LABEL_SELECTOR_APP_NAME]
+        argoApplication?.metadata?.labels?.[APPLICATION_LABEL_SELECTOR_PIPELINE],
+        argoApplication?.metadata?.labels?.[APPLICATION_LABEL_SELECTOR_STAGE],
+        argoApplication?.metadata?.labels?.[APPLICATION_LABEL_SELECTOR_APP_NAME]
       ),
     [QuickLinksURLS]
   );
@@ -86,8 +86,8 @@ export const ApplicationCard = ({
     }
     return stagePods.reduce((acc, pod) => {
       if (
-        pod.metadata.labels['app.kubernetes.io/instance'] ===
-        argoApplication.metadata.labels[APPLICATION_LABEL_SELECTOR_APP_NAME]
+        pod.metadata?.labels?.['app.kubernetes.io/instance'] ===
+        argoApplication.metadata?.labels?.[APPLICATION_LABEL_SELECTOR_APP_NAME]
       ) {
         //@ts-ignore
         acc.push(new PodKubeObject(pod));
@@ -189,7 +189,7 @@ export const ApplicationCard = ({
             </Link>
           </Stack>
           <TextWithTooltip
-            text={argoApplication ? argoApplication?.spec.source.targetRevision : 'Unknown'}
+            text={argoApplication?.spec.source?.targetRevision ?? 'Unknown'}
             textSX={{
               fontSize: theme.typography.pxToRem(12),
               fontWeight: 300,

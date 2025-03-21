@@ -21,7 +21,7 @@ import { SummaryProps } from './types';
 
 export const Summary = ({
   codebaseBranchData,
-  pipelineRuns,
+  latestBuildPipelineRun,
   handleOpenEditor,
   menuAnchorEl,
   handleClickMenu,
@@ -41,10 +41,12 @@ export const Summary = ({
     CodebaseBranchKubeObject.getStatusIcon(status);
 
   const [lastPipelineRunIcon, lastPipelineRunColor, lastPipelineRunIsRotating] =
-    PipelineRunKubeObject.getStatusIcon(
-      PipelineRunKubeObject.parseStatus(pipelineRuns.latestBuildPipelineRun),
-      PipelineRunKubeObject.parseStatusReason(pipelineRuns.latestBuildPipelineRun)
-    );
+    latestBuildPipelineRun
+      ? PipelineRunKubeObject.getStatusIcon(
+          PipelineRunKubeObject.parseStatus(latestBuildPipelineRun),
+          PipelineRunKubeObject.parseStatusReason(latestBuildPipelineRun)
+        )
+      : [];
 
   const isEDPVersioning =
     codebaseData?.spec.versioning.type === CODEBASE_VERSIONING_TYPE.EDP ||
@@ -117,26 +119,29 @@ export const Summary = ({
               className={clsx([classes.labelChip, classes.labelChipGreen])}
             />
           )}
-          <Stack spacing={1} alignItems="center" direction="row">
-            <Typography fontSize={12}>Build status</Typography>
-            <StatusIcon
-              icon={lastPipelineRunIcon}
-              color={lastPipelineRunColor}
-              isRotating={lastPipelineRunIsRotating}
-              width={20}
-              Title={
-                <>
-                  <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                    {`Last Build PipelineRun status: ${PipelineRunKubeObject.parseStatus(
-                      pipelineRuns.latestBuildPipelineRun
-                    )}. Reason: ${PipelineRunKubeObject.parseStatusReason(
-                      pipelineRuns.latestBuildPipelineRun
-                    )}`}
-                  </Typography>
-                </>
-              }
-            />
-          </Stack>
+          {latestBuildPipelineRun && (
+            <Stack spacing={1} alignItems="center" direction="row">
+              <Typography fontSize={12}>Build status</Typography>
+              <StatusIcon
+                icon={lastPipelineRunIcon!}
+                color={lastPipelineRunColor!}
+                isRotating={lastPipelineRunIsRotating}
+                width={20}
+                Title={
+                  <>
+                    <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                      {`Last Build PipelineRun status: ${PipelineRunKubeObject.parseStatus(
+                        latestBuildPipelineRun
+                      )}. Reason: ${PipelineRunKubeObject.parseStatusReason(
+                        latestBuildPipelineRun
+                      )}`}
+                    </Typography>
+                  </>
+                }
+              />
+            </Stack>
+          )}
+
           {isEDPVersioning ? (
             <>
               <Stack spacing={1} alignItems="center" direction="row">
@@ -199,7 +204,7 @@ export const Summary = ({
                 handleCloseMenu={handleCloseMenu}
                 handleOpenEditor={handleOpenEditor}
                 codebaseBranch={codebaseBranchData}
-                latestBuildPipelineRun={pipelineRuns.latestBuildPipelineRun}
+                latestBuildPipelineRun={latestBuildPipelineRun}
               />
             </Grid>
 

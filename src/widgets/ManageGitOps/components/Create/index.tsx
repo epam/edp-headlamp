@@ -41,7 +41,7 @@ const codebaseCreationStrategies = [
 ];
 export const Create = () => {
   const { watch } = useFormContext<ManageGitOpsValues>();
-  const { data: gitServers, isFetched } = useGitServerListQuery({});
+  const { data: gitServers, isFetched } = useGitServerListQuery();
 
   const gitServerFieldValue = watch(CODEBASE_FORM_NAMES.gitServer.name);
 

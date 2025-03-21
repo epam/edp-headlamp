@@ -23,7 +23,7 @@ describe('createResourceAction', () => {
     expect(action.name).toBe(RESOURCE_ACTION.EDIT);
     expect(action.label).toBe('Edit');
     expect(action.icon).toBe('edit-icon');
-    expect(action.disabled.status).toBe(false);
+    expect(action.disabled?.status).toBe(false);
     expect(action.isTextButton).toBe(true);
   });
 
@@ -44,8 +44,8 @@ describe('createResourceAction', () => {
       callback: jest.fn(),
     });
 
-    expect(action.disabled.status).toBe(true);
-    expect(action.disabled.reason).toBe('This resource is protected from deletion.');
+    expect(action.disabled?.status).toBe(true);
+    expect(action.disabled?.reason).toBe('This resource is protected from deletion.');
   });
 
   it('should apply protected state for multiple protections', () => {
@@ -65,8 +65,8 @@ describe('createResourceAction', () => {
       callback: jest.fn(),
     });
 
-    expect(actionDelete.disabled.status).toBe(true);
-    expect(actionDelete.disabled.reason).toBe('This resource is protected from deletion.');
+    expect(actionDelete.disabled?.status).toBe(true);
+    expect(actionDelete.disabled?.reason).toBe('This resource is protected from deletion.');
 
     const actionUpdate = createResourceAction({
       item: protectedItem,
@@ -75,8 +75,8 @@ describe('createResourceAction', () => {
       callback: jest.fn(),
     });
 
-    expect(actionUpdate.disabled.status).toBe(true);
-    expect(actionUpdate.disabled.reason).toBe('This resource is protected from updates.');
+    expect(actionUpdate.disabled?.status).toBe(true);
+    expect(actionUpdate.disabled?.reason).toBe('This resource is protected from updates.');
   });
 
   it('should call the callback function when the action is executed', () => {

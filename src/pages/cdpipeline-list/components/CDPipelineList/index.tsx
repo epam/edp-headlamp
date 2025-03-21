@@ -28,7 +28,7 @@ export const CDPipelineList = ({ blockerComponent }: CDPipelineListProps) => {
       id={TABLE.CDPIPELINE_LIST.id}
       name={TABLE.CDPIPELINE_LIST.name}
       isLoading={CDPipelines.isLoading && (!CDPipelines.errors || !CDPipelines.errors.length)}
-      data={CDPipelines.data}
+      data={CDPipelines.data!}
       errors={CDPipelines.errors}
       columns={columns}
       filterFunction={filterFunction}

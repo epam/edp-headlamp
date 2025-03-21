@@ -14,7 +14,7 @@ export const GitUrlPath = () => {
     watch,
   } = useTypedFormContext();
 
-  const { data: gitServers } = useGitServerListQuery({});
+  const { data: gitServers } = useGitServerListQuery();
 
   const gitServerFieldValue = watch(CODEBASE_FORM_NAMES.gitServer.name);
 

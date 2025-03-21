@@ -1,30 +1,18 @@
-import { UseQueryOptions } from 'react-query';
-import { KubeObjectListInterface } from '../../../../../types/k8s';
+import { useQuery } from 'react-query';
+import { getDefaultNamespace } from '../../../../../utils/getDefaultNamespace';
+import { GitServerKubeObject } from '..';
+import { REQUEST_KEY_QUERY_GIT_SERVER_BY_NAME } from '../requestKeys';
 import { GitServerKubeObjectInterface } from '../types';
-import { useGitServerListQuery } from './useGitServerListQuery';
 
-interface UseGitServerListQueryProps {
-  props: {
-    codebaseGitServer: string;
-  };
-  options?: UseQueryOptions<
-    KubeObjectListInterface<GitServerKubeObjectInterface>,
-    Error,
-    GitServerKubeObjectInterface
-  >;
-}
-
-export const useGitServerByCodebaseQuery = ({ props, options }: UseGitServerListQueryProps) => {
-  const { codebaseGitServer } = props;
-
-  return useGitServerListQuery<GitServerKubeObjectInterface>({
-    options: {
-      select: (data) =>
-        data && data?.items.length
-          ? data?.items.filter((el) => el.metadata.name === codebaseGitServer)?.[0]
-          : null,
-      ...options,
-      enabled: options?.enabled && !!codebaseGitServer,
-    },
-  });
+export const useGitServerByNameQuery = (
+  name: string | undefined,
+  namespace: string = getDefaultNamespace()
+) => {
+  return useQuery<GitServerKubeObjectInterface, Error>(
+    REQUEST_KEY_QUERY_GIT_SERVER_BY_NAME,
+    () => GitServerKubeObject.getByName(name!, namespace),
+    {
+      enabled: !!name,
+    }
+  );
 };

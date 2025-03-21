@@ -37,8 +37,8 @@ export const Details = ({ pipelineRuns, error }: DetailsProps) => {
                 saveToLocalStorage
               >
                 <PipelineRunList
-                  pipelineRuns={pipelineRuns.all}
-                  isLoading={pipelineRuns.all === null && !error}
+                  pipelineRuns={pipelineRuns!}
+                  isLoading={pipelineRuns === null && !error}
                   permissions={permissions}
                   pipelineRunTypes={[PIPELINE_TYPE.ALL, PIPELINE_TYPE.REVIEW, PIPELINE_TYPE.BUILD]}
                   filterControls={[

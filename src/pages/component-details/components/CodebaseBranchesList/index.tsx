@@ -13,21 +13,17 @@ import { TableHeaderActions } from './components/TableHeaderActions';
 
 export const CodebaseBranchesList = () => {
   const { setDialog } = useDialogContext();
-  const {
-    component: { data: component },
-    pipelines: { data: pipelines },
-    codebaseBranches: { data: codebaseBranches },
-  } = useDynamicDataContext();
+  const { component, pipelines, codebaseBranches } = useDynamicDataContext();
 
-  const [expandedPanel, setExpandedPanel] = React.useState<string>(
-    codebaseBranches?.length === 1 ? codebaseBranches[0].spec.branchName : null
+  const [expandedPanel, setExpandedPanel] = React.useState<string | null>(
+    codebaseBranches.data?.length === 1 ? codebaseBranches.data[0].spec.branchName : null
   );
 
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedPanel(isExpanded ? panel : null);
   };
 
-  const defaultBranch = codebaseBranches?.[0]?.jsonData ?? codebaseBranches?.[0];
+  const defaultBranch = codebaseBranches.data?.[0]?.jsonData ?? codebaseBranches.data?.[0];
 
   return (
     <Section
@@ -39,14 +35,14 @@ export const CodebaseBranchesList = () => {
             </Typography>
           </Grid>
           <Grid item style={{ marginLeft: 'auto' }}>
-            <TableHeaderActions codebase={component} defaultBranch={defaultBranch} />
+            <TableHeaderActions codebase={component.data!} defaultBranch={defaultBranch} />
           </Grid>
         </Grid>
       }
     >
-      {codebaseBranches.length ? (
+      {codebaseBranches.data && codebaseBranches.data.length ? (
         <>
-          {codebaseBranches.map((codebaseBranchData: CodebaseBranchKubeObjectInterface) => {
+          {codebaseBranches.data.map((codebaseBranchData: CodebaseBranchKubeObjectInterface) => {
             const codebaseBranch = codebaseBranchData?.jsonData;
             const branchId = codebaseBranch.spec.branchName;
 
@@ -66,9 +62,9 @@ export const CodebaseBranchesList = () => {
           missingItemName={'branches'}
           handleClick={() =>
             setDialog(ManageCodebaseBranchDialog, {
-              codebase: component,
+              codebase: component.data!,
               defaultBranch,
-              pipelines,
+              pipelines: pipelines.data,
             })
           }
         />

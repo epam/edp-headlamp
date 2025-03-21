@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { BorderedSection } from '../../../../components/BorderedSection';
 import { InfoColumns } from '../../../../components/InfoColumns';
+import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { DependencyTrackMetrics } from '../../../../widgets/DeeptrackVulnerabilities';
 import { SonarQubeMetrics } from '../../../../widgets/SonarQubeMetrics';
@@ -10,7 +11,7 @@ import { useDataContext } from '../../providers/Data/hooks';
 import { ComponentDetailsRouteParams } from '../../types';
 import { useInfoRows } from './hooks/useInfoRows';
 
-const statusMap = {
+const statusMap: Record<string, string> = {
   OK: 'Passed',
   ERROR: 'Failed',
 };
@@ -26,7 +27,9 @@ export const Overview = () => {
     <Stack spacing={3}>
       <BorderedSection title="Component Details">
         <div>
-          <InfoColumns infoRows={infoRows} />
+          <LoadingWrapper isLoading={infoRows === null}>
+            <InfoColumns infoRows={infoRows!} />
+          </LoadingWrapper>
         </div>
       </BorderedSection>
       <BorderedSection
@@ -46,7 +49,11 @@ export const Overview = () => {
                 color: '#fff',
               }}
               size="small"
-              label={getStatusLabel(sonarData.data.metrics?.alert_status)}
+              label={
+                sonarData.data.metrics?.alert_status
+                  ? getStatusLabel(sonarData.data.metrics?.alert_status)
+                  : 'N/A'
+              }
             />
           </Stack>
         }

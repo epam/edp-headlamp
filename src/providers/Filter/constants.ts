@@ -5,7 +5,7 @@ export const DEFAULT_CONTROLS = {
   NAMESPACE: 'namespace',
 } as const;
 
-export const searchFunction = (item: KubeObjectInterface, value: string) => {
+export const searchFunction = (item: KubeObjectInterface, value: string): boolean => {
   if (!item || !value) {
     return true;
   }
@@ -14,7 +14,7 @@ export const searchFunction = (item: KubeObjectInterface, value: string) => {
     const _value = value.replaceAll(' ', '');
     const [key, searchValue] = _value.split(':');
 
-    return item?.metadata.labels?.[key]?.includes(searchValue);
+    return !!item?.metadata.labels?.[key]?.includes(searchValue);
   }
 
   return (
@@ -23,5 +23,5 @@ export const searchFunction = (item: KubeObjectInterface, value: string) => {
   );
 };
 
-export const namespaceFunction = (item: KubeObjectInterface, values: string[]) =>
-  values.length === 0 || values.includes(item.metadata.namespace);
+export const namespaceFunction = (item: KubeObjectInterface, values: string[]): boolean =>
+  values.length === 0 || values.includes(item.metadata?.namespace || '');

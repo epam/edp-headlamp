@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { ButtonWithPermission } from '../../../../components/ButtonWithPermission';
+import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { APPLICATION_HEALTH_STATUS } from '../../../../k8s/groups/ArgoCD/Application/constants';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
@@ -33,27 +34,18 @@ export const StageListFilter = () => {
   const theme = useTheme();
   const { CDPipeline, stages, stagesWithApplicationsData } = useDynamicDataContext();
 
-  const isLoading = React.useMemo(
-    () => CDPipeline.isLoading || stages.isLoading,
-    [CDPipeline.isLoading, stages.isLoading]
-  );
-
   const { setDialog } = useDialogContext();
 
   const { filter, setFilterItem } = usePageFilterContext();
 
   const stageSelectOptions = React.useMemo(() => {
-    if (stages.isLoading) return [];
+    if (!stages.data) return [];
 
     return stages.data.map((stage) => stage.spec.name);
   }, [stages]);
 
   const applicationsOptions = React.useMemo(() => {
-    if (
-      stagesWithApplicationsData.isLoading ||
-      !stagesWithApplicationsData.data ||
-      !stagesWithApplicationsData.data.length
-    ) {
+    if (!stagesWithApplicationsData.data || !stagesWithApplicationsData.data.length) {
       return [];
     }
 
@@ -188,28 +180,25 @@ export const StageListFilter = () => {
         </Stack>
       </Grid>
       <Grid item>
-        <ButtonWithPermission
-          ButtonProps={{
-            startIcon: <Icon icon={'heroicons:view-columns-solid'} />,
-            color: 'primary',
-            variant: 'contained',
-            onClick: () => {
-              setDialog(
-                ManageStageDialog,
-                isLoading
-                  ? {
-                      CDPipelineData: null,
-                      otherStages: [],
-                    }
-                  : { CDPipelineData: CDPipeline.data, otherStages: stages.data }
-              );
-            },
-          }}
-          disabled={!permissions.create.Stage.allowed}
-          reason={permissions.create.Stage.reason}
-        >
-          create environment
-        </ButtonWithPermission>
+        <LoadingWrapper isLoading={CDPipeline.isLoading || stages.isLoading}>
+          <ButtonWithPermission
+            ButtonProps={{
+              startIcon: <Icon icon={'heroicons:view-columns-solid'} />,
+              color: 'primary',
+              variant: 'contained',
+              onClick: () => {
+                setDialog(ManageStageDialog, {
+                  CDPipelineData: CDPipeline.data!,
+                  otherStages: stages.data!,
+                });
+              },
+            }}
+            disabled={!permissions.create.Stage.allowed}
+            reason={permissions.create.Stage.reason}
+          >
+            create environment
+          </ButtonWithPermission>
+        </LoadingWrapper>
       </Grid>
     </Grid>
   );

@@ -1,3 +1,4 @@
+import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
 import { LOCAL_STORAGE_SERVICE } from '../../services/local-storage';
 import { useAddQuery } from './components/Filter/hooks/useAddQuery';
@@ -7,7 +8,7 @@ import { DefaultControlNames, FilterContextProviderProps, FilterState } from './
 
 const LS_FILTER_KEY = 'FILTER_STATE';
 
-type DefaultFilterState = FilterState<unknown, DefaultControlNames>;
+type DefaultFilterState = FilterState<KubeObjectInterface, DefaultControlNames>;
 
 const defaultInitialFilterState: DefaultFilterState = {
   values: {
@@ -20,7 +21,10 @@ const defaultInitialFilterState: DefaultFilterState = {
   },
 };
 
-export const FilterContextProvider = <Item, ControlNames extends DefaultControlNames>({
+export const FilterContextProvider = <
+  Item extends unknown,
+  ControlNames extends DefaultControlNames
+>({
   children,
   entityID,
   matchFunctions,
@@ -31,7 +35,7 @@ export const FilterContextProvider = <Item, ControlNames extends DefaultControlN
 
   const addQuery = useAddQuery();
 
-  const [filter, setFilter] = React.useState<DefaultFilterState>(() => {
+  const [filter, setFilter] = React.useState<FilterState<Item, ControlNames>>(() => {
     if (saveToLocalStorage && lsFilterState) {
       return {
         ...lsFilterState,
@@ -58,7 +62,7 @@ export const FilterContextProvider = <Item, ControlNames extends DefaultControlN
       let matches = true;
 
       for (const [key, filterFn] of Object.entries(filter.matchFunctions)) {
-        const keyControlValue = filter.values[key];
+        const keyControlValue = filter.values[key as ControlNames];
 
         matches = keyControlValue ? filterFn(item, keyControlValue) : true;
 
@@ -97,16 +101,19 @@ export const FilterContextProvider = <Item, ControlNames extends DefaultControlN
   );
 
   const resetFilter = React.useCallback(() => {
-    setFilter(defaultInitialFilterState);
+    setFilter(defaultInitialFilterState as FilterState<Item, ControlNames>);
 
     if (saveToLocalStorage) {
       LOCAL_STORAGE_SERVICE.removeItem(LS_FILTER_ENTITY_KEY);
     }
 
-    const newQueryParams = Object.entries(filter.values).reduce((acc, [key]) => {
-      acc[key] = '';
-      return acc;
-    }, {});
+    const newQueryParams = Object.entries(filter.values).reduce(
+      (acc: { [key: string]: string }, [key]) => {
+        acc[key] = '';
+        return acc;
+      },
+      {}
+    );
 
     addQuery({ ...newQueryParams }, { ...newQueryParams });
   }, [LS_FILTER_ENTITY_KEY, addQuery, filter.values, saveToLocalStorage]);
