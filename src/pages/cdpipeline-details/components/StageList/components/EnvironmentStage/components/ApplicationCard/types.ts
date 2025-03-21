@@ -9,6 +9,6 @@ export interface ApplicationCardProps {
   application: CodebaseKubeObjectInterface;
   argoApplication: ApplicationKubeObjectInterface;
   QuickLinksURLS: Record<string, string>;
-  stagePods: PodKubeObjectInterface[];
+  stagePods: PodKubeObjectInterface[] | null;
   viewMode: ViewMode;
 }

@@ -6,7 +6,7 @@ import { ValueOf } from '../../../types/global';
 
 type ProtectedAction = 'update' | 'delete';
 type ProtectedState = Record<ProtectedAction, { status: boolean; reason: string } | false>;
-type DisabledValue = { status: boolean; reason?: string };
+type DisabledValue = { status: boolean; reason: string };
 
 const getDisabledProtectedState = (protectedLabel: string): ProtectedState => {
   const actions = protectedLabel.split('-');
@@ -47,13 +47,14 @@ const getDisabledState = (
   if (!isProtected) {
     return {
       status: disabledDefaultValue.status,
-      reason: disabledDefaultValue.status && disabledDefaultValue.reason,
+      reason: disabledDefaultValue.status ? disabledDefaultValue.reason : undefined,
     };
   }
 
   const protectedDisabledState = getDisabledProtectedState(isProtected);
 
-  const _actionType = actionType === RESOURCE_ACTION.EDIT ? 'update' : actionType; //because of the different naming
+  const _actionType: ProtectedAction =
+    actionType === RESOURCE_ACTION.EDIT ? 'update' : (actionType as ProtectedAction); //because of the different naming
 
   return protectedDisabledState[_actionType] || disabledDefaultValue;
 };
@@ -85,7 +86,9 @@ export const createResourceAction = <Item extends KubeObjectInterface>({
     disabled: getDisabledState(item, disabled, type),
     action: (e) => {
       e.stopPropagation();
-      callback(item);
+      if (callback) {
+        callback(item);
+      }
     },
     isTextButton,
   };

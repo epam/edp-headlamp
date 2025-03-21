@@ -30,14 +30,14 @@ export const CodebaseBranch = ({
   } = useDynamicDataContext();
 
   const [pipelineRuns, setPipelineRuns] = React.useState<{
-    all: PipelineRunKubeObjectInterface[];
-    latestBuildPipelineRun: PipelineRunKubeObjectInterface;
+    all: PipelineRunKubeObjectInterface[] | null | undefined;
+    latestBuildPipelineRun: PipelineRunKubeObjectInterface | null | undefined;
   }>({
     all: null,
     latestBuildPipelineRun: null,
   });
 
-  const [error, setError] = React.useState<Error>(null);
+  const [error, setError] = React.useState<Error | null>(null);
 
   const handleStorePipelineRuns = React.useCallback(
     (socketPipelineRuns: PipelineRunKubeObjectInterface[]) => {
@@ -53,7 +53,7 @@ export const CodebaseBranch = ({
 
       const [latestBuildPipelineRun] = sortedPipelineRuns.filter(
         (el) =>
-          el.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] === PIPELINE_TYPE.BUILD
+          el.metadata.labels?.[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] === PIPELINE_TYPE.BUILD
       );
 
       setPipelineRuns({
@@ -131,7 +131,7 @@ export const CodebaseBranch = ({
           >
             <Summary
               codebaseBranchData={codebaseBranchData}
-              pipelineRuns={pipelineRuns}
+              latestBuildPipelineRun={pipelineRuns.latestBuildPipelineRun}
               createBuildPipelineRun={createBuildPipelineRun}
               menuAnchorEl={menuAnchorEl}
               handleClickMenu={handleClickMenu}
@@ -140,7 +140,7 @@ export const CodebaseBranch = ({
             />
           </AccordionSummary>
           <AccordionDetails>
-            <Details codebaseData={codebaseData} pipelineRuns={pipelineRuns} error={error} />
+            <Details codebaseData={codebaseData!} pipelineRuns={pipelineRuns.all} error={error} />
           </AccordionDetails>
         </Accordion>
       </div>

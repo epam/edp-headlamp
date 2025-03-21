@@ -12,7 +12,6 @@ import { CUSTOM_RESOURCE_STATUS } from '../../../../../constants/statuses';
 import { TABLE } from '../../../../../constants/tables';
 import { CDPipelineKubeObject } from '../../../../../k8s/groups/EDP/CDPipeline';
 import { CDPipelineKubeObjectInterface } from '../../../../../k8s/groups/EDP/CDPipeline/types';
-import { HeadlampKubeObject } from '../../../../../types/k8s';
 import { sortByName } from '../../../../../utils/sort/sortByName';
 import { rem } from '../../../../../utils/styling/rem';
 import { routeCDPipelineDetails } from '../../../../cdpipeline-details/route';
@@ -21,182 +20,182 @@ import { useTypedPermissions } from '../../../hooks/useTypedPermissions';
 import { Actions } from '../../Actions';
 import { columnNames } from '../constants';
 
-export const useColumns = (): TableColumn<HeadlampKubeObject<CDPipelineKubeObjectInterface>>[] => {
+export const useColumns = () => {
   const permissions = useTypedPermissions();
 
   const { loadSettings } = useTableSettings(TABLE.CDPIPELINE_LIST.id);
   const tableSettings = loadSettings();
 
   return React.useMemo(
-    () => [
-      {
-        id: columnNames.STATUS,
-        label: 'Status',
-        data: {
-          columnSortableValuePath: 'status.status',
-          render: ({ data }) => {
-            const status = data?.status?.status;
-            const detailedMessage = data?.status?.detailed_message;
+    () =>
+      [
+        {
+          id: columnNames.STATUS,
+          label: 'Status',
+          data: {
+            columnSortableValuePath: 'status.status',
+            render: ({ data }) => {
+              const status = data?.status?.status;
+              const detailedMessage = data?.status?.detailed_message;
 
-            const [icon, color, isRotating] = CDPipelineKubeObject.getStatusIcon(status);
+              const [icon, color, isRotating] = CDPipelineKubeObject.getStatusIcon(status);
 
-            const title = (
-              <>
-                <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
-                  {`Status: ${status || 'Unknown'}`}
-                </Typography>
-                {status === CUSTOM_RESOURCE_STATUS.FAILED && (
-                  <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
-                    {detailedMessage}
+              const title = (
+                <>
+                  <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                    {`Status: ${status || 'Unknown'}`}
                   </Typography>
-                )}
-              </>
-            );
+                  {status === CUSTOM_RESOURCE_STATUS.FAILED && (
+                    <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                      {detailedMessage}
+                    </Typography>
+                  )}
+                </>
+              );
 
-            return <StatusIcon icon={icon} color={color} isRotating={isRotating} Title={title} />;
+              return <StatusIcon icon={icon} color={color} isRotating={isRotating} Title={title} />;
+            },
+          },
+          cell: {
+            isFixed: true,
+            ...getSyncedColumnData(tableSettings, columnNames.STATUS, 5),
           },
         },
-        cell: {
-          isFixed: true,
-          ...getSyncedColumnData(tableSettings, columnNames.STATUS, 5),
-        },
-      },
-      {
-        id: columnNames.NAME,
-        label: 'Deployment Flow',
-        data: {
-          columnSortableValuePath: 'metadata.name',
-          render: ({
-            data: {
-              metadata: { name, namespace },
+        {
+          id: columnNames.NAME,
+          label: 'Deployment Flow',
+          data: {
+            columnSortableValuePath: 'metadata.name',
+            render: ({
+              data: {
+                metadata: { name, namespace },
+              },
+            }) => {
+              return (
+                <Link
+                  routeName={routeCDPipelineDetails.path}
+                  params={{
+                    name,
+                    namespace,
+                  }}
+                >
+                  <TextWithTooltip text={name} />
+                </Link>
+              );
             },
-          }) => {
-            return (
-              <Link
-                routeName={routeCDPipelineDetails.path}
-                params={{
-                  name,
-                  namespace,
-                }}
-              >
-                <TextWithTooltip text={name} />
-              </Link>
-            );
+            customSortFn: (a, b) => sortByName(a.metadata.name, b.metadata.name),
           },
-          sort: (a, b) => sortByName(a.metadata.name, b.metadata.name),
+          cell: {
+            customizable: false,
+            ...getSyncedColumnData(tableSettings, columnNames.NAME, 15),
+          },
         },
-        cell: {
-          customizable: false,
-          ...getSyncedColumnData(tableSettings, columnNames.NAME, 15),
+        {
+          id: columnNames.DESCRIPTION,
+          label: 'Description',
+          data: {
+            render: ({ data: { spec } }) =>
+              spec?.description && <TextWithTooltip text={spec.description} maxLineAmount={3} />,
+          },
+          cell: {
+            ...getSyncedColumnData(tableSettings, columnNames.DESCRIPTION, 30),
+          },
         },
-      },
-      {
-        id: columnNames.DESCRIPTION,
-        label: 'Description',
-        data: {
-          render: ({ data: { spec } }) => (
-            <TextWithTooltip text={spec?.description} maxLineAmount={3} />
-          ),
-        },
-        cell: {
-          ...getSyncedColumnData(tableSettings, columnNames.DESCRIPTION, 30),
-        },
-      },
-      {
-        id: columnNames.APPLICATIONS,
-        label: 'Applications',
-        data: {
-          render: ({
-            data: {
-              spec: { applications },
-              metadata: { namespace },
-            },
-          }) => {
-            return (
-              <ResponsiveChips
-                chipsData={applications}
-                renderChip={(label, key) => {
-                  return (
-                    <Chip
-                      key={key}
-                      sx={{
-                        backgroundColor: MAIN_COLOR.GREEN,
-                        borderColor: 'transparent',
-                      }}
-                      size="small"
-                      label={
-                        <Link
-                          routeName={routeComponentDetails.path}
-                          params={{
-                            name: label,
-                            namespace,
-                          }}
-                          style={{ color: 'white' }}
-                        >
-                          {label}
-                        </Link>
-                      }
-                    />
-                  );
-                }}
-                renderTooltip={(chipsToHide) => {
-                  return (
-                    <Box
-                      sx={{
-                        py: (t) => t.typography.pxToRem(6),
-                        px: (t) => t.typography.pxToRem(10),
-                      }}
-                    >
-                      <Stack spacing={1.5} flexWrap="wrap" sx={{ fontWeight: 400 }}>
-                        {chipsToHide.map((label) => (
-                          <Chip
-                            key={label}
-                            sx={{
-                              backgroundColor: MAIN_COLOR.GREEN,
-                              borderColor: 'transparent',
+        {
+          id: columnNames.APPLICATIONS,
+          label: 'Applications',
+          data: {
+            render: ({
+              data: {
+                spec: { applications },
+                metadata: { namespace },
+              },
+            }) => {
+              return (
+                <ResponsiveChips
+                  chipsData={applications}
+                  renderChip={(label, key) => {
+                    return (
+                      <Chip
+                        key={key}
+                        sx={{
+                          backgroundColor: MAIN_COLOR.GREEN,
+                          borderColor: 'transparent',
+                        }}
+                        size="small"
+                        label={
+                          <Link
+                            routeName={routeComponentDetails.path}
+                            params={{
+                              name: label,
+                              namespace,
                             }}
-                            size="small"
-                            label={
-                              <Link
-                                routeName={routeComponentDetails.path}
-                                params={{
-                                  name: label,
-                                  namespace,
-                                }}
-                                style={{ color: 'white' }}
-                              >
-                                {label}
-                              </Link>
-                            }
-                          />
-                        ))}
-                      </Stack>
-                    </Box>
-                  );
-                }}
-              />
-            );
+                            style={{ color: 'white' }}
+                          >
+                            {label}
+                          </Link>
+                        }
+                      />
+                    );
+                  }}
+                  renderTooltip={(chipsToHide) => {
+                    return (
+                      <Box
+                        sx={{
+                          py: (t) => t.typography.pxToRem(6),
+                          px: (t) => t.typography.pxToRem(10),
+                        }}
+                      >
+                        <Stack spacing={1.5} flexWrap="wrap" sx={{ fontWeight: 400 }}>
+                          {chipsToHide.map((label) => (
+                            <Chip
+                              key={label}
+                              sx={{
+                                backgroundColor: MAIN_COLOR.GREEN,
+                                borderColor: 'transparent',
+                              }}
+                              size="small"
+                              label={
+                                <Link
+                                  routeName={routeComponentDetails.path}
+                                  params={{
+                                    name: label,
+                                    namespace,
+                                  }}
+                                  style={{ color: 'white' }}
+                                >
+                                  {label}
+                                </Link>
+                              }
+                            />
+                          ))}
+                        </Stack>
+                      </Box>
+                    );
+                  }}
+                />
+              );
+            },
+          },
+          cell: {
+            ...getSyncedColumnData(tableSettings, columnNames.APPLICATIONS, 45),
           },
         },
-        cell: {
-          ...getSyncedColumnData(tableSettings, columnNames.APPLICATIONS, 45),
+        {
+          id: columnNames.ACTIONS,
+          label: 'Actions',
+          data: {
+            render: ({ data }) => (
+              <Actions resource={data?.jsonData ?? data} permissions={permissions} />
+            ),
+          },
+          cell: {
+            customizable: false,
+            isFixed: true,
+            ...getSyncedColumnData(tableSettings, columnNames.ACTIONS, 5),
+          },
         },
-      },
-      {
-        id: columnNames.ACTIONS,
-        label: 'Actions',
-        data: {
-          render: ({ data }) => (
-            <Actions resource={data?.jsonData ?? data} permissions={permissions} />
-          ),
-        },
-        cell: {
-          customizable: false,
-          isFixed: true,
-          ...getSyncedColumnData(tableSettings, columnNames.ACTIONS, 5),
-        },
-      },
-    ],
+      ] as TableColumn<CDPipelineKubeObjectInterface>[],
     [permissions, tableSettings]
   );
 };

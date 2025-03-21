@@ -9,7 +9,18 @@ const initialData = {
 
 export const DynamicDataContext = React.createContext<DynamicDataContextProviderValue>({
   component: initialData,
-  pipelines: initialData,
+  pipelines: {
+    data: {
+      review: '',
+      build: '',
+    },
+    isLoading: true,
+    error: null,
+  },
   codebaseBranches: initialData,
-  gitServerByCodebase: initialData,
+  gitServerByCodebase: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
 });

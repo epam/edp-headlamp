@@ -5,8 +5,8 @@ export const sortKubeObjectByCreationTimestamp = (
   b: EDPKubeObjectInterface,
   backwards?: boolean
 ): number => {
-  const aResourceCreationTimeStamp = a.metadata.creationTimestamp.valueOf();
-  const bResourceCreationTimeStamp = b.metadata.creationTimestamp.valueOf();
+  const aResourceCreationTimeStamp = a.metadata.creationTimestamp?.valueOf() ?? 0;
+  const bResourceCreationTimeStamp = b.metadata.creationTimestamp?.valueOf() ?? 0;
 
   if (aResourceCreationTimeStamp > bResourceCreationTimeStamp) {
     return backwards ? 1 : -1;

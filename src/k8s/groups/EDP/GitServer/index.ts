@@ -46,4 +46,10 @@ export class GitServerKubeObject extends K8s.cluster.makeKubeObject<GitServerKub
 
     return ApiProxy.request(url);
   }
+
+  static getByName(name: string, namespace: string): Promise<GitServerKubeObjectInterface> {
+    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}/${name}`;
+
+    return ApiProxy.request(url);
+  }
 }

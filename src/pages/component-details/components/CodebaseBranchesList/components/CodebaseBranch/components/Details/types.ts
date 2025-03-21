@@ -3,9 +3,6 @@ import { PipelineRunKubeObjectInterface } from '../../../../../../../../k8s/grou
 
 export interface DetailsProps {
   codebaseData: CodebaseKubeObjectInterface;
-  pipelineRuns: {
-    all: PipelineRunKubeObjectInterface[];
-    latestBuildPipelineRun: PipelineRunKubeObjectInterface;
-  };
-  error: Error;
+  pipelineRuns: PipelineRunKubeObjectInterface[] | null | undefined;
+  error: Error | null;
 }

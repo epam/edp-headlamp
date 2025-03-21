@@ -50,7 +50,9 @@ export const DependencyTrackMetrics = ({ depTrackData }: DeeptrackVulnerabilitie
 
   return (
     <NoDataWidgetWrapper
-      hasData={!!depTrackData.data.metrics}
+      hasData={
+        !!depTrackData.data.metrics && !!depTrackData.data.baseUrl && !!depTrackData.data.projectID
+      }
       isLoading={depTrackData.isLoading}
       text={
         <Typography variant={'body1'} color="secondary.dark" component={'div'}>
@@ -64,8 +66,8 @@ export const DependencyTrackMetrics = ({ depTrackData }: DeeptrackVulnerabilitie
     >
       <Link
         href={LinkCreationService.depTrack.createDashboardLink(
-          depTrackData.data.baseUrl,
-          depTrackData.data.projectID
+          depTrackData.data.baseUrl!,
+          depTrackData.data.projectID!
         )}
         target={'_blank'}
         color="inherit"

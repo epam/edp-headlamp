@@ -16,5 +16,5 @@ export const FilterContext = React.createContext<FilterContextProviderValue<unkn
   resetFilter: () => {
     //
   },
-  filterFunction: null,
+  filterFunction: () => false,
 });

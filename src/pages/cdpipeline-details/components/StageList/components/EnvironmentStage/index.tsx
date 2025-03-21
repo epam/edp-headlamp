@@ -1,6 +1,7 @@
 import { Link } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { LoadingWrapper } from '../../../../../../components/LoadingWrapper';
 import { QuickLink } from '../../../../../../components/QuickLink';
 import { TextWithTooltip } from '../../../../../../components/TextWithTooltip';
@@ -14,27 +15,32 @@ import {
 } from '../../../../../../k8s/groups/EDP/QuickLink/constants';
 import { QUICK_LINK_LABEL_SELECTOR_TYPE } from '../../../../../../k8s/groups/EDP/QuickLink/labels';
 import { StageKubeObject } from '../../../../../../k8s/groups/EDP/Stage';
+import { useViewModeContext } from '../../../../../../providers/ViewMode/hooks';
 import { LinkCreationService } from '../../../../../../services/link-creation';
 import { routeArgoCD } from '../../../../../configuration/pages/argocd/route';
 import { routeStageDetails } from '../../../../../stage-details/route';
 import { usePageFilterContext } from '../../../../hooks/usePageFilterContext';
+import { useDynamicDataContext } from '../../../../providers/DynamicData/hooks';
+import { CDPipelineRouteParams } from '../../../../types';
 import { ApplicationCard } from './components/ApplicationCard';
 import { StyledCardBody, StyledCardHeader, StyledCardWrapper, StyledChip } from './styles';
 import { EnvironmentStageProps } from './types';
 
 export const EnvironmentStage = ({
   stageWithApplicationsData: { stage, applications },
-  CDPipeline,
-  QuickLinksURLS,
-  QuickLinks,
-  viewMode,
 }: EnvironmentStageProps) => {
   const theme = useTheme();
+  const { name: CDPipelineName } = useParams<CDPipelineRouteParams>();
+
+  const { quickLinks, quickLinksURLs } = useDynamicDataContext();
+  const { viewMode } = useViewModeContext();
 
   const monitoringQuickLink =
-    QuickLinks && QuickLinks?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.MONITORING);
+    quickLinks.data &&
+    quickLinks.data.items?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.MONITORING);
   const loggingQuickLink =
-    QuickLinks && QuickLinks?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.LOGGING);
+    quickLinks.data &&
+    quickLinks.data.items?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.LOGGING);
 
   const stageIsLoaded = stage?.status;
 
@@ -69,7 +75,7 @@ export const EnvironmentStage = ({
     return _applications;
   }, [applications, filter]);
 
-  const [stagePods, setStagePods] = React.useState<PodKubeObjectInterface[]>(null);
+  const [stagePods, setStagePods] = React.useState<PodKubeObjectInterface[] | null>(null);
 
   React.useEffect(() => {
     if (!stage) {
@@ -100,7 +106,7 @@ export const EnvironmentStage = ({
                   <Link
                     routeName={routeStageDetails.path}
                     params={{
-                      CDPipelineName: CDPipeline.metadata.name,
+                      CDPipelineName: CDPipelineName,
                       namespace: stage.metadata.namespace,
                       stageName: stage.metadata.name,
                     }}
@@ -129,8 +135,8 @@ export const EnvironmentStage = ({
                       }}
                       icon={ICONS.ARGOCD}
                       externalLink={LinkCreationService.argocd.createStageLink(
-                        QuickLinksURLS?.[SYSTEM_QUICK_LINKS.ARGOCD],
-                        CDPipeline?.metadata?.name,
+                        quickLinksURLs.data?.[SYSTEM_QUICK_LINKS.ARGOCD],
+                        CDPipelineName,
                         stage.spec.name
                       )}
                       configurationLink={{
@@ -138,40 +144,47 @@ export const EnvironmentStage = ({
                       }}
                       size="small"
                     />
-                    <QuickLink
-                      name={{
-                        label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.MONITORING],
-                        value: SYSTEM_QUICK_LINKS.MONITORING,
-                      }}
-                      iconBase64={monitoringQuickLink?.spec?.icon}
-                      enabledText="Open Metrics"
-                      externalLink={LinkCreationService.monitoring.createDashboardLink({
-                        provider:
-                          monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
-                        baseURL: QuickLinksURLS?.[SYSTEM_QUICK_LINKS.MONITORING],
-                        namespace: stage.spec.namespace,
-                        clusterName: stage.spec.clusterName,
-                      })}
-                      QuickLinkComponent={monitoringQuickLink}
-                      size="small"
-                    />
-                    <QuickLink
-                      name={{
-                        label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.LOGGING],
-                        value: SYSTEM_QUICK_LINKS.LOGGING,
-                      }}
-                      iconBase64={loggingQuickLink?.spec?.icon}
-                      enabledText="Open Logs"
-                      externalLink={LinkCreationService.logging.createDashboardLink({
-                        provider:
-                          loggingQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
-                        baseURL: QuickLinksURLS?.[SYSTEM_QUICK_LINKS.LOGGING],
-                        namespace: stage.spec.namespace,
-                        clusterName: stage.spec.clusterName,
-                      })}
-                      QuickLinkComponent={loggingQuickLink}
-                      size="small"
-                    />
+                    {quickLinksURLs.data && (
+                      <QuickLink
+                        name={{
+                          label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.MONITORING],
+                          value: SYSTEM_QUICK_LINKS.MONITORING,
+                        }}
+                        iconBase64={monitoringQuickLink?.spec?.icon}
+                        enabledText="Open Metrics"
+                        externalLink={LinkCreationService.monitoring.createDashboardLink({
+                          provider:
+                            monitoringQuickLink?.metadata?.labels?.[
+                              QUICK_LINK_LABEL_SELECTOR_TYPE
+                            ] || '',
+                          baseURL: quickLinksURLs.data?.[SYSTEM_QUICK_LINKS.MONITORING],
+                          namespace: stage.spec.namespace,
+                          clusterName: stage.spec.clusterName,
+                        })}
+                        QuickLinkComponent={monitoringQuickLink}
+                        size="small"
+                      />
+                    )}
+                    {quickLinksURLs.data && (
+                      <QuickLink
+                        name={{
+                          label: SYSTEM_QUICK_LINKS_LABELS[SYSTEM_QUICK_LINKS.LOGGING],
+                          value: SYSTEM_QUICK_LINKS.LOGGING,
+                        }}
+                        iconBase64={loggingQuickLink?.spec?.icon}
+                        enabledText="Open Logs"
+                        externalLink={LinkCreationService.logging.createDashboardLink({
+                          provider:
+                            loggingQuickLink?.metadata?.labels?.[QUICK_LINK_LABEL_SELECTOR_TYPE] ||
+                            '',
+                          baseURL: quickLinksURLs.data?.[SYSTEM_QUICK_LINKS.LOGGING],
+                          namespace: stage.spec.namespace,
+                          clusterName: stage.spec.clusterName,
+                        })}
+                        QuickLinkComponent={loggingQuickLink}
+                        size="small"
+                      />
+                    )}
                   </Stack>
                 </Stack>
               </Stack>
@@ -194,21 +207,23 @@ export const EnvironmentStage = ({
 
           <StyledCardBody>
             <Stack spacing={2}>
-              {filteredApplications.map((el) => {
-                const key = el.argoApplication?.metadata.name;
+              <LoadingWrapper isLoading={quickLinksURLs.isLoading}>
+                {filteredApplications.map((el) => {
+                  const key = el.argoApplication?.metadata.name;
 
-                return el.argoApplication ? (
-                  <ApplicationCard
-                    key={key}
-                    stage={stage}
-                    application={el.application}
-                    argoApplication={el.argoApplication}
-                    QuickLinksURLS={QuickLinksURLS}
-                    stagePods={stagePods}
-                    viewMode={viewMode}
-                  />
-                ) : null;
-              })}
+                  return el.argoApplication ? (
+                    <ApplicationCard
+                      key={key}
+                      stage={stage}
+                      application={el.application}
+                      argoApplication={el.argoApplication}
+                      QuickLinksURLS={quickLinksURLs.data!}
+                      stagePods={stagePods}
+                      viewMode={viewMode}
+                    />
+                  ) : null;
+                })}
+              </LoadingWrapper>
             </Stack>
           </StyledCardBody>
         </Stack>

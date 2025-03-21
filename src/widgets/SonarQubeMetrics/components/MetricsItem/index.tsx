@@ -12,7 +12,7 @@ export const MetricsItem = ({
   rightSlot: React.ReactNode;
   title: string;
   titleIcon?: React.ReactNode;
-  link: string;
+  link: string | undefined;
 }) => {
   return (
     <Link href={link} target={'_blank'} color="inherit" underline="none">

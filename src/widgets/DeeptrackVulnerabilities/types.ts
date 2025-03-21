@@ -12,8 +12,8 @@ export type DepTrackMetrics = {
 
 export interface DeeptrackVulnerabilitiesProps {
   depTrackData: DataProviderValue<{
-    metrics: DepTrackMetrics;
-    baseUrl: string;
-    projectID: string;
+    metrics: DepTrackMetrics | undefined;
+    baseUrl: string | undefined;
+    projectID: string | undefined;
   }>;
 }

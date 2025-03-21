@@ -5,7 +5,7 @@ export const createNewSidebarItem = (
   itemLabel: string,
   name: string,
   icon: string,
-  parentName: string = null
+  parentName: string = ''
 ): SidebarItem => ({
   parentName,
   itemLabel,
