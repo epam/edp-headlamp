@@ -4,12 +4,12 @@ import { MetricKey } from '../../../../widgets/SonarQubeMetrics/types';
 
 export interface DataContextProviderValue {
   depTrackData: DataProviderValue<{
-    metrics: DepTrackMetrics;
-    baseUrl: string;
-    projectID: string;
+    metrics: DepTrackMetrics | undefined;
+    baseUrl: string | undefined;
+    projectID: string | undefined;
   }>;
   sonarData: DataProviderValue<{
-    metrics: Record<MetricKey, string>;
-    baseUrl: string;
+    metrics: Record<MetricKey, string> | undefined;
+    baseUrl: string | undefined;
   }>;
 }

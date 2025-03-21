@@ -1,3 +1,4 @@
+import { KubeObjectClass } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { CodebaseKubeObject } from '../../k8s/groups/EDP/Codebase';
 import { CodebaseKubeObjectConfig } from '../../k8s/groups/EDP/Codebase/config';
 import { CodebaseBranchKubeObject } from '../../k8s/groups/EDP/CodebaseBranch';
@@ -7,17 +8,41 @@ import { PipelineRunKubeObjectConfig } from '../../k8s/groups/Tekton/PipelineRun
 
 export const permissionsToCheckConfig = {
   create: [
-    { instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig },
-    { instance: CodebaseBranchKubeObject, config: CodebaseBranchKubeObjectConfig },
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+    {
+      instance: CodebaseBranchKubeObject as unknown as KubeObjectClass,
+      config: CodebaseBranchKubeObjectConfig,
+    },
   ],
   update: [
-    { instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig },
-    { instance: CodebaseBranchKubeObject, config: CodebaseBranchKubeObjectConfig },
-    { instance: CodebaseKubeObject, config: CodebaseKubeObjectConfig },
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+    {
+      instance: CodebaseBranchKubeObject as unknown as KubeObjectClass,
+      config: CodebaseBranchKubeObjectConfig,
+    },
+    {
+      instance: CodebaseKubeObject as unknown as KubeObjectClass,
+      config: CodebaseKubeObjectConfig,
+    },
   ],
   delete: [
-    { instance: PipelineRunKubeObject, config: PipelineRunKubeObjectConfig },
-    { instance: CodebaseBranchKubeObject, config: CodebaseBranchKubeObjectConfig },
-    { instance: CodebaseKubeObject, config: CodebaseKubeObjectConfig },
+    {
+      instance: PipelineRunKubeObject as unknown as KubeObjectClass,
+      config: PipelineRunKubeObjectConfig,
+    },
+    {
+      instance: CodebaseBranchKubeObject as unknown as KubeObjectClass,
+      config: CodebaseBranchKubeObjectConfig,
+    },
+    {
+      instance: CodebaseKubeObject as unknown as KubeObjectClass,
+      config: CodebaseKubeObjectConfig,
+    },
   ],
 };

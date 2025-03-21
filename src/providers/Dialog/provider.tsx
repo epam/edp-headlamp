@@ -13,7 +13,7 @@ export const DialogContextProvider: React.FC = ({ children }) => {
 
     setDialogs((prevDialogs) => ({
       ...prevDialogs,
-      [key]: { Component: component, props },
+      [key]: { Component: component as React.ComponentType<DialogProps<{}>>, props },
     }));
   };
 

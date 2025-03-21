@@ -13,7 +13,7 @@ export const GitServer = () => {
     formState: { errors },
   } = useTypedFormContext();
 
-  const { data: gitServers } = useGitServerListQuery({});
+  const { data: gitServers } = useGitServerListQuery();
   const gitServersOptions = React.useMemo(
     () =>
       gitServers?.items.map((gitServer) => {

@@ -8,12 +8,12 @@ export type ControlName<ControlNames> = DefaultControlNames | ControlNames;
 
 export type ControlValue = boolean | ControlComponent;
 
-export type FilterState<Item, ControlNames extends string> = {
+export type FilterState<Item extends unknown, ControlNames extends string> = {
   values: Record<ControlName<ControlNames>, string | string[] | boolean>;
   matchFunctions: Record<ControlName<ControlNames>, (item: Item, value: any) => boolean>;
 };
 
-export interface FilterContextProviderValue<Item, ControlNames extends string> {
+export interface FilterContextProviderValue<Item extends unknown, ControlNames extends string> {
   showFilter: boolean;
   filter: FilterState<Item, ControlNames>;
   setFilterItem: (key: ControlNames, value: any) => void;
@@ -22,7 +22,7 @@ export interface FilterContextProviderValue<Item, ControlNames extends string> {
   filterFunction: (item: Item) => boolean;
 }
 
-export interface FilterContextProviderProps<Item, ControlNames extends string> {
+export interface FilterContextProviderProps<Item extends unknown, ControlNames extends string> {
   children: React.ReactNode;
   entityID: string;
   matchFunctions: {

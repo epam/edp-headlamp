@@ -9,7 +9,12 @@ export interface PageDescription {
 }
 
 export interface DataProviderValue<T> {
-  data: T | null | undefined;
+  data: T;
   error: ApiError | null;
   isLoading: boolean;
+}
+
+export interface NewDataProviderValue<T> {
+  data: T;
+  error: ApiError | null;
 }

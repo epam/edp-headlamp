@@ -4,11 +4,11 @@ import { GitServerKubeObjectInterface } from '../../../../k8s/groups/EDP/GitServ
 import { DataProviderValue } from '../../../../types/pages';
 
 export interface DynamicDataContextProviderValue {
-  component: DataProviderValue<CodebaseKubeObjectInterface>;
+  component: DataProviderValue<CodebaseKubeObjectInterface | null | undefined>;
   pipelines: DataProviderValue<{
     review: string;
     build: string;
   }>;
-  codebaseBranches: DataProviderValue<CodebaseBranchKubeObjectInterface[]>;
-  gitServerByCodebase: DataProviderValue<GitServerKubeObjectInterface>;
+  codebaseBranches: DataProviderValue<CodebaseBranchKubeObjectInterface[] | null>;
+  gitServerByCodebase: DataProviderValue<GitServerKubeObjectInterface | undefined>;
 }

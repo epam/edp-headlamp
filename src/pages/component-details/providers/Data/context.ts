@@ -1,13 +1,22 @@
 import React from 'react';
 import { DataContextProviderValue } from './types';
 
-const initialData = {
-  data: null,
-  isLoading: true,
-  error: null,
-};
-
 export const DataContext = React.createContext<DataContextProviderValue>({
-  depTrackData: initialData,
-  sonarData: initialData,
+  depTrackData: {
+    data: {
+      metrics: undefined,
+      baseUrl: undefined,
+      projectID: undefined,
+    },
+    isLoading: true,
+    error: null,
+  },
+  sonarData: {
+    data: {
+      metrics: undefined,
+      baseUrl: undefined,
+    },
+    isLoading: true,
+    error: null,
+  },
 });

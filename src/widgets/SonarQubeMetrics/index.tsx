@@ -90,7 +90,7 @@ export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsPr
 
   return (
     <NoDataWidgetWrapper
-      hasData={!!sonarData.data.metrics}
+      hasData={!!sonarData.data.metrics && !!sonarData.data.baseUrl}
       isLoading={sonarData.isLoading}
       text={
         <Typography variant={'body1'} color="secondary.dark" component={'div'}>
@@ -108,7 +108,7 @@ export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsPr
             titleIcon={<Icon icon={'mdi:bug'} {...IconProps} />}
             title="Bugs"
             link={LinkCreationService.sonar.createLinkByIssueType({
-              baseURL: sonarData.data.baseUrl,
+              baseURL: sonarData.data.baseUrl!,
               codebaseName: projectID,
               issueType: 'BUG',
             })}
@@ -116,24 +116,36 @@ export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsPr
             leftSlot={<Rating rating={sonarData.data.metrics?.reliability_rating} />}
           />
           <MetricsItem
-            titleIcon={getIconVulnerability(sonarData.data.metrics?.vulnerabilities)}
+            titleIcon={
+              sonarData.data.metrics?.vulnerabilities &&
+              getIconVulnerability(sonarData.data.metrics?.vulnerabilities)
+            }
             title="Vulnerabilities"
-            link={LinkCreationService.sonar.createLinkByIssueType({
-              baseURL: sonarData.data.baseUrl,
-              codebaseName: projectID,
-              issueType: 'VULNERABILITY',
-            })}
+            link={
+              sonarData.data.baseUrl &&
+              LinkCreationService.sonar.createLinkByIssueType({
+                baseURL: sonarData.data.baseUrl,
+                codebaseName: projectID,
+                issueType: 'VULNERABILITY',
+              })
+            }
             rightSlot={<Value value={sonarData.data.metrics?.vulnerabilities} />}
             leftSlot={<Rating rating={sonarData.data.metrics?.security_rating} />}
           />
           <MetricsItem
-            titleIcon={getIconCodeSmells(sonarData.data.metrics?.code_smells)}
+            titleIcon={
+              sonarData.data.metrics?.code_smells &&
+              getIconCodeSmells(sonarData.data.metrics?.code_smells)
+            }
             title="Code Smells"
-            link={LinkCreationService.sonar.createLinkByIssueType({
-              baseURL: sonarData.data.baseUrl,
-              codebaseName: projectID,
-              issueType: 'CODE_SMELL',
-            })}
+            link={
+              sonarData.data.baseUrl &&
+              LinkCreationService.sonar.createLinkByIssueType({
+                baseURL: sonarData.data.baseUrl,
+                codebaseName: projectID,
+                issueType: 'CODE_SMELL',
+              })
+            }
             rightSlot={<Value value={sonarData.data.metrics?.code_smells} />}
             leftSlot={<Rating rating={sonarData.data.metrics?.sqale_rating} />}
           />
@@ -141,7 +153,7 @@ export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsPr
             <MetricsItem
               titleIcon={<Icon icon={'material-symbols:security-rounded'} />}
               title="Hotspots Reviewed"
-              link={null}
+              link={undefined}
               rightSlot={
                 <Value
                   value={
@@ -157,7 +169,7 @@ export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsPr
           <MetricsItem
             titleIcon={<Icon icon="zondicons:network" {...IconProps} />}
             link={LinkCreationService.sonar.createLinkByMetricName({
-              baseURL: sonarData.data.baseUrl,
+              baseURL: sonarData.data.baseUrl!,
               codebaseName: projectID,
               metricName: 'Coverage',
             })}
@@ -177,7 +189,7 @@ export const SonarQubeMetrics = ({ codebaseName, sonarData }: SonarQubeMetricsPr
             titleIcon={<Icon icon="bxs:copy" {...IconProps} />}
             title="Duplications"
             link={LinkCreationService.sonar.createLinkByMetricName({
-              baseURL: sonarData.data.baseUrl,
+              baseURL: sonarData.data.baseUrl!,
               codebaseName: projectID,
               metricName: 'Duplications',
             })}

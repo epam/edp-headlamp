@@ -2,10 +2,11 @@ import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { CodebaseKubeObject } from '../../../../k8s/groups/EDP/Codebase';
+import { CodebaseKubeObjectInterface } from '../../../../k8s/groups/EDP/Codebase/types';
 import { CodebaseBranchKubeObject } from '../../../../k8s/groups/EDP/CodebaseBranch';
 import { CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME } from '../../../../k8s/groups/EDP/CodebaseBranch/labels';
 import { CodebaseBranchKubeObjectInterface } from '../../../../k8s/groups/EDP/CodebaseBranch/types';
-import { useGitServerByCodebaseQuery } from '../../../../k8s/groups/EDP/GitServer/hooks/useGitServerByCodebaseQuery';
+import { useGitServerByNameQuery } from '../../../../k8s/groups/EDP/GitServer/hooks/useGitServerByCodebaseQuery';
 import {
   generateBuildPipelineRef,
   generateReviewPipelineRef,
@@ -17,57 +18,65 @@ import { DynamicDataContext } from './context';
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const { namespace, name } = useParams<ComponentDetailsRouteParams>();
 
-  const [component, error] = CodebaseKubeObject.useGet(name, namespace);
+  const [_component, componentError] = CodebaseKubeObject.useGet(name, namespace);
+
+  const component = _component as
+    | (CodebaseKubeObjectInterface & { jsonData: CodebaseKubeObjectInterface })
+    | null
+    | undefined;
 
   const {
     data: gitServerByCodebase,
     isLoading: gitServerByCodebaseIsLoading,
     error: gitServerByCodebaseError,
-  } = useGitServerByCodebaseQuery({
-    props: { codebaseGitServer: component?.spec.gitServer },
-  });
+  } = useGitServerByNameQuery(component?.spec.gitServer);
 
-  const [codebaseBranches, codebaseBranchesError] = CodebaseBranchKubeObject.useList({
+  const [_codebaseBranches, codebaseBranchesError] = CodebaseBranchKubeObject.useList({
     namespace,
     labelSelector: `${CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME}=${name}`,
   });
 
-  const sortedCodebaseBranches =
-    component === null
-      ? null
-      : codebaseBranches?.sort((a) => (isDefaultBranch(component, a) ? -1 : 1));
+  const codebaseBranches = _codebaseBranches as CodebaseBranchKubeObjectInterface[] | null;
 
-  const defaultBranch: CodebaseBranchKubeObjectInterface = sortedCodebaseBranches?.[0];
+  const sortedCodebaseBranches =
+    !component || !codebaseBranches
+      ? null
+      : codebaseBranches.sort((a) => (isDefaultBranch(component, a) ? -1 : 1));
+
+  const defaultBranch: CodebaseBranchKubeObjectInterface | undefined = sortedCodebaseBranches?.[0];
+
+  const componentIsLoading = component === null && !componentError;
+  const branchesIsLoading = codebaseBranches === null && !codebaseBranchesError;
 
   const DataContextValue = React.useMemo(
     () => ({
       component: {
-        data: component?.jsonData,
-        error: error,
-        isLoading: component === null,
+        data: component && component.jsonData,
+        error: componentError,
+        isLoading: componentIsLoading,
       },
       pipelines: {
         data: {
           review:
             defaultBranch?.spec?.pipelines?.review ||
             generateReviewPipelineRef({
-              gitServer: gitServerByCodebase,
-              component: component,
+              gitServer: gitServerByCodebase!,
+              component: component!,
             }),
           build:
             defaultBranch?.spec?.pipelines?.build ||
             generateBuildPipelineRef({
-              gitServer: gitServerByCodebase,
-              component: component,
+              gitServer: gitServerByCodebase!,
+              component: component!,
             }),
         },
-        error: error,
-        isLoading: component === null || codebaseBranches === null,
+        error: (componentError || codebaseBranchesError || gitServerByCodebaseError) as ApiError,
+        isLoading: componentIsLoading || branchesIsLoading || gitServerByCodebaseIsLoading,
       },
       codebaseBranches: {
         data: sortedCodebaseBranches,
         error: codebaseBranchesError,
-        isLoading: codebaseBranches === null,
+        isLoading: branchesIsLoading,
       },
       gitServerByCodebase: {
         data: gitServerByCodebase,
@@ -76,12 +85,13 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       },
     }),
     [
-      codebaseBranches,
+      branchesIsLoading,
       codebaseBranchesError,
       component,
+      componentError,
+      componentIsLoading,
       defaultBranch?.spec?.pipelines?.build,
       defaultBranch?.spec?.pipelines?.review,
-      error,
       gitServerByCodebase,
       gitServerByCodebaseError,
       gitServerByCodebaseIsLoading,

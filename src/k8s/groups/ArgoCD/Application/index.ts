@@ -46,7 +46,7 @@ export class ApplicationKubeObject extends K8s.cluster.makeKubeObject<Applicatio
     );
   }
 
-  static getHealthStatusIcon(health: string): [string, string, boolean?] {
+  static getHealthStatusIcon(health: string | undefined): [string, string, boolean?] {
     if (health === undefined) {
       return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }
@@ -73,7 +73,7 @@ export class ApplicationKubeObject extends K8s.cluster.makeKubeObject<Applicatio
     }
   }
 
-  static getSyncStatusIcon(sync: string): [string, string, boolean?] {
+  static getSyncStatusIcon(sync: string | undefined): [string, string, boolean?] {
     if (sync === undefined) {
       return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }

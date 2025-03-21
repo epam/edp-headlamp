@@ -52,7 +52,7 @@ export const BuildGroup = ({
   });
 
   const buildPipelineRunData = (() => {
-    if (!gitServerByCodebase) {
+    if (!gitServerByCodebase || !codebaseData) {
       return;
     }
 
@@ -73,6 +73,10 @@ export const BuildGroup = ({
   })();
 
   const onBuildButtonClick = React.useCallback(() => {
+    if (!buildPipelineRunData) {
+      return;
+    }
+
     createBuildPipelineRun(buildPipelineRunData);
   }, [buildPipelineRunData, createBuildPipelineRun]);
 
@@ -164,7 +168,7 @@ export const BuildGroup = ({
                 <MenuList autoFocusItem>
                   <MenuItem
                     onClick={() => {
-                      handleOpenEditor(buildPipelineRunData);
+                      buildPipelineRunData && handleOpenEditor(buildPipelineRunData);
                     }}
                   >
                     <ListItemIcon>

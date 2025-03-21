@@ -102,7 +102,7 @@ export const PageView = () => {
                   <ResourceActionListContextProvider>
                     <CodebaseActionsMenu
                       data={{
-                        codebaseData: component.data,
+                        codebaseData: component.data!,
                       }}
                       permissions={permissions}
                       backRoute={Router.createRouteURL(routeComponentList.path)}

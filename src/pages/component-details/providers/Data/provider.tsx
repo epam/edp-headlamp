@@ -34,7 +34,7 @@ const getDepTrackProjectDefaultVersion = (projectCollection: {
   }[];
 }) => {
   if (!projectCollection) {
-    return null;
+    return undefined;
   }
 
   const main = projectCollection.collection.find((item) => item.version === 'main');
@@ -71,11 +71,10 @@ const getSonarMetricValues = (metrics: SonarQubeMetricsResponse): Record<MetricK
 
 export const DataContextProvider: React.FC = ({ children }) => {
   const cluster = Utils.getCluster();
-  const token = getToken(cluster);
+  const token = cluster ? getToken(cluster) : null;
   const { namespace, name } = useParams<ComponentDetailsRouteParams>();
 
   const { data: EDPConfigMap } = useEDPConfigMapQuery({});
-
 
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
 
@@ -123,7 +122,8 @@ export const DataContextProvider: React.FC = ({ children }) => {
 
   const { data: depTrackProjectMetrics, error: depTrackProjectMetricsError } = useQuery(
     ['depTrackProjectMetrics', namespace, name],
-    () => apiService.createFetcher(depTrackApiService.getProjectMetricsEndpoint(depTrackProjectID)),
+    () =>
+      apiService.createFetcher(depTrackApiService.getProjectMetricsEndpoint(depTrackProjectID!)),
     {
       enabled: !!apiService.apiBaseURL && !!depTrackProjectID,
     }

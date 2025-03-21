@@ -14,7 +14,7 @@ type FilterControlsType = FilterControls<CDPipelineFilterControlNames>;
 export const useFilter = ({
   cdPipelines,
 }: {
-  cdPipelines: CDPipelineKubeObjectInterface[];
+  cdPipelines: CDPipelineKubeObjectInterface[] | null;
 }): {
   controls: FilterControlsType;
   filterFunction: (...args: CDPipelineKubeObjectInterface[]) => boolean;

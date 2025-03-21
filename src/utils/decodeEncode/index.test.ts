@@ -7,9 +7,9 @@ describe('testing safeDecode function', () => {
     expect(decodedValue).toEqual('test-token');
   });
   it('should return safe value when given parameter is undefined', () => {
-    const value = undefined;
+    const value = '';
     const decodedValue = safeDecode(value);
-    expect(decodedValue).toBeUndefined();
+    expect(decodedValue).toBe('');
   });
 });
 

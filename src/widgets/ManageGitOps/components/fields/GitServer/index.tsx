@@ -11,7 +11,7 @@ import { CODEBASE_FORM_NAMES } from '../../../names';
 import { ManageGitOpsDataContext, ManageGitOpsValues } from '../../../types';
 
 export const GitServer = () => {
-  const { data: gitServers } = useGitServerListQuery({});
+  const { data: gitServers } = useGitServerListQuery();
   const gitServersOptions = React.useMemo(
     () =>
       gitServers

@@ -14,7 +14,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
 
   const isPlaceholder = typeof currentElement === 'string' && currentElement === 'placeholder';
 
-  const { data: gitServers } = useGitServerListQuery({});
+  const { data: gitServers } = useGitServerListQuery();
   const firstValidGitServer = gitServers?.items.find((gitServer) => gitServer.status.connected);
 
   return React.useMemo(() => {

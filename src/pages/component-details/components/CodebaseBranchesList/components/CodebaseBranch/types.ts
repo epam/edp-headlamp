@@ -3,7 +3,7 @@ import { CodebaseBranchKubeObjectInterface } from '../../../../../../k8s/groups/
 
 export interface CodebaseBranchProps {
   codebaseBranchData: CodebaseBranchKubeObjectInterface;
-  expandedPanel: string;
+  expandedPanel: string | null;
   id: string;
   handlePanelChange: (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
 }

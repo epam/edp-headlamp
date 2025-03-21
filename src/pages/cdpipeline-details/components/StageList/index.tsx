@@ -4,10 +4,7 @@ import React from 'react';
 import { EmptyList } from '../../../../components/EmptyList';
 import { HorizontalScrollContainer } from '../../../../components/HorizontalScrollContainer';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
-import { useQuickLinksQuery } from '../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksQuery';
-import { useQuickLinksURLsQuery } from '../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
-import { useViewModeContext } from '../../../../providers/ViewMode/hooks';
 import { ManageStageDialog } from '../../../../widgets/dialogs/ManageStage';
 import { usePageFilterContext } from '../../hooks/usePageFilterContext';
 import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
@@ -16,95 +13,68 @@ import { EnvironmentStage } from './components/EnvironmentStage';
 export const StageList = () => {
   const theme = useTheme();
   const { CDPipeline, stages, stagesWithApplicationsData } = useDynamicDataContext();
-  const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
-  const { data: QuickLinks, isLoading: isQuickLinksLoading } = useQuickLinksQuery({
-    props: {
-      namespace: CDPipeline.data?.metadata.namespace,
-    },
-  });
-  const isLoading = React.useMemo(() => {
-    return (
-      CDPipeline.isLoading ||
-      stages.isLoading ||
-      stagesWithApplicationsData.isLoading ||
-      isQuickLinksLoading
-    );
-  }, [
-    CDPipeline.isLoading,
-    isQuickLinksLoading,
-    stages.isLoading,
-    stagesWithApplicationsData.isLoading,
-  ]);
 
   const { filterFunction } = usePageFilterContext();
 
   const filteredStages = React.useMemo(() => {
-    if (stagesWithApplicationsData.isLoading && !!filterFunction) return [];
+    if (stagesWithApplicationsData.isLoading || !stagesWithApplicationsData.data) {
+      return [];
+    }
 
     return stagesWithApplicationsData.data.filter(filterFunction);
   }, [stagesWithApplicationsData, filterFunction]);
 
+  console.log(stagesWithApplicationsData, filteredStages);
+
   const { setDialog } = useDialogContext();
 
-  const { viewMode } = useViewModeContext();
-
   const renderPageContent = React.useCallback(() => {
-    if (!isLoading && filteredStages?.length === 0) {
+    if (filteredStages?.length === 0) {
       return (
-        <EmptyList
-          missingItemName="Environments"
-          icon={
-            <Icon
-              icon="majesticons:table-plus-line"
-              color="#A2A7B7"
-              width={theme.typography.pxToRem(128)}
-            />
-          }
-          linkText={'by adding a new one here.'}
-          beforeLinkText="Take the first step towards managing your Environment"
-          handleClick={() => {
-            setDialog(
-              ManageStageDialog,
-              isLoading
-                ? { CDPipelineData: null, otherStages: [] }
-                : { CDPipelineData: CDPipeline.data, otherStages: stages.data }
-            );
-          }}
-        />
+        <LoadingWrapper isLoading={CDPipeline.isLoading || stages.isLoading}>
+          <EmptyList
+            missingItemName="Environments"
+            icon={
+              <Icon
+                icon="majesticons:table-plus-line"
+                color="#A2A7B7"
+                width={theme.typography.pxToRem(128)}
+              />
+            }
+            linkText={'by adding a new one here.'}
+            beforeLinkText="Take the first step towards managing your Environment"
+            handleClick={() => {
+              setDialog(ManageStageDialog, {
+                CDPipelineData: CDPipeline.data!,
+                otherStages: stages.data!,
+              });
+            }}
+          />
+        </LoadingWrapper>
       );
     }
 
     return (
-      <LoadingWrapper isLoading={isLoading}>
-        <HorizontalScrollContainer>
-          <Grid container spacing={6} wrap="nowrap" sx={{ pb: theme.typography.pxToRem(50) }}>
-            {filteredStages.map((stageWithApplicationsData) => {
-              return (
-                <Grid item xs={6} flexShrink="0" key={stageWithApplicationsData.stage.spec.name}>
-                  <EnvironmentStage
-                    CDPipeline={CDPipeline.data}
-                    stageWithApplicationsData={stageWithApplicationsData}
-                    QuickLinksURLS={QuickLinksURLS}
-                    QuickLinks={QuickLinks?.items}
-                    viewMode={viewMode}
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
-        </HorizontalScrollContainer>
-      </LoadingWrapper>
+      <HorizontalScrollContainer>
+        <Grid container spacing={6} wrap="nowrap" sx={{ pb: theme.typography.pxToRem(50) }}>
+          {filteredStages.map((stageWithApplicationsData) => {
+            return (
+              <Grid item xs={6} flexShrink="0" key={stageWithApplicationsData.stage.spec.name}>
+                <EnvironmentStage stageWithApplicationsData={stageWithApplicationsData} />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </HorizontalScrollContainer>
     );
   }, [
     CDPipeline.data,
-    QuickLinks?.items,
-    QuickLinksURLS,
+    CDPipeline.isLoading,
     filteredStages,
-    isLoading,
     setDialog,
     stages.data,
+    stages.isLoading,
     theme.typography,
-    viewMode,
   ]);
 
   return renderPageContent();

@@ -147,14 +147,14 @@ export const Table = <DataType extends unknown>({
     [paginatedData.items, selectionSettings.isRowSelectable]
   );
 
-  const _handleSelectAllClick = React.useMemo(
-    () =>
-      filteredData?.length && selectionSettings.handleSelectAll
-        ? (event: React.ChangeEvent<HTMLInputElement>) =>
-            selectionSettings.handleSelectAll(event, paginatedData.items)
-        : null,
-    [paginatedData.items, filteredData?.length, selectionSettings]
-  );
+  const _handleSelectAllClick = React.useMemo(() => {
+    if (!selectionSettings.handleSelectAll || !filteredData || !filteredData.length) {
+      return null;
+    }
+
+    return (event: React.ChangeEvent<HTMLInputElement>) =>
+      selectionSettings.handleSelectAll?.(event, paginatedData.items);
+  }, [selectionSettings, filteredData, paginatedData.items]);
 
   const colGroupRef = React.useRef<HTMLTableColElement | null>(null);
 
@@ -197,11 +197,9 @@ export const Table = <DataType extends unknown>({
 
         <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
           <colgroup ref={colGroupRef}>
-            {!!selectableRowCount &&
-              selectableRowCount > 0 &&
-              selectionSettings.handleSelectRow && (
-                <col key={'select-checkbox'} width={`${TABLE_CELL_DEFAULTS.WIDTH}%`} />
-              )}
+            {selectionSettings.handleSelectRow && (
+              <col key={'select-checkbox'} width={`${TABLE_CELL_DEFAULTS.WIDTH}%`} />
+            )}
             {columns.map(
               (column) =>
                 column.cell.show !== false && (
