@@ -18,6 +18,9 @@ import React from 'react';
 import { EmptyList } from '../../../../components/EmptyList';
 import { ErrorContent } from '../../../../components/ErrorContent';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
+// import { DeleteKubeObjectDialog } from '../../../../widgets/dialogs/DeleteKubeObject';
+// import { ManageVClusterDialog } from '../../../../widgets/dialogs/ManageVCluster';
+import { StatusIcon } from '../../../../components/StatusIcon';
 // import { StatusIcon } from '../../../../components/StatusIcon';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 // import { ApplicationKubeObject } from '../../../../k8s/groups/ArgoCD/Application';
@@ -25,13 +28,16 @@ import { useArgoApplicationCRUD } from '../../../../k8s/groups/ArgoCD/Applicatio
 // import { APPLICATION_LABEL_SELECTOR_APP_TYPE } from '../../../../k8s/groups/ArgoCD/Application/labels';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/groups/ArgoCD/Application/types';
 import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
+import {
+  SECRET_ANNOTATION_CLUSTER_CONNECTED,
+  SECRET_ANNOTATION_CLUSTER_ERROR,
+} from '../../../../k8s/groups/default/Secret/annotations';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../k8s/groups/default/Secret/labels';
 // import { useDialogContext } from '../../../../providers/Dialog/hooks';
 import { FORM_MODES } from '../../../../types/forms';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
-// import { DeleteKubeObjectDialog } from '../../../../widgets/dialogs/DeleteKubeObject';
-// import { ManageVClusterDialog } from '../../../../widgets/dialogs/ManageVCluster';
+import { rem } from '../../../../utils/styling/rem';
 import { ManageClusterSecret } from '../../../../widgets/ManageClusterSecret';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { pageDescription } from './constants';
@@ -140,6 +146,11 @@ export const PageView = () => {
 
             const isExpanded = expandedPanel === secretName || singleItem;
 
+            const connected = el.metadata?.annotations?.[SECRET_ANNOTATION_CLUSTER_CONNECTED];
+            const statusError = el.metadata?.annotations?.[SECRET_ANNOTATION_CLUSTER_ERROR];
+
+            const [icon, color] = SecretKubeObject.getStatusIcon(connected);
+
             return (
               <Accordion
                 expanded={isExpanded}
@@ -153,6 +164,24 @@ export const PageView = () => {
                   }}
                 >
                   <Grid container spacing={1} alignItems={'center'}>
+                    <Grid item style={{ marginRight: rem(5) }}>
+                      <StatusIcon
+                        icon={icon}
+                        color={color}
+                        Title={
+                          <>
+                            <Typography variant={'subtitle2'} style={{ fontWeight: 600 }}>
+                              {`Connected: ${connected === undefined ? 'Unknown' : connected}`}
+                            </Typography>
+                            {!!statusError && (
+                              <Typography variant={'subtitle2'} style={{ marginTop: rem(10) }}>
+                                {statusError}
+                              </Typography>
+                            )}
+                          </>
+                        }
+                      />
+                    </Grid>
                     <Grid item>
                       <Typography variant={'h6'} component="div">
                         {secret.metadata.name}
