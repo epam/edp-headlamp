@@ -2,6 +2,76 @@
 ## [Unreleased]
 
 
+<a name="v0.21.0"></a>
+## [v0.21.0] - 2025-03-22
+### Features
+
+- Add cluster secret status ([#686](https://github.com/epam/edp-headlamp/issues/686))
+- Add run from triggertemplate ([#678](https://github.com/epam/edp-headlamp/issues/678))
+- Add codebase field private ([#676](https://github.com/epam/edp-headlamp/issues/676))
+- Add edit pipelines and tasks ([#665](https://github.com/epam/edp-headlamp/issues/665))
+- Update kubecfg preview ([#667](https://github.com/epam/edp-headlamp/issues/667))
+- Transform link like text to links in results ([#667](https://github.com/epam/edp-headlamp/issues/667))
+- Restructure tekton pages ([#665](https://github.com/epam/edp-headlamp/issues/665))
+- Add gitserver delete ([#654](https://github.com/epam/edp-headlamp/issues/654))
+- Disable monitoring button for non grafana providers ([#652](https://github.com/epam/edp-headlamp/issues/652))
+- Update edp versioning name ([#650](https://github.com/epam/edp-headlamp/issues/650))
+- Add filter by app in dflow list ([#648](https://github.com/epam/edp-headlamp/issues/648))
+- Update edit protection ([#644](https://github.com/epam/edp-headlamp/issues/644))
+- Add irsa cluster create option ([#640](https://github.com/epam/edp-headlamp/issues/640))
+- Add hidden logs output
+- Unhide pipeline columns for gitops ([#619](https://github.com/epam/edp-headlamp/issues/619))
+- Add table columns resize ([#613](https://github.com/epam/edp-headlamp/issues/613))
+- Add protected check and refactor actions ([#606](https://github.com/epam/edp-headlamp/issues/606))
+- Add xterm link addon ([#603](https://github.com/epam/edp-headlamp/issues/603))
+- Move ingress button ([#592](https://github.com/epam/edp-headlamp/issues/592))
+- Add copy button ([#598](https://github.com/epam/edp-headlamp/issues/598))
+- Add ingresses in stage app ([#592](https://github.com/epam/edp-headlamp/issues/592))
+- Update cdpipeline delete noty ([#596](https://github.com/epam/edp-headlamp/issues/596))
+- Make env pipelines links ([#594](https://github.com/epam/edp-headlamp/issues/594))
+- Add cdpipeline description edit ([#590](https://github.com/epam/edp-headlamp/issues/590))
+- Add java21 ([#584](https://github.com/epam/edp-headlamp/issues/584))
+- Remove remember settings check ([#578](https://github.com/epam/edp-headlamp/issues/578))
+- Add table settings ([#578](https://github.com/epam/edp-headlamp/issues/578))
+
+### Bug Fixes
+
+- No tasks/taskruns loading state ([#678](https://github.com/epam/edp-headlamp/issues/678))
+- Some of ts errors ([#682](https://github.com/epam/edp-headlamp/issues/682))
+- Codebase validation tab change ([#680](https://github.com/epam/edp-headlamp/issues/680))
+- Edp config query ([#669](https://github.com/epam/edp-headlamp/issues/669)) ([#675](https://github.com/epam/edp-headlamp/issues/675))
+- Some of the ts strict errors ([#658](https://github.com/epam/edp-headlamp/issues/658))
+- Select all btn state ([#658](https://github.com/epam/edp-headlamp/issues/658))
+- Chat and pipeline 404 ([#646](https://github.com/epam/edp-headlamp/issues/646))
+- Root page token expire ([#625](https://github.com/epam/edp-headlamp/issues/625))
+- Cluster name value irsa ([#640](https://github.com/epam/edp-headlamp/issues/640))
+- Text with tooltip ([#638](https://github.com/epam/edp-headlamp/issues/638))
+- Settings dialog appear ([#636](https://github.com/epam/edp-headlamp/issues/636))
+- Editor in branch accordion ([#634](https://github.com/epam/edp-headlamp/issues/634))
+- Fix Deployment manifest generation issue ([#631](https://github.com/epam/edp-headlamp/issues/631))
+- Terminal pod change ([#629](https://github.com/epam/edp-headlamp/issues/629))
+- Pipeline list infinite load ([#627](https://github.com/epam/edp-headlamp/issues/627)) ([#628](https://github.com/epam/edp-headlamp/issues/628))
+- Root page token expire state ([#625](https://github.com/epam/edp-headlamp/issues/625))
+- Component page crash ([#623](https://github.com/epam/edp-headlamp/issues/623))
+- CDPipeline create validation ([#617](https://github.com/epam/edp-headlamp/issues/617))
+- Pagination and topbar items ([#615](https://github.com/epam/edp-headlamp/issues/615))
+- Values override value ([#611](https://github.com/epam/edp-headlamp/issues/611))
+- Pipeline page router history change ([#608](https://github.com/epam/edp-headlamp/issues/608))
+- Add copy button to branch name and vcs tag ([#598](https://github.com/epam/edp-headlamp/issues/598))
+- CDpipeline message pr lint ([#596](https://github.com/epam/edp-headlamp/issues/596))
+- Applications deploy render ([#588](https://github.com/epam/edp-headlamp/issues/588))
+- Rerun and argocd status color ([#586](https://github.com/epam/edp-headlamp/issues/586))
+- Latest build pipeline run progress ([#581](https://github.com/epam/edp-headlamp/issues/581))
+- PipelineRuns request in branch ([#581](https://github.com/epam/edp-headlamp/issues/581)) ([#582](https://github.com/epam/edp-headlamp/issues/582))
+- Pr link button ([#562](https://github.com/epam/edp-headlamp/issues/562))
+
+### Routine
+
+- Align base headlamp image version
+- Increase log search horizon for opensearch ([#505](https://github.com/epam/edp-headlamp/issues/505))
+- Update current development version ([#573](https://github.com/epam/edp-headlamp/issues/573))
+
+
 <a name="v0.20.0"></a>
 ## [v0.20.0] - 2025-01-24
 ### Features
@@ -650,7 +720,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.20.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.21.0...HEAD
+[v0.21.0]: https://github.com/epam/edp-headlamp/compare/v0.20.0...v0.21.0
 [v0.20.0]: https://github.com/epam/edp-headlamp/compare/v0.19.0...v0.20.0
 [v0.19.0]: https://github.com/epam/edp-headlamp/compare/v0.18.0...v0.19.0
 [v0.18.0]: https://github.com/epam/edp-headlamp/compare/v0.17.0...v0.18.0
