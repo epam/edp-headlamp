@@ -1,6 +1,6 @@
 export interface TabsContextProviderValue {
   activeTab: number;
-  handleChangeTab: (event: React.ChangeEvent<{}>, newActiveTabIdx: number) => void;
+  handleChangeTab: (event: React.ChangeEvent<{}> | null, newActiveTabIdx: number) => void;
 }
 
 export interface TabsContextProviderProps {

@@ -25,7 +25,7 @@ export const AddNewQuickLinkCard = () => {
     >
       <IconButton
         className={classes.cardRoot}
-        onClick={() => setDialog(ManageQuickLinkDialog, { quickLink: null })}
+        onClick={() => setDialog(ManageQuickLinkDialog, { quickLink: undefined })}
         disabled={!permissions.create.QuickLink.allowed}
       >
         <Stack direction="row" spacing={2} alignItems="center">

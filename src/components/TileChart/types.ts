@@ -3,5 +3,5 @@ import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 
 export interface MyTileChartProps extends TileChartProps {
   BoxSx?: object;
-  error?: ApiError;
+  error?: ApiError | null;
 }

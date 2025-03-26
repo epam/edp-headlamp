@@ -9,7 +9,7 @@ import { DataProviderValue } from '../../../types/pages';
 const findPreviousStage = (
   stages: StageKubeObjectInterface[],
   currentStageOrder: number
-): StageKubeObjectInterface => {
+): StageKubeObjectInterface | undefined => {
   return stages.find(({ spec: { order: stageOrder } }) => stageOrder === currentStageOrder - 1);
 };
 
@@ -50,7 +50,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
     (
       imageStreams: CodebaseImageStreamKubeObjectInterface[],
       order: number
-    ): CodebaseImageStreamKubeObjectInterface => {
+    ): CodebaseImageStreamKubeObjectInterface | undefined => {
       if (order === 0) {
         return (
           imageStreams &&
@@ -74,7 +74,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
   const getImageStreamByToPromoteFlag = React.useCallback(
     (
       imageStreams: CodebaseImageStreamKubeObjectInterface[]
-    ): CodebaseImageStreamKubeObjectInterface => {
+    ): CodebaseImageStreamKubeObjectInterface | undefined => {
       return (
         imageStreams &&
         imageStreams.find((el) => CDPipelineInputDockerStreamsSet.has(el.metadata.name))
@@ -84,14 +84,17 @@ export const useEnrichedApplicationsWithArgoApplications = ({
   );
 
   return React.useMemo(() => {
-    if (stage.isLoading || argoApplications.isLoading) {
+    if (
+      stage.isLoading ||
+      argoApplications.isLoading ||
+      !enrichedApplicationsWithItsImageStreams.data ||
+      !enrichedApplicationsWithItsImageStreams.data.length
+    ) {
       return null;
     }
 
-    return (
-      enrichedApplicationsWithItsImageStreams.data &&
-      enrichedApplicationsWithItsImageStreams.data.length &&
-      enrichedApplicationsWithItsImageStreams.data.map((enrichedApplicationWithItsImageStreams) => {
+    return enrichedApplicationsWithItsImageStreams.data.map(
+      (enrichedApplicationWithItsImageStreams) => {
         const appName = enrichedApplicationWithItsImageStreams.application.metadata.name;
         const isPromote = CDPipelineAppsToPromoteSet.has(appName);
 
@@ -104,7 +107,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
 
         const argoApplicationByCodebaseName = argoApplications.data.find(
           (argoApplication) =>
-            argoApplication.metadata.labels['app.edp.epam.com/app-name'] === appName
+            argoApplication.metadata?.labels?.['app.edp.epam.com/app-name'] === appName
         );
 
         const applicationImageStream = isPromote
@@ -122,7 +125,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
           applicationVerifiedImageStream: applicationVerifiedImageStream,
           argoApplication: argoApplicationByCodebaseName,
         };
-      })
+      }
     );
   }, [
     stage.isLoading,

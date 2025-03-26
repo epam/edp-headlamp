@@ -13,7 +13,7 @@ export const useSelection = () => {
             type === CODEBASE_TYPE.SYSTEM ? null : name
           )
           .filter(Boolean);
-        setSelected(newSelected);
+        setSelected(newSelected as string[]);
         return;
       }
       setSelected([]);

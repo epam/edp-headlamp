@@ -9,6 +9,10 @@ export const useTabs = () => {
   const { logs } = useDynamicDataContext();
 
   return React.useMemo(() => {
+    if (logs.isLoading && !logs.error) {
+      return [];
+    }
+
     return [
       {
         label: 'All Logs',
@@ -19,7 +23,7 @@ export const useTabs = () => {
             }}
           >
             <LoadingWrapper isLoading={logs.isLoading}>
-              <AllLogs logs={logs.data} />
+              <AllLogs logs={logs.data!} />
             </LoadingWrapper>
           </Box>
         ),
@@ -33,11 +37,11 @@ export const useTabs = () => {
             }}
           >
             <LoadingWrapper isLoading={logs.isLoading}>
-              <LogsByTask logs={logs.data} />
+              <LogsByTask logs={logs.data!} />
             </LoadingWrapper>
           </Box>
         ),
       },
     ];
-  }, [logs.data, logs.isLoading]);
+  }, [logs.data, logs.error, logs.isLoading]);
 };

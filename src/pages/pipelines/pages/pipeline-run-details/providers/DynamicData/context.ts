@@ -10,6 +10,14 @@ const initialData = {
 export const DynamicDataContext = React.createContext<DynamicDataContextProviderValue>({
   pipelineRun: initialData,
   taskRuns: initialData,
-  pipelineRunData: initialData,
-  logs: initialData,
+  pipelineRunData: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
+  logs: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
 });

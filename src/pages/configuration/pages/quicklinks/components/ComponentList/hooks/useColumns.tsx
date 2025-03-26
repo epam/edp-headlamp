@@ -7,13 +7,12 @@ import { TableColumn } from '../../../../../../../components/Table/types';
 import { TABLE } from '../../../../../../../constants/tables';
 import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/QuickLink/types';
-import { HeadlampKubeObject } from '../../../../../../../types/k8s';
 import { useTypedPermissions } from '../../../hooks/useTypedPermissions';
 import { Actions } from '../../Actions';
 import { columnNames } from '../constants';
 import { useStyles } from '../styles';
 
-export const useColumns = (): TableColumn<HeadlampKubeObject<QuickLinkKubeObjectInterface>>[] => {
+export const useColumns = (): TableColumn<QuickLinkKubeObjectInterface>[] => {
   const classes = useStyles();
   const theme = useTheme();
 

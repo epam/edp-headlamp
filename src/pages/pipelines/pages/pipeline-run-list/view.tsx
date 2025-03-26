@@ -29,7 +29,7 @@ export const PageView = () => {
           tableId={TABLE.GENERAL_PIPELINE_RUN_LIST.id}
           tableName={TABLE.GENERAL_PIPELINE_RUN_LIST.name}
           tableSettings={tableSettings}
-          pipelineRuns={pipelineRuns.data}
+          pipelineRuns={pipelineRuns.data!}
           isLoading={
             pipelineRuns.isLoading && (!pipelineRuns.errors || !pipelineRuns.errors.length)
           }

@@ -40,7 +40,7 @@ export const PageView = () => {
   const handleOpenCreateDialog = () => setCreateDialogOpen(true);
   const handleCloseCreateDialog = () => setCreateDialogOpen(false);
 
-  const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
+  const [expandedPanel, setExpandedPanel] = React.useState<string | null>(null);
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedPanel(isExpanded ? panel : null);
   };
@@ -62,7 +62,7 @@ export const PageView = () => {
 
   const permissions = useTypedPermissions();
   const renderPageContent = React.useCallback(() => {
-    const forbiddenError = getForbiddenError(error);
+    const forbiddenError = error && getForbiddenError(error);
 
     if (forbiddenError) {
       return <ErrorContent error={forbiddenError} outlined />;
@@ -138,7 +138,7 @@ export const PageView = () => {
                       <ManageGitServer
                         gitServer={gitServer}
                         webhookURL={webhookURL}
-                        repositorySecrets={repositorySecrets.data}
+                        repositorySecrets={repositorySecrets.data!}
                         handleClosePanel={handleCloseCreateDialog}
                         permissions={permissions}
                       />
@@ -169,9 +169,9 @@ export const PageView = () => {
         label: 'Add GitServer',
         component: (
           <ManageGitServer
-            gitServer={null}
-            webhookURL={null}
-            repositorySecrets={repositorySecrets.data}
+            gitServer={undefined}
+            webhookURL={undefined}
+            repositorySecrets={repositorySecrets.data!}
             handleClosePanel={handleCloseCreateDialog}
             permissions={permissions}
           />

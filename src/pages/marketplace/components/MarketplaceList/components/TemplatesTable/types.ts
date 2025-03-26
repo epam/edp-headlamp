@@ -4,9 +4,9 @@ import { PermissionsConfig } from '../../../../../../providers/Permissions/types
 import { permissionsToCheckConfig } from '../../../../constants';
 
 export interface TemplatesTableProps {
-  data: TemplateKubeObjectInterface[];
+  data: TemplateKubeObjectInterface[] | null;
   handleTemplateClick(template: TemplateKubeObjectInterface): void;
-  filterFunction?: ((...args: TemplateKubeObjectInterface[]) => boolean) | null;
+  filterFunction?: (el: TemplateKubeObjectInterface) => boolean;
   warning?: React.ReactNode;
   errors?: ApiError[] | null;
   permissions: PermissionsConfig<typeof permissionsToCheckConfig>;

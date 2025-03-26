@@ -12,7 +12,7 @@ import { ComponentsToDelete, ComponentsToDeleteConflicts } from '../types';
 
 export const useDeletionConflicts = (
   selectedComponents: string[],
-  componentsByNameMap: Map<string, CodebaseKubeObjectInterface>
+  componentsByNameMap: Map<string, CodebaseKubeObjectInterface> | null
 ): {
   componentsToDelete: ComponentsToDelete | null;
   componentsToDeleteConflicts: ComponentsToDeleteConflicts | null;

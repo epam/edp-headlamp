@@ -141,7 +141,7 @@ export const useInfoRows = () => {
         },
         {
           label: 'Language',
-          text: codebaseMappingByLang?.language?.name || _lang,
+          text: codebaseMappingByLang?.language?.name || capitalizeFirstLetter(_lang),
           icon:
             LANGUAGE_ICON_MAPPING?.[lang as keyof typeof LANGUAGE_ICON_MAPPING] ||
             RESOURCE_ICON_NAMES.OTHER,
@@ -149,7 +149,9 @@ export const useInfoRows = () => {
         {
           label: 'Framework',
           text: framework
-            ? codebaseMappingByLang?.frameworks?.[framework]?.name || _framework || 'N/A'
+            ? codebaseMappingByLang?.frameworks?.[framework]?.name ||
+              (_framework && capitalizeFirstLetter(_framework)) ||
+              'N/A'
             : 'N/A',
           icon:
             FRAMEWORK_ICON_MAPPING?.[framework as keyof typeof FRAMEWORK_ICON_MAPPING] ||
@@ -157,7 +159,9 @@ export const useInfoRows = () => {
         },
         {
           label: 'Build Tool',
-          text: codebaseMappingByLang?.buildTools?.[buildTool]?.name || _buildTool,
+          text:
+            codebaseMappingByLang?.buildTools?.[buildTool]?.name ||
+            capitalizeFirstLetter(_buildTool),
           icon:
             BUILD_TOOL_ICON_MAPPING?.[buildTool as keyof typeof BUILD_TOOL_ICON_MAPPING] ||
             RESOURCE_ICON_NAMES.OTHER,

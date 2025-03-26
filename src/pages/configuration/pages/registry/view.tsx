@@ -3,7 +3,11 @@ import React from 'react';
 import { EmptyList } from '../../../../components/EmptyList';
 import { ErrorContent } from '../../../../components/ErrorContent';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
-import { CONTAINER_REGISTRY_TYPE_LABEL_MAP } from '../../../../k8s/groups/default/ConfigMap/constants';
+import {
+  CONTAINER_REGISTRY_TYPE,
+  CONTAINER_REGISTRY_TYPE_LABEL_MAP,
+} from '../../../../k8s/groups/default/ConfigMap/constants';
+import { ValueOf } from '../../../../types/global';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { ManageRegistry } from '../../../../widgets/ManageRegistry';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
@@ -37,7 +41,7 @@ export const PageView = () => {
   const permissions = useTypedPermissions();
 
   const renderPageContent = React.useCallback(() => {
-    const forbiddenError = getForbiddenError(error);
+    const forbiddenError = error && getForbiddenError(error);
 
     if (forbiddenError) {
       return <ErrorContent error={forbiddenError} outlined />;
@@ -60,17 +64,21 @@ export const PageView = () => {
         <Accordion expanded>
           <AccordionSummary style={{ cursor: 'default' }}>
             <Typography variant={'h6'}>
-              {CONTAINER_REGISTRY_TYPE_LABEL_MAP[registryType]}
+              {
+                CONTAINER_REGISTRY_TYPE_LABEL_MAP[
+                  registryType as ValueOf<typeof CONTAINER_REGISTRY_TYPE>
+                ]
+              }
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <ManageRegistry
-                  EDPConfigMap={EDPConfigMap.data}
-                  pullAccountSecret={pullAccountSecret.data}
-                  pushAccountSecret={pushAccountSecret.data}
-                  tektonServiceAccount={tektonServiceAccount.data}
+                  EDPConfigMap={EDPConfigMap.data!}
+                  pullAccountSecret={pullAccountSecret.data!}
+                  pushAccountSecret={pushAccountSecret.data!}
+                  tektonServiceAccount={tektonServiceAccount.data!}
                   permissions={permissions}
                   handleCloseCreateDialog={handleCloseCreateDialog}
                 />
@@ -97,10 +105,10 @@ export const PageView = () => {
         label: 'Add registry',
         component: (
           <ManageRegistry
-            EDPConfigMap={EDPConfigMap.data}
-            pullAccountSecret={pullAccountSecret.data}
-            pushAccountSecret={pushAccountSecret.data}
-            tektonServiceAccount={tektonServiceAccount.data}
+            EDPConfigMap={EDPConfigMap.data!}
+            pullAccountSecret={pullAccountSecret.data!}
+            pushAccountSecret={pushAccountSecret.data!}
+            tektonServiceAccount={tektonServiceAccount.data!}
             permissions={permissions}
             handleCloseCreateDialog={handleCloseCreateDialog}
           />

@@ -24,7 +24,7 @@ export const ValuesOverrideSwitch = ({
   return (
     <div style={{ width: '100%' }}>
       <FormSwitch
-        label={undefined}
+        label={<></>}
         {...register(`${application.metadata.name}${VALUES_OVERRIDE_POSTFIX}`, {
           onChange: () => {
             const hasAtLeastOneFalse = Object.entries(getValues())

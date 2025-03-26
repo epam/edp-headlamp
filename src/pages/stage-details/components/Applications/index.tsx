@@ -3,6 +3,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { TabSection } from '../../../../components/TabSection';
 import { useArgoApplicationCRUD } from '../../../../k8s/groups/ArgoCD/Application/hooks/useArgoApplicationCRUD';
+import { ApplicationKubeObjectInterface } from '../../../../k8s/groups/ArgoCD/Application/types';
 import {
   APPLICATIONS_TABLE_MODE,
   IMAGE_TAG_POSTFIX,
@@ -21,9 +22,12 @@ export const Applications = ({
   latestDeployPipelineRunIsRunning,
   latestCleanPipelineRunIsRunning,
 }: ApplicationsProps) => {
-  const allArgoApplications = enrichedApplicationsWithArgoApplications?.map(
-    ({ argoApplication }) => argoApplication
-  );
+  const allArgoApplications = enrichedApplicationsWithArgoApplications.reduce<
+    ApplicationKubeObjectInterface[]
+  >((acc, cur) => {
+    if (cur.argoApplication) acc.push(cur.argoApplication);
+    return acc;
+  }, []);
 
   const enrichedApplicationsByApplicationName = React.useMemo(() => {
     return (
@@ -81,6 +85,7 @@ export const Applications = ({
       return {
         latest: false,
         stable: false,
+        valuesOverride: false,
       };
     }
 

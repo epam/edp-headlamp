@@ -8,13 +8,25 @@ const initialData = {
 };
 
 export const DynamicDataContext = React.createContext<DynamicDataContextProviderValue>({
-  stage: initialData,
+  stage: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
   pipelineRuns: initialData,
   deployPipelineRuns: initialData,
   cleanPipelineRuns: initialData,
   argoApplications: initialData,
-  deployPipelineRunTemplate: initialData,
-  cleanPipelineRunTemplate: initialData,
+  deployPipelineRunTemplate: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
+  cleanPipelineRunTemplate: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
   gitServers: initialData,
   newPipelineRunAdded: false,
   setNewPipelineRunAdded: () => {

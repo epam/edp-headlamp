@@ -1,16 +1,31 @@
 import React from 'react';
 import { ViewYAML } from '../../../../../../../../../components/Editor';
+import { PodKubeObjectInterface } from '../../../../../../../../../k8s/groups/default/Pod/types';
+import { TaskKubeObjectInterface } from '../../../../../../../../../k8s/groups/Tekton/Task/types';
+import { TaskRunKubeObjectInterface } from '../../../../../../../../../k8s/groups/Tekton/TaskRun/types';
 import { PodsLogViewer } from '../../../../../../../../../widgets/PodsLogViewer';
 import { TabContent } from '../../TabContent';
 
-export const useTabs = ({ taskRun, task, stepName, pods }) => {
+export const useTabs = ({
+  taskRun,
+  task,
+  stepName,
+  pods,
+}: {
+  taskRun: TaskRunKubeObjectInterface;
+  task: TaskKubeObjectInterface;
+  stepName: string;
+  pods: PodKubeObjectInterface[];
+}) => {
   const details = taskRun
-    ? taskRun?.status?.taskSpec?.steps.find((el) => el.name === stepName)
-    : task?.spec?.steps.find((el) => el.name === stepName);
+    ? taskRun?.status?.taskSpec?.steps.find((el: { name: string }) => el.name === stepName)
+    : task?.spec?.steps.find((el: { name: string }) => el.name === stepName);
 
   const getDefaultContainer = React.useCallback(
     (pod) => {
-      return pod?.spec?.containers.find((container) => container.name.includes(stepName))?.name;
+      return pod?.spec?.containers.find((container: { name: string }) =>
+        container.name.includes(stepName)
+      )?.name;
     },
     [stepName]
   );

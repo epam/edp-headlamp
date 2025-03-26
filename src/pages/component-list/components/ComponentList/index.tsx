@@ -60,7 +60,10 @@ export const ComponentList = () => {
         customText={"Let's kickstart the application onboarding!"}
         linkText={'Click here to add a new application and integrate with the platform.'}
         handleClick={() => {
-          setDialog(ManageCodebaseDialog, { codebaseData: null, gitServers: gitServers.data });
+          setDialog(ManageCodebaseDialog, {
+            codebaseData: undefined,
+            gitServers: gitServers.data ?? undefined,
+          });
         }}
       />
     );
@@ -90,7 +93,10 @@ export const ComponentList = () => {
             variant: 'contained',
             disabled: noGitServers,
             onClick: () =>
-              setDialog(ManageCodebaseDialog, { codebaseData: null, gitServers: gitServers.data }),
+              setDialog(ManageCodebaseDialog, {
+                codebaseData: undefined,
+                gitServers: gitServers.data ?? undefined,
+              }),
           }}
           disabled={!permissions.create.Codebase.allowed}
           reason={permissions.create.Codebase.reason}
@@ -101,7 +107,7 @@ export const ComponentList = () => {
       <Table<CodebaseKubeObjectInterface>
         id={TABLE.COMPONENT_LIST.id}
         name={TABLE.COMPONENT_LIST.name}
-        data={codebases.data}
+        data={codebases.data!}
         isLoading={codebases.isLoading && (!codebases.errors || !codebases.errors.length)}
         errors={codebases.errors}
         columns={columns}
@@ -169,7 +175,7 @@ export const ComponentList = () => {
             setDeleteDialogOpen(false);
             setSelected([]);
           }}
-          components={codebases.data}
+          components={codebases.data!}
           selected={selected}
         />
       )}

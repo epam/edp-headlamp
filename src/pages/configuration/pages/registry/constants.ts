@@ -1,3 +1,4 @@
+import { KubeObjectClass } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { EDP_USER_GUIDE } from '../../../../constants/urls';
 import { ConfigMapKubeObject } from '../../../../k8s/groups/default/ConfigMap';
 import { ConfigMapKubeObjectConfig } from '../../../../k8s/groups/default/ConfigMap/config';
@@ -16,11 +17,21 @@ export const pageDescription: PageDescription = {
 };
 
 export const pagePermissionsToCheck = {
-  create: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
-  update: [
-    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
-    { instance: ConfigMapKubeObject, config: ConfigMapKubeObjectConfig },
-    { instance: ServiceAccountKubeObject, config: ServiceAccountKubeObjectConfig },
+  create: [
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
   ],
-  delete: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
+  update: [
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
+    {
+      instance: ConfigMapKubeObject as unknown as KubeObjectClass,
+      config: ConfigMapKubeObjectConfig,
+    },
+    {
+      instance: ServiceAccountKubeObject as unknown as KubeObjectClass,
+      config: ServiceAccountKubeObjectConfig,
+    },
+  ],
+  delete: [
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
+  ],
 };

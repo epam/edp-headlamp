@@ -22,7 +22,7 @@ export const Cluster = () => {
     formState: { errors },
   } = useTypedFormContext();
 
-  const { data, isLoading } = useEDPConfigMapQuery({});
+  const { data, isLoading } = useEDPConfigMapQuery();
 
   const clusterOptions = React.useMemo(() => {
     if (isLoading || !data?.data?.available_clusters) {

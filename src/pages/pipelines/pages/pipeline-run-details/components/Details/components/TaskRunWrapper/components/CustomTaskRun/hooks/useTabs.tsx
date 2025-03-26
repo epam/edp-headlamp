@@ -1,9 +1,10 @@
 import { NameValueTable } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import React from 'react';
 import { ViewYAML } from '../../../../../../../../../../../components/Editor';
+import { TaskRunKubeObjectInterface } from '../../../../../../../../../../../k8s/groups/Tekton/TaskRun/types';
 import { TabContent } from '../../../../TabContent';
 
-export const useTabs = ({ taskRun }) => {
+export const useTabs = ({ taskRun }: { taskRun: TaskRunKubeObjectInterface }) => {
   const results = taskRun?.status?.results;
   const hasParams = taskRun?.spec?.params && taskRun?.spec?.params.length > 0;
   const hasResults = results && results.length > 0;
@@ -17,7 +18,7 @@ export const useTabs = ({ taskRun }) => {
               component: (
                 <TabContent>
                   <NameValueTable
-                    rows={taskRun?.spec?.params.map((el) => ({
+                    rows={taskRun?.spec?.params.map((el: { name: string; value: string }) => ({
                       name: el.name,
                       value: el.value,
                     }))}
@@ -34,7 +35,7 @@ export const useTabs = ({ taskRun }) => {
               component: (
                 <TabContent>
                   <NameValueTable
-                    rows={results?.map((el) => ({
+                    rows={results?.map((el: { name: string; value: string }) => ({
                       name: el.name,
                       value: el.value,
                     }))}

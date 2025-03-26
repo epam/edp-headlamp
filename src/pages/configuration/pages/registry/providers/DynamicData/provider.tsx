@@ -13,7 +13,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     data: EDPConfigMap,
     isLoading: isEDPConfigMapLoading,
     error: EDPConfigMapError,
-  } = useEDPConfigMapQuery({});
+  } = useEDPConfigMapQuery();
 
   const [serviceAccounts, serviceAccountsError] = ServiceAccountKubeObject.useList({
     namespace: getDefaultNamespace(),
