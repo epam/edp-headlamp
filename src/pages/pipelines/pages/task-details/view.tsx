@@ -51,7 +51,7 @@ export const PageView = () => {
         },
       ]}
       headerSlot={
-        resourceIsLoaded && (
+        resourceIsLoaded ? (
           <TaskActionsMenu
             data={{
               task: item?.jsonData ?? item,
@@ -59,7 +59,7 @@ export const PageView = () => {
             permissions={permissions}
             variant="inline"
           />
-        )
+        ) : undefined
       }
     >
       <Section title={name} enableCopyTitle>

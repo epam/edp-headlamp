@@ -12,8 +12,8 @@ export interface EDPStageDetailsRouteParams {
 }
 
 export type EnrichedApplicationWithArgoApplication = EnrichedApplicationWithItsImageStreams & {
-  applicationVerifiedImageStream: CodebaseImageStreamKubeObjectInterface;
-  argoApplication: ApplicationKubeObjectInterface;
+  applicationVerifiedImageStream: CodebaseImageStreamKubeObjectInterface | undefined;
+  argoApplication: ApplicationKubeObjectInterface | undefined;
 };
 
 export interface EnrichedQualityGateWithAutotestPipelineRun {

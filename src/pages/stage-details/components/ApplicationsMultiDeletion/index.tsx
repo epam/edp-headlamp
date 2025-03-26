@@ -1,3 +1,4 @@
+import { notificationsSlice } from '@kinvolk/headlamp-plugin/lib/components/App/Notifications/notificationsSlice';
 import {
   Button,
   Dialog,
@@ -31,9 +32,15 @@ export const ApplicationsMultiDeletion = ({
 
   const selectedApplications = React.useMemo(
     () =>
-      applications?.filter((application) =>
-        selected.includes(application?.metadata?.labels?.[APPLICATION_LABEL_SELECTOR_APP_NAME])
-      ),
+      applications?.filter((application) => {
+        const label = application.metadata?.labels?.[APPLICATION_LABEL_SELECTOR_APP_NAME];
+
+        if (!label) {
+          return notificationsSlice;
+        }
+
+        return selected.includes(label);
+      }),
     [applications, selected]
   );
 

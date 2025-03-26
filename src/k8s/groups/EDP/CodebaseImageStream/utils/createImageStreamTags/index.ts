@@ -16,7 +16,7 @@ export const createImageStreamTags = (
       : [];
 
   if (applicationImageStream && applicationImageStream?.spec?.tags) {
-    const latestTagValue = applicationImageStream?.spec?.tags.at(-1).name;
+    const latestTagValue = applicationImageStream?.spec?.tags.at(-1)?.name;
     const latest = {
       label: `[LATEST] - ${latestTagValue}`,
       value: `latest::${latestTagValue}`,
@@ -26,7 +26,7 @@ export const createImageStreamTags = (
   }
 
   if (applicationVerifiedImageStream && applicationVerifiedImageStream?.spec?.tags) {
-    const latestTagValue = applicationVerifiedImageStream?.spec?.tags.at(-1).name;
+    const latestTagValue = applicationVerifiedImageStream?.spec?.tags.at(-1)?.name;
 
     const stable = {
       label: `[STABLE] - ${latestTagValue}`,

@@ -4,10 +4,14 @@ import React from 'react';
 import { ButtonWithPermission } from '../../../../../../components/ButtonWithPermission';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { Table } from '../../../../../../components/Table';
+import { TableColumn } from '../../../../../../components/Table/types';
 import { TABLE } from '../../../../../../constants/tables';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
+import { ApplicationKubeObjectInterface } from '../../../../../../k8s/groups/ArgoCD/Application/types';
 import { useTypedPermissions } from '../../../../hooks/useTypedPermissions';
-import { EnrichedApplicationWithArgoApplication } from '../../../../types';
+import {
+  EnrichedApplicationWithArgoApplication
+} from '../../../../types';
 import { ApplicationsMultiDeletion } from '../../../ApplicationsMultiDeletion';
 import { useSelection } from '../../hooks/useSelection';
 
@@ -24,6 +28,23 @@ export const PreviewTable = ({
   toggleMode,
   handleClickClean,
   buttonsEnabledMap,
+}: {
+  data: EnrichedApplicationWithArgoApplication[];
+  columns: TableColumn<EnrichedApplicationWithArgoApplication>[];
+  allArgoApplications: ApplicationKubeObjectInterface[];
+  deleteDialogOpen: boolean;
+  setDeleteDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteArgoApplication: ({
+    argoApplication,
+  }: {
+    argoApplication: ApplicationKubeObjectInterface;
+  }) => Promise<void>;
+  deployBtnDisabled: boolean;
+  latestDeployPipelineRunIsRunning: boolean;
+  latestCleanPipelineRunIsRunning: boolean;
+  toggleMode: () => void;
+  handleClickClean: () => void;
+  buttonsEnabledMap: any;
 }) => {
   const permissions = useTypedPermissions();
 

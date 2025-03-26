@@ -16,22 +16,22 @@ export const CodebasesGraph = () => {
         data={[
           {
             name: 'OK',
-            value: graphData.ok,
+            value: graphData.ok!,
             fill: CHART_STATUS_COLOR.SUCCESS,
           },
           {
             name: 'In Progress',
-            value: graphData.inProgress,
+            value: graphData.inProgress!,
             fill: CHART_STATUS_COLOR.IN_PROGRESS,
           },
           {
             name: 'Failed',
-            value: graphData.error,
+            value: graphData.error!,
             fill: CHART_STATUS_COLOR.ERROR,
           },
           {
             name: 'Unknown',
-            value: graphData.unknown,
+            value: graphData.unknown!,
             fill: CHART_STATUS_COLOR.UNKNOWN,
           },
         ]}

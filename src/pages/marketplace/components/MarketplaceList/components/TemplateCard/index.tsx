@@ -2,6 +2,7 @@ import { Box, Chip, Grid, Stack, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { ButtonWithPermission } from '../../../../../../components/ButtonWithPermission';
 import { TextWithTooltip } from '../../../../../../components/TextWithTooltip';
+import { CodebaseInterface } from '../../../../../../configs/codebase-mappings/types';
 import {
   BUILD_TOOL_ICON_MAPPING,
   FRAMEWORK_ICON_MAPPING,
@@ -9,6 +10,7 @@ import {
 } from '../../../../../../configs/icon-mappings';
 import { RESOURCE_ICON_NAMES } from '../../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../../icons/UseSpriteSymbol';
+import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../../utils/getCodebaseMappingByCodebaseType';
 import { useStyles } from './styles';
 import { TemplateCardProps } from './types';
@@ -20,9 +22,9 @@ export const TemplateCard = ({ template, handleTemplateClick, permissions }: Tem
       displayName,
       icon,
       description,
-      language,
-      framework,
-      buildTool,
+      language: _language,
+      framework: _framework,
+      buildTool: _buildTool,
       type,
       category,
       maturity,
@@ -30,18 +32,28 @@ export const TemplateCard = ({ template, handleTemplateClick, permissions }: Tem
     },
   } = template;
   const classes = useStyles();
-  const codebaseMapping = getCodebaseMappingByCodebaseType(type);
+
+  const codebaseMapping = getCodebaseMappingByCodebaseType(type) as Record<
+    string,
+    CodebaseInterface
+  >;
+  const lang = _language.toLowerCase();
+  const framework = _framework ? _framework.toLowerCase() : 'N/A';
+  const buildTool = _buildTool.toLowerCase();
+  const codebaseMappingByLang = codebaseMapping?.[lang];
 
   return (
     <Box className={classes.cardRoot}>
       <Stack spacing={3}>
         <Stack spacing={2}>
           <Stack direction="row" spacing={1} alignItems={'center'}>
-            <img
-              className={classes.templateIcon}
-              src={`data:${icon[0].mediatype};base64,${icon[0].base64data}`}
-              alt=""
-            />
+            {icon && (
+              <img
+                className={classes.templateIcon}
+                src={`data:${icon[0].mediatype};base64,${icon[0].base64data}`}
+                alt=""
+              />
+            )}
             <TextWithTooltip
               text={displayName}
               textSX={{
@@ -62,12 +74,15 @@ export const TemplateCard = ({ template, handleTemplateClick, permissions }: Tem
                   <Typography variant={'caption'}>Language:</Typography>
                   <Stack direction="row" spacing={0.5}>
                     <UseSpriteSymbol
-                      name={LANGUAGE_ICON_MAPPING?.[language] || RESOURCE_ICON_NAMES.OTHER}
+                      name={
+                        LANGUAGE_ICON_MAPPING?.[lang as keyof typeof LANGUAGE_ICON_MAPPING] ||
+                        RESOURCE_ICON_NAMES.OTHER
+                      }
                       width={16}
                       height={16}
                     />
                     <Typography variant={'caption'} color={theme.palette.secondary.dark}>
-                      {codebaseMapping?.[language]?.language?.name || language}
+                      {codebaseMappingByLang?.language?.name || capitalizeFirstLetter(_language)}
                     </Typography>
                   </Stack>
                 </Stack>
@@ -77,12 +92,20 @@ export const TemplateCard = ({ template, handleTemplateClick, permissions }: Tem
                   <Typography variant={'caption'}>Framework:</Typography>
                   <Stack direction="row" spacing={0.5}>
                     <UseSpriteSymbol
-                      name={FRAMEWORK_ICON_MAPPING?.[framework] || RESOURCE_ICON_NAMES.OTHER}
+                      name={
+                        FRAMEWORK_ICON_MAPPING?.[
+                          framework as keyof typeof FRAMEWORK_ICON_MAPPING
+                        ] || RESOURCE_ICON_NAMES.OTHER
+                      }
                       width={16}
                       height={16}
                     />
                     <Typography variant={'caption'} color={theme.palette.secondary.dark}>
-                      {codebaseMapping?.[language]?.frameworks?.[framework]?.name || framework}
+                      {framework
+                        ? codebaseMappingByLang?.frameworks?.[framework]?.name ||
+                          (_framework && capitalizeFirstLetter(_framework)) ||
+                          'N/A'
+                        : 'N/A'}
                     </Typography>
                   </Stack>
                 </Stack>
@@ -92,12 +115,17 @@ export const TemplateCard = ({ template, handleTemplateClick, permissions }: Tem
                   <Typography variant={'caption'}>Build Tool:</Typography>
                   <Stack direction="row" spacing={0.5}>
                     <UseSpriteSymbol
-                      name={BUILD_TOOL_ICON_MAPPING?.[buildTool] || RESOURCE_ICON_NAMES.OTHER}
+                      name={
+                        BUILD_TOOL_ICON_MAPPING?.[
+                          buildTool as keyof typeof BUILD_TOOL_ICON_MAPPING
+                        ] || RESOURCE_ICON_NAMES.OTHER
+                      }
                       width={16}
                       height={16}
                     />
                     <Typography variant={'caption'} color={theme.palette.secondary.dark}>
-                      {codebaseMapping?.[language]?.buildTools?.[buildTool]?.name || buildTool}
+                      {codebaseMappingByLang?.buildTools?.[buildTool]?.name ||
+                        capitalizeFirstLetter(_buildTool)}
                     </Typography>
                   </Stack>
                 </Stack>

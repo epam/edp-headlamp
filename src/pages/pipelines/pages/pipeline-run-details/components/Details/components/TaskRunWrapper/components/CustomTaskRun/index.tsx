@@ -66,7 +66,7 @@ export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
   const taskRunMetadataName = approvalTask?.metadata?.ownerReferences?.[0]?.name;
 
   const [customTaskRun] = CustomRunKubeObject.useGet(
-    taskRunMetadataName,
+    taskRunMetadataName!,
     approvalTask?.metadata?.namespace
   );
   const taskRunName = customTaskRun?.metadata?.labels?.[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK];
@@ -90,11 +90,10 @@ export const CustomTaskRun = ({ pipelineRunTaskData }: CustomTaskRunProps) => {
 
   const tabs = useTabs({ taskRun: customTaskRun });
 
-  const approvalTaskEditMutation = useResourceCRUDMutation<KubeObjectInterface, typeof CRUD_TYPE.EDIT>(
-    'approvalTaskEditMutation',
-    ApprovalTaskKubeObject,
-    CRUD_TYPE.EDIT
-  );
+  const approvalTaskEditMutation = useResourceCRUDMutation<
+    KubeObjectInterface,
+    typeof CRUD_TYPE.EDIT
+  >('approvalTaskEditMutation', ApprovalTaskKubeObject, CRUD_TYPE.EDIT);
 
   const handleClickApproveOrReject = React.useCallback(
     (action: string, comment?: string) => {

@@ -223,7 +223,7 @@ export const useColumns = ({
           {mode === APPLICATIONS_TABLE_MODE.CONFIGURATION && (
             <div>
               <FormSwitch
-                label={undefined}
+                label={<></>}
                 {...register(ALL_VALUES_OVERRIDE_KEY, {
                   onChange: handleClickOverrideValuesAll,
                 })}
@@ -254,18 +254,20 @@ export const useColumns = ({
           return (
             <Stack direction="row" alignItems="center">
               <ValuesOverrideSwitch enrichedApplicationWithArgoApplication={data} mode={mode} />
-              <ResourceIconLink
-                tooltipTitle={'Go to the Source Code'}
-                link={LinkCreationService.git.createGitOpsValuesYamlFileLink(
-                  gitOpsCodebase.data?.status.gitWebUrl,
-                  CDPipelineName,
-                  stage?.spec.name,
-                  appName,
-                  gitOpsGitServer?.spec.gitProvider as GitProvider
-                )}
-                icon={ICONS.NEW_WINDOW}
-                name="source code"
-              />
+              {gitOpsCodebase.data?.status.gitWebUrl && stage!.spec.name && (
+                <ResourceIconLink
+                  tooltipTitle={'Go to the Source Code'}
+                  link={LinkCreationService.git.createGitOpsValuesYamlFileLink(
+                    gitOpsCodebase.data?.status.gitWebUrl,
+                    CDPipelineName,
+                    stage!.spec.name,
+                    appName,
+                    gitOpsGitServer?.spec.gitProvider as GitProvider
+                  )}
+                  icon={ICONS.NEW_WINDOW}
+                  name="source code"
+                />
+              )}
             </Stack>
           );
         },
@@ -314,10 +316,10 @@ export const useColumns = ({
                   <IconButton
                     onClick={() =>
                       setDialog(PodsLogViewerDialog, {
-                        pods: appPods,
+                        pods: appPods!,
                       })
                     }
-                    disabled={disabled.status}
+                    disabled={disabled.status || !appPods}
                     size="large"
                   >
                     <Icon icon="ph:file-text-bold" color={buttonIconColor} width={20} height={20} />
@@ -329,10 +331,10 @@ export const useColumns = ({
                   <IconButton
                     onClick={() =>
                       setDialog(PodsTerminalDialog, {
-                        pods: appPods,
+                        pods: appPods!,
                       })
                     }
-                    disabled={disabled.status}
+                    disabled={disabled.status || !appPods}
                     size="large"
                   >
                     <Icon icon="mdi:console" color={buttonIconColor} width={20} height={20} />
@@ -562,7 +564,7 @@ export const useColumns = ({
     mode,
     register,
     setDialog,
-    stage?.spec.name,
+    stage,
     theme.palette.action.disabled,
     theme.palette.grey,
     theme.palette.text.primary,

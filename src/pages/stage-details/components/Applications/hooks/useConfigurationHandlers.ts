@@ -67,7 +67,7 @@ export const useConfigurationHandlers = ({
         continue;
       }
 
-      const imageStreamTag = imageStreamBySelectedApplication?.spec?.tags.at(-1).name;
+      const imageStreamTag = imageStreamBySelectedApplication.spec?.tags.at(-1)?.name;
 
       if (!imageStreamTag) {
         continue;
@@ -101,7 +101,7 @@ export const useConfigurationHandlers = ({
         continue;
       }
 
-      const imageStreamTag = imageStreamBySelectedApplication?.spec?.tags.at(-1).name;
+      const imageStreamTag = imageStreamBySelectedApplication.spec?.tags.at(-1)?.name;
 
       if (!imageStreamTag) {
         continue;
@@ -164,9 +164,22 @@ export const useConfigurationHandlers = ({
       return acc;
     }, {});
 
+    if (!deployPipelineRunTemplate) {
+      showRequestErrorMessage(CRUD_TYPE.CREATE, {
+        customMessage: {
+          message: 'Deploy PipelineRun template is not found.',
+          options: {
+            variant: 'error',
+          },
+        },
+      });
+
+      return;
+    }
+
     const newDeployPipelineRun = createDeployPipelineRunInstance({
-      CDPipeline: CDPipeline.data,
-      stage,
+      CDPipeline: CDPipeline.data!,
+      stage: stage!,
       pipelineRunTemplate: deployPipelineRunTemplate,
       appPayload,
     });
@@ -178,6 +191,7 @@ export const useConfigurationHandlers = ({
     deployPipelineRunTemplate,
     enrichedApplicationsWithArgoApplications,
     getValues,
+    showRequestErrorMessage,
     stage,
     trigger,
   ]);
@@ -197,8 +211,8 @@ export const useConfigurationHandlers = ({
     }
 
     const newCleanPipelineRun = createCleanPipelineRunInstance({
-      CDPipeline: CDPipeline.data,
-      stage,
+      CDPipeline: CDPipeline.data!,
+      stage: stage!,
       pipelineRunTemplate: cleanPipelineRunTemplate,
     });
 
@@ -214,12 +228,12 @@ export const useConfigurationHandlers = ({
   const handleClickClean = React.useCallback(() => {
     setDialog(ConfirmDialog, {
       text: 'Are you sure you want to clean up the environment?',
-      actionCallback: () => handleClean(),
+      actionCallback: async () => handleClean(),
     });
   }, [handleClean, setDialog]);
 
   const handleClickUninstall = React.useCallback(() => {
-    setDeleteDialogOpen(true);
+    setDeleteDialogOpen && setDeleteDialogOpen(true);
   }, [setDeleteDialogOpen]);
 
   return {

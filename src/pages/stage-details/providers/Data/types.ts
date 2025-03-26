@@ -6,10 +6,10 @@ import { StageKubeObjectInterface } from '../../../../k8s/groups/EDP/Stage/types
 import { DataProviderValue } from '../../../../types/pages';
 
 export interface DataContextProviderValue {
-  CDPipeline: DataProviderValue<CDPipelineKubeObjectInterface>;
-  stages: DataProviderValue<StageKubeObjectInterface[]>;
-  enrichedApplications: DataProviderValue<EnrichedApplicationWithItsImageStreams[]>;
-  gitOpsCodebase: DataProviderValue<CodebaseKubeObjectInterface>;
-  QuickLinks: DataProviderValue<QuickLinkKubeObjectInterface[]>;
-  QuickLinksURLs: DataProviderValue<Record<string, string>>;
+  CDPipeline: DataProviderValue<CDPipelineKubeObjectInterface | undefined>;
+  stages: DataProviderValue<StageKubeObjectInterface[] | undefined>;
+  enrichedApplications: DataProviderValue<EnrichedApplicationWithItsImageStreams[] | undefined>;
+  gitOpsCodebase: DataProviderValue<CodebaseKubeObjectInterface | undefined>;
+  QuickLinks: DataProviderValue<QuickLinkKubeObjectInterface[] | undefined>;
+  QuickLinksURLs: DataProviderValue<Record<string, string> | undefined>;
 }

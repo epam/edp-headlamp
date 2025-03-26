@@ -4,12 +4,13 @@ import { BorderedSection } from '../../../../../../components/BorderedSection';
 import { InfoColumns } from '../../../../../../components/InfoColumns';
 import { useTableSettings } from '../../../../../../components/Table/components/TableSettings/hooks/useTableSettings';
 import { TABLE } from '../../../../../../constants/tables';
+import { PipelineKubeObjectInterface } from '../../../../../../k8s/groups/Tekton/Pipeline/types';
 import { PipelineRunKubeObject } from '../../../../../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunList } from '../../../../../../widgets/PipelineRunList';
 import { useTypedPermissions } from '../../hooks/useTypedPermissions';
 import { useInfoRows } from './hooks/useInfoRows';
 
-export const Overview = ({ pipeline }) => {
+export const Overview = ({ pipeline }: { pipeline: PipelineKubeObjectInterface }) => {
   const infoRows = useInfoRows(pipeline);
   const [pipelineRuns, pipelineRunsError] = PipelineRunKubeObject.useList({
     namespace: pipeline.metadata.namespace,

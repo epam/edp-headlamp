@@ -20,6 +20,10 @@ export const useTabs = () => {
   }, [handleChangeTab]);
 
   return React.useMemo(() => {
+    if (pipelineRun.isLoading && !pipelineRun.error) {
+      return [];
+    }
+
     return [
       {
         label: 'Overview',
@@ -53,7 +57,7 @@ export const useTabs = () => {
               pt: (t) => t.typography.pxToRem(24),
             }}
           >
-            <ViewYAML item={pipelineRun.data} />
+            <ViewYAML item={pipelineRun.data!} />
           </Box>
         ),
       },
@@ -66,7 +70,7 @@ export const useTabs = () => {
             }}
           >
             <NameValueTable
-              rows={(pipelineRun.data?.status?.results || []).map((el) => {
+              rows={(pipelineRun.data?.status?.results || []).map((el: Record<string, string>) => {
                 const isLink = getValidURLPattern(VALIDATED_PROTOCOL.HTTP_OR_HTTPS).test(el.value);
 
                 return {
@@ -94,12 +98,12 @@ export const useTabs = () => {
             }}
           >
             <PipelineRunGraph
-              pipelineRun={pipelineRun.data}
+              pipelineRun={pipelineRun.data!}
               onNodeElementLinkClick={onNodeElementLinkClick}
             />
           </Box>
         ),
       },
     ];
-  }, [onNodeElementLinkClick, pipelineRun.data]);
+  }, [onNodeElementLinkClick, pipelineRun.data, pipelineRun.error, pipelineRun.isLoading]);
 };

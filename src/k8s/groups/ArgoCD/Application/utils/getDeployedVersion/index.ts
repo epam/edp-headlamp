@@ -3,7 +3,7 @@ import { ApplicationKubeObjectInterface } from '../../types';
 export const getDeployedVersion = (
   withValuesOverride: boolean,
   isHelm: boolean,
-  argoApplication: ApplicationKubeObjectInterface
+  argoApplication: ApplicationKubeObjectInterface | undefined
 ): string => {
   if (withValuesOverride) {
     // @ts-ignore

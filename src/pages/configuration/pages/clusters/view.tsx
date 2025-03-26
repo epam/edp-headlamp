@@ -61,7 +61,7 @@ export const PageView = () => {
   const handleOpenCreateDialog = () => setCreateDialogOpen(true);
   const handleCloseCreateDialog = () => setCreateDialogOpen(false);
 
-  const [expandedPanel, setExpandedPanel] = React.useState<string>(null);
+  const [expandedPanel, setExpandedPanel] = React.useState<string | null>(null);
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedPanel(isExpanded ? panel : null);
   };
@@ -115,7 +115,7 @@ export const PageView = () => {
   // );
 
   const renderPageContent = React.useCallback(() => {
-    const forbiddenError = getForbiddenError(clusterSecretsError);
+    const forbiddenError = clusterSecretsError && getForbiddenError(clusterSecretsError);
 
     if (forbiddenError) {
       return <ErrorContent error={forbiddenError} outlined />;
@@ -330,7 +330,7 @@ export const PageView = () => {
         component: (
           <ManageClusterSecret
             formData={{
-              ownerReference: null,
+              ownerReference: undefined,
               mode: FORM_MODES.CREATE,
               handleClosePlaceholder: handleCloseCreateDialog,
               permissions,

@@ -6,7 +6,7 @@ import { widgetPermissionsToCheck } from '../TaskActionsMenu/constants';
 export interface TaskListProps {
   tasks: TaskKubeObjectInterface[];
   isLoading: boolean;
-  error?: ApiError;
+  error?: ApiError | null;
   permissions: WidgetPermissions;
 }
 

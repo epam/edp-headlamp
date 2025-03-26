@@ -11,8 +11,8 @@ export type FormNames = Exclude<ValueOf<typeof FORM_NAMES>, typeof FORM_NAMES.SH
 export type WidgetPermissions = PermissionsConfig<typeof widgetPermissionsToCheck>;
 
 export interface ManageGitServerProps {
-  gitServer: GitServerKubeObjectInterface;
-  webhookURL: string;
+  gitServer: GitServerKubeObjectInterface | undefined;
+  webhookURL: string | undefined;
   repositorySecrets: SecretKubeObjectInterface[];
   permissions: WidgetPermissions;
   handleClosePanel: () => void;

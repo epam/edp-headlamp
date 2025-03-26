@@ -6,11 +6,11 @@ import { PipelineRunKubeObject } from '../../../../../../../k8s/groups/Tekton/Pi
 import { humanize } from '../../../../../../../utils/date/humanize';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 
-export const useInfoRows = (): InfoRow[] | null => {
+export const useInfoRows = (): InfoRow[] => {
   const { pipelineRun } = useDynamicDataContext();
 
-  const status = PipelineRunKubeObject.parseStatus(pipelineRun.data);
-  const reason = PipelineRunKubeObject.parseStatusReason(pipelineRun.data);
+  const status = PipelineRunKubeObject.parseStatus(pipelineRun.data!);
+  const reason = PipelineRunKubeObject.parseStatusReason(pipelineRun.data!);
 
   const [icon, color, isRotating] = PipelineRunKubeObject.getStatusIcon(status, reason);
 
@@ -59,7 +59,7 @@ export const useInfoRows = (): InfoRow[] | null => {
     };
   }, [pipelineRun]);
 
-  const pipelineRunLabels = Object.entries(pipelineRun.data.metadata.labels).map(
+  const pipelineRunLabels = Object.entries(pipelineRun.data?.metadata?.labels || {}).map(
     ([key, value]) => `${key}:${value}`
   );
 

@@ -27,7 +27,7 @@ function getToken(cluster: string) {
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const { namespace, name } = useParams<PipelineRouteParams>();
 
-  const [pipelineRun, setPipelineRun] = React.useState<PipelineRunKubeObjectInterface>(null);
+  const [pipelineRun, setPipelineRun] = React.useState<PipelineRunKubeObjectInterface | null>(null);
   const [pipelineRunError, setPipelineRunError] = React.useState<ApiError | null>(null);
 
   React.useEffect(() => {
@@ -43,7 +43,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     };
   }, [namespace, name]);
 
-  const [taskRuns, setTaskRuns] = React.useState<TaskRunKubeObjectInterface[]>(null);
+  const [taskRuns, setTaskRuns] = React.useState<TaskRunKubeObjectInterface[] | null>(null);
   const [taskRunErrors, setTaskRunErrors] = React.useState<ApiError | null>(null);
 
   React.useEffect(() => {
@@ -63,7 +63,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     };
   }, [namespace, name, pipelineRun]);
 
-  const [tasks, setTasks] = React.useState<TaskKubeObjectInterface[]>(null);
+  const [tasks, setTasks] = React.useState<TaskKubeObjectInterface[] | null>(null);
   const [tasksError, setTasksError] = React.useState<ApiError | null>(null);
 
   React.useEffect(() => {
@@ -82,7 +82,9 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     };
   }, [namespace, name, pipelineRun]);
 
-  const [approvalTasks, setApprovalTasks] = React.useState<ApprovalTaskKubeObjectInterface[]>(null);
+  const [approvalTasks, setApprovalTasks] = React.useState<
+    ApprovalTaskKubeObjectInterface[] | null
+  >(null);
   const [approvalTasksError, setApprovalTasksError] = React.useState<ApiError | null>(null);
 
   React.useEffect(() => {
@@ -109,13 +111,9 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     approvalTasks,
   });
 
-  const { data: EDPConfigMap } = useEDPConfigMapQuery({
-    options: {
-      enabled: !pipelineRun && !!pipelineRunError,
-    },
-  });
+  const { data: EDPConfigMap } = useEDPConfigMapQuery();
 
-  const cluster = Utils.getCluster();
+  const cluster = Utils.getCluster() || '';
   const token = getToken(cluster);
   const apiGatewayUrl = EDPConfigMap?.data?.api_gateway_url;
 

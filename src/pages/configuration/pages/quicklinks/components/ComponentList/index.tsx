@@ -13,7 +13,7 @@ export const QuickLinkList = ({ items, errors, filterFunction }: QuickLinkListPr
         id={TABLE.QUICKLINK_LIST.id}
         name={TABLE.QUICKLINK_LIST.name}
         isLoading={items === null && (!errors || !errors.length)}
-        data={items}
+        data={items!}
         errors={errors}
         columns={columns}
         filterFunction={filterFunction}

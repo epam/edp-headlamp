@@ -70,7 +70,8 @@ export const usePageTabs = ({
   >;
 }): Tab[] => {
   const { namespace, stageName } = useParams<EDPStageDetailsRouteParams>();
-  const { data: QuickLinksURLS } = useQuickLinksURLsQuery(namespace);
+  const { data: QuickLinksURLS, isLoading: QuickLinksURLSIsLoading } =
+    useQuickLinksURLsQuery(namespace);
   const { data: QuickLinks } = useQuickLinksQuery({
     props: {
       namespace,
@@ -80,11 +81,6 @@ export const usePageTabs = ({
   const monitoringQuickLink =
     QuickLinks &&
     QuickLinks?.items?.find((el) => el.metadata.name === SYSTEM_QUICK_LINKS.MONITORING);
-
-  const isLoading = React.useMemo(
-    () => stage.isLoading || deployPipelineRuns.isLoading || argoApplications.isLoading,
-    [argoApplications.isLoading, deployPipelineRuns.isLoading, stage.isLoading]
-  );
 
   const latestDeployPipelineRunIsRunning = React.useMemo(() => {
     const latestNewDeployPipelineRun = deployPipelineRuns.data?.[0];
@@ -127,7 +123,13 @@ export const usePageTabs = ({
 
   return React.useMemo(() => {
     const _isLoading =
-      isLoading || enrichedApplicationsWithItsImageStreams.isLoading || argoApplications.isLoading;
+      stage.isLoading ||
+      deployPipelineRuns.isLoading ||
+      argoApplications.isLoading ||
+      enrichedApplicationsWithItsImageStreams.isLoading ||
+      enrichedApplicationsWithArgoApplications === null ||
+      argoApplications.isLoading ||
+      QuickLinksURLSIsLoading;
 
     return [
       {
@@ -151,7 +153,7 @@ export const usePageTabs = ({
         component: (
           <LoadingWrapper isLoading={_isLoading}>
             <ApplicationsWrapper
-              enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications}
+              enrichedApplicationsWithArgoApplications={enrichedApplicationsWithArgoApplications!}
               latestDeployPipelineRunIsRunning={latestDeployPipelineRunIsRunning}
               latestCleanPipelineRunIsRunning={latestCleanPipelineRunIsRunning}
             />
@@ -218,14 +220,15 @@ export const usePageTabs = ({
         id: 'monitoring',
         disabled:
           !monitoringQuickLink ||
-          monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE] !==
-            MONITORING_PROVIDERS.GRAFANA,
+          monitoringQuickLink.metadata?.labels?.[QUICK_LINK_LABEL_SELECTOR_TYPE] !==
+            MONITORING_PROVIDERS.GRAFANA ||
+          !QuickLinksURLS?.monitoring,
         component: (
           <LoadingWrapper isLoading={_isLoading}>
             <TabSection title="Monitoring">
               <Monitoring
-                provider={monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE]}
-                baseUrl={QuickLinksURLS?.monitoring}
+                provider={monitoringQuickLink?.metadata?.labels?.[QUICK_LINK_LABEL_SELECTOR_TYPE]!}
+                baseUrl={QuickLinksURLS?.monitoring!}
                 namespace={stage.data?.spec.namespace}
                 clusterName={stage.data?.spec.clusterName}
               />
@@ -236,11 +239,12 @@ export const usePageTabs = ({
     ];
   }, [
     QuickLinksURLS?.monitoring,
+    QuickLinksURLSIsLoading,
     argoApplications.isLoading,
+    deployPipelineRuns.isLoading,
     enrichedApplicationsWithArgoApplications,
     enrichedApplicationsWithItsImageStreams.isLoading,
     infoColumns,
-    isLoading,
     latestCleanPipelineRunIsRunning,
     latestDeployPipelineRunIsRunning,
     monitoringQuickLink,
@@ -252,6 +256,7 @@ export const usePageTabs = ({
     setNewPipelineRunAdded,
     stage.data?.spec.clusterName,
     stage.data?.spec.namespace,
+    stage.isLoading,
     stageName,
     variablesConfigMap.data,
     variablesConfigMap.error,

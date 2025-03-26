@@ -7,6 +7,7 @@ import { ICONS } from '../../../../../../../../icons/iconify-icons-mapping';
 import { ApprovalTaskKubeObject } from '../../../../../../../../k8s/groups/EDP/ApprovalTask';
 import { APPROVAL_TASK_STATUS } from '../../../../../../../../k8s/groups/EDP/ApprovalTask/constants';
 import { ApprovalTaskKubeObjectInterface } from '../../../../../../../../k8s/groups/EDP/ApprovalTask/types';
+import { PipelineRunTaskData } from '../../../../../../../../k8s/groups/Tekton/PipelineRun/types';
 import { TaskRunKubeObject } from '../../../../../../../../k8s/groups/Tekton/TaskRun';
 import { TaskRunKubeObjectInterface } from '../../../../../../../../k8s/groups/Tekton/TaskRun/types';
 import {
@@ -22,7 +23,9 @@ import {
 const approvalTaskBackground =
   'repeating-linear-gradient(45deg, rgba(96, 96, 96, 0.15), rgba(96, 96, 96, 0.15) 10px, rgba(70, 70, 70, 0.15) 10px, rgba(70, 70, 70, 0.15) 20px);';
 
-export function updateUnexecutedSteps(steps) {
+export function updateUnexecutedSteps(
+  steps: { terminated?: { reason: string }; running: unknown }[]
+) {
   if (!steps) {
     return steps;
   }
@@ -41,8 +44,8 @@ export function updateUnexecutedSteps(steps) {
 }
 
 const getTaskStatusData = (
-  approvalTask: ApprovalTaskKubeObjectInterface,
-  taskRun: TaskRunKubeObjectInterface
+  approvalTask: ApprovalTaskKubeObjectInterface | undefined,
+  taskRun: TaskRunKubeObjectInterface | undefined
 ) => {
   if (approvalTask) {
     return ApprovalTaskKubeObject.getStatusIcon(approvalTask?.spec?.action);
@@ -55,8 +58,8 @@ const getTaskStatusData = (
 };
 
 const getStatusTitle = (
-  approvalTask: ApprovalTaskKubeObjectInterface,
-  taskRun: TaskRunKubeObjectInterface
+  approvalTask: ApprovalTaskKubeObjectInterface | undefined,
+  taskRun: TaskRunKubeObjectInterface | undefined
 ) => {
   if (approvalTask) {
     return `Status: ${approvalTask?.spec?.action}`;
@@ -67,7 +70,15 @@ const getStatusTitle = (
   return `Status: ${taskRunStatus}. Reason: ${taskRunReason}`;
 };
 
-export const MenuAccordion = ({ taskRunName, pipelineRunTasksByNameMap, setQueryParams }) => {
+export const MenuAccordion = ({
+  taskRunName,
+  pipelineRunTasksByNameMap,
+  setQueryParams,
+}: {
+  taskRunName: string;
+  pipelineRunTasksByNameMap: Map<string, PipelineRunTaskData>;
+  setQueryParams: (taskRun: string, step?: string) => void;
+}) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
@@ -76,10 +87,10 @@ export const MenuAccordion = ({ taskRunName, pipelineRunTasksByNameMap, setQuery
 
   const pipelineRunTaskData = pipelineRunTasksByNameMap.get(taskRunName);
 
-  const approvalTask = pipelineRunTaskData.approvalTask;
+  const approvalTask = pipelineRunTaskData?.approvalTask;
 
-  const taskRun = pipelineRunTaskData.taskRun;
-  const task = pipelineRunTaskData.task?.jsonData;
+  const taskRun = pipelineRunTaskData?.taskRun;
+  const task = pipelineRunTaskData?.task?.jsonData;
 
   const [icon, color, isRotating] = getTaskStatusData(approvalTask, taskRun);
   const statusTitle = getStatusTitle(approvalTask, taskRun);
@@ -118,8 +129,8 @@ export const MenuAccordion = ({ taskRunName, pipelineRunTasksByNameMap, setQuery
         disableRipple={false}
         disableTouchRipple={false}
         sx={{
-          ...(pipelineRunTaskData.approvalTask &&
-          pipelineRunTaskData.approvalTask?.spec.action === APPROVAL_TASK_STATUS.PENDING
+          ...(pipelineRunTaskData?.approvalTask &&
+          pipelineRunTaskData?.approvalTask?.spec.action === APPROVAL_TASK_STATUS.PENDING
             ? { background: approvalTaskBackground }
             : {}),
         }}
@@ -137,14 +148,14 @@ export const MenuAccordion = ({ taskRunName, pipelineRunTasksByNameMap, setQuery
       </StyledAccordionSummary>
       <StyledAccordionDetails>
         <Stack>
-          {taskRunSteps?.map((step) => {
+          {taskRunSteps?.map((step: any) => {
             const taskRunStepName = step?.name;
 
             const status = getTaskRunStepStatus(step);
             const reason = getTaskRunStepReason(step);
             const [icon, color, isRotating] = TaskRunKubeObject.getStepStatusIcon(status, reason);
 
-            const isActive = queryParamStep && queryParamStep === taskRunStepName;
+            const isActive = !!queryParamStep && queryParamStep === taskRunStepName;
 
             return (
               <StyledAccordionChildBtn

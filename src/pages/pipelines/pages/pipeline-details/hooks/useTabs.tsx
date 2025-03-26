@@ -1,46 +1,58 @@
 import { Box } from '@mui/material';
 import React from 'react';
 import { ViewYAML } from '../../../../../components/Editor';
+import { LoadingWrapper } from '../../../../../components/LoadingWrapper';
+import { PipelineKubeObjectInterface } from '../../../../../k8s/groups/Tekton/Pipeline/types';
 import { PipelineGraph } from '../../../../../widgets/PipelineGraph';
 import { Overview } from '../components/Overview';
 
-export const useTabs = ({ pipeline }) => {
+export const useTabs = ({
+  pipeline,
+}: {
+  pipeline: PipelineKubeObjectInterface | null | undefined;
+}) => {
   return React.useMemo(() => {
     return [
       {
         label: 'Overview',
         component: (
-          <Box
-            sx={{
-              pt: (t) => t.typography.pxToRem(24),
-            }}
-          >
-            <Overview pipeline={pipeline} />
-          </Box>
+          <LoadingWrapper isLoading={pipeline === null}>
+            <Box
+              sx={{
+                pt: (t) => t.typography.pxToRem(24),
+              }}
+            >
+              <Overview pipeline={pipeline!} />
+            </Box>
+          </LoadingWrapper>
         ),
       },
       {
         label: 'View YAML',
         component: (
-          <Box
-            sx={{
-              pt: (t) => t.typography.pxToRem(24),
-            }}
-          >
-            <ViewYAML item={pipeline?.jsonData} />
-          </Box>
+          <LoadingWrapper isLoading={pipeline === null}>
+            <Box
+              sx={{
+                pt: (t) => t.typography.pxToRem(24),
+              }}
+            >
+              <ViewYAML item={pipeline?.jsonData} />
+            </Box>
+          </LoadingWrapper>
         ),
       },
       {
         label: 'Diagram',
         component: (
-          <Box
-            sx={{
-              pt: (t) => t.typography.pxToRem(24),
-            }}
-          >
-            <PipelineGraph pipeline={pipeline} />
-          </Box>
+          <LoadingWrapper isLoading={pipeline === null}>
+            <Box
+              sx={{
+                pt: (t) => t.typography.pxToRem(24),
+              }}
+            >
+              <PipelineGraph pipeline={pipeline!} />
+            </Box>
+          </LoadingWrapper>
         ),
       },
     ];

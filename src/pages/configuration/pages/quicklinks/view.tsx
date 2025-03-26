@@ -52,7 +52,8 @@ export const PageView = () => {
               {pageDescription.label}
             </Typography>
             <Typography variant={'body1'}>
-              {pageDescription.description} <LearnMoreLink url={pageDescription.docLink} />
+              {pageDescription.description}{' '}
+              {pageDescription.docLink && <LearnMoreLink url={pageDescription.docLink} />}
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -83,7 +84,7 @@ export const PageView = () => {
                         color: 'primary',
                         variant: 'contained',
                         onClick: () => {
-                          setDialog(ManageQuickLinkDialog, { quickLink: null });
+                          setDialog(ManageQuickLinkDialog, { quickLink: undefined });
                         },
                       }}
                       disabled={!permissions.create.QuickLink.allowed}

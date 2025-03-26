@@ -24,10 +24,10 @@ export const TemplatesTable = ({
       name={TABLE.TEMPLATE_LIST.name}
       errors={errors}
       columns={columns}
-      data={data}
+      data={data!}
       isLoading={data === null && (!errors || !errors.length)}
       handleRowClick={
-        permissions.create.Codebase.allowed ? (event, row) => handleTemplateClick(row) : null
+        permissions.create.Codebase.allowed ? (event, row) => handleTemplateClick(row) : undefined
       }
       emptyListComponent={
         warning ? (

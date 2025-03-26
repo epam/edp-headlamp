@@ -5,6 +5,7 @@ import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { PageWrapper } from '../../../../components/PageWrapper';
 import { Section } from '../../../../components/Section';
 import { PipelineKubeObject } from '../../../../k8s/groups/Tekton/Pipeline';
+import { PipelineKubeObjectInterface } from '../../../../k8s/groups/Tekton/Pipeline/types';
 import { TriggerTemplateKubeObject } from '../../../../k8s/groups/Tekton/TriggerTemplate';
 import { Tabs } from '../../../../providers/Tabs/components/Tabs';
 import { useTabsContext } from '../../../../providers/Tabs/hooks';
@@ -17,7 +18,8 @@ import { PipelineDetailsRouteParams } from './types';
 
 export const PageView = () => {
   const { namespace, name } = useParams<PipelineDetailsRouteParams>();
-  const [pipeline, pipelineError] = PipelineKubeObject.useGet(name, namespace);
+  const [_pipeline, pipelineError] = PipelineKubeObject.useGet(name, namespace);
+  const pipeline = _pipeline as PipelineKubeObjectInterface | null | undefined;
   const [triggerTemplates, triggerTemplatesError] = TriggerTemplateKubeObject.useList({
     namespace: getDefaultNamespace(),
   });
@@ -58,7 +60,7 @@ export const PageView = () => {
         },
       ]}
       headerSlot={
-        resourcesAreLoaded && (
+        resourcesAreLoaded ? (
           <PipelineActionsMenu
             data={{
               pipeline: pipeline?.jsonData ?? pipeline,
@@ -67,7 +69,7 @@ export const PageView = () => {
             permissions={permissions}
             variant="inline"
           />
-        )
+        ) : undefined
       }
     >
       <Section title={name} enableCopyTitle>
