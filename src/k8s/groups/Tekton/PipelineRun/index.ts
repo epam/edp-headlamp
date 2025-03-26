@@ -37,19 +37,19 @@ export class PipelineRunKubeObject extends K8s.cluster.makeKubeObject<PipelineRu
   }
 
   static parseStatus(
-    pipelineRun: PipelineRunKubeObjectInterface
+    pipelineRun: PipelineRunKubeObjectInterface | undefined
   ): ValueOf<typeof PIPELINE_RUN_STATUS> {
     return pipelineRun?.status?.conditions?.[0]?.status || 'Unknown';
   }
 
   static parseStatusReason(
-    pipelineRun: PipelineRunKubeObjectInterface
+    pipelineRun: PipelineRunKubeObjectInterface | undefined
   ): ValueOf<typeof PIPELINE_RUN_REASON> {
     return pipelineRun?.status?.conditions?.[0]?.reason || 'Unknown';
   }
 
   static parseStatusMessage(
-    pipelineRun: PipelineRunKubeObjectInterface
+    pipelineRun: PipelineRunKubeObjectInterface | undefined
   ): ValueOf<typeof PIPELINE_RUN_STATUS> {
     return pipelineRun?.status?.conditions?.[0]?.message || 'No message';
   }

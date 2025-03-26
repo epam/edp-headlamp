@@ -3,6 +3,7 @@ import React from 'react';
 import { CodebaseKubeObject } from '../../../../k8s/groups/EDP/Codebase';
 import { CodebaseKubeObjectInterface } from '../../../../k8s/groups/EDP/Codebase/types';
 import { GitServerKubeObject } from '../../../../k8s/groups/EDP/GitServer';
+import { GitServerKubeObjectInterface } from '../../../../k8s/groups/EDP/GitServer/types';
 import { DynamicDataContext } from './context';
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
@@ -16,7 +17,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     }
   );
 
-  const [gitServers, gitServerError] = GitServerKubeObject.useList();
+  const [_gitServers, gitServerError] = GitServerKubeObject.useList();
+  const gitServers = _gitServers as GitServerKubeObjectInterface[] | null;
 
   const DataContextValue = React.useMemo(
     () => ({

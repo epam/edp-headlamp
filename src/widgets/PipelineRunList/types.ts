@@ -23,7 +23,7 @@ export interface PipelineRunListProps {
   isLoading: boolean;
   permissions: WidgetPermissions;
   tableSettings?: SavedTableSettings;
-  blockerError?: ApiError;
+  blockerError?: ApiError | null;
   errors?: ApiError[] | null;
   pipelineRunTypes?: PipelineType[];
   filterControls?: PipelineRunFilterControlNames[];

@@ -4,8 +4,8 @@ import { ServiceAccountKubeObjectInterface } from '../../../../../../k8s/groups/
 import { DataProviderValue } from '../../../../../../types/pages';
 
 export interface DynamicDataContextProviderValue {
-  EDPConfigMap: DataProviderValue<ConfigMapKubeObjectInterface>;
-  pushAccountSecret: DataProviderValue<SecretKubeObjectInterface>;
-  pullAccountSecret: DataProviderValue<SecretKubeObjectInterface>;
-  tektonServiceAccount: DataProviderValue<ServiceAccountKubeObjectInterface>;
+  EDPConfigMap: DataProviderValue<ConfigMapKubeObjectInterface | undefined>;
+  pushAccountSecret: DataProviderValue<SecretKubeObjectInterface | null>;
+  pullAccountSecret: DataProviderValue<SecretKubeObjectInterface | null>;
+  tektonServiceAccount: DataProviderValue<ServiceAccountKubeObjectInterface | null>;
 }

@@ -48,7 +48,7 @@ export const PageView = () => {
   const permissions = useTypedPermissions();
 
   const renderPageContent = React.useCallback(() => {
-    const forbiddenError = getForbiddenError(error);
+    const forbiddenError = error && getForbiddenError(error);
 
     if (forbiddenError) {
       return <ErrorContent error={forbiddenError} outlined />;

@@ -1,3 +1,4 @@
+import { KubeObjectClass } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
 import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
 import { SecretKubeObjectConfig } from '../../../../k8s/groups/default/Secret/config';
@@ -15,12 +16,20 @@ export const pageDescription: PageDescription = {
 
 export const pagePermissionsToCheck = {
   create: [
-    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
-    { instance: JiraServerKubeObject, config: JiraServerKubeObjectConfig },
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
+    {
+      instance: JiraServerKubeObject as unknown as KubeObjectClass,
+      config: JiraServerKubeObjectConfig,
+    },
   ],
   update: [
-    { instance: SecretKubeObject, config: SecretKubeObjectConfig },
-    { instance: JiraServerKubeObject, config: JiraServerKubeObjectConfig },
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
+    {
+      instance: JiraServerKubeObject as unknown as KubeObjectClass,
+      config: JiraServerKubeObjectConfig,
+    },
   ],
-  delete: [{ instance: SecretKubeObject, config: SecretKubeObjectConfig }],
+  delete: [
+    { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
+  ],
 };

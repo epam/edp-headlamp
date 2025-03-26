@@ -4,6 +4,7 @@ import { useTableSettings } from '../../../../../../../components/Table/componen
 import { getSyncedColumnData } from '../../../../../../../components/Table/components/TableSettings/utils';
 import { TableColumn } from '../../../../../../../components/Table/types';
 import { TextWithTooltip } from '../../../../../../../components/TextWithTooltip';
+import { CodebaseInterface } from '../../../../../../../configs/codebase-mappings/types';
 import {
   BUILD_TOOL_ICON_MAPPING,
   FRAMEWORK_ICON_MAPPING,
@@ -13,6 +14,7 @@ import { TABLE } from '../../../../../../../constants/tables';
 import { RESOURCE_ICON_NAMES } from '../../../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../../../icons/UseSpriteSymbol';
 import { TemplateKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/Template/types';
+import { capitalizeFirstLetter } from '../../../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../../../utils/getCodebaseMappingByCodebaseType';
 import { rem } from '../../../../../../../utils/styling/rem';
 import { columnNames } from '../constants';
@@ -33,11 +35,13 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
             },
           }) => {
             return (
-              <img
-                style={{ height: rem(30), verticalAlign: 'middle' }}
-                src={`data:${icon[0].mediatype};base64,${icon[0].base64data}`}
-                alt=""
-              />
+              icon && (
+                <img
+                  style={{ height: rem(30), verticalAlign: 'middle' }}
+                  src={`data:${icon[0].mediatype};base64,${icon[0].base64data}`}
+                  alt=""
+                />
+              )
             );
           },
         },
@@ -113,26 +117,31 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
           columnSortableValuePath: 'spec.language',
           render: ({
             data: {
-              spec: { language, type },
+              spec: { language: _language, type },
             },
           }) => {
-            const codebaseMapping = getCodebaseMappingByCodebaseType(type);
-            if (!codebaseMapping) {
-              return language;
-            }
+            const codebaseMapping = getCodebaseMappingByCodebaseType(type) as Record<
+              string,
+              CodebaseInterface
+            >;
+            const lang = _language.toLowerCase();
+            const codebaseMappingByLang = codebaseMapping?.[lang];
 
             return (
               <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                 <Grid item>
                   <UseSpriteSymbol
                     name={
-                      LANGUAGE_ICON_MAPPING?.[language?.toLowerCase()] || RESOURCE_ICON_NAMES.OTHER
+                      LANGUAGE_ICON_MAPPING?.[lang as keyof typeof LANGUAGE_ICON_MAPPING] ||
+                      RESOURCE_ICON_NAMES.OTHER
                     }
                     width={20}
                     height={20}
                   />
                 </Grid>
-                <Grid item>{codebaseMapping?.[language]?.language?.name || language}</Grid>
+                <Grid item>
+                  {codebaseMappingByLang?.language?.name || capitalizeFirstLetter(_language)}
+                </Grid>
               </Grid>
             );
           },
@@ -148,21 +157,23 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
           columnSortableValuePath: 'spec.framework',
           render: ({
             data: {
-              spec: { language, framework, type },
+              spec: { language: _language, framework: _framework, type },
             },
           }) => {
-            const codebaseMapping = getCodebaseMappingByCodebaseType(type);
-
-            if (!codebaseMapping) {
-              return framework;
-            }
+            const codebaseMapping = getCodebaseMappingByCodebaseType(type) as Record<
+              string,
+              CodebaseInterface
+            >;
+            const lang = _language.toLowerCase();
+            const framework = _framework ? _framework.toLowerCase() : 'N/A';
+            const codebaseMappingByLang = codebaseMapping?.[lang];
 
             return (
               <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                 <Grid item>
                   <UseSpriteSymbol
                     name={
-                      FRAMEWORK_ICON_MAPPING?.[framework?.toLowerCase()] ||
+                      FRAMEWORK_ICON_MAPPING?.[framework as keyof typeof FRAMEWORK_ICON_MAPPING] ||
                       RESOURCE_ICON_NAMES.OTHER
                     }
                     width={20}
@@ -170,7 +181,11 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
                   />
                 </Grid>
                 <Grid item>
-                  {codebaseMapping?.[language]?.frameworks?.[framework]?.name || framework}
+                  {framework
+                    ? codebaseMappingByLang?.frameworks?.[framework]?.name ||
+                      (_framework && capitalizeFirstLetter(_framework)) ||
+                      'N/A'
+                    : 'N/A'}
                 </Grid>
               </Grid>
             );
@@ -187,29 +202,33 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
           columnSortableValuePath: 'spec.buildTool',
           render: ({
             data: {
-              spec: { language, buildTool, type },
+              spec: { language: _language, buildTool: _buildTool, type },
             },
           }) => {
-            const codebaseMapping = getCodebaseMappingByCodebaseType(type);
-
-            if (!codebaseMapping) {
-              return buildTool;
-            }
+            const codebaseMapping = getCodebaseMappingByCodebaseType(type) as Record<
+              string,
+              CodebaseInterface
+            >;
+            const lang = _language.toLowerCase();
+            const buildTool = _buildTool.toLowerCase();
+            const codebaseMappingByLang = codebaseMapping?.[lang];
 
             return (
               <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                 <Grid item>
                   <UseSpriteSymbol
                     name={
-                      BUILD_TOOL_ICON_MAPPING?.[buildTool?.toLowerCase()] ||
-                      RESOURCE_ICON_NAMES.OTHER
+                      BUILD_TOOL_ICON_MAPPING?.[
+                        buildTool as keyof typeof BUILD_TOOL_ICON_MAPPING
+                      ] || RESOURCE_ICON_NAMES.OTHER
                     }
                     width={20}
                     height={20}
                   />
                 </Grid>
                 <Grid item>
-                  {codebaseMapping?.[language]?.buildTools?.[buildTool]?.name || buildTool}
+                  {codebaseMappingByLang?.buildTools?.[buildTool]?.name ||
+                    capitalizeFirstLetter(_buildTool)}
                 </Grid>
               </Grid>
             );

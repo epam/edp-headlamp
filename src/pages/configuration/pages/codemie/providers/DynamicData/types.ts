@@ -7,10 +7,10 @@ import { QuickLinkKubeObjectInterface } from '../../../../../../k8s/groups/EDP/Q
 import { DataProviderValue } from '../../../../../../types/pages';
 
 export interface DynamicDataContextProviderValue {
-  codemie: DataProviderValue<CodemieKubeObjectInterface>;
-  codemieProject: DataProviderValue<CodemieProjectKubeObjectInterface>;
-  codemieProjectSettings: DataProviderValue<CodemieProjectSettingsKubeObjectInterface[]>;
-  codemieApplications: DataProviderValue<CodemieApplicationKubeObjectInterface[]>;
-  codemieSecret: DataProviderValue<SecretKubeObjectInterface>;
-  codemieQuickLink: DataProviderValue<QuickLinkKubeObjectInterface>;
+  codemie: DataProviderValue<CodemieKubeObjectInterface | null | undefined>;
+  codemieProject: DataProviderValue<CodemieProjectKubeObjectInterface | null | undefined>;
+  codemieProjectSettings: DataProviderValue<CodemieProjectSettingsKubeObjectInterface[] | null>;
+  codemieApplications: DataProviderValue<CodemieApplicationKubeObjectInterface[] | null>;
+  codemieSecret: DataProviderValue<SecretKubeObjectInterface | null | undefined>;
+  codemieQuickLink: DataProviderValue<QuickLinkKubeObjectInterface | null | undefined>;
 }

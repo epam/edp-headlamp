@@ -5,11 +5,13 @@ import { useFormContext } from 'react-hook-form';
 import { ButtonWithPermission } from '../../../../../../components/ButtonWithPermission';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { Table } from '../../../../../../components/Table';
+import { TableColumn } from '../../../../../../components/Table/types';
 import { TABLE } from '../../../../../../constants/tables';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { APPLICATIONS_TABLE_MODE } from '../../../../constants';
 import { useTypedPermissions } from '../../../../hooks/useTypedPermissions';
 import { EnrichedApplicationWithArgoApplication } from '../../../../types';
+import { ApplicationsTableMode } from '../../types';
 
 export const ConfigurationTable = ({
   data,
@@ -21,6 +23,23 @@ export const ConfigurationTable = ({
   handleClickDeploy,
   buttonsEnabledMap,
   buttonsHighlighted,
+}: {
+  data: EnrichedApplicationWithArgoApplication[];
+  columns: TableColumn<EnrichedApplicationWithArgoApplication>[];
+  deployBtnDisabled: boolean;
+  setDeployBtnDisabled: any;
+  latestDeployPipelineRunIsRunning: boolean;
+  setMode: React.Dispatch<React.SetStateAction<ApplicationsTableMode>>;
+  handleClickDeploy: () => void;
+  buttonsEnabledMap: {
+    deploy: boolean;
+    uninstall: boolean;
+  };
+  buttonsHighlighted: {
+    latest: boolean;
+    stable: boolean;
+    valuesOverride: boolean;
+  };
 }) => {
   const permissions = useTypedPermissions();
   const theme = useTheme();

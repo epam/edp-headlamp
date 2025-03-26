@@ -52,12 +52,15 @@ export const Variables = ({ configMap }: { configMap: ConfigMapKubeObjectInterfa
   const theme = useTheme();
 
   const onSubmit = React.useCallback(
-    (values) => {
+    (values: { variables: { key: string; value: string }[] }) => {
       const configMapCopy = { ...configMap };
-      configMapCopy.data = values.variables.reduce((acc, { key, value }) => {
-        acc[key] = value;
-        return acc;
-      }, {});
+      configMapCopy.data = values.variables.reduce<Record<string, unknown>>(
+        (acc, { key, value }) => {
+          acc[key] = value;
+          return acc;
+        },
+        {}
+      );
 
       editConfigMap({ configMapData: configMapCopy });
       reset(values, { keepValues: true });

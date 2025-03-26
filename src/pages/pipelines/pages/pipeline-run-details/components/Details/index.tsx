@@ -15,13 +15,9 @@ export const Details = () => {
   const queryParams = new URLSearchParams(location.search);
   const history = useHistory();
 
-  const {
-    pipelineRun,
-    pipelineRunData: {
-      data: { pipelineRunTasks, pipelineRunTasksByNameMap },
-    },
-    logs,
-  } = useDynamicDataContext();
+  const { pipelineRun, pipelineRunData, logs } = useDynamicDataContext();
+
+  const { pipelineRunTasks, pipelineRunTasksByNameMap } = pipelineRunData.data!;
 
   const setQueryParams = React.useCallback(
     (taskRun: string, step?: string) => {

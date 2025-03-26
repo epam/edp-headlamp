@@ -11,7 +11,7 @@ export interface Breadcrumb {
 
 export interface PageWrapperProps {
   breadcrumbs?: Breadcrumb[];
-  headerSlot?: React.ReactElement;
+  headerSlot?: React.ReactElement | undefined;
   breadcrumbsExtraContent?: React.ReactElement;
   containerMaxWidth?: ContainerTypeMap['props']['maxWidth'];
 }

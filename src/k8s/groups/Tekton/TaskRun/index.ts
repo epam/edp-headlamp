@@ -36,17 +36,21 @@ export class TaskRunKubeObject extends K8s.cluster.makeKubeObject<TaskRunKubeObj
     return this.jsonData!.status;
   }
 
-  static parseStatus(taskRun: TaskRunKubeObjectInterface): ValueOf<typeof TASK_RUN_STATUS> {
+  static parseStatus(
+    taskRun: TaskRunKubeObjectInterface | undefined
+  ): ValueOf<typeof TASK_RUN_STATUS> {
     return taskRun?.status?.conditions?.[0]?.status || 'Unknown';
   }
 
-  static parseStatusReason(taskRun: TaskRunKubeObjectInterface): ValueOf<typeof TASK_RUN_REASON> {
+  static parseStatusReason(
+    taskRun: TaskRunKubeObjectInterface | undefined
+  ): ValueOf<typeof TASK_RUN_REASON> {
     return taskRun?.status?.conditions?.[0]?.reason || 'Unknown';
   }
 
   static getStatusIcon(
-    status: ValueOf<typeof TASK_RUN_STATUS>,
-    reason: ValueOf<typeof TASK_RUN_REASON>
+    status: ValueOf<typeof TASK_RUN_STATUS> | undefined,
+    reason: ValueOf<typeof TASK_RUN_REASON> | undefined
   ): [string, string, boolean?] {
     if (status === undefined || reason === undefined) {
       return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
@@ -79,8 +83,8 @@ export class TaskRunKubeObject extends K8s.cluster.makeKubeObject<TaskRunKubeObj
   }
 
   static getStepStatusIcon(
-    status: ValueOf<typeof TASK_RUN_STEP_STATUS>,
-    reason: ValueOf<typeof TASK_RUN_STEP_REASON>
+    status: ValueOf<typeof TASK_RUN_STEP_STATUS> | undefined,
+    reason: ValueOf<typeof TASK_RUN_STEP_REASON> | undefined
   ): [string, string, boolean?] {
     if (status === undefined) {
       return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];

@@ -74,7 +74,7 @@ export const DataContextProvider: React.FC = ({ children }) => {
   const token = cluster ? getToken(cluster) : null;
   const { namespace, name } = useParams<ComponentDetailsRouteParams>();
 
-  const { data: EDPConfigMap } = useEDPConfigMapQuery({});
+  const { data: EDPConfigMap } = useEDPConfigMapQuery();
 
   const { data: QuickLinksURLS } = useQuickLinksURLsQuery();
 

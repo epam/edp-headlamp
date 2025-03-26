@@ -7,16 +7,16 @@ import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/Pi
 import { DataProviderValue } from '../../../../types/pages';
 
 export interface DynamicDataContextProviderValue {
-  stage: DataProviderValue<StageKubeObjectInterface>;
-  pipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
-  deployPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
-  cleanPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
-  argoApplications: DataProviderValue<ApplicationKubeObjectInterface[]>;
-  deployPipelineRunTemplate: DataProviderValue<PipelineRunKubeObjectInterface>;
-  cleanPipelineRunTemplate: DataProviderValue<PipelineRunKubeObjectInterface>;
-  gitServers: DataProviderValue<GitServerKubeObjectInterface[]>;
+  stage: DataProviderValue<StageKubeObjectInterface | undefined>;
+  pipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[] | null>;
+  deployPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[] | null>;
+  cleanPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[] | null>;
+  argoApplications: DataProviderValue<ApplicationKubeObjectInterface[] | null>;
+  deployPipelineRunTemplate: DataProviderValue<PipelineRunKubeObjectInterface | undefined>;
+  cleanPipelineRunTemplate: DataProviderValue<PipelineRunKubeObjectInterface | undefined>;
+  gitServers: DataProviderValue<GitServerKubeObjectInterface[] | null>;
   newPipelineRunAdded: boolean;
   setNewPipelineRunAdded: React.Dispatch<React.SetStateAction<boolean>>;
-  variablesConfigMap: DataProviderValue<ConfigMapKubeObjectInterface>;
-  applicationPodsMap: DataProviderValue<Record<string, PodKubeObjectInterface[]>>;
+  variablesConfigMap: DataProviderValue<ConfigMapKubeObjectInterface | null | undefined>;
+  applicationPodsMap: DataProviderValue<Record<string, PodKubeObjectInterface[]> | null>;
 }

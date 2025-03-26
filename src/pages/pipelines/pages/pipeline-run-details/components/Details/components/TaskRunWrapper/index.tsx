@@ -9,10 +9,10 @@ export const TaskRunWrapper = ({ pipelineRunTaskData }: TaskRunWrapperProps) => 
 
   return (
     <TabsContextProvider id="pipeline-details-page-inner-taskrun" initialTabIdx={0}>
-      {isApprovalTask ? (
+      {isApprovalTask && pipelineRunTaskData ? (
         <CustomTaskRun pipelineRunTaskData={pipelineRunTaskData} />
       ) : (
-        <TaskRun pipelineRunTaskData={pipelineRunTaskData} />
+        <TaskRun pipelineRunTaskData={pipelineRunTaskData!} />
       )}
     </TabsContextProvider>
   );

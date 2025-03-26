@@ -3,13 +3,9 @@ import React from 'react';
 import { InfoRow } from '../../../../../../../components/InfoColumns/types';
 import { TaskKubeObjectInterface } from '../../../../../../../k8s/groups/Tekton/Task/types';
 
-export const useInfoRows = (task: TaskKubeObjectInterface): InfoRow[] | null => {
+export const useInfoRows = (task: TaskKubeObjectInterface): InfoRow[] => {
   return React.useMemo(() => {
-    if (!task) {
-      return null;
-    }
-
-    const pipelineLabels = Object.entries(task.metadata.labels).map(
+    const pipelineLabels = Object.entries(task.metadata?.labels || {}).map(
       ([key, value]) => `${key}:${value}`
     );
 

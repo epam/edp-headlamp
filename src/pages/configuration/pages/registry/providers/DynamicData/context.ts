@@ -8,7 +8,11 @@ const initialData = {
 };
 
 export const DynamicDataContext = React.createContext<DynamicDataContextProviderValue>({
-  EDPConfigMap: initialData,
+  EDPConfigMap: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
   pushAccountSecret: initialData,
   pullAccountSecret: initialData,
   tektonServiceAccount: initialData,

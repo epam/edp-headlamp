@@ -126,11 +126,11 @@ const DeletionDialog = ({
   deletionConflicts,
   onDelete,
 }: {
-  componentsToDelete: ComponentsToDelete;
+  componentsToDelete: ComponentsToDelete | null;
   open: boolean;
   handleClose: () => void;
   onDelete: () => void;
-  deletionConflicts: ComponentsToDeleteConflicts;
+  deletionConflicts: ComponentsToDeleteConflicts | null;
 }) => {
   const [value, setValue] = React.useState('');
 
@@ -139,7 +139,7 @@ const DeletionDialog = ({
   const deletionDisabled = value !== CONFIRM_TEXT_VALUE;
 
   const handleDelete = () => {
-    if (deletionDisabled) {
+    if (deletionDisabled || !componentsToDelete || !deletionConflicts) {
       return;
     }
 
@@ -190,7 +190,7 @@ export const ComponentMultiDeletion = ({
   selected,
   onDelete,
 }: ComponentMultiDeletionProps) => {
-  const componentsByNameMap: Map<string, CodebaseKubeObjectInterface> = React.useMemo(() => {
+  const componentsByNameMap: Map<string, CodebaseKubeObjectInterface> | null = React.useMemo(() => {
     if (components === null) {
       return null;
     }

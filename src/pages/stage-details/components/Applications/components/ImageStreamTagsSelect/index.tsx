@@ -21,7 +21,10 @@ export const ImageStreamTagsSelect = ({
   } = useFormContext();
 
   const imageStreamTagsOptions: SelectOption[] = React.useMemo(
-    () => createImageStreamTags(applicationImageStream, applicationVerifiedImageStream),
+    () =>
+      applicationImageStream && applicationVerifiedImageStream
+        ? createImageStreamTags(applicationImageStream, applicationVerifiedImageStream)
+        : [],
     [applicationImageStream, applicationVerifiedImageStream]
   );
 

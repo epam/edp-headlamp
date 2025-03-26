@@ -15,7 +15,7 @@ export const Actions = ({
   permissions: PermissionsConfig<typeof pagePermissionsToCheck>;
 }) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
-  const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement>(null);
+  const [anchor, setAnchor] = React.useState<(EventTarget & HTMLButtonElement) | null>(null);
 
   return (
     <>

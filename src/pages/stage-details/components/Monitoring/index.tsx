@@ -10,7 +10,7 @@ export const Monitoring = ({
   provider: string;
   baseUrl: string;
   namespace: string;
-  clusterName;
+  clusterName: string;
 }) => {
   return (
     <iframe

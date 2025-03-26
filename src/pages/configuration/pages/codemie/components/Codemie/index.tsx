@@ -35,7 +35,7 @@ export const CodemieSection = ({
   const error = codemie.error || codemieSecret.error || codemieProject.error;
   const isLoading = codemie.isLoading || codemieSecret.isLoading || codemieProject.isLoading;
 
-  const forbiddenError = getForbiddenError(error);
+  const forbiddenError = error && getForbiddenError(error);
   const permissions = useTypedPermissions();
 
   if (forbiddenError) {

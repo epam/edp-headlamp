@@ -12,9 +12,9 @@ export type FormNames = ValueOf<typeof FORM_NAMES>;
 export type WidgetPermissions = PermissionsConfig<typeof widgetPermissionsToCheck>;
 
 export interface ManageCodeMieProps {
-  quickLink: QuickLinkKubeObjectInterface;
-  codemie: CodemieKubeObjectInterface;
-  codemieSecret: SecretKubeObjectInterface;
+  quickLink: QuickLinkKubeObjectInterface | null | undefined;
+  codemie: CodemieKubeObjectInterface | null | undefined;
+  codemieSecret: SecretKubeObjectInterface | null | undefined;
   permissions: WidgetPermissions;
   handleClosePanel?: () => void;
 }

@@ -16,7 +16,7 @@ export interface TableColumn<DataType> {
       meta?: {
         selectionLength: number;
       };
-    }) => React.ReactElement | string | number;
+    }) => React.ReactElement | string | number | undefined | null;
     columnSortableValuePath?: string | string[];
     customSortFn?: (a: DataType, b: DataType) => number;
   };

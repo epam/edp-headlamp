@@ -42,8 +42,8 @@ export interface NormalizedLogs {
 }
 
 export interface DynamicDataContextProviderValue {
-  pipelineRun: DataProviderValue<PipelineRunKubeObjectInterface>;
-  taskRuns: DataProviderValue<TaskRunKubeObjectInterface[]>;
-  pipelineRunData: DataProviderValue<PipelineRunData>;
-  logs: DataProviderValue<NormalizedLogs>;
+  pipelineRun: DataProviderValue<PipelineRunKubeObjectInterface | null | undefined>;
+  taskRuns: DataProviderValue<TaskRunKubeObjectInterface[] | null>;
+  pipelineRunData: DataProviderValue<PipelineRunData | undefined>;
+  logs: DataProviderValue<NormalizedLogs | undefined>;
 }

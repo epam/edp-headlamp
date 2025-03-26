@@ -21,7 +21,7 @@ export const ApplicationsWrapper = ({
 }: ApplicationsProps) => {
   const baseDefaultValues = React.useMemo(
     () =>
-      (enrichedApplicationsWithArgoApplications || []).reduce(
+      (enrichedApplicationsWithArgoApplications || []).reduce<Record<string, boolean | string>>(
         (acc, cur) => {
           const {
             application: {

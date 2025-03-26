@@ -3,12 +3,8 @@ import React from 'react';
 import { InfoRow } from '../../../../../../../components/InfoColumns/types';
 import { PipelineKubeObjectInterface } from '../../../../../../../k8s/groups/Tekton/Pipeline/types';
 
-export const useInfoRows = (pipeline: PipelineKubeObjectInterface): InfoRow[] | null => {
+export const useInfoRows = (pipeline: PipelineKubeObjectInterface): InfoRow[] => {
   return React.useMemo(() => {
-    if (!pipeline) {
-      return null;
-    }
-
     const pipelineLabels = pipeline.metadata?.labels
       ? Object.entries(pipeline.metadata.labels).map(([key, value]) => `${key}:${value}`)
       : [];

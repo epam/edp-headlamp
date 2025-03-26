@@ -8,7 +8,7 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
   props,
   state,
 }) => {
-  const { data: EDPConfigMap } = useEDPConfigMapQuery({});
+  const { data: EDPConfigMap } = useEDPConfigMapQuery();
 
   const CurrentDialogContextValue = React.useMemo(
     () => ({

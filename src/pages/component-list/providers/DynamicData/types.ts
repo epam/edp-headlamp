@@ -9,5 +9,5 @@ export interface DynamicDataContextProviderValue {
     errors: ApiError[] | null;
     isLoading: boolean;
   };
-  gitServers: DataProviderValue<GitServerKubeObjectInterface[]>;
+  gitServers: DataProviderValue<GitServerKubeObjectInterface[] | null>;
 }

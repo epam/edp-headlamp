@@ -1,6 +1,7 @@
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import React from 'react';
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { PIPELINE_TYPE } from '../../../../constants/pipelineTypes';
 import { ApplicationKubeObject } from '../../../../k8s/groups/ArgoCD/Application';
@@ -11,6 +12,7 @@ import { PodKubeObject } from '../../../../k8s/groups/default/Pod';
 import { PodKubeObjectInterface } from '../../../../k8s/groups/default/Pod/types';
 import { GitServerKubeObject } from '../../../../k8s/groups/EDP/GitServer';
 import { StageKubeObject } from '../../../../k8s/groups/EDP/Stage';
+import { StageKubeObjectInterface } from '../../../../k8s/groups/EDP/Stage/types';
 import { PipelineRunKubeObject } from '../../../../k8s/groups/Tekton/PipelineRun';
 import {
   PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE,
@@ -18,7 +20,9 @@ import {
   PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE,
 } from '../../../../k8s/groups/Tekton/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../../k8s/groups/Tekton/PipelineRun/types';
-import { useTriggerTemplateByNameQuery } from '../../../../k8s/groups/Tekton/TriggerTemplate/hooks/useTriggerTemplateByNameQuery';
+import { TriggerTemplateKubeObject } from '../../../../k8s/groups/Tekton/TriggerTemplate';
+import { REQUEST_KEY_QUERY_TRIGGER_TEMPLATE_BY_NAME } from '../../../../k8s/groups/Tekton/TriggerTemplate/requestKeys';
+import { TriggerTemplateKubeObjectInterface } from '../../../../k8s/groups/Tekton/TriggerTemplate/types';
 import { sortKubeObjectByCreationTimestamp } from '../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { EDPStageDetailsRouteParams } from '../../types';
 import { DynamicDataContext } from './context';
@@ -41,15 +45,17 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     namespace,
   } = useParams<EDPStageDetailsRouteParams>();
 
-  const [stage, error] = StageKubeObject.useGet(stageMetadataName, namespace);
+  const [_stage, error] = StageKubeObject.useGet(stageMetadataName, namespace);
+  const stage = _stage as StageKubeObjectInterface | null | undefined;
 
-  const stageSpecName = stage?.spec.name;
-  const stageSpecNamespace = stage?.spec.namespace;
+  const stageIsLoading = stage === null && !error;
 
   const stageTriggerTemplate = stage?.spec.triggerTemplate;
   const stageCleanTemplate = stage?.spec.cleanTemplate;
 
-  const [pipelineRuns, setPipelineRuns] = React.useState<PipelineRunKubeObjectInterface[]>(null);
+  const [pipelineRuns, setPipelineRuns] = React.useState<PipelineRunKubeObjectInterface[] | null>(
+    null
+  );
 
   const [newPipelineRunAdded, setNewPipelineRunAdded] = React.useState<boolean>(false);
 
@@ -111,13 +117,16 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     });
   }, [CDPipelineName, pipelineRuns, stageMetadataName]);
 
-  const [applicationList, setApplicationList] =
-    React.useState<ApplicationKubeObjectInterface[]>(null);
+  const [applicationList, setApplicationList] = React.useState<
+    ApplicationKubeObjectInterface[] | null
+  >(null);
 
   React.useEffect(() => {
-    if (!stageSpecName) {
+    if (stageIsLoading || !stage) {
       return;
     }
+
+    const stageSpecName = stage.spec.name;
 
     const cancelStream = ApplicationKubeObject.streamApplicationListByPipelineStageLabel({
       namespace,
@@ -132,14 +141,16 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     return () => {
       cancelStream();
     };
-  }, [CDPipelineName, namespace, stageSpecName]);
+  }, [CDPipelineName, namespace, stage, stageIsLoading]);
 
-  const [stagePods, setStagePods] = React.useState<PodKubeObjectInterface[]>(null);
+  const [stagePods, setStagePods] = React.useState<PodKubeObjectInterface[] | null>(null);
 
   React.useEffect(() => {
-    if (!stageSpecNamespace) {
+    if (stageIsLoading || !stage) {
       return;
     }
+
+    const stageSpecNamespace = stage.spec.namespace;
 
     const cancelStream = PodKubeObject.streamList({
       namespace: stageSpecNamespace,
@@ -152,7 +163,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     return () => {
       cancelStream();
     };
-  }, [namespace, stageSpecNamespace]);
+  }, [namespace, stage, stageIsLoading]);
 
   const applicationsListNames = React.useMemo(() => {
     return (applicationList || []).map(
@@ -182,25 +193,31 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     }, {});
   }, [applicationsListNames, stagePods]);
 
-  const deployPipelineRunTemplate = useTriggerTemplateByNameQuery({
-    props: {
-      name: stageTriggerTemplate,
-    },
-    options: {
+  const deployPipelineRunTemplate = useQuery<
+    TriggerTemplateKubeObjectInterface,
+    Error,
+    PipelineRunKubeObjectInterface
+  >(
+    [REQUEST_KEY_QUERY_TRIGGER_TEMPLATE_BY_NAME, stageTriggerTemplate],
+    () => TriggerTemplateKubeObject.getItemByName(namespace, stageTriggerTemplate!),
+    {
       enabled: !!stageTriggerTemplate,
       select: (data) => data.spec.resourcetemplates?.[0],
-    },
-  });
+    }
+  );
 
-  const cleanPipelineRunTemplate = useTriggerTemplateByNameQuery({
-    props: {
-      name: stageCleanTemplate,
-    },
-    options: {
+  const cleanPipelineRunTemplate = useQuery<
+    TriggerTemplateKubeObjectInterface,
+    Error,
+    PipelineRunKubeObjectInterface
+  >(
+    [REQUEST_KEY_QUERY_TRIGGER_TEMPLATE_BY_NAME, stageCleanTemplate],
+    () => TriggerTemplateKubeObject.getItemByName(namespace, stageCleanTemplate!),
+    {
       enabled: !!stageCleanTemplate,
       select: (data) => data.spec.resourcetemplates?.[0],
-    },
-  });
+    }
+  );
 
   const DataContextValue = React.useMemo(
     () => ({
