@@ -1,4 +1,5 @@
 import React from 'react';
+import { MyEdge, MyNode } from '../../../components/Graph/components/types';
 import { ApprovalTaskKubeObject } from '../../../k8s/groups/EDP/ApprovalTask';
 import { APPROVAL_TASK_LABEL_SELECTOR_PIPELINE_RUN } from '../../../k8s/groups/EDP/ApprovalTask/labels';
 import { ApprovalTaskKubeObjectInterface } from '../../../k8s/groups/EDP/ApprovalTask/types';
@@ -52,7 +53,7 @@ export const usePipelineRunGraphData = (
       return [];
     }
 
-    let _nodes = [];
+    let _nodes: MyNode[] = [];
 
     for (const [name, value] of pipelineRunTasksByNameMap.entries()) {
       const taskRun = value.taskRun;
@@ -79,7 +80,7 @@ export const usePipelineRunGraphData = (
       return [];
     }
 
-    let _edges = [];
+    let _edges: MyEdge[] = [];
 
     for (const [name, value] of pipelineRunTasksByNameMap.entries()) {
       const taskRun = value.taskRun;

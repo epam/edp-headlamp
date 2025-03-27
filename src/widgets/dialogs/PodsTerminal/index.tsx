@@ -371,7 +371,13 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
 
   function handlePodChange(event: any) {
     const newPodName = event.target.value;
-    setActivePod(pods.find(({ metadata: { name } }) => name === newPodName));
+    const podByName = pods.find(({ metadata: { name } }) => name === newPodName);
+
+    if (!podByName) {
+      return;
+    }
+
+    setActivePod(podByName);
   }
 
   function isSuccessfulExitError(channel: number, text: string): boolean {
@@ -455,7 +461,7 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
                   onChange={handleContainerChange}
                 >
                   <ListSubheader color="inherit">Containers</ListSubheader>
-                  {(activePod?.spec.containers || []).map(({ name }) => (
+                  {(activePod?.spec.containers || []).map(({ name }: { name: string }) => (
                     <MenuItem value={name} key={name}>
                       {name}
                     </MenuItem>
@@ -463,7 +469,7 @@ export const PodsTerminalDialog: React.FC<PodsTerminalDialogProps> = ({ props, s
                   {activePod?.spec?.initContainers?.length && (
                     <ListSubheader color="inherit">Init Containers</ListSubheader>
                   )}
-                  {(activePod?.spec.initContainers || []).map(({ name }) => (
+                  {(activePod?.spec.initContainers || []).map(({ name }: { name: string }) => (
                     <MenuItem value={name} key={name}>
                       {name}
                     </MenuItem>

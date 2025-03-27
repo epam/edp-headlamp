@@ -6,6 +6,7 @@ import { RESOURCE_ACTION } from '../../constants/resourceActions';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { StageKubeObject } from '../../k8s/groups/EDP/Stage';
 import { useDialogContext } from '../../providers/Dialog/hooks';
+import { KubeObjectAction } from '../../types/actions';
 import { createResourceAction } from '../../utils/actions/createResourceAction';
 import { capitalizeFirstLetter } from '../../utils/format/capitalizeFirstLetter';
 import { DeleteKubeObjectDialog } from '../dialogs/DeleteKubeObject';
@@ -50,7 +51,7 @@ export const StageActionsMenu = ({
           });
         },
       }),
-      await createDeleteAction({
+      (await createDeleteAction({
         allStages: stages,
         currentStage: stage,
         permissions,
@@ -67,8 +68,8 @@ export const StageActionsMenu = ({
             backRoute,
           });
         },
-      }),
-    ];
+      })) as KubeObjectAction,
+    ].filter(Boolean);
   }, [
     CDPipelineData,
     backRoute,
@@ -80,7 +81,7 @@ export const StageActionsMenu = ({
     variant,
   ]);
 
-  const [actions, setActions] = React.useState([]);
+  const [actions, setActions] = React.useState<KubeObjectAction[]>([]);
 
   React.useEffect(() => {
     getActions().then((actions) => {

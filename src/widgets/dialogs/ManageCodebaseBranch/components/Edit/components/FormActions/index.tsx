@@ -43,6 +43,10 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageCodebaseBranchFormValues) => {
+      if (!codebaseBranch) {
+        return;
+      }
+
       const usedValues = getUsedValues(values, CODEBASE_BRANCH_FORM_NAMES);
       const newCDPipelineStageData = editResource(
         CODEBASE_BRANCH_FORM_NAMES,

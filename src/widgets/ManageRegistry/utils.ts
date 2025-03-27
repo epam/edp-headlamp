@@ -3,11 +3,11 @@ import { safeDecode } from '../../utils/decodeEncode';
 
 export const parseConfigJson = (configJson: string) => {
   const decodedConfigJson = safeDecode(configJson);
-  return JSON.parse(decodedConfigJson);
+  return decodedConfigJson ? JSON.parse(decodedConfigJson) : {};
 };
 
 export const getUsernameAndPassword = (
-  secret: SecretKubeObjectInterface
+  secret: SecretKubeObjectInterface | undefined
 ): { userName: string | undefined; password: string | undefined } => {
   if (!secret) {
     return { userName: undefined, password: undefined };
@@ -27,7 +27,7 @@ export const getUsernameAndPassword = (
   return { userName, password };
 };
 
-export const getAuth = (secret: SecretKubeObjectInterface) => {
+export const getAuth = (secret: SecretKubeObjectInterface | undefined) => {
   if (!secret) {
     return { auth: undefined };
   }

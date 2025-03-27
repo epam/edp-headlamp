@@ -180,7 +180,7 @@ const PodsLogViewerInner: React.FC<PodsLogViewerInnerProps> = ({
             onChange={handleContainerChange}
           >
             <ListSubheader color="inherit">Containers</ListSubheader>
-            {(activePod?.spec.containers || []).map(({ name }) => (
+            {(activePod?.spec.containers || []).map(({ name }: { name: string }) => (
               <MenuItem value={name} key={name}>
                 {name}
               </MenuItem>
@@ -188,7 +188,7 @@ const PodsLogViewerInner: React.FC<PodsLogViewerInnerProps> = ({
             {activePod?.spec?.initContainers?.length && (
               <ListSubheader color="inherit">Init Containers</ListSubheader>
             )}
-            {(activePod?.spec.initContainers || []).map(({ name }) => (
+            {(activePod?.spec.initContainers || []).map(({ name }: { name: string }) => (
               <MenuItem value={name} key={name}>
                 {name}
               </MenuItem>

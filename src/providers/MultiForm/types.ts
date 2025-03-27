@@ -26,5 +26,5 @@ export interface MultiFormContextProviderValue<FormName extends string> {
 export interface MultiFormContextProviderProps<FormName extends string> {
   children: React.ReactNode;
   forms: { [formName in FormName]: FormItem };
-  sharedForm: UseFormReturn<any, any, undefined>;
+  sharedForm?: UseFormReturn<any, any, undefined>;
 }

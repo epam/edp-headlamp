@@ -2,12 +2,14 @@ import { Link } from '@mui/material';
 import React from 'react';
 import { BorderedSection } from '../../../../../components/BorderedSection';
 import { InfoColumns } from '../../../../../components/InfoColumns';
+import { CodebaseInterface } from '../../../../../configs/codebase-mappings/types';
 import {
   BUILD_TOOL_ICON_MAPPING,
   FRAMEWORK_ICON_MAPPING,
   LANGUAGE_ICON_MAPPING,
 } from '../../../../../configs/icon-mappings';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
+import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
 import { useCurrentDialog } from '../../providers/CurrentDialog/hooks';
 
@@ -17,27 +19,46 @@ export const FormDefaultValues = () => {
   } = useCurrentDialog();
 
   const {
-    spec: { type: codebaseType, language, framework, buildTool, source },
+    spec: { type: codebaseType, language, framework: _framework, buildTool: _buildTool, source },
   } = template;
 
-  const codebaseMapping = getCodebaseMappingByCodebaseType(codebaseType);
+  const codebaseMapping = getCodebaseMappingByCodebaseType(codebaseType) as Record<
+    string,
+    CodebaseInterface
+  >;
+  const lang = language.toLowerCase();
+  const framework = _framework.toLowerCase();
+  const buildTool = _buildTool.toLowerCase();
+
+  const codebaseMappingByLang = codebaseMapping?.[lang];
 
   const infoRows = [
     [
       {
         label: 'Language',
-        text: codebaseMapping?.[language]?.language?.name || language,
-        icon: LANGUAGE_ICON_MAPPING?.[language?.toLowerCase()] || RESOURCE_ICON_NAMES.OTHER,
+        text: codebaseMappingByLang?.language?.name || capitalizeFirstLetter(lang),
+        icon:
+          LANGUAGE_ICON_MAPPING?.[lang as keyof typeof LANGUAGE_ICON_MAPPING] ||
+          RESOURCE_ICON_NAMES.OTHER,
       },
       {
         label: 'Framework',
-        text: codebaseMapping?.[language]?.frameworks?.[framework]?.name || framework,
-        icon: FRAMEWORK_ICON_MAPPING?.[framework?.toLowerCase()] || RESOURCE_ICON_NAMES.OTHER,
+        text: framework
+          ? codebaseMappingByLang?.frameworks?.[framework]?.name ||
+            (_framework && capitalizeFirstLetter(_framework)) ||
+            'N/A'
+          : 'N/A',
+        icon:
+          FRAMEWORK_ICON_MAPPING?.[framework as keyof typeof FRAMEWORK_ICON_MAPPING] ||
+          RESOURCE_ICON_NAMES.OTHER,
       },
       {
         label: 'Build Tool',
-        text: codebaseMapping?.[language]?.buildTools?.[buildTool]?.name || buildTool,
-        icon: BUILD_TOOL_ICON_MAPPING?.[buildTool?.toLowerCase()] || RESOURCE_ICON_NAMES.OTHER,
+        text:
+          codebaseMappingByLang?.buildTools?.[buildTool]?.name || capitalizeFirstLetter(_buildTool),
+        icon:
+          BUILD_TOOL_ICON_MAPPING?.[buildTool as keyof typeof BUILD_TOOL_ICON_MAPPING] ||
+          RESOURCE_ICON_NAMES.OTHER,
       },
       {
         label: 'Source',

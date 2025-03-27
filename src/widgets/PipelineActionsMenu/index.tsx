@@ -32,7 +32,7 @@ export const PipelineActionsMenu = ({
 
   const pipelineTriggerTemplateByName =
     pipelineTriggerTemplate && triggerTemplates !== null
-      ? triggerTemplates.find(
+      ? (triggerTemplates || []).find(
           (triggerTemplate) => triggerTemplate.metadata.name === pipelineTriggerTemplate
         )
       : null;
@@ -154,12 +154,16 @@ export const PipelineActionsMenu = ({
           reason: permissions.create.PipelineRun.reason,
         },
         callback: (pipeline: PipelineKubeObjectInterface) => {
+          if (!pipelineTriggerTemplateByName) {
+            return;
+          }
+
           const newPipelineRun = createPipelineRunInstanceFromPipeline(
             pipelineTriggerTemplateByName,
             pipeline
           );
           handleOpenCreateEditor(newPipelineRun);
-          handleCloseResourceActionListMenu();
+          handleCloseResourceActionListMenu && handleCloseResourceActionListMenu();
         },
       }),
       createResourceAction({
@@ -173,7 +177,7 @@ export const PipelineActionsMenu = ({
         },
         callback: (pipeline: PipelineKubeObjectInterface) => {
           handleOpenEditEditor(pipeline);
-          handleCloseResourceActionListMenu();
+          handleCloseResourceActionListMenu && handleCloseResourceActionListMenu();
         },
       }),
     ];

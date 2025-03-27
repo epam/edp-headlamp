@@ -36,7 +36,7 @@ export const Actions = () => {
     : '';
 
   const handleDelete = React.useCallback(() => {
-    if (!canDelete) {
+    if (!canDelete || !secret) {
       return;
     }
 

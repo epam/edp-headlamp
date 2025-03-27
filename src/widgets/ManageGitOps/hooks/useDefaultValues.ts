@@ -39,7 +39,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageGitOpsDataConte
       };
     }
 
-    const gitUrlPath = currentElement?.spec.gitUrlPath;
+    const gitUrlPath = currentElement?.spec.gitUrlPath || '';
     const gitUrlPathWithNoSlashAtTheStart = gitUrlPath.replace('/', '');
     const gitRepoPath = gitUrlPathWithNoSlashAtTheStart.split('/').slice(0, -1).join('/');
 

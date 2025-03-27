@@ -62,7 +62,7 @@ export const parseResourceQuota = (
       const hard = details.hard || 0;
       const usedPercentage = (used / hard) * 100;
 
-      if (!acc || usedPercentage > acc.usedPercentage) {
+      if (!acc || usedPercentage > (acc.usedPercentage ?? 0)) {
         return {
           entity,
           used,

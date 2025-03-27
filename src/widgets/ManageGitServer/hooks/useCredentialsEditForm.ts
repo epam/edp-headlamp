@@ -124,6 +124,10 @@ export const useCredentialsEditForm = ({
             break;
         }
       })();
+      if (!newGitServerSecret) {
+        return;
+      }
+
       editMutation.mutate(newGitServerSecret);
     },
     [permissions.update.Secret.allowed, sharedForm, editMutation, gitServerSecret]

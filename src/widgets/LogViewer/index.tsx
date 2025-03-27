@@ -32,7 +32,13 @@ const _getDefaultContainer = (pod: PodKubeObjectInterface) => {
   return pod.spec.containers.length > 0 ? pod.spec.containers[0].name : '';
 };
 
-export const LogsViewer = ({ pods, getDefaultContainer }) => {
+export const LogsViewer = ({
+  pods,
+  getDefaultContainer,
+}: {
+  pods: PodKubeObjectInterface[];
+  getDefaultContainer?: (pod: PodKubeObjectInterface) => string;
+}) => {
   const [activePod, setActivePod] = React.useState<PodKubeObjectInterface>(pods?.[0]);
   const [container, setContainer] = React.useState<string>(
     getDefaultContainer ? getDefaultContainer(pods?.[0]) : _getDefaultContainer(pods?.[0])
@@ -99,7 +105,7 @@ export const LogsViewer = ({ pods, getDefaultContainer }) => {
     () => {
       let callback: any = null;
 
-      if (open && !!activePod) {
+      if (!!activePod) {
         xtermRef.current?.clear();
         setLogs({ logs: [], lastLineShown: -1 });
 
@@ -130,7 +136,13 @@ export const LogsViewer = ({ pods, getDefaultContainer }) => {
     const newPod = pods.find(({ metadata: { name } }) => name === newPodName);
     if (newPod) {
       setActivePod(newPod);
-      setContainer(getDefaultContainer(newPod));
+      const defaultContainer = getDefaultContainer
+        ? getDefaultContainer(newPod)
+        : _getDefaultContainer(newPod);
+
+      if (defaultContainer) {
+        setContainer(defaultContainer);
+      }
     }
   };
 
@@ -193,7 +205,7 @@ export const LogsViewer = ({ pods, getDefaultContainer }) => {
             onChange={handleContainerChange}
           >
             {activePod &&
-              activePod.spec.containers.map(({ name }) => (
+              activePod.spec.containers.map(({ name }: { name: string }) => (
                 <MenuItem value={name} key={name}>
                   {name}
                 </MenuItem>

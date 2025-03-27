@@ -38,7 +38,7 @@ const getTaskStatusData = (
 };
 
 const getStatusTitle = (
-  approvalTask: ApprovalTaskKubeObjectInterface,
+  approvalTask: ApprovalTaskKubeObjectInterface | undefined,
   taskRun: TaskRunKubeObjectInterface
 ) => {
   if (approvalTask) {
@@ -224,6 +224,7 @@ export const PipelineRunGraph = ({
       return (
         // @ts-ignore
         <Node {...node}>
+          {/* @ts-ignore */}
           <Tooltip
             title={<>{renderTaskLegend(steps, taskRun, name, approvalTask)}</>}
             arrow
@@ -235,7 +236,7 @@ export const PipelineRunGraph = ({
                   icon={icon}
                   color={color}
                   isRotating={isRotating}
-                  Title={null}
+                  Title={undefined}
                   width={15}
                 />
               </Grid>

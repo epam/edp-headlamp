@@ -205,7 +205,7 @@ export const PodsLogViewerDialog: React.FC<PodsLogViewerDialogProps> = ({ props,
             onChange={handleContainerChange}
           >
             <ListSubheader color="inherit">Containers</ListSubheader>
-            {(activePod?.spec.containers || []).map(({ name }) => (
+            {(activePod?.spec.containers || []).map(({ name }: { name: string }) => (
               <MenuItem value={name} key={name}>
                 {name}
               </MenuItem>
@@ -213,7 +213,7 @@ export const PodsLogViewerDialog: React.FC<PodsLogViewerDialogProps> = ({ props,
             {activePod?.spec?.initContainers?.length && (
               <ListSubheader color="inherit">Init Containers</ListSubheader>
             )}
-            {(activePod?.spec.initContainers || []).map(({ name }) => (
+            {(activePod?.spec.initContainers || []).map(({ name }: { name: string }) => (
               <MenuItem value={name} key={name}>
                 {name}
               </MenuItem>

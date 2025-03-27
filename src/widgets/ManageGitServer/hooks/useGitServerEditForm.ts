@@ -16,8 +16,8 @@ export const useGitServerEditForm = ({
   webhookURL,
   permissions,
 }: {
-  gitServer: GitServerKubeObjectInterface;
-  webhookURL: string;
+  gitServer: GitServerKubeObjectInterface | undefined;
+  webhookURL: string | undefined;
   permissions: WidgetPermissions;
 }): FormItem => {
   const editMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, typeof CRUD_TYPE.EDIT>(
@@ -60,7 +60,7 @@ export const useGitServerEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: GitServerFormValues) => {
-      if (!permissions.update.GitServer.allowed) {
+      if (!permissions.update.GitServer.allowed || !gitServer) {
         return false;
       }
 
@@ -75,6 +75,7 @@ export const useGitServerEditForm = ({
         GIT_SERVER_FORM_NAMES
       );
 
+      // @ts-ignore
       delete gitServer.spec.webhookUrl;
 
       const gitServerValues = {

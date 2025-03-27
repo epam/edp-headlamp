@@ -11,8 +11,8 @@ export type FormNames = ValueOf<typeof FORM_NAMES>;
 export type WidgetPermissions = PermissionsConfig<typeof widgetPermissionsToCheck>;
 
 export interface ManageJiraServerProps {
-  secret: SecretKubeObjectInterface;
-  jiraServer: JiraServerKubeObjectInterface;
+  secret: SecretKubeObjectInterface | undefined;
+  jiraServer: JiraServerKubeObjectInterface | undefined;
   ownerReference: string | undefined;
   permissions: WidgetPermissions;
   handleClosePanel?: () => void;

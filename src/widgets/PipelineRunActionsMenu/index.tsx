@@ -107,7 +107,7 @@ export const PipelineRunActionsMenu = ({
     status === PIPELINE_RUN_REASON.STARTED || status === PIPELINE_RUN_REASON.RUNNING;
 
   const onDelete = React.useCallback(() => {
-    history.push(backRoute);
+    backRoute && history.push(backRoute);
   }, [backRoute, history]);
 
   const [editor, setEditor] = React.useState<{
@@ -178,7 +178,7 @@ export const PipelineRunActionsMenu = ({
         callback: (pipelineRun) => {
           const newPipelineRun = createRerunPipelineRunInstance(pipelineRun);
           handleOpenEditor(newPipelineRun);
-          handleCloseResourceActionListMenu();
+          handleCloseResourceActionListMenu && handleCloseResourceActionListMenu();
         },
       }),
       ...(isInProgress
@@ -194,7 +194,7 @@ export const PipelineRunActionsMenu = ({
                   ? permissions.update.PipelineRun.reason
                   : !isInProgress
                   ? 'PipelineRun is no longer in progress'
-                  : undefined,
+                  : '',
               },
               callback: (pipelineRun) => {
                 if (variant === ACTION_MENU_TYPE.MENU && handleCloseResourceActionListMenu) {

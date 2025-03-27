@@ -27,7 +27,7 @@ export const DeletionDialog = ({
   handleClose: () => void;
   onDelete: () => void;
 }) => {
-  const itemsByNameMap: Map<string, PipelineRunKubeObjectInterface> = React.useMemo(() => {
+  const itemsByNameMap: Map<string, PipelineRunKubeObjectInterface> | null = React.useMemo(() => {
     if (items === null) {
       return null;
     }
@@ -36,7 +36,7 @@ export const DeletionDialog = ({
   }, [items]);
 
   const selectedPipelineRuns = React.useMemo(() => {
-    if (selected === null) {
+    if (selected === null || !itemsByNameMap) {
       return null;
     }
 
@@ -50,7 +50,7 @@ export const DeletionDialog = ({
   const { showBeforeRequestMessage } = useRequestStatusMessages();
 
   const handleDelete = () => {
-    if (deletionDisabled) {
+    if (deletionDisabled || !selectedPipelineRuns) {
       return;
     }
 
@@ -58,8 +58,8 @@ export const DeletionDialog = ({
       const pipelineRun = item;
 
       PipelineRunKubeObject.apiEndpoint.delete(
-        pipelineRun.metadata.namespace,
-        pipelineRun.metadata.name
+        pipelineRun!.metadata.namespace,
+        pipelineRun!.metadata.name
       );
     });
 

@@ -7,7 +7,11 @@ export interface CurrentDialogContextProviderProps extends ManageCodebaseBranchD
 
 export interface CurrentDialogContextProviderValue extends CurrentDialogContextProviderProps {
   extra: {
-    buildPipelines: DataProviderValue<KubeObjectListInterface<PipelineKubeObjectInterface>>;
-    reviewPipelines: DataProviderValue<KubeObjectListInterface<PipelineKubeObjectInterface>>;
+    buildPipelines: DataProviderValue<
+      KubeObjectListInterface<PipelineKubeObjectInterface> | undefined
+    >;
+    reviewPipelines: DataProviderValue<
+      KubeObjectListInterface<PipelineKubeObjectInterface> | undefined
+    >;
   };
 }

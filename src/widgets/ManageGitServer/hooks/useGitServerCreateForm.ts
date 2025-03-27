@@ -17,14 +17,13 @@ export const useGitServerCreateForm = ({
   handleClosePanel,
   permissions,
 }: {
-  handleClosePanel: () => void;
+  handleClosePanel: (() => void) | undefined;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const createMutation = useResourceCRUDMutation<GitServerKubeObjectInterface, typeof CRUD_TYPE.CREATE>(
-    'gitServerCreateMutation',
-    GitServerKubeObject,
-    CRUD_TYPE.CREATE
-  );
+  const createMutation = useResourceCRUDMutation<
+    GitServerKubeObjectInterface,
+    typeof CRUD_TYPE.CREATE
+  >('gitServerCreateMutation', GitServerKubeObject, CRUD_TYPE.CREATE);
 
   const defaultValues = React.useMemo(() => {
     return {
@@ -67,7 +66,7 @@ export const useGitServerCreateForm = ({
       const newGitServer = createGitServerInstance(GIT_SERVER_FORM_NAMES, gitServerValues);
       createMutation.mutate(newGitServer, {
         onSuccess: () => {
-          handleClosePanel();
+          handleClosePanel && handleClosePanel();
         },
       });
     },

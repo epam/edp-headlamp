@@ -31,7 +31,7 @@ export const Cluster = () => {
 
     const availableClusters = data?.data?.available_clusters?.split(', ');
 
-    const clusters = availableClusters.map((name) => ({
+    const clusters = availableClusters.map((name: string) => ({
       label: name,
       value: name,
     }));

@@ -6,7 +6,11 @@ import { GIT_USER } from '../constants';
 import { SHARED_FORM_NAMES } from '../names';
 import { SharedFormValues } from '../types';
 
-export const useSharedForm = ({ gitServer }: { gitServer: GitServerKubeObjectInterface }) => {
+export const useSharedForm = ({
+  gitServer,
+}: {
+  gitServer: GitServerKubeObjectInterface | undefined;
+}) => {
   const defaultValues = React.useMemo(() => {
     const gitProvider = gitServer?.spec.gitProvider || GIT_PROVIDER.GERRIT;
     const gitUser = (() => {

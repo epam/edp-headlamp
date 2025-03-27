@@ -13,9 +13,9 @@ test('renders ManageDefectDojo Create component', () => {
   render(
     <TestWrapper>
       <ManageDefectDojo
-        secret={null}
-        quickLink={null}
-        ownerReference={null}
+        secret={undefined}
+        quickLink={undefined}
+        ownerReference={undefined}
         mode={FORM_MODES.CREATE}
         permissions={{
           create: {

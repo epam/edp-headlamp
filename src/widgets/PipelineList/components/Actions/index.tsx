@@ -17,7 +17,7 @@ export const Actions = ({
   triggerTemplates: TriggerTemplateKubeObjectInterface[] | undefined;
 }) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
-  const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement>(null);
+  const [anchor, setAnchor] = React.useState<(EventTarget & HTMLButtonElement) | null>(null);
 
   return (
     <>

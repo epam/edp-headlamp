@@ -40,6 +40,10 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageStageFormValues) => {
+      if (!stage) {
+        return;
+      }
+
       const usedValues = getUsedValues(values, STAGE_FORM_NAMES);
       const stageData = editResource(STAGE_FORM_NAMES, stage, usedValues);
 

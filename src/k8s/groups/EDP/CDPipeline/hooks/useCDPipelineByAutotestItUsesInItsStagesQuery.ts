@@ -8,7 +8,7 @@ import { StageKubeObjectInterface } from '../../Stage/types';
 import { useCDPipelineByNameQuery } from './useCDPipelineByNameQuery';
 
 export const useCDPipelineByAutotestItUsesInItsStagesQuery = (
-  codebaseName: string | null,
+  codebaseName: string | undefined,
   namespace: string = getDefaultNamespace()
 ) => {
   const [CDPipelineName, setCDPipelineName] = React.useState<string | null>(null);

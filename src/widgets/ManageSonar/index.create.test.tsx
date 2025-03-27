@@ -13,9 +13,9 @@ test('renders ManageSonar Create component', () => {
   render(
     <TestWrapper>
       <ManageSonar
-        secret={null}
-        quickLink={null}
-        ownerReference={null}
+        secret={undefined}
+        quickLink={undefined}
+        ownerReference={undefined}
         mode={FORM_MODES.CREATE}
         permissions={{
           create: {

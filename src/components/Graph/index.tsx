@@ -53,6 +53,7 @@ export const Graph = ({
 
   useEffect(() => {
     elk
+      //@ts-ignore
       .layout(graph)
       .then((g) => {
         setPositions(g);

@@ -2,7 +2,7 @@ import { TABLE_CELL_DEFAULTS } from '../../constants';
 import { SavedTableSettings } from './types';
 
 export const getSyncedColumnData = (
-  settings: SavedTableSettings,
+  settings: SavedTableSettings | undefined,
   columnId: string,
   baseWidth: number
 ): {

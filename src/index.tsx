@@ -29,8 +29,8 @@ class EDPHeadlampPlugin extends Plugin {
         name: itemName,
         label: itemLabel,
         url,
-        icon: opts.icon,
-        useClusterURL: opts.useClusterURL,
+        icon: opts?.icon,
+        useClusterURL: opts?.useClusterURL,
       });
     }
 

@@ -27,7 +27,7 @@ export const useDefaultValues = () => {
             label: CDPipelineData?.spec.inputDockerStreams[idx],
             value: CDPipelineData?.spec.inputDockerStreams[idx],
           },
-          appToPromote: CDPipelineData?.spec.applicationsToPromote.includes(app),
+          appToPromote: (CDPipelineData?.spec?.applicationsToPromote || []).includes(app),
         })
       ),
     }),

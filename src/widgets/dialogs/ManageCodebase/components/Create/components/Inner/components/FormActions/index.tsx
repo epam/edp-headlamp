@@ -8,13 +8,14 @@ import { createCodebaseInstance } from '../../../../../../../../../k8s/groups/ED
 import { routeComponentDetails } from '../../../../../../../../../pages/component-details/route';
 import { useDialogContext } from '../../../../../../../../../providers/Dialog/hooks';
 import { useStepperContext } from '../../../../../../../../../providers/Stepper/hooks';
+import { ValueOf } from '../../../../../../../../../types/global';
 import { capitalizeFirstLetter } from '../../../../../../../../../utils/format/capitalizeFirstLetter';
 import { getUsedValues } from '../../../../../../../../../utils/forms/getUsedValues';
 import { getDefaultNamespace } from '../../../../../../../../../utils/getDefaultNamespace';
 import { SuccessDialog } from '../../../../../../../Success';
 import { CONFIGURATION_STEPPER, MAIN_TABS } from '../../../../../../constants';
 import { useTypedFormContext } from '../../../../../../hooks/useFormContext';
-import { CODEBASE_FORM_NAMES } from '../../../../../../names';
+import { CODEBASE_FORM_NAMES, NAMES } from '../../../../../../names';
 import { useCurrentDialog } from '../../../../../../providers/CurrentDialog/hooks';
 import { ManageCodebaseFormValues } from '../../../../../../types';
 import { FormActionsProps } from './types';
@@ -88,14 +89,17 @@ export const FormActions = ({ baseDefaultValues, setActiveTab }: FormActionsProp
 
   const getFirstErrorStepName = React.useCallback((errors) => {
     const [firstErrorFieldName] = Object.keys(errors);
-    return CODEBASE_FORM_NAMES[firstErrorFieldName].formPart;
+    const field = CODEBASE_FORM_NAMES[firstErrorFieldName as ValueOf<typeof NAMES>];
+    return 'formPart' in field ? field.formPart : undefined;
   }, []);
 
   const handleValidationError = React.useCallback(
     (errors: Object) => {
       if (errors) {
         const firstErrorTabName = getFirstErrorStepName(errors);
-        setActiveStep(CONFIGURATION_STEPPER[firstErrorTabName].idx);
+        setActiveStep(
+          CONFIGURATION_STEPPER[firstErrorTabName as keyof typeof CONFIGURATION_STEPPER]?.idx
+        );
       }
     },
     [getFirstErrorStepName, setActiveStep]

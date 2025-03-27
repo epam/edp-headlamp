@@ -13,9 +13,9 @@ test('renders ManageNexus Create component', () => {
   render(
     <TestWrapper>
       <ManageNexus
-        secret={null}
-        quickLink={null}
-        ownerReference={null}
+        secret={undefined}
+        quickLink={undefined}
+        ownerReference={undefined}
         permissions={{
           create: {
             Secret: {

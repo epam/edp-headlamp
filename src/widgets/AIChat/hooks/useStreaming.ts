@@ -4,15 +4,15 @@
 
 import { useMutation } from 'react-query';
 
-export interface UseStreamingProps<I, A, C> {
+export interface UseStreamingProps<I, A, C extends object> {
   fetcher: (message: I) => Promise<Response>;
   onStart: () => void;
-  onNewChunk: (value: C, accumulator?: A[]) => Promise<A[]>;
+  onNewChunk: (value: C, accumulator: A[]) => Promise<A[]>;
   onFinish: (accumulator?: A[]) => void;
   onError: (error: Error) => void;
 }
 
-export const streamChunkToObject = (chunk) => {
+export const streamChunkToObject = (chunk: string) => {
   // Stream object can return multiple JSON objects at once
   // e.g. {"generated_chunk": "Hello", "last": false}\n{"generated_chunk": "World", "last": true}
   // This function converts the string to an array of JSON objects
@@ -26,9 +26,9 @@ export const streamChunkToObject = (chunk) => {
     return str;
   });
 
-  const chunkObjects = [];
+  const chunkObjects: object[] = [];
 
-  const parseChunks = (stringChunkArray) => {
+  const parseChunks = (stringChunkArray: string[]) => {
     stringChunkArray.some((chunkString, index) => {
       try {
         chunkObjects.push(JSON.parse(chunkString));
@@ -51,7 +51,7 @@ export const streamChunkToObject = (chunk) => {
   return chunkObjects;
 };
 
-export const useStreaming = <I, A, C>({
+export const useStreaming = <I, A, C extends object>({
   fetcher,
   onStart,
   onNewChunk,
@@ -84,7 +84,7 @@ export const useStreaming = <I, A, C>({
               cachedValue = '';
 
               for (const chunk of chunks) {
-                accumulator = await onNewChunk(chunk, accumulator);
+                accumulator = await onNewChunk(chunk as C, accumulator);
               }
             } catch (error) {
               cachedValue += value;

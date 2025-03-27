@@ -14,7 +14,7 @@ export const useCodemieCreateForm = ({
   handleClosePanel,
   permissions,
 }: {
-  handleClosePanel: () => void;
+  handleClosePanel: (() => void) | undefined;
   permissions: WidgetPermissions;
 }): FormItem => {
   const codemieCreateMutation = useResourceCRUDMutation<

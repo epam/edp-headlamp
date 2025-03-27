@@ -64,7 +64,7 @@ export const _NamespaceControl = ({ namespaces, setNamespaces }: NamespaceContro
   React.useEffect(() => {
     const clusterSettings = getClusterSettings();
     const allowedNamespaces = clusterSettings?.allowedNamespaces || [];
-    if (allowedNamespaces.length > 0) {
+    if (allowedNamespaces.length > 0 && setNamespaces) {
       setNamespaces(allowedNamespaces);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,7 +107,7 @@ export const _NamespaceControl = ({ namespaces, setNamespaces }: NamespaceContro
       multiple
       id="namespaces-filter"
       autoComplete
-      options={namespaces}
+      options={namespaces || []}
       onChange={onChange}
       onInputChange={onInputChange}
       inputValue={namespaceInput}

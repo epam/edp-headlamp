@@ -7,7 +7,7 @@ import { ManageClusterSecretDataContext } from '../../../types';
 
 const parseConfigJson = (configJson: string) => {
   const decodedConfigJson = safeDecode(configJson);
-  return JSON.parse(decodedConfigJson);
+  return decodedConfigJson ? JSON.parse(decodedConfigJson) : {};
 };
 
 export const useDefaultValues = ({ formData }: { formData: ManageClusterSecretDataContext }) => {

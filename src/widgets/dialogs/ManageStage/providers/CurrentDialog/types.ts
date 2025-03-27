@@ -8,10 +8,10 @@ export interface CurrentDialogContextProviderProps extends ManageStageDialogProp
 export interface CurrentDialogContextProviderValue extends CurrentDialogContextProviderProps {
   extra: {
     cleanTriggerTemplateList: DataProviderValue<
-      KubeObjectListInterface<TriggerTemplateKubeObjectInterface>
+      KubeObjectListInterface<TriggerTemplateKubeObjectInterface> | undefined
     >;
     deployTriggerTemplateList: DataProviderValue<
-      KubeObjectListInterface<TriggerTemplateKubeObjectInterface>
+      KubeObjectListInterface<TriggerTemplateKubeObjectInterface> | undefined
     >;
   };
 }

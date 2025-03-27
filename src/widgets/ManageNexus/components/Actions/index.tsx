@@ -25,6 +25,10 @@ export const Actions = () => {
   const { setDialog } = useDialogContext();
 
   const handleDelete = React.useCallback(() => {
+    if (!secret) {
+      return;
+    }
+
     setDialog(DeleteKubeObjectDialog, {
       kubeObject: SecretKubeObject,
       kubeObjectData: secret as EDPKubeObjectInterface,

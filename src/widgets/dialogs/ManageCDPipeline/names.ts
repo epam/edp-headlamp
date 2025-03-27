@@ -1,6 +1,6 @@
 import { FORM_STEPS } from './constants';
 
-const NAMES = {
+export const NAMES = {
   NAME: 'name',
   NAMESPACE: 'namespace',
   DESCRIPTION: 'description',

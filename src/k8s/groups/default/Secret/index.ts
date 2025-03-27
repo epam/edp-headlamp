@@ -26,7 +26,7 @@ export class SecretKubeObject extends K8s.secret.default {
     return ApiProxy.request(url);
   }
 
-  static getStatusIcon(connected: string): [string, string, boolean?] {
+  static getStatusIcon(connected: string | undefined): [string, string, boolean?] {
     if (connected === undefined) {
       return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }

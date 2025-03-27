@@ -18,7 +18,7 @@ test('renders ManageJiraServer Edit component', () => {
       <ManageJiraServer
         secret={JiraCISecretMock as unknown as SecretKubeObjectInterface}
         jiraServer={JiraServerMock as JiraServerKubeObjectInterface}
-        ownerReference={null}
+        ownerReference={undefined}
         permissions={{
           create: {
             Secret: {

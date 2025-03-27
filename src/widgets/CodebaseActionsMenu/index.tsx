@@ -135,8 +135,8 @@ export const CodebaseActionsMenu = ({
   ) : variant === ACTION_MENU_TYPE.MENU ? (
     <ActionsMenuList
       actions={actions}
-      anchorEl={anchorEl}
-      handleCloseActionsMenu={handleCloseResourceActionListMenu}
+      anchorEl={anchorEl!}
+      handleCloseActionsMenu={handleCloseResourceActionListMenu!}
     />
   ) : null;
 };

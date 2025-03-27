@@ -18,9 +18,9 @@ export const createDeleteAction = async ({
 }: {
   allStages: StageKubeObjectInterface[];
   currentStage: StageKubeObjectInterface;
-  action: (StageKubeObjectInterface) => void;
+  action: (stage: StageKubeObjectInterface) => void;
   permissions: PermissionsConfig<typeof widgetPermissionsToCheck>;
-}): Promise<KubeObjectAction> => {
+}): Promise<KubeObjectAction | undefined> => {
   if (!currentStage) {
     return;
   }

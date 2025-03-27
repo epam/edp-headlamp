@@ -1,4 +1,5 @@
 import React from 'react';
+import { MyEdge, MyNode } from '../../../components/Graph/components/types';
 import { STATUS_COLOR } from '../../../constants/colors';
 import { PipelineKubeObjectInterface } from '../../../k8s/groups/Tekton/Pipeline/types';
 
@@ -19,27 +20,24 @@ export const usePipelineGraphData = (pipeline: PipelineKubeObjectInterface) => {
   }, [pipelineTasks.allTasks.length]);
 
   const MainPipelineTasksMap = React.useMemo(() => {
-    const map = new Map<string, PipelineKubeObjectInterface>();
+    const map = new Map<string, any>();
 
-    pipelineTasks.mainTasks?.forEach((item) => {
+    pipelineTasks.mainTasks?.forEach((item: any) => {
       map.set(item.name, item);
     });
     return map;
   }, [pipelineTasks]);
 
   const FinallyPipelineTasksMap = React.useMemo(() => {
-    const map = new Map<string, PipelineKubeObjectInterface>();
-    pipelineTasks.finallyTasks?.forEach((item) => {
+    const map = new Map<string, any>();
+    pipelineTasks.finallyTasks?.forEach((item: any) => {
       map.set(item.name, item);
     });
     return map;
   }, [pipelineTasks]);
 
   const allTasksMap = React.useMemo(() => {
-    return new Map<string, PipelineKubeObjectInterface>([
-      ...MainPipelineTasksMap,
-      ...FinallyPipelineTasksMap,
-    ]);
+    return new Map<string, any>([...MainPipelineTasksMap, ...FinallyPipelineTasksMap]);
   }, [FinallyPipelineTasksMap, MainPipelineTasksMap]);
 
   const nodes = React.useMemo(() => {
@@ -47,7 +45,7 @@ export const usePipelineGraphData = (pipeline: PipelineKubeObjectInterface) => {
       return [];
     }
 
-    let _nodes = [];
+    let _nodes: MyNode[] = [];
 
     for (const name of allTasksMap.keys()) {
       _nodes = [
@@ -70,7 +68,7 @@ export const usePipelineGraphData = (pipeline: PipelineKubeObjectInterface) => {
       return [];
     }
 
-    let _edges = [];
+    let _edges: MyEdge[] = [];
 
     for (const [name, value] of MainPipelineTasksMap.entries()) {
       if (!value?.runAfter) {

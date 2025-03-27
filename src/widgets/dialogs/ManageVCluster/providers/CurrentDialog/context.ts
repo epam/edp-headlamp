@@ -1,4 +1,5 @@
 import React from 'react';
+import { ConfigMapKubeObjectInterface } from '../../../../../k8s/groups/default/ConfigMap/types';
 import { CurrentDialogContextProviderValue } from './types';
 
 const dialogInitialState = {
@@ -15,6 +16,6 @@ export const CurrentDialogContext = React.createContext<CurrentDialogContextProv
   props: {},
   state: dialogInitialState,
   extra: {
-    EDPConfigMap: null,
+    EDPConfigMap: null as unknown as ConfigMapKubeObjectInterface,
   },
 });
