@@ -63,6 +63,10 @@ export const BuildPipeline = () => {
         <LoadingWrapper isLoading={buildPipelines.isLoading} size={20}>
           <IconButton
             onClick={() => {
+              if (!currentPipeline) {
+                return;
+              }
+
               setDialog(PipelineGraphDialog, {
                 pipeline: currentPipeline,
                 pipelineName: currentPipeline?.metadata.name,

@@ -9,7 +9,11 @@ import { useFormsContext } from '../../hooks/useFormsContext';
 import { useResetIntegration } from '../../hooks/useResetIntegration';
 import { useDataContext } from '../../providers/Data/hooks';
 
-export const Actions = ({ handleCloseCreateDialog }) => {
+export const Actions = ({
+  handleCloseCreateDialog,
+}: {
+  handleCloseCreateDialog: (() => void) | undefined;
+}) => {
   const {
     forms,
     resetAll,
@@ -82,7 +86,7 @@ export const Actions = ({ handleCloseCreateDialog }) => {
           <Button
             onClick={() => {
               submitAll(true);
-              handleCloseCreateDialog();
+              handleCloseCreateDialog && handleCloseCreateDialog();
             }}
             size={'small'}
             component={'button'}

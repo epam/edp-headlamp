@@ -62,7 +62,7 @@ export const QuickLinkActionsMenu = ({
             ? permissions?.delete?.QuickLink.reason
             : isSystemQuickLinkBool
             ? 'System QuickLink cannot be deleted'
-            : undefined,
+            : '',
         },
         callback: (data) => {
           setDialog(DeleteKubeObjectDialog, {
@@ -72,7 +72,7 @@ export const QuickLinkActionsMenu = ({
             description: 'Confirm the deletion of the link',
             backRoute,
           });
-          handleCloseResourceActionListMenu();
+          handleCloseResourceActionListMenu && handleCloseResourceActionListMenu();
         },
       }),
     ];

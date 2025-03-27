@@ -44,7 +44,6 @@ export const ManageNexus = ({
             quickLink: quickLinkEditForm,
             secret: secretForm,
           }}
-          sharedForm={null}
         >
           <Grid container spacing={3}>
             <Grid item xs={12}>

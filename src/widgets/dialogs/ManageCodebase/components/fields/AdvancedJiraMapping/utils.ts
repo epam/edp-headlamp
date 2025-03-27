@@ -2,7 +2,7 @@ import { advancedMappingBase } from './constants';
 import { AdvancedMappingItem, AdvancedMappingRow } from './types';
 
 export const getJiraIssueMetadataPayloadDefaultValue = (
-  jsonFieldValue: string | undefined
+  jsonFieldValue: string | undefined | null
 ): AdvancedMappingRow[] => {
   if (!jsonFieldValue) {
     return [];
@@ -16,7 +16,7 @@ export const getJiraIssueMetadataPayloadDefaultValue = (
   );
   for (const [field, value] of Object.entries(fieldValues)) {
     buffer.push({
-      label: labelsMap.has(field) ? labelsMap.get(field).label : '',
+      label: labelsMap.has(field) ? labelsMap.get(field)?.label ?? '' : '',
       value: field,
       jiraPattern: value,
     });
@@ -25,7 +25,7 @@ export const getJiraIssueMetadataPayloadDefaultValue = (
 };
 
 export const getJiraIssueMetadataPayload = (rows: AdvancedMappingRow[]): string => {
-  const buffer = rows.reduce((acc, { value, jiraPattern }) => {
+  const buffer = rows.reduce<Record<string, string>>((acc, { value, jiraPattern }) => {
     acc[value] = jiraPattern;
     return acc;
   }, {});
@@ -34,14 +34,13 @@ export const getJiraIssueMetadataPayload = (rows: AdvancedMappingRow[]): string 
 };
 
 export const getAdvancedMappingOptions = (advancedMapping: AdvancedMappingItem[]) => {
-  return advancedMapping
-    .map(({ label, value, isUsed }) =>
-      !isUsed
-        ? {
-            label,
-            value,
-          }
-        : null
-    )
-    .filter(Boolean);
+  return advancedMapping.reduce<{ label: string; value: any }[]>((acc, cur) => {
+    if (!cur.isUsed) {
+      acc.push({
+        label: cur.label,
+        value: cur.value,
+      });
+    }
+    return acc;
+  }, []);
 };

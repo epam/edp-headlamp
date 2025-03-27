@@ -49,8 +49,8 @@ export const Form = ({ editorOpen, setEditorOpen, editorData }: FormProps) => {
   const { handleEditorSave } = useHandleEditorSave({
     names: CODEBASE_BRANCH_FORM_NAMES,
     backwardNames: CODEBASE_BRANCH_BACKWARDS_FIELD_MAPPING,
-    setValue,
-    resetField,
+    setValue: setValue as (name: string, value: any, options?: any) => void,
+    resetField: resetField as (name: string) => void,
   });
 
   const onEditorSave = React.useCallback(
@@ -68,16 +68,16 @@ export const Form = ({ editorOpen, setEditorOpen, editorData }: FormProps) => {
       <Grid container spacing={2}>
         {canCreateReleaseBranch && (
           <Grid item xs={12}>
-            <ReleaseBranch defaultBranchVersion={defaultBranchVersion} />
+            <ReleaseBranch defaultBranchVersion={defaultBranchVersion!} />
           </Grid>
         )}
         {!!releaseFieldValue ? (
           <Grid item xs={12}>
-            <ReleaseBranchName defaultBranchVersion={defaultBranchVersion} />
+            <ReleaseBranchName defaultBranchVersion={defaultBranchVersion!} />
           </Grid>
         ) : (
           <Grid item xs={12}>
-            <BranchName defaultBranchVersion={defaultBranchVersion} />
+            <BranchName defaultBranchVersion={defaultBranchVersion!} />
           </Grid>
         )}
         <Grid item xs={12}>

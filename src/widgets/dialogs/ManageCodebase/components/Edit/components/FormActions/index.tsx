@@ -34,6 +34,9 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values) => {
+      if (!codebaseData) {
+        return;
+      }
       const { hasJiraServerIntegration } = values;
 
       const usedValues = getUsedValues(values, CODEBASE_FORM_NAMES);

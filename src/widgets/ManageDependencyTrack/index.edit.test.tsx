@@ -34,7 +34,7 @@ test('renders ManageDependencyTrack Edit component', () => {
           },
           status: '',
         }}
-        ownerReference={null}
+        ownerReference={undefined}
         mode={FORM_MODES.EDIT}
         permissions={{
           create: {

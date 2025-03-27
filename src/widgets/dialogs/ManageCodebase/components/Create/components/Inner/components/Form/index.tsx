@@ -21,8 +21,8 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
   const { handleEditorSave } = useHandleEditorSave({
     names: CODEBASE_FORM_NAMES,
     backwardNames: CODEBASE_BACKWARDS_NAME_MAPPING,
-    setValue,
-    resetField,
+    setValue: setValue as (name: string, value: any) => void,
+    resetField: resetField as (name: string) => void,
   });
 
   const onEditorSave = React.useCallback(

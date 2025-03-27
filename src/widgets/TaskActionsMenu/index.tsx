@@ -74,7 +74,7 @@ export const TaskActionsMenu = ({
         },
         callback: (task: TaskKubeObjectInterface) => {
           handleOpenEditEditor(task);
-          handleCloseResourceActionListMenu();
+          handleCloseResourceActionListMenu && handleCloseResourceActionListMenu();
         },
       }),
     ];

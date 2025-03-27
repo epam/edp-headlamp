@@ -3,6 +3,7 @@ import { VALIDATED_PROTOCOL } from '../../../../../../constants/validatedProtoco
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/groups/default/ConfigMap/constants';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../../../types/forms';
+import { ValueOf } from '../../../../../../types/global';
 import { getValidURLPattern } from '../../../../../../utils/checks/getValidURLPattern';
 import { useRegistryFormsContext } from '../../../../hooks/useRegistryFormsContext';
 import { CONFIG_MAP_FORM_NAMES, SHARED_FORM_NAMES } from '../../../../names';
@@ -61,7 +62,10 @@ export const RegistryEndpoint = () => {
               break;
           }
         },
-        required: TYPE_EMPTY_MESSAGE_MAP[registryTypeFieldValue] || 'Enter registry endpoint URL.',
+        required:
+          TYPE_EMPTY_MESSAGE_MAP[
+            registryTypeFieldValue as ValueOf<typeof CONTAINER_REGISTRY_TYPE>
+          ] || 'Enter registry endpoint URL.',
         pattern: {
           value: getValidURLPattern(VALIDATED_PROTOCOL.NO_PROTOCOL),
           message: 'Enter a valid URL without protocol.',
@@ -69,7 +73,10 @@ export const RegistryEndpoint = () => {
       })}
       label={'Registry Endpoint'}
       placeholder={'Enter registry endpoint'}
-      title={TYPE_TITLE_MAP[registryTypeFieldValue] || 'Enter registry endpoint URL.'}
+      title={
+        TYPE_TITLE_MAP[registryTypeFieldValue as ValueOf<typeof CONTAINER_REGISTRY_TYPE>] ||
+        'Enter registry endpoint URL.'
+      }
       control={configMap.form.control}
       errors={configMap.form.formState.errors}
       disabled={

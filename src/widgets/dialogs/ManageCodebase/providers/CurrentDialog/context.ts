@@ -1,4 +1,5 @@
 import React from 'react';
+import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
 import { CurrentDialogContextProviderValue } from './types';
 
 const dialogInitialState = {
@@ -13,7 +14,7 @@ const dialogInitialState = {
 
 export const CurrentDialogContext = React.createContext<CurrentDialogContextProviderValue>({
   props: {
-    codebaseData: null,
+    codebaseData: null as unknown as CodebaseKubeObjectInterface,
   },
   state: dialogInitialState,
 });

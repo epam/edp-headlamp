@@ -6,7 +6,7 @@ import { REQUEST_KEY_QUERY_CD_PIPELINE_LIST } from '../requestKeys';
 import { CDPipelineKubeObjectInterface } from '../types';
 
 export const useCDPipelineByApplicationItUsesQuery = (
-  codebaseName: string | null,
+  codebaseName: string | undefined,
   namespace: string = getDefaultNamespace()
 ) => {
   return useQuery<

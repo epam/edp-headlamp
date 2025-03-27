@@ -40,6 +40,10 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageCDPipelineFormValues) => {
+      if (!CDPipelineData) {
+        return;
+      }
+
       const usedValues = getUsedValues(values, CDPIPELINE_FORM_NAMES);
       const newCDPipelineData = editResource(CDPIPELINE_FORM_NAMES, CDPipelineData, usedValues);
 

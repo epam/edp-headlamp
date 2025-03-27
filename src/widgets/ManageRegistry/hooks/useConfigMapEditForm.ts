@@ -14,7 +14,7 @@ export const useConfigMapEditForm = ({
   EDPConfigMap,
   permissions,
 }: {
-  EDPConfigMap: ConfigMapKubeObjectInterface;
+  EDPConfigMap: ConfigMapKubeObjectInterface | undefined;
   permissions: WidgetPermissions;
 }): FormItem => {
   const {
@@ -74,6 +74,10 @@ export const useConfigMapEditForm = ({
 
   const getUpdatedConfigMap = React.useCallback(
     (values: ConfigMapFormValues) => {
+      if (!EDPConfigMap) {
+        return;
+      }
+
       switch (values.registryType) {
         case CONTAINER_REGISTRY_TYPE.ECR:
           return editResource(CONFIG_MAP_FORM_NAMES, EDPConfigMap, {
@@ -112,10 +116,15 @@ export const useConfigMapEditForm = ({
   const handleSubmit = React.useCallback(
     async (values: ConfigMapFormValues) => {
       if (!permissions.update.ConfigMap.allowed) {
-        return false;
+        return;
       }
 
       const updatedConfigMap = getUpdatedConfigMap(values);
+
+      if (!updatedConfigMap) {
+        return;
+      }
+
       editConfigMap({ configMapData: updatedConfigMap });
     },
     [editConfigMap, getUpdatedConfigMap, permissions.update.ConfigMap.allowed]

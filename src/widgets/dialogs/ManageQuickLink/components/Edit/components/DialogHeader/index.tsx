@@ -19,7 +19,7 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
   const { getValues } = useTypedFormContext();
 
   const handleOpenEditor = React.useCallback(() => {
-    if (isSystem) {
+    if (isSystem || !quickLink) {
       return;
     }
 
@@ -36,7 +36,7 @@ export const DialogHeader = ({ setEditorOpen, setEditorData }: DialogHeaderProps
     <Stack direction="row" alignItems={'flex-start'} justifyContent={'space-between'} spacing={1}>
       <Stack spacing={2}>
         <Typography fontSize={theme.typography.pxToRem(20)} fontWeight={500}>
-          {`Edit ${quickLink.metadata.name}`}{' '}
+          {`Edit ${quickLink!.metadata.name}`}{' '}
         </Typography>
         <LearnMoreLink url={EDP_USER_GUIDE.OVERVIEW.url} />
       </Stack>

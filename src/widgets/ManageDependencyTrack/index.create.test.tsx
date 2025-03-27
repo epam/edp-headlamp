@@ -13,9 +13,9 @@ test('renders ManageDependencyTrack Create component', () => {
   render(
     <TestWrapper>
       <ManageDependencyTrack
-        secret={null}
-        quickLink={null}
-        ownerReference={null}
+        secret={undefined}
+        quickLink={undefined}
+        ownerReference={undefined}
         mode={FORM_MODES.CREATE}
         permissions={{
           create: {

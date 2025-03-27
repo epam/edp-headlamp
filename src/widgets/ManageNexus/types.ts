@@ -15,8 +15,8 @@ export type QuickLinkFormValues = FormValues<typeof QUICK_LINK_FORM_NAMES>;
 export type IntegrationSecretFormValues = FormValues<typeof INTEGRATION_SECRET_FORM_NAMES>;
 
 export interface ManageNexusCIProps {
-  secret: SecretKubeObjectInterface;
-  quickLink: QuickLinkKubeObjectInterface;
+  secret: SecretKubeObjectInterface | undefined;
+  quickLink: QuickLinkKubeObjectInterface | undefined;
   mode: ValueOf<typeof FORM_MODES>;
   ownerReference: string | undefined;
   permissions: WidgetPermissions;

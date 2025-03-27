@@ -31,7 +31,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const DataContextValue = React.useMemo(
     () => ({
       EDPConfigMap: {
-        data: EDPConfigMap?.jsonData,
+        data: EDPConfigMap,
         isLoading: isEDPConfigMapLoading,
         error: EDPConfigMapError as ApiError,
       },
@@ -55,7 +55,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       },
     }),
     [
-      EDPConfigMap?.jsonData,
+      EDPConfigMap,
       EDPConfigMapError,
       isEDPConfigMapLoading,
       registrySecrets,

@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { SUPPORTED_LANGUAGES } from '../constants';
 import { ProcessedChunk } from '../types';
 
-const formatAiMessage = async (message) => {
+const formatAiMessage = async (message: string) => {
+  //@ts-ignore
   const codeBlockRegex = /```(.*?)```/gs;
   const emptyLinesRegex = /^\s*\n|\n\s*$/gm;
 
@@ -54,7 +55,7 @@ const formatAiMessage = async (message) => {
   return processedChunks;
 };
 
-export const markdown2html = async (text) => {
+export const markdown2html = async (text: string) => {
   // escape html in markdown, so it doesn't get leaked
   const escapedText = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const renderer = new marked.Renderer();

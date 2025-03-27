@@ -75,7 +75,7 @@ test('renders ManageChatAssistant Edit component', () => {
             },
           },
         }}
-        ownerReference={null}
+        ownerReference={undefined}
         mode={FORM_MODES.EDIT}
         handleClosePanel={jest.fn()}
       />

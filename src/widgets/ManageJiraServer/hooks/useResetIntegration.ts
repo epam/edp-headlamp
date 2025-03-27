@@ -16,13 +16,21 @@ export const useResetIntegration = () => {
     jiraServer,
     jiraServerSecret,
   }: {
-    jiraServer: JiraServerKubeObject;
-    jiraServerSecret: SecretKubeObjectInterface;
+    jiraServer: JiraServerKubeObject | undefined;
+    jiraServerSecret: SecretKubeObjectInterface | undefined;
   }) => {
+    if (!jiraServer) {
+      return;
+    }
+
     await deleteKubeObject({
       variables: jiraServer as unknown as KubeObjectInterface,
       kubeObject: JiraServerKubeObject,
     });
+    if (!jiraServerSecret) {
+      return;
+    }
+
     await deleteKubeObject({
       variables: jiraServerSecret,
       kubeObject: SecretKubeObject,

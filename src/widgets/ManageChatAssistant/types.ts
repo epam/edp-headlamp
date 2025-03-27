@@ -11,8 +11,8 @@ export type FormNames = ValueOf<typeof FORM_NAMES>;
 export type WidgetPermissions = PermissionsConfig<typeof widgetPermissionsToCheck>;
 
 export interface ManageChatAssistantProps {
-  secret: SecretKubeObjectInterface;
-  quickLink: QuickLinkKubeObjectInterface;
+  secret: SecretKubeObjectInterface | undefined;
+  quickLink: QuickLinkKubeObjectInterface | undefined;
   mode: ValueOf<typeof FORM_MODES>;
   ownerReference: string | undefined;
   permissions: WidgetPermissions;

@@ -36,14 +36,14 @@ export const Actions = () => {
     : '';
 
   const handleDelete = React.useCallback(() => {
-    if (!canDelete) {
+    if (!canDelete || !secret) {
       return;
     }
 
     setDialog(DeleteKubeObjectDialog, {
       kubeObject: SecretKubeObject,
       kubeObjectData: secret as EDPKubeObjectInterface,
-      objectName: secret?.metadata.name,
+      objectName: secret.metadata.name,
       description: `Confirm the deletion of the secret`,
     });
   }, [canDelete, secret, setDialog]);

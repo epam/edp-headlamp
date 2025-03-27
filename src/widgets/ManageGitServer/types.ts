@@ -15,7 +15,7 @@ export interface ManageGitServerProps {
   webhookURL: string | undefined;
   repositorySecrets: SecretKubeObjectInterface[];
   permissions: WidgetPermissions;
-  handleClosePanel: () => void;
+  handleClosePanel: (() => void) | undefined;
 }
 
 export type SharedFormValues = FormValues<typeof SHARED_FORM_NAMES>;

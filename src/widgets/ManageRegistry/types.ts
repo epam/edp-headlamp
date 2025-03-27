@@ -18,10 +18,10 @@ export type FormNames = Exclude<ValueOf<typeof FORM_NAMES>, typeof FORM_NAMES.SH
 export type WidgetPermissions = PermissionsConfig<typeof widgetPermissionsToCheck>;
 
 export interface ManageRegistryProps {
-  EDPConfigMap: ConfigMapKubeObjectInterface;
-  pushAccountSecret: SecretKubeObjectInterface;
-  pullAccountSecret: SecretKubeObjectInterface;
-  tektonServiceAccount: ServiceAccountKubeObjectInterface;
+  EDPConfigMap: ConfigMapKubeObjectInterface | undefined;
+  pushAccountSecret: SecretKubeObjectInterface | undefined;
+  pullAccountSecret: SecretKubeObjectInterface | undefined;
+  tektonServiceAccount: ServiceAccountKubeObjectInterface | undefined;
   permissions: WidgetPermissions;
   handleCloseCreateDialog?: () => void;
 }

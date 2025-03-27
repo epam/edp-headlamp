@@ -15,10 +15,10 @@ export const useResetRegistry = ({
   tektonServiceAccount,
   onSuccess,
 }: {
-  EDPConfigMap: ConfigMapKubeObjectInterface;
-  pushAccountSecret: SecretKubeObjectInterface;
-  pullAccountSecret: SecretKubeObjectInterface;
-  tektonServiceAccount: ServiceAccountKubeObjectInterface;
+  EDPConfigMap: ConfigMapKubeObjectInterface | undefined;
+  pushAccountSecret: SecretKubeObjectInterface | undefined;
+  pullAccountSecret: SecretKubeObjectInterface | undefined;
+  tektonServiceAccount: ServiceAccountKubeObjectInterface | undefined;
   onSuccess: () => void;
 }) => {
   const registryType = EDPConfigMap?.data.container_registry_type;
@@ -45,6 +45,10 @@ export const useResetRegistry = ({
     configMapEditMutation.isLoading;
 
   const resetRegistry = async () => {
+    if (!EDPConfigMap) {
+      return;
+    }
+
     const resetECR = async () => {
       const newEDPConfigMap = editResource(CONFIG_MAP_FORM_NAMES, EDPConfigMap, {
         [CONFIG_MAP_FORM_NAMES.registryEndpoint.name]: '',
@@ -62,10 +66,15 @@ export const useResetRegistry = ({
       );
 
       for (const secret of secretsArray) {
+        if (!secret) {
+          continue;
+        }
+
         await deleteSecret({ secretData: secret });
       }
 
       await editServiceAccount({ serviceAccount: editedServiceAccount });
+
       await editConfigMap({ configMapData: newEDPConfigMap });
     };
 
@@ -77,6 +86,10 @@ export const useResetRegistry = ({
       });
 
       for (const secret of secretsArray) {
+        if (!secret) {
+          continue;
+        }
+
         await deleteSecret({ secretData: secret });
       }
       await editConfigMap({ configMapData: newEDPConfigMap });
@@ -90,6 +103,10 @@ export const useResetRegistry = ({
       });
 
       for (const secret of secretsArray) {
+        if (!secret) {
+          continue;
+        }
+
         await deleteSecret({ secretData: secret });
       }
       await editConfigMap({ configMapData: newEDPConfigMap });
@@ -103,6 +120,10 @@ export const useResetRegistry = ({
       });
 
       for (const secret of secretsArray) {
+        if (!secret) {
+          continue;
+        }
+
         await deleteSecret({ secretData: secret });
       }
       await editConfigMap({ configMapData: newEDPConfigMap });
@@ -115,7 +136,9 @@ export const useResetRegistry = ({
         [CONFIG_MAP_FORM_NAMES.registryType.name]: '',
       });
 
-      await deleteSecret({ secretData: pushAccountSecret });
+      if (pushAccountSecret) {
+        await deleteSecret({ secretData: pushAccountSecret });
+      }
 
       await editConfigMap({ configMapData: newEDPConfigMap });
     };

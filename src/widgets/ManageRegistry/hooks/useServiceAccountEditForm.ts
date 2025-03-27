@@ -13,7 +13,7 @@ export const useServiceAccountEditForm = ({
   tektonServiceAccount,
   permissions,
 }: {
-  tektonServiceAccount: ServiceAccountKubeObjectInterface;
+  tektonServiceAccount: ServiceAccountKubeObjectInterface | undefined;
   permissions: WidgetPermissions;
 }): FormItem => {
   const {
@@ -38,8 +38,8 @@ export const useServiceAccountEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: ServiceAccountFormValues) => {
-      if (!permissions.update.ServiceAccount.allowed) {
-        return false;
+      if (!permissions.update.ServiceAccount.allowed || !tektonServiceAccount) {
+        return;
       }
 
       const updatedServiceAccount = editResource(

@@ -170,7 +170,6 @@ export const TableHead = <DataType extends unknown>({
     !!selectedLength && selectedLength > 0 && selectedLength < rowCount;
   const selectAllChecked = selectedLength === selectableRowCount || selectedLength === rowCount;
 
-  console.log(selectableRowCount);
 
   return (
     <MuiTableHead>

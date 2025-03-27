@@ -23,8 +23,8 @@ export const ResourceQuotas = () => {
   const [globalRQs, setGlobalRQs] = React.useState<{
     quotas: ParsedQuotas;
     highestUsedQuota: QuotaDetails | null;
-  }>(null);
-  const [globalRQsError, setGlobalRQsError] = React.useState<Error | ApiError>(null);
+  } | null>(null);
+  const [globalRQsError, setGlobalRQsError] = React.useState<Error | ApiError | null>(null);
 
   const handleSetGlobalRQs = React.useCallback((items: ResourceQuotaKubeObjectInterface[]) => {
     if (items?.length === 0) {
@@ -48,13 +48,17 @@ export const ResourceQuotas = () => {
   });
 
   const [firstInClusterStage, setFirstInClusterStage] =
-    React.useState<StageKubeObjectInterface>(null);
-  const [stagesError, setStagesError] = React.useState<Error | ApiError>(null);
+    React.useState<StageKubeObjectInterface | null>(null);
+  const [stagesError, setStagesError] = React.useState<Error | ApiError | null>(null);
 
   const stageIsLoading = firstInClusterStage === null && !stagesError;
 
   const handleGetFirstInClusterStage = React.useCallback((stages: StageKubeObjectInterface[]) => {
     const firstFind = stages.find((stage) => stage.spec.clusterName === DEFAULT_CLUSTER);
+    if (!firstFind) {
+      return;
+    }
+
     setFirstInClusterStage(firstFind);
   }, []);
 
@@ -65,9 +69,9 @@ export const ResourceQuotas = () => {
   const [stageRQs, setStageRQs] = React.useState<{
     quotas: ParsedQuotas;
     highestUsedQuota: QuotaDetails | null;
-  }>(null);
+  } | null>(null);
 
-  const [stageRQsError, setStageRQsError] = React.useState<Error | ApiError>(null);
+  const [stageRQsError, setStageRQsError] = React.useState<Error | ApiError | null>(null);
 
   const handleSetStageRQs = React.useCallback((items: ResourceQuotaKubeObjectInterface[]) => {
     if (items?.length === 0) {
@@ -88,7 +92,7 @@ export const ResourceQuotas = () => {
   const [namespacesQuota, setNamespacesQuota] = React.useState<{
     quotas: ParsedQuotas;
     highestUsedQuota: QuotaDetails | null;
-  }>(null);
+  } | null>(null);
 
   TenantKubeObject.useApiGet((data) => {
     const namespacesHard = data?.spec?.namespaceOptions?.quota;
@@ -122,19 +126,25 @@ export const ResourceQuotas = () => {
   }, `edp-workload-${defaultNamespace}`);
 
   React.useEffect(() => {
-    if (stageIsLoading) {
+    if (stageIsLoading || !firstInClusterStage) {
       return;
     }
 
     const cancelStream = ResourceQuotaKubeObject.streamList({
-      namespace: firstInClusterStage?.spec.namespace,
+      namespace: firstInClusterStage?.spec.namespace!,
       tenantNamespace: defaultNamespace,
       dataHandler: handleSetStageRQs,
       errorHandler: setStageRQsError,
     });
 
     return () => cancelStream();
-  }, [defaultNamespace, firstInClusterStage?.spec.namespace, handleSetStageRQs, stageIsLoading]);
+  }, [
+    defaultNamespace,
+    firstInClusterStage,
+    firstInClusterStage?.spec.namespace,
+    handleSetStageRQs,
+    stageIsLoading,
+  ]);
 
   const highestUsedQuota = React.useMemo(() => {
     if (globalRQs === null || stageRQs === null || namespacesQuota === null) {
@@ -151,7 +161,12 @@ export const ResourceQuotas = () => {
       return null;
     }
 
-    return quotas.reduce((max, quota) => (quota.usedPercentage > max.usedPercentage ? quota : max));
+    return quotas.reduce(
+      (max, quota) => {
+        return (quota?.usedPercentage ?? 0) > (max?.usedPercentage ?? 0) ? quota : max;
+      },
+      { usedPercentage: 0 }
+    );
   }, [globalRQs, stageRQs, namespacesQuota]);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -176,7 +191,10 @@ export const ResourceQuotas = () => {
     return null;
   }
 
-  const highestUsedQuotaColor = getColorByLoadPercentage(theme, highestUsedQuota?.usedPercentage);
+  const highestUsedQuotaColor = getColorByLoadPercentage(
+    theme,
+    highestUsedQuota?.usedPercentage || 0
+  );
 
   if (
     !globalRQs?.highestUsedQuota &&
@@ -191,7 +209,7 @@ export const ResourceQuotas = () => {
       <Tooltip title="Platform Resource Usage">
         <IconButton onClick={handleClick} size="large">
           <CircleProgress
-            loadPercentage={highestUsedQuota?.usedPercentage}
+            loadPercentage={highestUsedQuota?.usedPercentage || 0}
             color={highestUsedQuotaColor}
           />
         </IconButton>
@@ -216,13 +234,13 @@ export const ResourceQuotas = () => {
             <LoadingWrapper isLoading={globalRQsDataIsLoading}>
               <BorderedSection title="Platform Resource Usage">
                 <Stack direction="row" spacing={5}>
-                  {Object.keys(globalRQs.quotas).length === 0 ? (
+                  {Object.keys(globalRQs!.quotas).length === 0 ? (
                     <EmptyList
                       customText="Failed to retrieve resource information from the platform. Check your platform configuration."
                       iconSize={64}
                     />
                   ) : (
-                    Object.entries(globalRQs.quotas).map(([entity, details]) => (
+                    Object.entries(globalRQs!.quotas).map(([entity, details]) => (
                       <RQItem key={`global-${entity}`} entity={entity} details={details} />
                     ))
                   )}
@@ -231,17 +249,17 @@ export const ResourceQuotas = () => {
             </LoadingWrapper>
             <LoadingWrapper isLoading={stageRQsDataIsLoading}>
               <BorderedSection title="Deployment Flows Resource Usage">
-                {Object.keys(stageRQs.quotas).length === 0 ? (
+                {Object.keys(stageRQs!.quotas).length === 0 ? (
                   <EmptyList
                     customText="Resource information is not available yet. It may take some time for the data to be generated."
                     iconSize={64}
                   />
                 ) : (
                   <Stack direction="row" spacing={5}>
-                    {Object.entries(stageRQs.quotas).map(([entity, details]) => (
+                    {Object.entries(stageRQs!.quotas).map(([entity, details]) => (
                       <RQItem key={`stage-${entity}`} entity={entity} details={details} />
                     ))}
-                    {Object.entries(namespacesQuota.quotas).map(([entity, details]) => (
+                    {Object.entries(namespacesQuota!.quotas).map(([entity, details]) => (
                       <RQItem key={`stage-${entity}`} entity={entity} details={details} />
                     ))}
                   </Stack>

@@ -9,14 +9,14 @@ export const RQItem = ({ entity, details }: { entity: string; details: QuotaDeta
   const theme = useTheme();
 
   const { hard, used } = details;
-  const loadPercentage = Math.floor((used / hard) * 100);
+  const loadPercentage = Math.floor(((used ?? 0) / (hard ?? 1)) * 100);
   const color = getColorByLoadPercentage(theme, loadPercentage);
 
   return (
     <Box sx={{ flex: '1 1 0', minWidth: theme.typography.pxToRem(100) }}>
       <Stack alignItems="center" spacing={1}>
         <Typography color="primary.dark" variant="subtitle2" whiteSpace="nowrap">
-          {entityMapping?.[entity] || entity}
+          {entityMapping?.[entity as keyof typeof entityMapping] || entity}
         </Typography>
         <Box sx={{ width: '40px', height: '40px' }}>
           <PercentageCircle

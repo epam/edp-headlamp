@@ -17,7 +17,7 @@ export const usePullAccountEditForm = ({
   sharedForm,
   permissions,
 }: {
-  pullAccountSecret: SecretKubeObjectInterface;
+  pullAccountSecret: SecretKubeObjectInterface | undefined;
   sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
   permissions: WidgetPermissions;
 }): FormItem => {

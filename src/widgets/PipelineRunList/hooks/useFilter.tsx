@@ -167,7 +167,8 @@ export const useFilter = ({
                       : []
                   }
                   freeSolo
-                  getOptionLabel={(option) => option}
+                  getOptionLabel={(option) => option!}
+                  // @ts-ignore
                   onChange={handleCodebasesChange}
                   renderInput={(params) => (
                     <TextField

@@ -76,7 +76,7 @@ export interface TableProps<DataType = unknown> {
   settings?: TableSettings;
   blockerComponent?: React.ReactNode;
   emptyListComponent?: React.ReactNode;
-  blockerError?: ApiError;
+  blockerError?: ApiError | null;
   errors?: ApiError[] | null;
   filterFunction?: (el: DataType) => boolean;
   handleRowClick?: (event: React.MouseEvent<HTMLTableRowElement>, row: DataType) => void;
