@@ -12,7 +12,7 @@ export const useQuickLinkEditForm = ({
   quickLink,
   permissions,
 }: {
-  quickLink: QuickLinkKubeObjectInterface;
+  quickLink: QuickLinkKubeObjectInterface | undefined;
   permissions: WidgetPermissions;
 }): FormItem => {
   const {
@@ -37,8 +37,8 @@ export const useQuickLinkEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: QuickLinkFormValues) => {
-      if (!permissions.update.QuickLink.allowed) {
-        return false;
+      if (!permissions.update.QuickLink.allowed || !quickLink) {
+        return;
       }
 
       const newQuickLinkData = editResource(QUICK_LINK_FORM_NAMES, quickLink, values);

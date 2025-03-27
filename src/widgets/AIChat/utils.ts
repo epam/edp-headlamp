@@ -43,7 +43,7 @@ export const createChunkStreamFetcher = (options: FetcherOptions) => {
 };
 
 export const processChatHistory = (history: HistoryStateItem[]): HistoryPayloadItem[] => {
-  return history.reduce((acc, cur) => {
+  return history.reduce<HistoryPayloadItem[]>((acc, cur) => {
     acc.push({
       createdAt: cur.createdAt,
       role: CHAT_ENTITY.USER,
@@ -52,7 +52,7 @@ export const processChatHistory = (history: HistoryStateItem[]): HistoryPayloadI
     acc.push({
       createdAt: cur.createdAt,
       role: CHAT_ENTITY.ASSISTANT,
-      message: cur.response.message,
+      message: cur.response?.message || '',
     });
 
     return acc;
@@ -77,9 +77,9 @@ export const createConversationPayload = (
 
   if (conversationItem.codeMode) {
     basePayload.code_fields = {
-      appName: basePayload.code_fields.appName,
-      repoName: basePayload.code_fields.repoName,
-      indexType: basePayload.code_fields.indexType,
+      appName: basePayload.code_fields?.appName,
+      repoName: basePayload.code_fields?.repoName,
+      indexType: basePayload.code_fields?.indexType,
     };
   }
 
@@ -130,7 +130,7 @@ export const createStateConversation = ({
   return newConversationState;
 };
 
-export const copyToClipboard = (message) => {
+export const copyToClipboard = (message: string) => {
   if (navigator.clipboard) {
     navigator.clipboard
       .writeText(message)
@@ -147,7 +147,7 @@ export const handleThought = (thought: ResponseThought, conversation: Conversati
   const historyLength = conversation.conversationHistory.length;
   const lastHistoryItem = conversation.conversationHistory[historyLength - 1];
 
-  const alreadyExistingStateThought = lastHistoryItem.response.thoughts.find(
+  const alreadyExistingStateThought = (lastHistoryItem.response?.thoughts || []).find(
     (t) => t.id_ === thought.id_
   );
 
@@ -156,6 +156,6 @@ export const handleThought = (thought: ResponseThought, conversation: Conversati
       alreadyExistingStateThought.message += `**Tool:** ${thought.author_type} \n`;
     if (thought.message) alreadyExistingStateThought.message += `${thought.message}`;
   } else {
-    lastHistoryItem.response.thoughts.push(thought);
+    lastHistoryItem.response!.thoughts!.push(thought);
   }
 };

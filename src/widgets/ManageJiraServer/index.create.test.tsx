@@ -12,9 +12,9 @@ test('renders ManageJiraServer Create component', () => {
   render(
     <TestWrapper>
       <ManageJiraServer
-        secret={null}
-        jiraServer={null}
-        ownerReference={null}
+        secret={undefined}
+        jiraServer={undefined}
+        ownerReference={undefined}
         permissions={{
           create: {
             Secret: {

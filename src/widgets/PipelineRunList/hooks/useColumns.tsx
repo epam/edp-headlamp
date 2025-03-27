@@ -28,7 +28,7 @@ export const useColumns = ({
   tableSettings,
 }: {
   permissions: WidgetPermissions;
-  tableSettings: SavedTableSettings;
+  tableSettings: SavedTableSettings | undefined;
 }): TableColumn<PipelineRunKubeObjectInterface>[] => {
   const { setDialog } = useDialogContext();
 
@@ -124,7 +124,9 @@ export const useColumns = ({
         label: 'Results',
         data: {
           render: ({ data }) => {
-            const vcsTag = data?.status?.results?.find((el) => el.name === 'VCS_TAG')?.value;
+            const vcsTag = data?.status?.results?.find(
+              (el: { name: string; value: string }) => el.name === 'VCS_TAG'
+            )?.value;
 
             if (!vcsTag) {
               return null;

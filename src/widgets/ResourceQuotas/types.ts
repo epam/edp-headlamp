@@ -4,6 +4,7 @@ export interface QuotaDetails {
   usedPercentage?: number;
   hard_initial?: string;
   used_initial?: string;
+  [key: string]: any;
 }
 
 export interface ParsedQuotas {

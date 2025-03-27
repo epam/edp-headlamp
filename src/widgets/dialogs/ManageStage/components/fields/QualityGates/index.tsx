@@ -43,7 +43,7 @@ export const QualityGates = () => {
     (qualityGateIdx) => {
       setValue(
         STAGE_FORM_NAMES.qualityGates.name,
-        qualityGatesFieldValue.filter((el) => {
+        qualityGatesFieldValue.filter((el: QualityGate) => {
           return el.id !== qualityGateIdx;
         })
       );

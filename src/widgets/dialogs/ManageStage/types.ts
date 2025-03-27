@@ -12,3 +12,10 @@ export interface ManageStageDialogProps
   }> {}
 
 export type ManageStageFormValues = FormValues<typeof STAGE_FORM_NAMES>;
+
+export interface QualityGate {
+  qualityGateType: string;
+  stepName: string;
+  autotestName: string;
+  branchName: string;
+}

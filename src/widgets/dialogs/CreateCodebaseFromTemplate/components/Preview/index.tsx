@@ -3,6 +3,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import { BorderedSection } from '../../../../../components/BorderedSection';
 import { MappedProperties } from '../../../../../components/MappedProperties';
+import { CodebaseInterface } from '../../../../../configs/codebase-mappings/types';
 import {
   BUILD_TOOL_ICON_MAPPING,
   FRAMEWORK_ICON_MAPPING,
@@ -10,6 +11,7 @@ import {
 } from '../../../../../configs/icon-mappings';
 import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
+import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
 import { rem } from '../../../../../utils/styling/rem';
 import { useCurrentDialog } from '../../providers/CurrentDialog/hooks';
@@ -34,7 +36,19 @@ export const Preview = () => {
     props: { template },
   } = useCurrentDialog();
   const classes = useStyles();
-  const codebaseMapping = getCodebaseMappingByCodebaseType(template?.spec.type);
+  const {
+    spec: { type: codebaseType, language, framework: _framework, buildTool: _buildTool },
+  } = template;
+
+  const codebaseMapping = getCodebaseMappingByCodebaseType(codebaseType) as Record<
+    string,
+    CodebaseInterface
+  >;
+  const lang = language.toLowerCase();
+  const framework = _framework.toLowerCase();
+  const buildTool = _buildTool.toLowerCase();
+
+  const codebaseMappingByLang = codebaseMapping?.[lang];
 
   return (
     template && (
@@ -82,7 +96,7 @@ export const Preview = () => {
                     <Grid item>
                       <UseSpriteSymbol
                         name={
-                          LANGUAGE_ICON_MAPPING?.[template?.spec.language?.toLowerCase()] ||
+                          LANGUAGE_ICON_MAPPING?.[lang as keyof typeof LANGUAGE_ICON_MAPPING] ||
                           RESOURCE_ICON_NAMES.OTHER
                         }
                         width={20}
@@ -90,8 +104,7 @@ export const Preview = () => {
                       />
                     </Grid>
                     <Grid item>
-                      {codebaseMapping?.[template?.spec.language]?.language?.name ||
-                        template?.spec.language}
+                      {codebaseMappingByLang?.language?.name || capitalizeFirstLetter(lang)}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -103,17 +116,20 @@ export const Preview = () => {
                     <Grid item>
                       <UseSpriteSymbol
                         name={
-                          FRAMEWORK_ICON_MAPPING?.[template?.spec.framework?.toLowerCase()] ||
-                          RESOURCE_ICON_NAMES.OTHER
+                          FRAMEWORK_ICON_MAPPING?.[
+                            framework as keyof typeof FRAMEWORK_ICON_MAPPING
+                          ] || RESOURCE_ICON_NAMES.OTHER
                         }
                         width={20}
                         height={20}
                       />
                     </Grid>
                     <Grid item>
-                      {codebaseMapping?.[template?.spec.language]?.frameworks?.[
-                        template?.spec.framework
-                      ]?.name || template?.spec.framework}
+                      {framework
+                        ? codebaseMappingByLang?.frameworks?.[framework]?.name ||
+                          (_framework && capitalizeFirstLetter(_framework)) ||
+                          'N/A'
+                        : 'N/A'}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -125,17 +141,17 @@ export const Preview = () => {
                     <Grid item>
                       <UseSpriteSymbol
                         name={
-                          BUILD_TOOL_ICON_MAPPING?.[template?.spec.buildTool?.toLowerCase()] ||
-                          RESOURCE_ICON_NAMES.OTHER
+                          BUILD_TOOL_ICON_MAPPING?.[
+                            buildTool as keyof typeof BUILD_TOOL_ICON_MAPPING
+                          ] || RESOURCE_ICON_NAMES.OTHER
                         }
                         width={20}
                         height={20}
                       />
                     </Grid>
                     <Grid item>
-                      {codebaseMapping?.[template?.spec.language]?.buildTools?.[
-                        template?.spec.buildTool
-                      ]?.name || template?.spec.buildTool}
+                      {codebaseMappingByLang?.buildTools?.[buildTool]?.name ||
+                        capitalizeFirstLetter(_buildTool)}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -175,7 +191,7 @@ export const Preview = () => {
                   <Typography variant={'body1'} gutterBottom>
                     Maintainers
                   </Typography>
-                  {template?.spec.maintainers.map((maintainer) => {
+                  {(template?.spec.maintainers || []).map((maintainer) => {
                     return (
                       <Typography gutterBottom key={maintainer.name}>
                         <div>
@@ -198,12 +214,14 @@ export const Preview = () => {
                     );
                   })}
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography variant={'body1'} gutterBottom>
-                    Keywords
-                  </Typography>
-                  <MappedProperties properties={template?.spec.keywords} variant={'inline'} />
-                </Grid>
+                {template?.spec.keywords && (
+                  <Grid item xs={12}>
+                    <Typography variant={'body1'} gutterBottom>
+                      Keywords
+                    </Typography>
+                    <MappedProperties properties={template?.spec.keywords} variant={'inline'} />
+                  </Grid>
+                )}
               </Grid>
             </Grid>
           </Grid>

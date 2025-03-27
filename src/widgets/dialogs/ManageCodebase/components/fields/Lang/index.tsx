@@ -44,12 +44,12 @@ export const Lang = () => {
       resultOptions.push({
         value,
         label: name,
-        icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-        checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+        icon: <UseSpriteSymbol name={icon!} width={20} height={20} />,
+        checkedIcon: <UseSpriteSymbol name={icon!} width={20} height={20} />,
         disabled: isDisabled,
         disabledTooltip: isDisabled
           ? 'Choose this option if your desired programming language is not listed. This option is available exclusively when using the Clone and Import strategy.'
-          : null,
+          : undefined,
       });
     }
 

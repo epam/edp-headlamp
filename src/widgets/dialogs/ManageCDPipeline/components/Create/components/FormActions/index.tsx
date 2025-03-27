@@ -7,12 +7,13 @@ import { createCDPipelineInstance } from '../../../../../../../k8s/groups/EDP/CD
 import { routeCDPipelineDetails } from '../../../../../../../pages/cdpipeline-details/route';
 import { useDialogContext } from '../../../../../../../providers/Dialog/hooks';
 import { useStepperContext } from '../../../../../../../providers/Stepper/hooks';
+import { ValueOf } from '../../../../../../../types/global';
 import { getUsedValues } from '../../../../../../../utils/forms/getUsedValues';
 import { getDefaultNamespace } from '../../../../../../../utils/getDefaultNamespace';
 import { SuccessDialog } from '../../../../../Success';
 import { FORM_STEPPER } from '../../../../constants';
 import { useTypedFormContext } from '../../../../hooks/useFormContext';
-import { CDPIPELINE_FORM_NAMES } from '../../../../names';
+import { CDPIPELINE_FORM_NAMES, NAMES } from '../../../../names';
 import { useCurrentDialog } from '../../../../providers/CurrentDialog/hooks';
 import { ManageCDPipelineFormValues } from '../../../../types';
 
@@ -56,9 +57,9 @@ export const FormActions = () => {
     }
   }, [activeTabFormPartName, nextStep, trigger]);
 
-  const getFirstErrorStepName = (errors) => {
+  const getFirstErrorStepName = (errors: Record<string, any>) => {
     const [firstErrorFieldName] = Object.keys(errors);
-    return CDPIPELINE_FORM_NAMES[firstErrorFieldName].formPart;
+    return CDPIPELINE_FORM_NAMES[firstErrorFieldName as ValueOf<typeof NAMES>].formPart;
   };
 
   const handleValidationError = React.useCallback(

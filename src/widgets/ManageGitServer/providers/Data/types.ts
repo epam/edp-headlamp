@@ -16,7 +16,7 @@ export interface DataContextProviderValue {
 }
 
 export interface DataContextProviderProps {
-  gitServer: GitServerKubeObjectInterface;
-  gitServerSecret: SecretKubeObjectInterface;
+  gitServer: GitServerKubeObjectInterface | undefined;
+  gitServerSecret: SecretKubeObjectInterface | undefined;
   permissions: WidgetPermissions;
 }

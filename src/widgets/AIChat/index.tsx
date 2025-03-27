@@ -44,7 +44,7 @@ export const AiChat = ({ codemieSecretData }: { codemieSecretData: CodemieSecret
   const [showHistory, setShowHistory] = React.useState<boolean>(false);
   const toggleShowHistory = () => setShowHistory((prev) => !prev);
 
-  const [activeConversation, setActiveConversation] = React.useState<ConversationItem>(null);
+  const [activeConversation, setActiveConversation] = React.useState<ConversationItem | null>(null);
   const assistantUrl = `${codemieSecretData?.apiUrl}/${routeAssistantById(
     codemieSecretData?.assistantId
   )}`;

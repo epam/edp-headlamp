@@ -47,7 +47,7 @@ export const CustomActionsInlineList = ({
         <ButtonGroup variant="outlined" ref={anchorRef}>
           <ButtonWithPermission
             ButtonProps={{
-              startIcon: <Icon icon={groupActions[0].icon} width={15} height={15} />,
+              startIcon: <Icon icon={groupActions[0].icon!} width={15} height={15} />,
               size: 'small',
               onClick: groupActions[0].action,
               sx: {
@@ -106,7 +106,7 @@ export const CustomActionsInlineList = ({
                   {groupActionsWithoutFirstItem.map((option) => (
                     <MenuItem key={option.label} onClick={option.action}>
                       <ListItemIcon>
-                        <Icon icon={option.icon} width={25} height={25} />
+                        <Icon icon={option.icon!} width={25} height={25} />
                       </ListItemIcon>
                       <ListItemText>{option.label}</ListItemText>
                     </MenuItem>

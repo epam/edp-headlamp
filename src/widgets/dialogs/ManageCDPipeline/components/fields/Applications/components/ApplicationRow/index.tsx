@@ -8,9 +8,11 @@ import { useSortedCodebaseBranchesByCodebaseNameLabelQuery } from '../../../../.
 import { FormAutocompleteSingle } from '../../../../../../../../providers/Form/components/FormAutocompleteSingle';
 import { FormTextField } from '../../../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../../../../../types/forms';
+import { ValueOf } from '../../../../../../../../types/global';
 import { useTypedFormContext } from '../../../../../hooks/useFormContext';
-import { CDPIPELINE_FORM_NAMES } from '../../../../../names';
+import { CDPIPELINE_FORM_NAMES, NAMES } from '../../../../../names';
 import { useCurrentDialog } from '../../../../../providers/CurrentDialog/hooks';
+import { ApplicationRowType } from '../../types';
 import { useStyles } from './styles';
 import { ApplicationRowProps } from './types';
 
@@ -38,8 +40,10 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
   const rowAppNameField = `${CDPIPELINE_FORM_NAMES.applicationsFieldArray.name}.${index}.appName`;
   const rowAppBranchField = `${CDPIPELINE_FORM_NAMES.applicationsFieldArray.name}.${index}.appBranch`;
 
-  const applicationsFieldArrayValue = watch(CDPIPELINE_FORM_NAMES.applicationsFieldArray.name);
-  const inputDockerStreamsValue = watch(CDPIPELINE_FORM_NAMES.inputDockerStreams.name);
+  const applicationsFieldArrayValue: ApplicationRowType[] = watch(
+    CDPIPELINE_FORM_NAMES.applicationsFieldArray.name
+  );
+  const inputDockerStreamsValue: string[] = watch(CDPIPELINE_FORM_NAMES.inputDockerStreams.name);
 
   const handleDeleteApplicationRow = React.useCallback(() => {
     removeRow();
@@ -87,7 +91,10 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
           (el) => el.metadataBranchName === applicationBranch
         );
 
-        if (!availableBranches.find((el) => el.metadataBranchName === applicationBranch)) {
+        if (
+          !branchObject ||
+          !availableBranches.find((el) => el.metadataBranchName === applicationBranch)
+        ) {
           continue;
         }
 
@@ -102,7 +109,7 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
 
     setValue(CDPIPELINE_FORM_NAMES.inputDockerStreams.name, [
       ...getValues(CDPIPELINE_FORM_NAMES.inputDockerStreams.name).filter(
-        (el) => el !== newBranchFieldValue
+        (el: string) => el !== newBranchFieldValue
       ),
       newBranchFieldValue,
     ]);
@@ -122,10 +129,14 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
   }, [setDefaultValues]);
 
   // @ts-ignore
-  const rowAppBranchFieldValue = watch(rowAppBranchField);
+  const rowAppBranchFieldValue: string = watch(rowAppBranchField);
 
-  const appBranchError =
-    errors[CDPIPELINE_FORM_NAMES.applicationsFieldArray.name]?.[index]?.appBranch;
+  const appBranchError = (
+    errors?.[CDPIPELINE_FORM_NAMES.applicationsFieldArray.name as ValueOf<typeof NAMES>] as Record<
+      number,
+      any
+    >
+  )?.[index]?.appBranch;
 
   return (
     <Grid item xs={12} className={classes.application}>
@@ -159,7 +170,7 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
 
                     const newInputDockerStreamsValue = [
                       ...currentInputDockerStreamsValue.filter(
-                        (el) => el !== rowAppBranchFieldValue
+                        (el: string) => el !== rowAppBranchFieldValue
                       ),
                       value,
                     ];

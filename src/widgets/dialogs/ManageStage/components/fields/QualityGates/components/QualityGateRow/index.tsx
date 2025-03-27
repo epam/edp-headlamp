@@ -33,7 +33,7 @@ const getAvailableAutotests = (
     const allBranchesAreChosen =
       qualityGatesByChosenAutotest.length === branches.length &&
       qualityGatesByChosenAutotest.every((qualityGate) =>
-        branches.includes(qualityGate.branchName)
+        qualityGate.branchName ? branches.includes(qualityGate.branchName) : false
       );
 
     if (alreadyChosenAutotest && branches.length <= 1) {
@@ -165,7 +165,7 @@ export const QualityGateRow = ({
         );
       }
 
-      const newQualityGates = qualityGatesFieldValue.map((qualityGate) => {
+      const newQualityGates = qualityGatesFieldValue.map((qualityGate: QualityGate) => {
         if (qualityGate.id !== currentQualityGate.id) {
           return qualityGate;
         }
@@ -194,7 +194,7 @@ export const QualityGateRow = ({
     (event) => {
       const chosenQualityGateStepName = event.target.value;
 
-      const newQualityGates = qualityGatesFieldValue.map((qualityGate) => {
+      const newQualityGates = qualityGatesFieldValue.map((qualityGate: QualityGate) => {
         if (qualityGate.id !== currentQualityGate.id) {
           return qualityGate;
         }
@@ -216,7 +216,7 @@ export const QualityGateRow = ({
       // @ts-ignore
       resetField(createQualityGateTypeAutotestsBranchFieldName(currentQualityGate.id));
 
-      const newQualityGates = qualityGatesFieldValue.map((qualityGate) => {
+      const newQualityGates = qualityGatesFieldValue.map((qualityGate: QualityGate) => {
         if (qualityGate.id !== currentQualityGate.id) {
           return qualityGate;
         }
@@ -236,7 +236,7 @@ export const QualityGateRow = ({
     (event) => {
       const chosenQualityGateAutotestsBranch = event.target.value;
 
-      const newQualityGates = qualityGatesFieldValue.map((qualityGate) => {
+      const newQualityGates = qualityGatesFieldValue.map((qualityGate: QualityGate) => {
         if (qualityGate.id !== currentQualityGate.id) {
           return qualityGate;
         }

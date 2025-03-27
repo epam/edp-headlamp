@@ -24,7 +24,6 @@ export const StageList = () => {
     return stagesWithApplicationsData.data.filter(filterFunction);
   }, [stagesWithApplicationsData, filterFunction]);
 
-  console.log(stagesWithApplicationsData, filteredStages);
 
   const { setDialog } = useDialogContext();
 

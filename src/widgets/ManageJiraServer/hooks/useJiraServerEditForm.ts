@@ -13,8 +13,8 @@ export const useJiraServerEditForm = ({
   handleClosePanel,
   permissions,
 }: {
-  jiraServer: JiraServerKubeObjectInterface;
-  handleClosePanel: () => void;
+  jiraServer: JiraServerKubeObjectInterface | undefined;
+  handleClosePanel: (() => void) | undefined;
   permissions: WidgetPermissions;
 }) => {
   const jiraServerEditMutation = useResourceCRUDMutation<
@@ -39,7 +39,7 @@ export const useJiraServerEditForm = ({
 
   const handleSubmit = React.useCallback(
     async (values: JiraServerFormValues) => {
-      if (!permissions.update.JiraServer.allowed) {
+      if (!permissions.update.JiraServer.allowed || !jiraServer) {
         return false;
       }
 
@@ -55,7 +55,7 @@ export const useJiraServerEditForm = ({
       };
 
       jiraServerEditMutation.mutate(newJiraServerData, {
-        onSuccess: () => handleClosePanel(),
+        onSuccess: () => handleClosePanel && handleClosePanel(),
       });
     },
     [handleClosePanel, jiraServer, jiraServerEditMutation, permissions.update.JiraServer.allowed]

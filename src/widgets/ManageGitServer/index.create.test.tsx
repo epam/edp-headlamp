@@ -20,8 +20,8 @@ describe('testing ManageGitServer Create', () => {
     render(
       <TestWrapper>
         <ManageGitServer
-          gitServer={null}
-          webhookURL={null}
+          gitServer={undefined}
+          webhookURL={undefined}
           repositorySecrets={[GithubCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
             //
@@ -70,8 +70,8 @@ describe('testing ManageGitServer Create', () => {
     render(
       <TestWrapper>
         <ManageGitServer
-          gitServer={null}
-          webhookURL={null}
+          gitServer={undefined}
+          webhookURL={undefined}
           repositorySecrets={[GitlabCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
             //
@@ -120,8 +120,8 @@ describe('testing ManageGitServer Create', () => {
     render(
       <TestWrapper>
         <ManageGitServer
-          gitServer={null}
-          webhookURL={null}
+          gitServer={undefined}
+          webhookURL={undefined}
           repositorySecrets={[GerritCISecretWithOwnerMock as unknown as SecretKubeObjectInterface]}
           handleClosePanel={() => {
             //
@@ -170,8 +170,8 @@ describe('testing ManageGitServer Create', () => {
     render(
       <TestWrapper>
         <ManageGitServer
-          gitServer={null}
-          webhookURL={null}
+          gitServer={undefined}
+          webhookURL={undefined}
           repositorySecrets={[]}
           handleClosePanel={() => {
             //
@@ -220,8 +220,8 @@ describe('testing ManageGitServer Create', () => {
     render(
       <TestWrapper>
         <ManageGitServer
-          gitServer={null}
-          webhookURL={null}
+          gitServer={undefined}
+          webhookURL={undefined}
           repositorySecrets={[
             BitbucketCISecretWithOwnerMock as unknown as SecretKubeObjectInterface,
           ]}

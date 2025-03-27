@@ -39,6 +39,10 @@ export const FormActions = () => {
 
   const onSubmit = React.useCallback(
     async (values: ManageQuickLinkFormValues) => {
+      if (!quickLink) {
+        return;
+      }
+
       const editedQuickLink = editResource(QUICK_LINK_FORM_NAMES, quickLink, {
         ...values,
         visible: JSON.parse(values.visible),

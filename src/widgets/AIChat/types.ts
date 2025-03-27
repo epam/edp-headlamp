@@ -75,9 +75,9 @@ export interface ConversationPayload {
   _debug: boolean;
   topK: number;
   code_fields?: {
-    appName: string;
-    repoName: string;
-    indexType: string;
+    appName?: string;
+    repoName?: string;
+    indexType?: string;
   };
 }
 

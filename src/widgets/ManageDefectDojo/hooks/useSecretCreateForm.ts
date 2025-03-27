@@ -10,7 +10,7 @@ export const useSecretCreateForm = ({
   handleClosePanel,
   permissions,
 }: {
-  handleClosePanel: () => void;
+  handleClosePanel: (() => void) | undefined;
   permissions: WidgetPermissions;
 }): FormItem => {
   const {

@@ -19,8 +19,8 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
 
   const { handleEditorSave } = useHandleEditorSave({
     names: CDPIPELINE_FORM_NAMES,
-    setValue,
-    resetField,
+    setValue: setValue as (name: string, value: any, options?: any) => void,
+    resetField: resetField as (name: string, options?: any) => void,
   });
 
   const onEditorSave = React.useCallback(

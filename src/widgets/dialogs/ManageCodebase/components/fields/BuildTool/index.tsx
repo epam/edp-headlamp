@@ -1,6 +1,9 @@
 import React from 'react';
 import { CODEBASE_COMMON_LANGUAGES } from '../../../../../../configs/codebase-mappings';
-import { CodebaseMappingItemInterface } from '../../../../../../configs/codebase-mappings/types';
+import {
+  CodebaseInterface,
+  CodebaseMappingItemInterface,
+} from '../../../../../../configs/codebase-mappings/types';
 import { UseSpriteSymbol } from '../../../../../../icons/UseSpriteSymbol';
 import { FormRadioGroup } from '../../../../../../providers/Form/components/FormRadioGroup';
 import { FormRadioOption } from '../../../../../../providers/Form/components/FormRadioGroup/types';
@@ -17,32 +20,38 @@ export const BuildTool = () => {
     watch,
   } = useTypedFormContext();
 
-  const langFieldValue = watch(CODEBASE_FORM_NAMES.lang.name);
-  const typeFieldValue = watch(CODEBASE_FORM_NAMES.type.name);
+  const langFieldValue: string = watch(CODEBASE_FORM_NAMES.lang.name);
+  const typeFieldValue: string = watch(CODEBASE_FORM_NAMES.type.name);
 
-  const codebaseMapping = getCodebaseMappingByCodebaseType(typeFieldValue);
+  const codebaseMapping = getCodebaseMappingByCodebaseType(typeFieldValue) as Record<
+    string,
+    CodebaseInterface
+  >;
+  const lang = langFieldValue.toLowerCase();
 
-  const chosenLang = codebaseMapping?.[langFieldValue];
+  const codebaseMappingByLang = codebaseMapping?.[lang];
 
   const buildToolOptions = React.useMemo(() => {
-    if (!chosenLang) {
+    if (!codebaseMappingByLang) {
       return [];
     }
 
     const resultOptions: FormRadioOption[] = [];
 
-    for (const buildTool of Object.values<CodebaseMappingItemInterface>(chosenLang.buildTools)) {
+    for (const buildTool of Object.values<CodebaseMappingItemInterface>(
+      codebaseMappingByLang.buildTools
+    )) {
       const { name, value, icon } = buildTool;
       resultOptions.push({
         value,
         label: name,
-        icon: <UseSpriteSymbol name={icon} width={20} height={20} />,
-        checkedIcon: <UseSpriteSymbol name={icon} width={20} height={20} />,
+        icon: <UseSpriteSymbol name={icon!} width={20} height={20} />,
+        checkedIcon: <UseSpriteSymbol name={icon!} width={20} height={20} />,
       });
     }
 
     return resultOptions;
-  }, [chosenLang]);
+  }, [codebaseMappingByLang]);
 
   return (
     <>

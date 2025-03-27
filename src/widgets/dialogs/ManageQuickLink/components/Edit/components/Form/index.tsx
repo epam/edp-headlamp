@@ -16,8 +16,8 @@ export const Form = ({ editorOpen, editorData, setEditorOpen }: FormProps) => {
 
   const { handleEditorSave } = useHandleEditorSave({
     names: QUICK_LINK_FORM_NAMES,
-    setValue,
-    resetField,
+    setValue: setValue as (name: string, value: any, options?: any) => void,
+    resetField: resetField as (name: string) => void,
   });
 
   const onEditorSave = React.useCallback(

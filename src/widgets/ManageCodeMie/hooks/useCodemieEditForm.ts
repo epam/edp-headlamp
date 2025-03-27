@@ -15,15 +15,14 @@ export const useCodemieEditForm = ({
   codemie,
   permissions,
 }: {
-  handleClosePanel: () => void;
+  handleClosePanel: (() => void) | undefined;
   codemie: CodemieKubeObjectInterface;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const codemieEditMutation = useResourceCRUDMutation<CodemieKubeObjectInterface, typeof CRUD_TYPE.EDIT>(
-    'codemieEditMutation',
-    CodemieKubeObject,
-    CRUD_TYPE.EDIT
-  );
+  const codemieEditMutation = useResourceCRUDMutation<
+    CodemieKubeObjectInterface,
+    typeof CRUD_TYPE.EDIT
+  >('codemieEditMutation', CodemieKubeObject, CRUD_TYPE.EDIT);
 
   const defaultValues = React.useMemo(() => {
     return {

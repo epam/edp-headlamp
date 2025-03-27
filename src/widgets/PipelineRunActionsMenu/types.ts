@@ -10,6 +10,6 @@ export interface PipelineRunActionsMenuProps {
   permissions: PermissionsConfig<typeof widgetPermissionsToCheck>;
   backRoute?: string;
   variant?: ActionMenuType;
-  anchorEl?: HTMLElement;
+  anchorEl?: HTMLElement | null;
   handleCloseResourceActionListMenu?: () => void;
 }

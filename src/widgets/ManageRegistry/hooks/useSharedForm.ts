@@ -11,9 +11,9 @@ export const useSharedForm = ({
   pushAccountSecret,
   pullAccountSecret,
 }: {
-  EDPConfigMap: ConfigMapKubeObjectInterface;
-  pushAccountSecret: SecretKubeObjectInterface;
-  pullAccountSecret: SecretKubeObjectInterface;
+  EDPConfigMap: ConfigMapKubeObjectInterface | undefined;
+  pushAccountSecret: SecretKubeObjectInterface | undefined;
+  pullAccountSecret: SecretKubeObjectInterface | undefined;
 }) => {
   const { userName: pullUserName, password: pullPassword } =
     getUsernameAndPassword(pullAccountSecret);

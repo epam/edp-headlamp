@@ -87,6 +87,10 @@ export const DeployTemplate = () => {
             <div>
               <IconButton
                 onClick={() => {
+                  if (!pipeline) {
+                    return;
+                  }
+
                   setDialog(PipelineGraphDialog, {
                     pipeline,
                     pipelineName: pipeline?.metadata.name,

@@ -9,3 +9,9 @@ export interface Application {
   chosenBranch: string;
   toPromote: boolean;
 }
+
+export interface ApplicationRowType {
+  appName: string;
+  appBranch: string;
+  appToPromote: string;
+}

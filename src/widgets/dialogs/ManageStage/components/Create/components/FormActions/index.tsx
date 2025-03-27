@@ -14,7 +14,7 @@ import { FORM_STEPPER } from '../../../../constants';
 import { useTypedFormContext } from '../../../../hooks/useFormContext';
 import { STAGE_FORM_NAMES } from '../../../../names';
 import { useCurrentDialog } from '../../../../providers/CurrentDialog/hooks';
-import { ManageStageFormValues } from '../../../../types';
+import { ManageStageFormValues, QualityGate } from '../../../../types';
 
 export const FormActions = () => {
   const { setDialog } = useDialogContext();
@@ -83,7 +83,7 @@ export const FormActions = () => {
         {
           ...usedValues,
           // removing unnecessary ID used in form
-          qualityGates: usedValues.qualityGates.map((el) => ({
+          qualityGates: usedValues.qualityGates.map((el: QualityGate) => ({
             qualityGateType: el.qualityGateType,
             stepName: el.stepName,
             autotestName: el.autotestName,

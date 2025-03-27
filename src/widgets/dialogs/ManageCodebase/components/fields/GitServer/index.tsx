@@ -15,7 +15,7 @@ export const GitServer = () => {
   const { data: gitServers } = useGitServerListQuery();
   const gitServersOptions = React.useMemo(
     () =>
-      gitServers?.items.map((gitServer) => {
+      (gitServers?.items || []).map((gitServer) => {
         const connected = gitServer?.status?.connected;
 
         const [icon, color] = GitServerKubeObject.getStatusIcon(connected);

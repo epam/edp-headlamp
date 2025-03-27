@@ -1,7 +1,10 @@
 import React from 'react';
 import { GIT_PROVIDER_ICON_MAPPING } from '../../../../../../../configs/icon-mappings';
 import { gitProviderOptions } from '../../../../../../../configs/select-options/gitProviders';
-import { GIT_PROVIDER } from '../../../../../../../constants/gitProviders';
+import {
+  GIT_PROVIDER,
+  GitProvider as GitProviderType,
+} from '../../../../../../../constants/gitProviders';
 import { Resources } from '../../../../../../../icons/sprites/Resources';
 import { RESOURCE_ICON_NAMES } from '../../../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../../../icons/UseSpriteSymbol';
@@ -61,14 +64,18 @@ export const GitProvider = () => {
             label,
             icon: (
               <UseSpriteSymbol
-                name={GIT_PROVIDER_ICON_MAPPING?.[value] || RESOURCE_ICON_NAMES.OTHER}
+                name={
+                  GIT_PROVIDER_ICON_MAPPING?.[value as GitProviderType] || RESOURCE_ICON_NAMES.OTHER
+                }
                 width={20}
                 height={20}
               />
             ),
             checkedIcon: (
               <UseSpriteSymbol
-                name={GIT_PROVIDER_ICON_MAPPING?.[value] || RESOURCE_ICON_NAMES.OTHER}
+                name={
+                  GIT_PROVIDER_ICON_MAPPING?.[value as GitProviderType] || RESOURCE_ICON_NAMES.OTHER
+                }
                 width={20}
                 height={20}
               />

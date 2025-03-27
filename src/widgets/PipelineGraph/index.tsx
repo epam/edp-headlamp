@@ -23,8 +23,9 @@ export const PipelineGraph = ({ pipeline }: PipelineGraphProps) => {
       } = node;
 
       return (
-        // @ts-ignore
+        //@ts-ignore
         <Node {...node}>
+          {/* @ts-ignore */}
           <Tooltip title={name} arrow placement={'bottom'}>
             <Grid container alignItems={'center'}>
               <Grid item style={{ overflow: 'hidden' }}>

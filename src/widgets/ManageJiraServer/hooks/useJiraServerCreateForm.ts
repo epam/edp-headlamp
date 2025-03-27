@@ -13,7 +13,7 @@ export const useJiraServerCreateForm = ({
   handleClosePanel,
   permissions,
 }: {
-  handleClosePanel: () => void;
+  handleClosePanel: (() => void) | undefined;
   permissions: WidgetPermissions;
 }): FormItem => {
   const jiraServerCreateMutation = useResourceCRUDMutation<
@@ -42,7 +42,7 @@ export const useJiraServerCreateForm = ({
       const newJiraServerData = createJiraServerInstance(url);
 
       jiraServerCreateMutation.mutate(newJiraServerData, {
-        onSuccess: () => handleClosePanel(),
+        onSuccess: () => handleClosePanel && handleClosePanel(),
       });
     },
     [handleClosePanel, jiraServerCreateMutation, permissions.create.JiraServer.allowed]

@@ -2,7 +2,7 @@ import { CODEBASE_LABEL_SELECTOR_CODEMIE_INTEGRATION } from '../../../k8s/groups
 import { BackwardNameMapping } from '../../../types/forms';
 import { CONFIGURATION_STEPS } from './constants';
 
-const NAMES = {
+export const NAMES = {
   TYPE: 'type',
   STRATEGY: 'strategy',
   REPOSITORY_URL: 'repositoryUrl',

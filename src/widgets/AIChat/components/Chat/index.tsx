@@ -32,7 +32,7 @@ import { sanitizeMessage } from '../../utils/sanitizeMessage';
 import { Message } from '../Message';
 import { ChatProps } from './types';
 
-const ChatThoughts = ({ thoughts }: { thoughts: ResponseThought[] }) => {
+const ChatThoughts = ({ thoughts }: { thoughts: ResponseThought[] | undefined }) => {
   const [expanded, setExpanded] = React.useState<string | false>(false);
 
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -102,7 +102,7 @@ export const Chat = ({
   updateConversation,
   requestError,
 }: ChatProps) => {
-  const [_conversation, setConversation] = React.useState<ConversationItem>(conversation);
+  const [_conversation, setConversation] = React.useState<ConversationItem | null>(conversation);
 
   const [isRequestLoading, setIsRequestLoading] = React.useState(false);
 
@@ -130,11 +130,18 @@ export const Chat = ({
 
       if (value.last) {
         setConversation((prev) => {
+          if (!prev) {
+            return null;
+          }
+
           const updatedHistory = [...prev.conversationHistory];
           const historyLength = updatedHistory.length;
           const lastHistoryItem = updatedHistory[historyLength - 1];
-          lastHistoryItem.response.message = value.generated;
-          lastHistoryItem.response.inProgress = false;
+
+          if (lastHistoryItem.response) {
+            lastHistoryItem.response.message = value.generated;
+            lastHistoryItem.response.inProgress = false;
+          }
 
           const newConversation = {
             ...prev,
@@ -155,11 +162,17 @@ export const Chat = ({
         const thought = value.thought;
 
         setConversation((prev) => {
+          if (!prev) {
+            return null;
+          }
+
           const historyLength = prev.conversationHistory.length;
           const lastHistoryItem = prev.conversationHistory[historyLength - 1];
-          if (!lastHistoryItem.response.thoughts) lastHistoryItem.response.thoughts = [];
+          if (lastHistoryItem.response && !lastHistoryItem.response.thoughts) {
+            lastHistoryItem.response.thoughts = [];
+          }
 
-          const alreadyExistingStateThought = lastHistoryItem.response.thoughts.find(
+          const alreadyExistingStateThought = lastHistoryItem.response?.thoughts?.find(
             (t) => t.id_ === thought.id_
           );
 
@@ -176,7 +189,12 @@ export const Chat = ({
             }
           } else {
             if (thought.message.trim() !== '') {
-              lastHistoryItem.response.thoughts = [...lastHistoryItem.response.thoughts, thought];
+              if (lastHistoryItem.response) {
+                lastHistoryItem.response.thoughts = [
+                  ...(lastHistoryItem.response.thoughts || []),
+                  thought,
+                ];
+              }
             }
           }
 
@@ -199,15 +217,21 @@ export const Chat = ({
         const formattedChunks = await formatAiMessage(chatStream);
 
         setConversation((prev) => {
+          if (!prev) {
+            return null;
+          }
+
           const updatedHistory = [...prev.conversationHistory];
           const historyLength = updatedHistory.length;
           const lastHistoryItem = updatedHistory[historyLength - 1];
 
-          if (!lastHistoryItem.response.inProgress) {
+          if (lastHistoryItem.response?.inProgress === false) {
             lastHistoryItem.response.inProgress = true;
           }
 
-          lastHistoryItem.response.processedChunks = [...formattedChunks];
+          if (lastHistoryItem.response) {
+            lastHistoryItem.response.processedChunks = [...formattedChunks];
+          }
 
           return {
             ...prev,
@@ -232,6 +256,10 @@ export const Chat = ({
   const handleSendMessage = React.useCallback(
     (text: string) => {
       setConversation((prev) => {
+        if (!prev) {
+          return null;
+        }
+
         const newConversation = {
           ...prev,
           conversationHistory: [
@@ -268,7 +296,11 @@ export const Chat = ({
   }, [conversation]);
 
   const renderChatResponse = React.useCallback(
-    (chatResponse: ChatItemResponse, isLast: boolean) => {
+    (chatResponse: ChatItemResponse | undefined, isLast: boolean) => {
+      if (!chatResponse) {
+        return null;
+      }
+
       const responseType = chatResponse.thoughts ? 'multiple' : 'single';
 
       if (isRequestLoading && isLast) {
@@ -290,7 +322,7 @@ export const Chat = ({
               <StyledLoadingDot />
             </Stack>
           ) : (
-            chatResponse.processedChunks.map((segment) => (
+            chatResponse.processedChunks?.map((segment) => (
               <React.Fragment key={segment.id}>
                 {segment.isCode ? (
                   <code dangerouslySetInnerHTML={{ __html: sanitizeMessage(segment?.text) }} />

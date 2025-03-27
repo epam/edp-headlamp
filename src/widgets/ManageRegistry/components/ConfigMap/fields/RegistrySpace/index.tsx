@@ -1,6 +1,7 @@
 import React from 'react';
 import { CONTAINER_REGISTRY_TYPE } from '../../../../../../k8s/groups/default/ConfigMap/constants';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
+import { ValueOf } from '../../../../../../types/global';
 import { useRegistryFormsContext } from '../../../../hooks/useRegistryFormsContext';
 import { CONFIG_MAP_FORM_NAMES } from '../../../../names';
 
@@ -43,14 +44,23 @@ export const RegistrySpace = () => {
   return (
     <FormTextField
       {...configMap.form.register(CONFIG_MAP_FORM_NAMES.registrySpace.name, {
-        required: TYPE_EMPTY_MESSAGE_MAP[registryTypeFieldValue] || 'Enter registry space.',
+        required:
+          TYPE_EMPTY_MESSAGE_MAP[
+            registryTypeFieldValue as ValueOf<typeof CONTAINER_REGISTRY_TYPE>
+          ] || 'Enter registry space.',
         pattern: {
           value: /^[a-z0-9_-]+$/,
           message: 'Only alphanumeric characters, underscores, and hyphens are allowed.',
         },
       })}
-      label={TYPE_LABEL_MAP[registryTypeFieldValue] || 'Registry Space'}
-      title={TYPE_TITLE_MAP[registryTypeFieldValue] || 'Specify registry space.'}
+      label={
+        TYPE_LABEL_MAP[registryTypeFieldValue as ValueOf<typeof CONTAINER_REGISTRY_TYPE>] ||
+        'Registry Space'
+      }
+      title={
+        TYPE_TITLE_MAP[registryTypeFieldValue as ValueOf<typeof CONTAINER_REGISTRY_TYPE>] ||
+        'Specify registry space.'
+      }
       placeholder={'Enter registry space'}
       control={configMap.form.control}
       errors={configMap.form.formState.errors}

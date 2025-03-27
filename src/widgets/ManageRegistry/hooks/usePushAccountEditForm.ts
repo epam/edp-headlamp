@@ -21,7 +21,7 @@ export const usePushAccountEditForm = ({
   sharedForm,
   permissions,
 }: {
-  pushAccountSecret: SecretKubeObjectInterface;
+  pushAccountSecret: SecretKubeObjectInterface | undefined;
   sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
   permissions: WidgetPermissions;
 }): FormItem => {

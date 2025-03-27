@@ -13,8 +13,8 @@ export const useSecretEditForm = ({
   secret,
   permissions,
 }: {
-  handleClosePanel: () => void;
-  secret: SecretKubeObjectInterface;
+  handleClosePanel: (() => void) | undefined;
+  secret: SecretKubeObjectInterface | undefined;
   permissions: WidgetPermissions;
 }) => {
   const {

@@ -39,7 +39,7 @@ export const Applications = () => {
 
   const applicationsOptions = React.useMemo(
     () =>
-      applications.map((app) => ({
+      (applications || []).map((app) => ({
         label: app.metadata.name,
         value: app.metadata.name,
       })),
@@ -68,7 +68,7 @@ export const Applications = () => {
 
     const newInputDockerStreamsValue = getValues(
       CDPIPELINE_FORM_NAMES.inputDockerStreams.name
-    ).filter((stream) => !removedApplicationsBranchesNames.includes(stream));
+    ).filter((stream: string) => !removedApplicationsBranchesNames.includes(stream));
 
     setValue(CDPIPELINE_FORM_NAMES.inputDockerStreams.name, newInputDockerStreamsValue);
 
@@ -156,7 +156,7 @@ export const Applications = () => {
             title="Enables the promotion of applications to the higher environment upon the successful pass through all quality gates."
           />
           <FormSwitch
-            label={undefined}
+            label={<></>}
             labelPlacement="start"
             {...register(CDPIPELINE_FORM_NAMES.applicationsToPromoteAll.name, {
               onChange: ({ target: { value } }: FieldEvent) => {

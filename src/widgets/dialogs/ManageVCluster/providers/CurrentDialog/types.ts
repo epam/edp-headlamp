@@ -5,6 +5,6 @@ export interface CurrentDialogContextProviderProps extends ManageVClusterDialogP
 
 export interface CurrentDialogContextProviderValue extends CurrentDialogContextProviderProps {
   extra: {
-    EDPConfigMap: ConfigMapKubeObjectInterface;
+    EDPConfigMap: ConfigMapKubeObjectInterface | undefined;
   };
 }

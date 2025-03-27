@@ -25,7 +25,7 @@ export const FormActions = ({ permissions }: { permissions: WidgetPermissions })
 
   const handleClose = React.useCallback(() => {
     reset();
-    handleClosePlaceholder();
+    handleClosePlaceholder && handleClosePlaceholder();
   }, [handleClosePlaceholder, reset]);
 
   const {
