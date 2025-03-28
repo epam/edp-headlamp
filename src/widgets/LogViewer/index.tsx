@@ -185,13 +185,11 @@ export const LogsViewer = ({
             value={activePod ? activePod.metadata.name : ''}
             onChange={handlePodChange}
           >
-            {pods &&
-              pods.length &&
-              pods.map(({ metadata: { name } }) => (
-                <MenuItem value={name} key={name}>
-                  {name}
-                </MenuItem>
-              ))}
+            {(pods || []).map(({ metadata: { name } }) => (
+              <MenuItem value={name} key={name}>
+                {name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>,
         <FormControl className={classes.containerFormControl}>
