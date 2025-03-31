@@ -34,7 +34,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     const cancelStream = PipelineRunKubeObject.streamItem({
       namespace,
       name,
-      dataHandler: setPipelineRun,
+      dataHandler: (data) => setPipelineRun(data),
       errorHandler: (error) => setPipelineRunError(error as ApiError),
     });
 
@@ -144,7 +144,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       pipelineRun: {
         data: pipelineRun,
         error: pipelineRunError,
-        isLoading: pipelineRun === null,
+        isLoading: pipelineRun === null && !pipelineRunError,
       },
       taskRuns: {
         data: taskRuns,
@@ -156,7 +156,10 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
           pipelineRunTasks,
           pipelineRunTasksByNameMap,
         },
-        isLoading: taskRuns === null || tasks === null || pipelineRun === null,
+        isLoading:
+          (taskRuns === null && !pipelineRunError) ||
+          (tasks === null && !pipelineRunError) ||
+          (pipelineRun === null && !pipelineRunError),
         error: taskRunErrors || tasksError || pipelineRunError || approvalTasksError,
       },
       logs: {

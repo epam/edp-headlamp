@@ -20,10 +20,6 @@ export const useTabs = () => {
   }, [handleChangeTab]);
 
   return React.useMemo(() => {
-    if (pipelineRun.isLoading && !pipelineRun.error) {
-      return [];
-    }
-
     return [
       {
         label: 'Overview',
@@ -105,5 +101,5 @@ export const useTabs = () => {
         ),
       },
     ];
-  }, [onNodeElementLinkClick, pipelineRun.data, pipelineRun.error, pipelineRun.isLoading]);
+  }, [onNodeElementLinkClick, pipelineRun.data]);
 };
