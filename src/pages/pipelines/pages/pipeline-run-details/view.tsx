@@ -130,7 +130,7 @@ export const PageView = () => {
           {resourceIsLoaded && (
             <PipelineRunActionsMenu
               data={{
-                pipelineRun: pipelineRun.data,
+                pipelineRun: pipelineRun.data!,
               }}
               permissions={permissions}
               backRoute={Router.createRouteURL(routePipelineRunList.path)}

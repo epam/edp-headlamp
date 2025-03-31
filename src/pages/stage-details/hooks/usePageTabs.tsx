@@ -55,28 +55,24 @@ export const usePageTabs = ({
   variablesConfigMap,
   enrichedApplicationsWithItsImageStreams,
 }: {
-  CDPipeline: DataProviderValue<CDPipelineKubeObjectInterface>;
-  stage: DataProviderValue<StageKubeObjectInterface>;
-  stages: DataProviderValue<StageKubeObjectInterface[]>;
-  pipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
-  deployPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
-  cleanPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[]>;
-  argoApplications: DataProviderValue<ApplicationKubeObjectInterface[]>;
+  CDPipeline: DataProviderValue<CDPipelineKubeObjectInterface | null | undefined>;
+  stage: DataProviderValue<StageKubeObjectInterface | null | undefined>;
+  stages: DataProviderValue<StageKubeObjectInterface[] | undefined>;
+  pipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[] | null>;
+  deployPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[] | null>;
+  cleanPipelineRuns: DataProviderValue<PipelineRunKubeObjectInterface[] | null>;
+  argoApplications: DataProviderValue<ApplicationKubeObjectInterface[] | null>;
   newPipelineRunAdded: boolean;
   setNewPipelineRunAdded: (value: boolean) => void;
-  variablesConfigMap: DataProviderValue<ConfigMapKubeObjectInterface>;
+  variablesConfigMap: DataProviderValue<ConfigMapKubeObjectInterface | null | undefined>;
   enrichedApplicationsWithItsImageStreams: DataProviderValue<
-    EnrichedApplicationWithItsImageStreams[]
+    EnrichedApplicationWithItsImageStreams[] | undefined
   >;
 }): Tab[] => {
   const { namespace, stageName } = useParams<EDPStageDetailsRouteParams>();
   const { data: QuickLinksURLS, isLoading: QuickLinksURLSIsLoading } =
     useQuickLinksURLsQuery(namespace);
-  const { data: QuickLinks } = useQuickLinksQuery({
-    props: {
-      namespace,
-    },
-  });
+  const { data: QuickLinks } = useQuickLinksQuery(namespace);
 
   const monitoringQuickLink =
     QuickLinks &&
@@ -174,7 +170,7 @@ export const usePageTabs = ({
                 <PipelineRunList
                   tableId={TABLE.STAGE_PIPELINE_RUN_LIST.id}
                   tableName={TABLE.STAGE_PIPELINE_RUN_LIST.name}
-                  pipelineRuns={pipelineRuns.data}
+                  pipelineRuns={pipelineRuns.data!}
                   isLoading={pipelineRuns.isLoading && !pipelineRuns.error}
                   blockerError={pipelineRuns.error}
                   permissions={permissions}
@@ -229,8 +225,8 @@ export const usePageTabs = ({
               <Monitoring
                 provider={monitoringQuickLink?.metadata?.labels?.[QUICK_LINK_LABEL_SELECTOR_TYPE]!}
                 baseUrl={QuickLinksURLS?.monitoring!}
-                namespace={stage.data?.spec.namespace}
-                clusterName={stage.data?.spec.clusterName}
+                namespace={stage.data?.spec.namespace!}
+                clusterName={stage.data?.spec.clusterName!}
               />
             </TabSection>
           </LoadingWrapper>

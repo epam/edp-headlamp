@@ -13,7 +13,7 @@ describe('ManageCodebaseDialog', () => {
       <TestWrapper>
         <ManageCodebaseDialog
           props={{
-            codebaseData: null,
+            codebaseData: undefined,
           }}
           state={{
             open: true,

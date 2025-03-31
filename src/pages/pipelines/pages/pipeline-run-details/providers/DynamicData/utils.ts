@@ -6,7 +6,7 @@ export const normalizeLogs = (response: OpensearchResponse): NormalizedLogs => {
   }
 
   const result = (response?.hits?.hits || []).reduce(
-    (acc, cur) => {
+    (acc: { map: { [key: string]: string[] }; order: string[]; all: string[] }, cur) => {
       const taskName = cur._source?.kubernetes?.labels?.['tekton_dev/pipelineTask'];
 
       if (!taskName) {

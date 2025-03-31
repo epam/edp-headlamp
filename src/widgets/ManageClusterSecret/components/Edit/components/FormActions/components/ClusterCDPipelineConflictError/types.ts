@@ -2,5 +2,5 @@ import { StageKubeObjectInterface } from '../../../../../../../../k8s/groups/EDP
 
 export interface ClusterCDPipelineConflictErrorProps {
   conflictedStage: StageKubeObjectInterface;
-  clusterName: string;
+  clusterName: string | undefined;
 }

@@ -85,7 +85,7 @@ export const FormActions = () => {
     [editSecret, permissions.update.Secret.allowed]
   );
 
-  const clusterName = currentElement.metadata.name;
+  const clusterName = currentElement?.metadata.name;
 
   const conflictedStageQuery = useConflictedStageQuery(clusterName);
 
@@ -109,6 +109,10 @@ export const FormActions = () => {
   );
 
   const handleClickDelete = React.useCallback(() => {
+    if (!currentElement) {
+      return;
+    }
+
     setDialog(DeleteKubeObjectDialog, {
       objectName: clusterName,
       kubeObject: SecretKubeObject,

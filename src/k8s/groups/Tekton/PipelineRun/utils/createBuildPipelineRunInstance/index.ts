@@ -58,6 +58,7 @@ export const createBuildPipelineRunInstance = ({
 
   base.metadata.name = fullPipelineRunName;
 
+  base.metadata.labels = base.metadata.labels || {};
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE] = codebaseName;
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CODEBASE_BRANCH] = codebaseBranchMetadataName;
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] = PIPELINE_TYPE.BUILD;
@@ -74,9 +75,9 @@ export const createBuildPipelineRunInstance = ({
     },
   ];
 
-  const gitUrlPathWithoutSlashAtStart = codebaseGitUrlPath.startsWith('/')
+  const gitUrlPathWithoutSlashAtStart = codebaseGitUrlPath && codebaseGitUrlPath.startsWith('/')
     ? codebaseGitUrlPath.slice(1)
-    : codebaseGitUrlPath;
+    : codebaseGitUrlPath || '';
 
   for (const param of base.spec.params) {
     switch (param.name) {

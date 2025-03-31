@@ -1,7 +1,7 @@
 import makeStyles from '@mui/styles/makeStyles';
 import { rem } from '../../utils/styling/rem';
 
-export const useStyles = (width, height) =>
+export const useStyles = (width: number, height: number) =>
   makeStyles(() => ({
     icon: {
       display: 'flex',

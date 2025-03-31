@@ -1,7 +1,9 @@
 import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { PipelineRunKubeObjectInterface } from '../../types';
 
-export const getPullRequestURL = (pipelineRun: PipelineRunKubeObjectInterface): string | null => {
+export const getPullRequestURL = (
+  pipelineRun: PipelineRunKubeObjectInterface | null | undefined
+): string | null => {
   if (!pipelineRun) {
     return null;
   }
@@ -9,10 +11,12 @@ export const getPullRequestURL = (pipelineRun: PipelineRunKubeObjectInterface): 
   const hasParams = pipelineRun?.spec?.params?.length > 0;
 
   const gitSourceUrl =
-    hasParams && pipelineRun?.spec?.params.find((el) => el.name === 'git-source-url')?.value;
+    hasParams &&
+    pipelineRun?.spec?.params.find((el: { name: string }) => el.name === 'git-source-url')?.value;
 
   const changeNumber =
-    hasParams && pipelineRun?.spec?.params.find((el) => el.name === 'changeNumber')?.value;
+    hasParams &&
+    pipelineRun?.spec?.params.find((el: { name: string }) => el.name === 'changeNumber')?.value;
 
   const gitProvider = pipelineRun.metadata.labels?.['triggers.tekton.dev/trigger']?.split('-')?.[0];
 

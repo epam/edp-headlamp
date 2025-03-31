@@ -52,7 +52,7 @@ export const createPipelineRunInstanceFromPipeline = (
       pipelineRef: {
         name: pipeline.metadata.name,
       },
-      params: (pipeline.spec.params || []).map((param) => {
+      params: (pipeline.spec.params || []).map((param: { name: string; default: string }) => {
         return {
           name: param.name,
           value: param.default || '',

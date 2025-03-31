@@ -42,14 +42,9 @@ export const CleanTemplate = () => {
     (item) => item.metadata.name === fieldValue
   );
 
-  const { data: pipeline, isLoading: pipelineIsLoading } = usePipelineByNameQuery({
-    props: {
-      name: templateByName?.spec?.resourcetemplates?.[0]?.spec?.pipelineRef?.name,
-    },
-    options: {
-      enabled: !!templateByName,
-    },
-  });
+  const { data: pipeline, isLoading: pipelineIsLoading } = usePipelineByNameQuery(
+    templateByName?.spec?.resourcetemplates?.[0]?.spec?.pipelineRef?.name
+  );
 
   const _pipelineIsLoading = fieldValue && pipelineIsLoading;
 

@@ -89,7 +89,7 @@ describe('ManageCodebaseBranchDialog', () => {
           props={{
             codebase: mockCodebase as CodebaseKubeObjectInterface,
             defaultBranch: mockDefaultBranch as CodebaseBranchKubeObjectInterface,
-            codebaseBranch: null,
+            codebaseBranch: undefined,
             pipelines: mockPipelines,
           }}
           state={{

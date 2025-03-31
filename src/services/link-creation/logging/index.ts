@@ -5,8 +5,8 @@ export const LoggingURLService = {
     namespace,
     clusterName,
   }: {
-    provider: string;
-    baseURL: string;
+    provider: string | undefined;
+    baseURL: string | undefined;
     namespace: string;
     clusterName?: string;
   }) => {

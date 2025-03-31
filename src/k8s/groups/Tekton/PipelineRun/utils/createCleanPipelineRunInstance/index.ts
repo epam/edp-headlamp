@@ -36,6 +36,7 @@ export const createCleanPipelineRunInstance = ({
 
   base.metadata.name = fullPipelineRunName;
 
+  base.metadata.labels = base.metadata.labels || {};
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CDPIPELINE] = CDPipeline.metadata.name;
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_CDSTAGE] = stage.metadata.name;
   base.metadata.labels[PIPELINE_RUN_LABEL_SELECTOR_PIPELINE_TYPE] = PIPELINE_TYPE.CLEAN;

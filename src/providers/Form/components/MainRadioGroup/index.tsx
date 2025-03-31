@@ -18,7 +18,7 @@ import { MainRadioGroupProps } from './types';
 export const MainRadioGroup = React.forwardRef(
   (
     { name, control, errors, options, gridItemSize, ...props }: MainRadioGroupProps,
-    ref: React.RefObject<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const hasError = !!errors[name];
     const classes = useStyles();

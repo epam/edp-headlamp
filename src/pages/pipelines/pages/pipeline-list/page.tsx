@@ -14,7 +14,7 @@ export default function () {
         <DialogContextProvider>
           <FilterContextProvider
             entityID={`PIPELINE_LIST::${getDefaultNamespace()}`}
-            matchFunctions={undefined}
+            matchFunctions={null}
           >
             <PageView />
           </FilterContextProvider>

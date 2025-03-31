@@ -30,11 +30,17 @@ export const DeletionDialog = ({
   const deletionDisabled = value !== CONFIRM_TEXT_VALUE;
 
   const { deleteKubeObject } = useDeleteKubeObject({
-    onSuccess: () => deleteKubeObject({ kubeObject: SecretKubeObject, variables: gitServerSecret }),
+    onSuccess: () =>
+      gitServerSecret &&
+      deleteKubeObject({ kubeObject: SecretKubeObject, variables: gitServerSecret }),
   });
 
   const handleDelete = React.useCallback(() => {
     setValue('');
+
+    if (!gitServer) {
+      return;
+    }
 
     deleteKubeObject({ kubeObject: GitServerKubeObject, variables: gitServer });
   }, [deleteKubeObject, gitServer]);

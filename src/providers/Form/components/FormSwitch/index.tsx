@@ -18,7 +18,7 @@ export const FormSwitch = React.forwardRef(
       labelPlacement = 'end',
       ...props
     }: FormSwitchProps,
-    ref: React.RefObject<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const hasError = !!errors[name];
 

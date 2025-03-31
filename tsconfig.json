@@ -6,7 +6,7 @@
     "baseUrl": "./src",
     "types": ["node", "jest"],
     "jsx": "react",
-    "strict": false
+    "strict": true
   },
   "include": ["./src/**/*"],
   "extends": "./node_modules/@kinvolk/headlamp-plugin/config/plugins-tsconfig.json",

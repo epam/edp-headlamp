@@ -33,6 +33,10 @@ export const createCDPipelineStageInstance = (
 
   for (const [propKey, propValue] of Object.entries(restProps)) {
     const propPath = names[propKey].path;
+    if (!propPath) {
+      continue;
+    }
+
     set(base, propPath, propValue);
   }
 

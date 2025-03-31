@@ -103,7 +103,7 @@ export const DeleteKubeObjectDialog: React.FC<DeleteKubeObjectDialogProps> = (_p
 
   const isSubmitNotAllowed = kubeObjectNameFieldValue !== objectName || !!errorTemplate;
   const dialogTitle = React.useMemo(
-    () => getDialogTitle(errorTemplate, objectName),
+    () => getDialogTitle(errorTemplate, objectName || ''),
     [errorTemplate, objectName]
   );
 

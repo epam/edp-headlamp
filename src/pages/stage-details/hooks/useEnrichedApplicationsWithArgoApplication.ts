@@ -20,13 +20,13 @@ export const useEnrichedApplicationsWithArgoApplications = ({
   stage,
   argoApplications,
 }: {
-  CDPipeline: DataProviderValue<CDPipelineKubeObjectInterface>;
-  stages: DataProviderValue<StageKubeObjectInterface[]>;
+  CDPipeline: DataProviderValue<CDPipelineKubeObjectInterface | null | undefined>;
+  stages: DataProviderValue<StageKubeObjectInterface[] | undefined>;
   enrichedApplicationsWithItsImageStreams: DataProviderValue<
-    EnrichedApplicationWithItsImageStreams[]
+    EnrichedApplicationWithItsImageStreams[] | undefined
   >;
-  stage: DataProviderValue<StageKubeObjectInterface>;
-  argoApplications: DataProviderValue<ApplicationKubeObjectInterface[]>;
+  stage: DataProviderValue<StageKubeObjectInterface | null | undefined>;
+  argoApplications: DataProviderValue<ApplicationKubeObjectInterface[] | null>;
 }) => {
   const inputDockerStreams = CDPipeline.data?.spec.inputDockerStreams;
   const appsToPromote = CDPipeline.data?.spec.applicationsToPromote;
@@ -51,6 +51,9 @@ export const useEnrichedApplicationsWithArgoApplications = ({
       imageStreams: CodebaseImageStreamKubeObjectInterface[],
       order: number
     ): CodebaseImageStreamKubeObjectInterface | undefined => {
+      if (!stages.data) {
+        return;
+      }
       if (order === 0) {
         return (
           imageStreams &&
@@ -105,7 +108,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
               name === `${CDPipelineName}-${stage.data?.spec.name}-${codebase}-verified`
           );
 
-        const argoApplicationByCodebaseName = argoApplications.data.find(
+        const argoApplicationByCodebaseName = argoApplications.data!.find(
           (argoApplication) =>
             argoApplication.metadata?.labels?.['app.edp.epam.com/app-name'] === appName
         );
@@ -113,7 +116,7 @@ export const useEnrichedApplicationsWithArgoApplications = ({
         const applicationImageStream = isPromote
           ? getImageStreamByStageOrder(
               enrichedApplicationWithItsImageStreams.applicationImageStreams,
-              stageOrder
+              stageOrder!
             )
           : getImageStreamByToPromoteFlag(
               enrichedApplicationWithItsImageStreams.applicationImageStreams

@@ -14,13 +14,13 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
     data: cleanTriggerTemplateList,
     isLoading: cleanTriggerTemplateListIsLoading,
     error: cleanTriggerTemplateListError,
-  } = useCleanTriggerTemplateListQuery({});
+  } = useCleanTriggerTemplateListQuery();
 
   const {
     data: deployTriggerTemplateList,
     isLoading: deployTriggerTemplateListIsLoading,
     error: deployTriggerTemplateListError,
-  } = useDeployTriggerTemplateListQuery({});
+  } = useDeployTriggerTemplateListQuery();
 
   const CurrentDialogContextValue = React.useMemo(
     () => ({
