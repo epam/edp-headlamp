@@ -1,6 +1,36 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Bug Fixes
+
+- Sonar error ([#693](https://github.com/epam/edp-headlamp/issues/693))
+- Some of ts errors ([#686](https://github.com/epam/edp-headlamp/issues/686))
+- Some of ts errors ([#686](https://github.com/epam/edp-headlamp/issues/686))
+- Some of ts errors ([#686](https://github.com/epam/edp-headlamp/issues/686))
+
+### Routine
+
+- Update image version ([#696](https://github.com/epam/edp-headlamp/issues/696))
+- Update image version ([#693](https://github.com/epam/edp-headlamp/issues/693))
+- Update image ([#693](https://github.com/epam/edp-headlamp/issues/693))
+- Update current development version ([#688](https://github.com/epam/edp-headlamp/issues/688))
+
+
+<a name="v0.21.1"></a>
+## [v0.21.1] - 2025-03-31
+### Bug Fixes
+
+- Sonar error ([#693](https://github.com/epam/edp-headlamp/issues/693))
+- Some of ts errors ([#686](https://github.com/epam/edp-headlamp/issues/686))
+- Some of ts errors ([#686](https://github.com/epam/edp-headlamp/issues/686))
+- Some of ts errors ([#686](https://github.com/epam/edp-headlamp/issues/686))
+
+### Routine
+
+- Update image version ([#696](https://github.com/epam/edp-headlamp/issues/696))
+- Update image version ([#693](https://github.com/epam/edp-headlamp/issues/693))
+- Update image ([#693](https://github.com/epam/edp-headlamp/issues/693))
+
 
 <a name="v0.21.0"></a>
 ## [v0.21.0] - 2025-03-22
@@ -720,7 +750,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.21.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.21.1...HEAD
+[v0.21.1]: https://github.com/epam/edp-headlamp/compare/v0.21.0...v0.21.1
 [v0.21.0]: https://github.com/epam/edp-headlamp/compare/v0.20.0...v0.21.0
 [v0.20.0]: https://github.com/epam/edp-headlamp/compare/v0.19.0...v0.20.0
 [v0.19.0]: https://github.com/epam/edp-headlamp/compare/v0.18.0...v0.19.0

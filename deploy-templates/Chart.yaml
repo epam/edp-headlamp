@@ -26,10 +26,10 @@ annotations:
   artifacthub.io/license: Apache-2.0
   artifacthub.io/operator: "true"
   artifacthub.io/images: |
-    - name: epamedp/headlamp:0.22.62
-      image: epamedp/headlamp:0.22.62
-    - name: edp-headlamp:0.21.0
-      image: epamedp/edp-headlamp:0.21.0
+    - name: epamedp/headlamp:0.22.65
+      image: epamedp/headlamp:0.22.65
+    - name: edp-headlamp:0.21.1
+      image: epamedp/edp-headlamp:0.21.1
   artifacthub.io/operatorCapabilities: Full Lifecycle
   artifacthub.io/links: |
     - name: KubeRocketCI Documentation
