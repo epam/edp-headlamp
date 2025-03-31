@@ -2,8 +2,8 @@
 ## [Unreleased]
 
 
-<a name="v0.21.1"></a>
-## v0.21.1 - 2025-03-31
+<a name="v0.21.2"></a>
+## v0.21.2 - 2025-03-31
 ### Features
 
 - Add cluster secret status ([#686](https://github.com/epam/edp-headlamp/issues/686))
@@ -281,6 +281,7 @@
 
 ### Bug Fixes
 
+- Pipelinerun page conditional rendering ([#696](https://github.com/epam/edp-headlamp/issues/696))
 - Sonar error ([#693](https://github.com/epam/edp-headlamp/issues/693))
 - Some of ts errors ([#686](https://github.com/epam/edp-headlamp/issues/686))
 - Some of ts errors ([#686](https://github.com/epam/edp-headlamp/issues/686))
@@ -537,4 +538,4 @@
 - Fix link to gitservers documentation([#63](https://github.com/epam/edp-headlamp/issues/63))
 
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.21.1...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.21.2...HEAD
