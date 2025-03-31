@@ -50,8 +50,8 @@ import {
 } from './mocks/libraryImportStrategyEditorPropsObject.mock';
 
 const executeMockState = () => {
-  const formState = {}; // react-hook-form state
-  const formValues = {}; // form&editor state
+  const formState: Record<string, any> = {}; // react-hook-form state
+  const formValues: Record<string, any> = {}; // form&editor state
 
   const setValue = (name: string, value: any): void => {
     formState[name] = value;

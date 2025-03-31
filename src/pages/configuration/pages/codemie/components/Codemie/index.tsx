@@ -116,9 +116,9 @@ export const CodemieSection = ({
         </AccordionSummary>
         <AccordionDetails>
           <ManageCodeMie
-            quickLink={codemieQuickLink.data}
-            codemie={codemie.data}
-            codemieSecret={codemieSecret.data}
+            quickLink={codemieQuickLink.data!}
+            codemie={codemie.data!}
+            codemieSecret={codemieSecret.data!}
             permissions={permissions}
             handleClosePanel={handleCloseCreateDialog}
           />

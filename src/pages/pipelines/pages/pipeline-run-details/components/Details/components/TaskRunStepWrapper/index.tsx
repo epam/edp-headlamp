@@ -16,11 +16,11 @@ import { useTabs } from './hooks/useTabs';
 import { TaskRunStepProps } from './types';
 
 export const TaskRunStepWrapper = ({ pipelineRunTaskData, stepName }: TaskRunStepProps) => {
-  const step = pipelineRunTaskData.taskRun
+  const step = pipelineRunTaskData?.taskRun
     ? pipelineRunTaskData.taskRun?.status?.steps?.find(
         (step: TaskRunKubeObjectInterface) => step?.name === stepName
       )
-    : pipelineRunTaskData.task?.spec?.steps?.find(
+    : pipelineRunTaskData?.task?.spec?.steps?.find(
         (step: TaskRunKubeObjectInterface) => step?.name === stepName
       );
 
@@ -41,8 +41,8 @@ export const TaskRunStepWrapper = ({ pipelineRunTaskData, stepName }: TaskRunSte
   });
 
   const [pods] = PodKubeObject.useList({
-    labelSelector: `tekton.dev/taskRun=${pipelineRunTaskData.taskRun?.metadata.name}`,
-    namespace: pipelineRunTaskData.taskRun?.metadata.namespace,
+    labelSelector: `tekton.dev/taskRun=${pipelineRunTaskData?.taskRun.metadata.name || ''}`,
+    namespace: pipelineRunTaskData?.taskRun.metadata.namespace,
   });
 
   const hasPods = pods?.length > 0;
@@ -50,13 +50,13 @@ export const TaskRunStepWrapper = ({ pipelineRunTaskData, stepName }: TaskRunSte
   const initialTabIdx = hasPods ? 0 : 1;
 
   const tabs = useTabs({
-    taskRun: pipelineRunTaskData.taskRun,
+    taskRun: pipelineRunTaskData?.taskRun,
     stepName: step?.name,
     pods,
-    task: pipelineRunTaskData.task,
+    task: pipelineRunTaskData?.task,
   });
 
-  const taskDescription = pipelineRunTaskData.task?.spec?.description || '';
+  const taskDescription = pipelineRunTaskData?.task?.spec?.description || '';
 
   return (
     <Paper>

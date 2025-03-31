@@ -25,9 +25,11 @@ export interface FilterContextProviderValue<Item extends unknown, ControlNames e
 export interface FilterContextProviderProps<Item extends unknown, ControlNames extends string> {
   children: React.ReactNode;
   entityID: string;
-  matchFunctions: {
-    [key in ControlNames]?: (item: Item, value: any) => boolean;
-  };
+  matchFunctions:
+    | {
+        [key in ControlNames]?: (item: Item, value: any) => boolean;
+      }
+    | null;
   saveToLocalStorage?: boolean;
 }
 

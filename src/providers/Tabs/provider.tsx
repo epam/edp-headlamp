@@ -18,7 +18,7 @@ export const TabsContextProvider: React.FC<TabsContextProviderProps> = ({
   );
 
   const handleChangeTab = React.useCallback(
-    (event: React.ChangeEvent<{}>, newActiveTabIdx: number) => {
+    (event: React.ChangeEvent<{}> | null, newActiveTabIdx: number) => {
       setActiveTab(newActiveTabIdx);
 
       if (!rememberLastTab) {

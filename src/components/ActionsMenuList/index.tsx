@@ -21,7 +21,7 @@ export const ActionsMenuList = ({
 
   return (
     <ClickAwayListener
-      onClickAway={handleCloseActionsMenu}
+      onClickAway={handleCloseActionsMenu!}
       mouseEvent="onMouseDown"
       touchEvent="onTouchStart"
     >

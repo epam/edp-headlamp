@@ -18,7 +18,7 @@ type CustomMessages = {
 export interface DeleteKubeObjectDialogProps
   extends DialogProps<{
     description: string;
-    objectName: string;
+    objectName: string | undefined;
     kubeObject: KubeObject;
     kubeObjectData: EDPKubeObjectInterface;
     onBeforeSubmit?(

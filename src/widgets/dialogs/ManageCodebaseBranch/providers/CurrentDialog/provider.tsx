@@ -14,21 +14,13 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
     data: buildPipelines,
     error: buildPipelinesError,
     isLoading: buildPipelinesIsLoading,
-  } = usePipelineByTypeListQuery({
-    props: {
-      pipelineType: PIPELINE_TYPE.BUILD,
-    },
-  });
+  } = usePipelineByTypeListQuery(PIPELINE_TYPE.BUILD);
 
   const {
     data: reviewPipelines,
     error: reviewPipelinesError,
     isLoading: reviewPipelinesIsLoading,
-  } = usePipelineByTypeListQuery({
-    props: {
-      pipelineType: PIPELINE_TYPE.REVIEW,
-    },
-  });
+  } = usePipelineByTypeListQuery(PIPELINE_TYPE.REVIEW);
 
   const CurrentDialogContextValue = React.useMemo(
     () => ({

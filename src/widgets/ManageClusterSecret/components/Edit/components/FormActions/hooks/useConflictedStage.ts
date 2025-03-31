@@ -5,7 +5,7 @@ import { StageKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/St
 import { KubeObjectListInterface } from '../../../../../../../types/k8s';
 import { getDefaultNamespace } from '../../../../../../../utils/getDefaultNamespace';
 
-export const useConflictedStageQuery = (clusterName: string) => {
+export const useConflictedStageQuery = (clusterName: string | undefined) => {
   const namespace = getDefaultNamespace();
 
   return useQuery<

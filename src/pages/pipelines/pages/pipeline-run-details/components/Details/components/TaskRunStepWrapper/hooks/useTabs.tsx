@@ -12,8 +12,8 @@ export const useTabs = ({
   stepName,
   pods,
 }: {
-  taskRun: TaskRunKubeObjectInterface;
-  task: TaskKubeObjectInterface;
+  taskRun: TaskRunKubeObjectInterface | undefined;
+  task: TaskKubeObjectInterface | undefined;
   stepName: string;
   pods: PodKubeObjectInterface[];
 }) => {

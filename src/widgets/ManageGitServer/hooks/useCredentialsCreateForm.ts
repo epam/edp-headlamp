@@ -23,11 +23,10 @@ export const useCredentialsCreateForm = ({
   sharedForm: UseFormReturn<SharedFormValues, any, undefined>;
   permissions: WidgetPermissions;
 }): FormItem => {
-  const createMutation = useResourceCRUDMutation<SecretKubeObjectInterface, typeof CRUD_TYPE.CREATE>(
-    'gitServerCreateMutation',
-    SecretKubeObject,
-    CRUD_TYPE.CREATE
-  );
+  const createMutation = useResourceCRUDMutation<
+    SecretKubeObjectInterface,
+    typeof CRUD_TYPE.CREATE
+  >('gitServerCreateMutation', SecretKubeObject, CRUD_TYPE.CREATE);
 
   const form = useForm<CredentialsFormValues>();
 
@@ -67,6 +66,11 @@ export const useCredentialsCreateForm = ({
             break;
         }
       })();
+
+      if (!newGitServerSecret) {
+        return;
+      }
+
       createMutation.mutate(newGitServerSecret);
     },
     [permissions.create.Secret.allowed, sharedForm, createMutation]

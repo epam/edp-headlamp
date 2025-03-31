@@ -103,12 +103,11 @@ export const PageView = () => {
           },
         },
         {
-          label: stageSpecName,
+          label: stageSpecName || '',
         },
       ]}
       headerSlot={
-        !isDataLoading &&
-        resourceIsLoaded && (
+        !isDataLoading && resourceIsLoaded ? (
           <Stack direction="row" alignItems="center" spacing={1}>
             <QuickLink
               name={{
@@ -134,9 +133,9 @@ export const PageView = () => {
               enabledText="monitoring dashboard"
               iconBase64={monitoringQuickLink?.spec?.icon}
               externalLink={LinkCreationService.monitoring.createDashboardLink({
-                provider: monitoringQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
+                provider: monitoringQuickLink?.metadata?.labels?.[QUICK_LINK_LABEL_SELECTOR_TYPE],
                 baseURL: QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.MONITORING],
-                namespace: stage.data?.spec.namespace,
+                namespace: stage.data?.spec.namespace!,
                 clusterName: stage.data?.spec.clusterName,
               })}
               QuickLinkComponent={monitoringQuickLink}
@@ -150,9 +149,9 @@ export const PageView = () => {
               enabledText="logging dashboard"
               iconBase64={loggingQuickLink?.spec?.icon}
               externalLink={LinkCreationService.logging.createDashboardLink({
-                provider: loggingQuickLink?.metadata?.labels[QUICK_LINK_LABEL_SELECTOR_TYPE],
+                provider: loggingQuickLink?.metadata?.labels?.[QUICK_LINK_LABEL_SELECTOR_TYPE],
                 baseURL: QuickLinksURLs.data?.[SYSTEM_QUICK_LINKS.LOGGING],
-                namespace: stage.data?.spec.namespace,
+                namespace: stage.data?.spec.namespace!,
                 clusterName: stage.data?.spec.clusterName,
               })}
               QuickLinkComponent={loggingQuickLink}
@@ -161,9 +160,9 @@ export const PageView = () => {
             <Box sx={{ ml: (t) => t.typography.pxToRem(20) }}>
               <StageActionsMenu
                 data={{
-                  stages: stages.data,
-                  CDPipelineData: CDPipeline.data,
-                  stage: stage.data,
+                  stages: stages.data!,
+                  CDPipelineData: CDPipeline.data!,
+                  stage: stage.data!,
                 }}
                 permissions={permissions}
                 backRoute={backRoute}
@@ -171,7 +170,7 @@ export const PageView = () => {
               />
             </Box>
           </Stack>
-        )
+        ) : undefined
       }
     >
       <Section

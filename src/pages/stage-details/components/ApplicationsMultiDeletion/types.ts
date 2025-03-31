@@ -6,5 +6,9 @@ export interface ApplicationMultiDeletionProps {
   open: boolean;
   handleClose: () => void;
   onDelete: () => void;
-  deleteArgoApplication: ({ argoApplication }) => Promise<void>;
+  deleteArgoApplication: ({
+    argoApplication,
+  }: {
+    argoApplication: ApplicationKubeObjectInterface;
+  }) => Promise<void>;
 }

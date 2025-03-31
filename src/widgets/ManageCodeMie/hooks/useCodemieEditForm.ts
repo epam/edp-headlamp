@@ -16,7 +16,7 @@ export const useCodemieEditForm = ({
   permissions,
 }: {
   handleClosePanel: (() => void) | undefined;
-  codemie: CodemieKubeObjectInterface;
+  codemie: CodemieKubeObjectInterface | undefined;
   permissions: WidgetPermissions;
 }): FormItem => {
   const codemieEditMutation = useResourceCRUDMutation<

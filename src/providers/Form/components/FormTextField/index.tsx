@@ -21,7 +21,7 @@ export const FormTextField = React.forwardRef(
       TextFieldProps,
       ...props
     }: FormTextFieldProps,
-    ref: React.RefObject<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const theme = useTheme();
 

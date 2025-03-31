@@ -9,7 +9,7 @@ import { ActionsProps } from './types';
 
 export const Actions = ({ codebaseBranchData }: ActionsProps) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
-  const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement>(null);
+  const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement | null>(null);
 
   const permissions = useTypedPermissions();
 
@@ -36,7 +36,7 @@ export const Actions = ({ codebaseBranchData }: ActionsProps) => {
         data={{
           branch: codebaseBranchData,
           defaultBranch,
-          codebaseData,
+          codebaseData: codebaseData!,
           pipelines,
         }}
         permissions={permissions}

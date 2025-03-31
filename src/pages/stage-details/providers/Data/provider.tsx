@@ -15,12 +15,7 @@ export const DataContextProvider: React.FC = ({ children }) => {
 
   const CDPipelineQuery = useCDPipelineByNameQuery(CDPipelineName, namespace);
 
-  const stagesQuery = useCDPipelineStageListByCDPipelineNameQuery({
-    props: {
-      namespace,
-      CDPipelineMetadataName: CDPipelineName,
-    },
-  });
+  const stagesQuery = useCDPipelineStageListByCDPipelineNameQuery(CDPipelineName, namespace);
 
   const {
     isLoading: isEnrichedApplicationsWithImageStreamsQueryLoading,
@@ -29,11 +24,7 @@ export const DataContextProvider: React.FC = ({ children }) => {
 
   const gitOpsCodebaseQuery = useGitOpsCodebaseQuery();
 
-  const QuickLinksQuery = useQuickLinksQuery({
-    props: {
-      namespace: namespace,
-    },
-  });
+  const QuickLinksQuery = useQuickLinksQuery(namespace);
 
   const QuickLinksURLsQuery = useQuickLinksURLsQuery(namespace);
 

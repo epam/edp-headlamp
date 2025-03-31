@@ -6,7 +6,7 @@ export interface TableBodyProps<DataType = unknown> {
   data: DataType[] | null;
   columns: TableColumn<DataType>[];
   isLoading: boolean;
-  blockerError?: ApiError;
+  blockerError?: ApiError | null;
   errors?: ApiError[] | null;
   blockerComponent?: React.ReactNode;
   emptyListComponent?: React.ReactNode;

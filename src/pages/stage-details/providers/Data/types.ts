@@ -6,7 +6,7 @@ import { StageKubeObjectInterface } from '../../../../k8s/groups/EDP/Stage/types
 import { DataProviderValue } from '../../../../types/pages';
 
 export interface DataContextProviderValue {
-  CDPipeline: DataProviderValue<CDPipelineKubeObjectInterface | undefined>;
+  CDPipeline: DataProviderValue<CDPipelineKubeObjectInterface | null | undefined>;
   stages: DataProviderValue<StageKubeObjectInterface[] | undefined>;
   enrichedApplications: DataProviderValue<EnrichedApplicationWithItsImageStreams[] | undefined>;
   gitOpsCodebase: DataProviderValue<CodebaseKubeObjectInterface | undefined>;

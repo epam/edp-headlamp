@@ -38,11 +38,13 @@ export const usePipelineRunData = ({
         pipelineRunTask: item,
         task: tasks.find((task) => task.metadata.name === item.taskRef.name),
         taskRun: taskRuns.find(
-          (taskRun) => taskRun.metadata.labels[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === item.name
+          (taskRun) =>
+            taskRun.metadata?.labels?.[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === item.name
         ),
         approvalTask: approvalTasks?.find(
           (approvalTask) =>
-            approvalTask.metadata.labels[APPROVAL_TASK_LABEL_SELECTOR_PIPELINE_TASK] === item.name
+            approvalTask.metadata?.labels?.[APPROVAL_TASK_LABEL_SELECTOR_PIPELINE_TASK] ===
+            item.name
         ),
       });
       return acc;

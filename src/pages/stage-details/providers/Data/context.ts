@@ -1,17 +1,35 @@
 import React from 'react';
 import { DataContextProviderValue } from './types';
 
-const initialData = {
-  data: null,
-  isLoading: true,
-  error: null,
-};
-
 export const DataContext = React.createContext<DataContextProviderValue>({
-  CDPipeline: initialData,
-  stages: initialData,
-  enrichedApplications: initialData,
-  gitOpsCodebase: initialData,
-  QuickLinks: initialData,
-  QuickLinksURLs: initialData,
+  CDPipeline: {
+    data: null,
+    isLoading: true,
+    error: null,
+  },
+  stages: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
+  enrichedApplications: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
+  gitOpsCodebase: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
+  QuickLinks: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
+  QuickLinksURLs: {
+    data: undefined,
+    isLoading: true,
+    error: null,
+  },
 });

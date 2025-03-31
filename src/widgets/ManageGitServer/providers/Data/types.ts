@@ -6,8 +6,8 @@ import { KubeObjectListInterface } from '../../../../types/k8s';
 import { WidgetPermissions } from '../../types';
 
 export interface DataContextProviderValue {
-  gitServer: GitServerKubeObjectInterface;
-  gitServerSecret: SecretKubeObjectInterface;
+  gitServer: GitServerKubeObjectInterface | undefined;
+  gitServerSecret: SecretKubeObjectInterface | undefined;
   permissions: WidgetPermissions;
   codebasesByGitServerQuery: UseQueryResult<
     KubeObjectListInterface<CodebaseKubeObjectInterface>,

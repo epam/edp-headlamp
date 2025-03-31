@@ -40,10 +40,12 @@ export const PermissionsContextProvider = <T extends Record<string, PermissionCo
     )
   );
 
-  const permissions = queryResults.reduce((acc, result) => {
+  const permissions = queryResults.reduce<
+    Record<Action, Record<string, { allowed: boolean; reason: string }>>
+  >((acc, result) => {
     if (result.isSuccess && result.data) {
       const { action, kind, allowed } = result.data;
-      if (!acc[action]) acc[action] = {};
+      if (!acc[action]) acc[action] = {} as Record<string, { allowed: boolean; reason: string }>;
       acc[action][kind] = {
         allowed,
         reason: DEFAULT_ALLOWED_REASON,
@@ -54,7 +56,7 @@ export const PermissionsContextProvider = <T extends Record<string, PermissionCo
       }
     }
     return acc;
-  }, {});
+  }, {} as Record<Action, Record<string, { allowed: boolean; reason: string }>>);
 
   const isFetching = queryResults.some((result) => result.isLoading);
 

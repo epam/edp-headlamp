@@ -19,7 +19,6 @@ export const FormContextProvider: React.FC<FormContextProviderProps> = ({
 
   return (
     <FormContext.Provider value={providerValue}>
-      {/* @ts-ignore */}
       <FormProvider {...formState}>{children}</FormProvider>
     </FormContext.Provider>
   );

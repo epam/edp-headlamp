@@ -88,7 +88,7 @@ export const MultiFormContextProvider = <FormName extends string>({
       isAnyFormDirty,
       isAnyFormSubmitting,
       isAnyFormForbiddenToSubmit,
-      sharedForm,
+      sharedForm: sharedForm!,
     }),
     [
       forms,

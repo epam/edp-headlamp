@@ -16,7 +16,7 @@ export interface CodebaseBranchActionsProps {
   };
   backRoute?: string;
   variant?: ActionMenuType;
-  anchorEl?: HTMLElement;
+  anchorEl?: HTMLElement | null;
   handleCloseResourceActionListMenu?: () => void;
   permissions: PermissionsConfig<typeof widgetPermissionsToCheck>;
 }

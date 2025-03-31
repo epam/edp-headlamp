@@ -2,6 +2,7 @@ import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { Grid } from '@mui/material';
 import React from 'react';
+import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { CRUD_TYPE } from '../../../../constants/crudTypes';
 import { useResourceCRUDMutation } from '../../../../hooks/useResourceCRUDMutation';
 import { CodemieApplicationKubeObject } from '../../../../k8s/groups/EDP/CodemieApplication';
@@ -105,13 +106,17 @@ export const PageView = () => {
       creationForm={{
         label: 'Add Integration',
         component: (
-          <ManageCodeMie
-            quickLink={codemieQuickLink.data}
-            codemie={codemie.data}
-            codemieSecret={codemieSecret.data}
-            permissions={permissions}
-            handleClosePanel={handleCloseCreateDialog}
-          />
+          <LoadingWrapper
+            isLoading={codemieQuickLink.isLoading || codemieSecret.isLoading || codemie.isLoading}
+          >
+            <ManageCodeMie
+              quickLink={codemieQuickLink.data!}
+              codemie={codemie.data!}
+              codemieSecret={codemieSecret.data!}
+              permissions={permissions}
+              handleClosePanel={handleCloseCreateDialog}
+            />
+          </LoadingWrapper>
         ),
         isOpen: isCreateDialogOpen,
         onOpen: handleOpenCreateDialog,

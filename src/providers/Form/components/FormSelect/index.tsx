@@ -35,7 +35,7 @@ export const FormSelect = React.forwardRef(
       helperText,
       ...props
     }: FormSelectProps,
-    ref: React.RefObject<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const theme = useTheme();
 

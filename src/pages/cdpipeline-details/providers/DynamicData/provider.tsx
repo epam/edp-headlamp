@@ -91,11 +91,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
     }));
   }, [applications, argoApplications, stages]);
 
-  const quickLinksQuery = useQuickLinksQuery({
-    props: {
-      namespace,
-    },
-  });
+  const quickLinksQuery = useQuickLinksQuery(namespace);
 
   const quickLinksURLsQuery = useQuickLinksURLsQuery();
 

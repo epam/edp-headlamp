@@ -42,14 +42,9 @@ export const BuildGroup = ({
 
   const theme = useTheme();
 
-  const { data: buildTriggerTemplate } = useTriggerTemplateByNameQuery({
-    props: {
-      name: `${gitServerByCodebase?.spec?.gitProvider}-build-template`,
-    },
-    options: {
-      enabled: !!gitServerByCodebase,
-    },
-  });
+  const { data: buildTriggerTemplate } = useTriggerTemplateByNameQuery(
+    `${gitServerByCodebase?.spec?.gitProvider}-build-template`
+  );
 
   const buildPipelineRunData = (() => {
     if (!gitServerByCodebase || !codebaseData) {

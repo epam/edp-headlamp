@@ -7,9 +7,9 @@ import { PipelineRunKubeObjectInterface } from '../../types';
 const rerunIdentifier = 'r-';
 
 const removeSystemLabels = (resource: KubeObjectInterface) => {
-  Object.keys(resource.metadata.labels).forEach((label) => {
+  Object.keys(resource.metadata.labels ?? {}).forEach((label) => {
     if (label.startsWith('tekton.dev/')) {
-      delete resource.metadata.labels[label]; // eslint-disable-line no-param-reassign
+      delete (resource.metadata.labels ?? {})[label]; // eslint-disable-line no-param-reassign
     }
   });
 };
@@ -57,6 +57,7 @@ const generateNewPipelineRunPayload = ({
     namespace,
   };
   if (rerun) {
+    payload.metadata.labels = payload.metadata.labels || {};
     payload.metadata.labels['dashboard.tekton.dev/rerunOf'] = name;
   }
 
@@ -74,11 +75,15 @@ const generateNewPipelineRunPayload = ({
     When v1beta1 has been fully removed from Tekton Pipelines we can revisit this
     and remove all remaining `tekton.dev/*` annotations.
     */
-  delete payload.metadata.annotations['tekton.dev/v1beta1TaskRuns'];
-  delete payload.metadata.annotations['kubectl.kubernetes.io/last-applied-configuration'];
+  if (payload.metadata.annotations) {
+    delete payload.metadata.annotations['tekton.dev/v1beta1TaskRuns'];
+    delete payload.metadata.annotations['kubectl.kubernetes.io/last-applied-configuration'];
+  }
 
   Object.keys(payload.metadata).forEach(
-    (i) => payload.metadata[i] === undefined && delete payload.metadata[i]
+    (i) =>
+      (payload.metadata as Record<string, any>)[i] === undefined &&
+      delete (payload.metadata as Record<string, any>)[i]
   );
 
   delete payload.status;

@@ -31,7 +31,7 @@ export class CodebaseImageStreamKubeObject extends K8s.cluster.makeKubeObject<Co
   }
 
   static getList(
-    namespace
+    namespace: string
   ): Promise<KubeObjectListInterface<CodebaseImageStreamKubeObjectInterface>> {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
 
