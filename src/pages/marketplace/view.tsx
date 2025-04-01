@@ -31,7 +31,7 @@ export const PageView = () => {
         description={
           <>
             Effortlessly scaffold applications using predefined templates crafted for various use
-            cases. <LearnMoreLink url={EDP_USER_GUIDE.APPLICATION_CREATE.url} />
+            cases. <LearnMoreLink url={EDP_USER_GUIDE.MARKETPLACE_CREATE_APP.url} />
           </>
         }
       >

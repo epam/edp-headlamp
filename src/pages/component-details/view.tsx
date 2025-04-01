@@ -3,11 +3,13 @@ import { Stack } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ErrorContent } from '../../components/ErrorContent';
+import { LearnMoreLink } from '../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
-import { CODEBASE_TYPE } from '../../constants/codebaseTypes';
+import { CODEBASE_TYPE, CodebaseType } from '../../constants/codebaseTypes';
+import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import { Resources } from '../../icons/sprites/Resources';
 import {
@@ -26,6 +28,22 @@ import { usePageTabs } from './hooks/usePageTabs';
 import { useTypedPermissions } from './hooks/useTypedPermissions';
 import { useDynamicDataContext } from './providers/DynamicData/hooks';
 import { ComponentDetailsRouteParams } from './types';
+
+const docLinkByCodebaseType = (codebaseType: CodebaseType | undefined) => {
+  switch (codebaseType) {
+    case CODEBASE_TYPE.APPLICATION:
+      return EDP_USER_GUIDE.APPLICATION_MANAGE.url;
+    case CODEBASE_TYPE.AUTOTEST:
+      return EDP_USER_GUIDE.AUTOTEST_MANAGE.url;
+    case CODEBASE_TYPE.LIBRARY:
+      return EDP_USER_GUIDE.LIBRARY_MANAGE.url;
+    case CODEBASE_TYPE.INFRASTRUCTURE:
+      return EDP_USER_GUIDE.INFRASTRUCTURE_MANAGE.url;
+
+    default:
+      return EDP_USER_GUIDE.APPLICATION_MANAGE.url;
+  }
+};
 
 export const PageView = () => {
   const { name } = useParams<ComponentDetailsRouteParams>();
@@ -119,7 +137,13 @@ export const PageView = () => {
       <Section
         title={name}
         enableCopyTitle
-        description={'Review your codebases, monitor their status, and execute build pipelines.'}
+        description={
+          <>
+            Review {component.data?.spec.type || 'codebase'}, monitor its status, and execute build
+            pipelines.{' '}
+            <LearnMoreLink url={docLinkByCodebaseType(component.data?.spec.type as CodebaseType)} />
+          </>
+        }
       >
         {renderPageContent()}
       </Section>

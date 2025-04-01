@@ -10,7 +10,7 @@ export const pageDescription: PageDescription = {
   id: 'quick-links',
   label: 'Links',
   description: 'Configure links for quick access to required tools.',
-  docLink: EDP_USER_GUIDE.OVERVIEW.url,
+  docLink: EDP_USER_GUIDE.QUICK_LINKS.url,
   routePath: '/configuration/quicklinks',
 };
 

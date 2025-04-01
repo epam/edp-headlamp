@@ -3,10 +3,12 @@ import { Box, Stack } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ErrorContent } from '../../components/ErrorContent';
+import { LearnMoreLink } from '../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
 import { PageWrapper } from '../../components/PageWrapper';
 import { QuickLink } from '../../components/QuickLink';
 import { Section } from '../../components/Section';
+import { EDP_USER_GUIDE } from '../../constants/urls';
 import { ICONS } from '../../icons/iconify-icons-mapping';
 import {
   SYSTEM_QUICK_LINKS,
@@ -177,7 +179,10 @@ export const PageView = () => {
         title={stage.data?.spec.name}
         enableCopyTitle
         description={
-          'Manage, deploy, test, and troubleshoot your applications across distinct Environments.'
+          <>
+            Manage, deploy, test, and troubleshoot your applications across distinct Environments.{' '}
+            <LearnMoreLink url={EDP_USER_GUIDE.CD_PIPELINE_MANAGE.url} />
+          </>
         }
       >
         {renderPageContent()}

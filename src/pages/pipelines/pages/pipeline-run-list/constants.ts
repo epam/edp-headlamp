@@ -10,7 +10,7 @@ export const pageDescription: PageDescription = {
   label: 'PipelineRuns',
   description: 'Monitor the progress of overall pipeline runs launched within the platform.',
   routePath: routePipelineRunList.path,
-  docLink: EDP_USER_GUIDE.CONFIGURATION.url,
+  docLink: EDP_USER_GUIDE.PIPELINES.url,
 };
 
 export const permissionsToCheckConfig = {

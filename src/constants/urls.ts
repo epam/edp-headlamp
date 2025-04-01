@@ -259,6 +259,12 @@ export const EDP_USER_GUIDE = {
   ADD_AI_ASSISTANT: {
     url: `${EDP_USER_GUIDE_ROOT_URL}/add-ai-assistant`,
   },
+  PIPELINES: {
+    url: `${EDP_USER_GUIDE_ROOT_URL}/pipelines`,
+  },
+  QUICK_LINKS: {
+    url: `${EDP_USER_GUIDE_ROOT_URL}/quick-links`,
+  }
 };
 
 export const EDP_OPERATOR_GUIDE = {
