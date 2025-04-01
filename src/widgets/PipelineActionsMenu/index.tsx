@@ -15,9 +15,7 @@ import { PipelineKubeObjectInterface } from '../../k8s/groups/Tekton/Pipeline/ty
 import { PipelineRunKubeObject } from '../../k8s/groups/Tekton/PipelineRun';
 import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 import { createPipelineRunInstanceFromPipeline } from '../../k8s/groups/Tekton/PipelineRun/utils/createPipelineRunInstanceFromPipeline';
-import { routePipelineRunDetails } from '../../pages/pipelines/pages/pipeline-run-details/route';
 import { createResourceAction } from '../../utils/actions/createResourceAction';
-import { getDefaultNamespace } from '../../utils/getDefaultNamespace';
 import { PipelineActionsMenuProps } from './types';
 
 export const PipelineActionsMenu = ({
@@ -29,7 +27,6 @@ export const PipelineActionsMenu = ({
 }: PipelineActionsMenuProps) => {
   const pipelineTriggerTemplate =
     _pipeline.metadata?.labels?.[PIPELINE_LABEL_SELECTOR_TRIGGER_TEMPLATE];
-
   const pipelineTriggerTemplateByName =
     pipelineTriggerTemplate && triggerTemplates !== null
       ? (triggerTemplates || []).find(
@@ -41,7 +38,7 @@ export const PipelineActionsMenu = ({
     PipelineRunKubeObjectInterface,
     typeof CRUD_TYPE.CREATE
   >('pipelineCreateMutation', PipelineRunKubeObject, CRUD_TYPE.CREATE, {
-    createCustomMessages: (item) => ({
+    createCustomMessages: () => ({
       onMutate: {
         message: 'Creating a new PipelineRun',
       },
@@ -53,21 +50,7 @@ export const PipelineActionsMenu = ({
         options: {
           autoHideDuration: 8000,
           content: (key, message) => (
-            <Snackbar
-              snackbarKey={key}
-              text={String(message)}
-              pushLocation={{
-                href: {
-                  routeName: routePipelineRunDetails.path,
-                  params: {
-                    namespace: item.metadata.namespace || getDefaultNamespace(),
-                    name: item.metadata.name,
-                  },
-                },
-                text: 'Check status',
-              }}
-              variant={'success'}
-            />
+            <Snackbar snackbarKey={key} text={String(message)} variant={'success'} />
           ),
         },
       },
