@@ -11,7 +11,7 @@ export const pageDescription: PageDescription = {
   label: 'Clusters',
   description: 'Scale workloads across multiple Kubernetes clusters.',
   routePath: '/configuration/clusters',
-  docLink: EDP_USER_GUIDE.MANAGE_CLUSTER.url,
+  docLink: EDP_USER_GUIDE.CLUSTER_CREATE.url,
 };
 
 export const pagePermissionsToCheck = {

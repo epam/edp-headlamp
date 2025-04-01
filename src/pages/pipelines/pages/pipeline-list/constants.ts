@@ -12,7 +12,7 @@ export const pageDescription: PageDescription = {
   label: 'Pipelines',
   description: 'Manage CI/CD pipelines.',
   routePath: routePipelineList.path,
-  docLink: EDP_USER_GUIDE.CONFIGURATION.url,
+  docLink: EDP_USER_GUIDE.PIPELINES.url,
 };
 
 export const permissionsToCheckConfig = {

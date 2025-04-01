@@ -3,8 +3,10 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { BorderedSection } from '../../../../components/BorderedSection';
 import { InfoColumns } from '../../../../components/InfoColumns';
+import { LearnMoreLink } from '../../../../components/LearnMoreLink';
 import { LoadingWrapper } from '../../../../components/LoadingWrapper';
 import { STATUS_COLOR } from '../../../../constants/colors';
+import { EDP_OPERATOR_GUIDE } from '../../../../constants/urls';
 import { DependencyTrackMetrics } from '../../../../widgets/DeeptrackVulnerabilities';
 import { SonarQubeMetrics } from '../../../../widgets/SonarQubeMetrics';
 import { useDataContext } from '../../providers/Data/hooks';
@@ -55,6 +57,7 @@ export const Overview = () => {
                   : 'N/A'
               }
             />
+            <LearnMoreLink url={EDP_OPERATOR_GUIDE.SONAR.url} />
           </Stack>
         }
       >

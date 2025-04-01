@@ -1,7 +1,9 @@
 import { Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
+import { LearnMoreLink } from '../../components/LearnMoreLink';
 import { PageWrapper } from '../../components/PageWrapper';
 import { Section } from '../../components/Section';
+import { EDP_USER_GUIDE } from '../../constants/urls';
 import { CDPipelinesGraph } from './components/CDPipelinesGraph';
 import { CodebaseBranchesGraph } from './components/CodebaseBranchesGraph';
 import { CodebasesGraph } from './components/CodebasesGraph';
@@ -20,7 +22,11 @@ export const PageView = () => {
           <Section
             title={'Overview'}
             description={
-              'Gain essential information on your codebase insights. Organize your menu for faster and more convenient access to different parts of the portal.'
+              <>
+                Gain essential information on your codebase insights. Organize your menu for faster
+                and more convenient access to different parts of the portal.{' '}
+                <LearnMoreLink url={EDP_USER_GUIDE.OVERVIEW.url} />
+              </>
             }
           >
             <Grid container spacing={3}>

@@ -10,7 +10,7 @@ export const pageDescription: PageDescription = {
   label: 'Tasks',
   description: 'Manage CI/CD tasks.',
   routePath: routeTaskList.path,
-  docLink: EDP_USER_GUIDE.CONFIGURATION.url,
+  docLink: EDP_USER_GUIDE.PIPELINES.url,
 };
 
 export const permissionsToCheckConfig = {
