@@ -37,6 +37,7 @@ export const TableHead = <DataType extends unknown>({
   selectableRowCount,
   selected,
   handleSelectAllClick,
+  minimal,
 }: TableHeadProps<DataType>) => {
   const theme = useTheme();
 
@@ -170,7 +171,6 @@ export const TableHead = <DataType extends unknown>({
     !!selectedLength && selectedLength > 0 && selectedLength < rowCount;
   const selectAllChecked = selectedLength === selectableRowCount || selectedLength === rowCount;
 
-
   return (
     <MuiTableHead>
       <MuiTableRow>
@@ -180,7 +180,9 @@ export const TableHead = <DataType extends unknown>({
             scope="row"
             align="center"
             sx={{
-              p: `${theme.typography.pxToRem(5)} ${theme.typography.pxToRem(11)}`,
+              p: minimal
+                ? theme.typography.pxToRem(4)
+                : `${theme.typography.pxToRem(5)} ${theme.typography.pxToRem(11)}`,
               verticalAlign: 'bottom',
             }}
           >
@@ -189,6 +191,7 @@ export const TableHead = <DataType extends unknown>({
               indeterminate={selectedAllIndeterminate}
               checked={selectAllChecked}
               onChange={handleSelectAllClick}
+              size={minimal ? 'small' : 'medium'}
             />
           </TableCell>
         )}
@@ -215,7 +218,9 @@ export const TableHead = <DataType extends unknown>({
               sortDirection={sort.sortBy === id ? sort.order : false}
               sx={{
                 color: theme.palette.text.primary,
-                p: `${theme.typography.pxToRem(16)} ${theme.typography.pxToRem(11)}`,
+                p: minimal
+                  ? `${theme.typography.pxToRem(4)}`
+                  : `${theme.typography.pxToRem(16)} ${theme.typography.pxToRem(11)}`,
                 verticalAlign: 'bottom',
                 position: 'relative',
               }}

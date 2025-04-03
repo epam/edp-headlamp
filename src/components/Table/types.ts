@@ -55,10 +55,10 @@ export interface TableSelection<DataType> {
 }
 
 export interface TablePagination {
-  show: boolean;
-  rowsPerPage: number;
-  initialPage: number;
-  reflectInURL: boolean;
+  show?: boolean;
+  rowsPerPage?: number;
+  initialPage?: number;
+  reflectInURL?: boolean;
 }
 
 export interface TableSettings {
@@ -84,4 +84,6 @@ export interface TableProps<DataType = unknown> {
     header?: React.ReactElement;
     footer?: React.ReactElement;
   };
+  minimal?: boolean;
+  outlined?: boolean;
 }

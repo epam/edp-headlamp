@@ -30,6 +30,7 @@ export const TableRow = <DataType extends unknown>({
   handleSelectRowClick,
   isRowSelected,
   isRowSelectable,
+  minimal,
 }: TableRowProps<DataType>) => {
   const theme = useTheme();
 
@@ -66,7 +67,7 @@ export const TableRow = <DataType extends unknown>({
           scope="row"
           align="center"
           sx={{
-            p: theme.typography.pxToRem(11),
+            p: minimal ? theme.typography.pxToRem(4) : theme.typography.pxToRem(11),
           }}
         >
           <Checkbox
@@ -91,7 +92,7 @@ export const TableRow = <DataType extends unknown>({
             component="td"
             scope="row"
             sx={{
-              p: theme.typography.pxToRem(11),
+              p: minimal ? theme.typography.pxToRem(4) : theme.typography.pxToRem(11),
             }}
             {...props}
           >

@@ -15,4 +15,5 @@ export interface TableBodyProps<DataType = unknown> {
   isEmptyFilterResult: boolean;
   page: number;
   rowsPerPage: number;
+  minimal?: boolean;
 }
