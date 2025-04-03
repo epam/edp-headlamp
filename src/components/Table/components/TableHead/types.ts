@@ -11,4 +11,5 @@ export interface TableHeadProps<DataType extends unknown> {
   selectableRowCount?: number;
   selected?: string[];
   handleSelectAllClick?: ((event: React.ChangeEvent<HTMLInputElement>) => void | undefined) | null;
+  minimal?: boolean;
 }

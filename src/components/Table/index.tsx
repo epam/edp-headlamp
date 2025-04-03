@@ -41,6 +41,8 @@ export const Table = <DataType extends unknown>({
   blockerComponent,
   slots,
   settings,
+  minimal,
+  outlined = true,
 }: TableProps<DataType>) => {
   const [columns, setColumns] = React.useState(_columns);
   const paginationSettings: TablePaginationType = React.useMemo(
@@ -93,9 +95,9 @@ export const Table = <DataType extends unknown>({
     handleChangeRowsPerPage,
     handleChangePage,
   } = usePagination({
-    reflectInURL: paginationSettings.reflectInURL,
-    initialPage: paginationSettings.initialPage,
-    rowsPerPage: paginationSettings.rowsPerPage,
+    reflectInURL: paginationSettings.reflectInURL!,
+    initialPage: paginationSettings.initialPage!,
+    rowsPerPage: paginationSettings.rowsPerPage!,
   });
 
   const [sortState, setSortState] = React.useState<SortState<DataType>>({
@@ -158,18 +160,13 @@ export const Table = <DataType extends unknown>({
 
   const colGroupRef = React.useRef<HTMLTableColElement | null>(null);
 
-  return (
-    <Paper
-      variant={'outlined'}
-      sx={{
-        maxWidth: '100%',
-        overflowX: 'auto',
-        backgroundColor: 'transparent',
-        px: (t) => t.typography.pxToRem(20),
-        pt: (t) => t.typography.pxToRem(20),
-      }}
-    >
-      <Stack spacing={2}>
+  const renderHeader = React.useCallback(() => {
+    if (
+      slots?.header ||
+      tableSettings.show ||
+      (selectionSettings.renderSelectionInfo && selectionSettings.selected)
+    ) {
+      return (
         <Stack spacing={2}>
           {slots?.header || tableSettings.show ? (
             <Stack direction="row" spacing={2} alignItems="center">
@@ -194,7 +191,27 @@ export const Table = <DataType extends unknown>({
             </Box>
           )}
         </Stack>
+      );
+    }
+  }, [_columns, columns, id, name, selectionSettings, slots?.header, tableSettings.show]);
 
+  return (
+    <Paper
+      {...(outlined ? { variant: 'outlined' } : { elevation: 0 })}
+      sx={
+        minimal
+          ? { maxWidth: '100%', overflowX: 'auto', backgroundColor: 'transparent' }
+          : {
+              maxWidth: '100%',
+              overflowX: 'auto',
+              backgroundColor: 'transparent',
+              px: (t) => t.typography.pxToRem(20),
+              pt: (t) => t.typography.pxToRem(20),
+            }
+      }
+    >
+      <Stack spacing={2}>
+        {renderHeader()}
         <MuiTable style={{ borderRadius: rem(5), overflow: 'hidden' }}>
           <colgroup ref={colGroupRef}>
             {selectionSettings.handleSelectRow && (
@@ -221,6 +238,7 @@ export const Table = <DataType extends unknown>({
             selectableRowCount={selectableRowCount}
             selected={selectionSettings.selected}
             handleSelectAllClick={_handleSelectAllClick}
+            minimal={minimal}
           />
           <TableBody
             columns={columns}
@@ -235,6 +253,7 @@ export const Table = <DataType extends unknown>({
             rowsPerPage={_rowsPerPage}
             isEmptyFilterResult={isEmptyFilterResult}
             blockerComponent={blockerComponent}
+            minimal={minimal}
           />
         </MuiTable>
         <Box sx={{ m: '0 !important' }}>

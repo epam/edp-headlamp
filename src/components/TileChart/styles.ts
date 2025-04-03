@@ -7,6 +7,7 @@ export const StyledTileChartWrapper = styled(Box)<{ error: boolean }>`
     ${({ theme, error }) => (error ? theme.palette.error.main : theme.palette.primary.main)};
   border-radius: 4px;
   overflow: hidden;
+  height: 100%;
 
   & .recharts-sector {
     stroke: none;

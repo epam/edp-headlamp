@@ -29,8 +29,8 @@ export const TableBody = <DataType extends unknown>({
   rowsPerPage,
   isEmptyFilterResult,
   blockerComponent,
+  minimal,
 }: TableBodyProps<DataType>) => {
-
   const renderTableBody = React.useCallback(() => {
     const columnsLength = columns.length;
 
@@ -113,6 +113,7 @@ export const TableBody = <DataType extends unknown>({
                   isRowSelectable={_isSelectable}
                   handleRowClick={handleRowClick}
                   handleSelectRowClick={selection?.handleSelectRow}
+                  minimal={minimal}
                 />
               );
             })}
@@ -142,7 +143,6 @@ export const TableBody = <DataType extends unknown>({
       </MuiTableRow>
     );
   }, [
-    selection,
     columns,
     blockerError,
     blockerComponent,
@@ -153,7 +153,9 @@ export const TableBody = <DataType extends unknown>({
     errors,
     page,
     rowsPerPage,
+    selection,
     handleRowClick,
+    minimal,
   ]);
 
   return <MuiTableBody>{renderTableBody()}</MuiTableBody>;

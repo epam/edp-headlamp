@@ -37,7 +37,7 @@ export const Actions = ({
           ref={buttonRef}
           aria-label={'Options'}
           onClick={(e) => setAnchor(e.currentTarget)}
-          size="large"
+          size="medium"
           disabled={disabled?.boolean}
         >
           <Icon icon={ICONS.THREE_DOTS} color={'grey'} width="20" />

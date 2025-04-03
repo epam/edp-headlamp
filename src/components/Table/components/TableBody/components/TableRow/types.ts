@@ -11,4 +11,5 @@ export interface TableRowProps<DataType extends unknown> {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     row: DataType
   ) => void;
+  minimal?: boolean;
 }
