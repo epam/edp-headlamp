@@ -2,6 +2,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { Icon } from '@iconify/react';
 import {
   Autocomplete,
+  Box,
   Checkbox,
   Chip,
   FormControl,
@@ -130,7 +131,7 @@ export const FormAutocomplete = <T extends SelectOption>(props: FormAutocomplete
                         />
                       ))}
 
-                      {numTags > limitTags && ` +${numTags - limitTags}`}
+                      <Box sx={{ mx: 1 }}>{numTags > limitTags && ` +${numTags - limitTags}`}</Box>
                     </>
                   );
                 }}
