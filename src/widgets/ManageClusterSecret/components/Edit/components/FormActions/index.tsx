@@ -162,6 +162,7 @@ export const FormActions = () => {
               onClick={handleClickDelete}
               size="large"
               disabled={!permissions?.delete?.Secret.allowed || !!ownerReference}
+              data-test-id="delete_button"
             >
               <Icon icon={ICONS.BUCKET} width="20" />
             </IconButton>
