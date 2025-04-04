@@ -252,11 +252,11 @@ exports[`renders ManageDefectDojo Create component 1`] = `
         class="MuiStack-root css-1a41st4-MuiStack-root"
       >
         <button
-          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit css-17jf5nl-MuiButtonBase-root-MuiButton-root"
           tabindex="0"
           type="button"
         >
-          <span />
+          cancel
           <span
             class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
           />

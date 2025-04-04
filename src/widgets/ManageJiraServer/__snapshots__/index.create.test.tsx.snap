@@ -200,7 +200,18 @@ exports[`renders ManageJiraServer Create component 1`] = `
       >
         <div
           class="MuiBox-root css-1po99kh"
-        />
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-colorInherit css-17jf5nl-MuiButtonBase-root-MuiButton-root"
+            tabindex="0"
+            type="button"
+          >
+            cancel
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+        </div>
         <div
           class="MuiStack-root css-pl8gqh-MuiStack-root"
         >

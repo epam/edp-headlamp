@@ -13,10 +13,12 @@ export interface DataContextProviderValue {
     KubeObjectListInterface<CodebaseKubeObjectInterface>,
     Error
   >;
+  handleClosePanel: (() => void) | undefined;
 }
 
 export interface DataContextProviderProps {
   gitServer: GitServerKubeObjectInterface | undefined;
   gitServerSecret: SecretKubeObjectInterface | undefined;
   permissions: WidgetPermissions;
+  handleClosePanel: (() => void) | undefined;
 }

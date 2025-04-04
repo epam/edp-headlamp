@@ -3,6 +3,7 @@ import { Button, IconButton, Stack, Tooltip } from '@mui/material';
 import React from 'react';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
+import { FORM_MODES } from '../../../../types/forms';
 import { useFormsContext } from '../../hooks/useFormsContext';
 import { useDataContext } from '../../providers/Data/hooks';
 import { DeletionDialog } from '../DeletionDialog';
@@ -17,11 +18,14 @@ export const Actions = () => {
     isAnyFormForbiddenToSubmit,
   } = useFormsContext();
 
-  const { codebasesByGitServerQuery, permissions, gitServer, gitServerSecret } = useDataContext();
+  const { codebasesByGitServerQuery, permissions, gitServer, gitServerSecret, handleClosePanel } =
+    useDataContext();
   const submitDisabledTooltip = isAnyFormForbiddenToSubmit
     ? Object.values(forms).find(({ allowedToSubmit: { isAllowed } }) => !isAllowed)?.allowedToSubmit
         .reason
     : '';
+
+  const mode = !!gitServer ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
 
@@ -69,18 +73,24 @@ export const Actions = () => {
         alignItems="center"
         sx={{ justifyContent: 'space-between' }}
       >
-        <ConditionalWrapper
-          condition={deletedDisabledState.status}
-          wrapper={(children) => (
-            <Tooltip title={deletedDisabledState.reason}>
-              <div>{children}</div>
-            </Tooltip>
-          )}
-        >
-          <IconButton onClick={handleDelete} disabled={deletedDisabledState.status} size="large">
-            <Icon icon={ICONS.BUCKET} width="20" />
-          </IconButton>
-        </ConditionalWrapper>
+        {mode === FORM_MODES.EDIT ? (
+          <ConditionalWrapper
+            condition={deletedDisabledState.status}
+            wrapper={(children) => (
+              <Tooltip title={deletedDisabledState.reason}>
+                <div>{children}</div>
+              </Tooltip>
+            )}
+          >
+            <IconButton onClick={handleDelete} disabled={deletedDisabledState.status} size="large">
+              <Icon icon={ICONS.BUCKET} width="20" />
+            </IconButton>
+          </ConditionalWrapper>
+        ) : (
+          <Button onClick={handleClosePanel} size="small" color="inherit">
+            cancel
+          </Button>
+        )}
 
         <Button
           onClick={resetAll}

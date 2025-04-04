@@ -56,6 +56,7 @@ export const ManageGitServer = ({
         gitServer={gitServer}
         gitServerSecret={gitServerSecret}
         permissions={permissions}
+        handleClosePanel={handleClosePanel}
       >
         <MultiFormContextProvider<FormNames>
           forms={{
