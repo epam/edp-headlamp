@@ -4,16 +4,13 @@ import React from 'react';
 import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { FORM_MODES } from '../../../../types/forms';
 import { ConfirmResourcesUpdatesDialog } from '../../../dialogs/ConfirmResourcesUpdates';
 import { useFormsContext } from '../../hooks/useFormsContext';
 import { useResetIntegration } from '../../hooks/useResetIntegration';
 import { useDataContext } from '../../providers/Data/hooks';
 
-export const Actions = ({
-  handleCloseCreateDialog,
-}: {
-  handleCloseCreateDialog: (() => void) | undefined;
-}) => {
+export const Actions = () => {
   const {
     forms,
     resetAll,
@@ -23,7 +20,7 @@ export const Actions = ({
     isAnyFormForbiddenToSubmit,
   } = useFormsContext();
 
-  const { jiraServer, secret, ownerReference, permissions } = useDataContext();
+  const { jiraServer, secret, ownerReference, permissions, handleClosePanel } = useDataContext();
 
   const { resetJiraIntegration, isLoading: isResetting } = useResetIntegration();
   const { setDialog } = useDialogContext();
@@ -39,10 +36,12 @@ export const Actions = ({
     ? 'Jira Secret has external owners. Please, delete it by your own.'
     : permissions?.delete?.Secret.reason;
 
+  const mode = !!jiraServer ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+
   return (
     <Stack direction="row" spacing={2} sx={{ justifyContent: 'space-between' }}>
       <Box sx={{ mr: 'auto' }}>
-        {(jiraServer || secret) && (
+        {mode === FORM_MODES.EDIT ? (
           <ConditionalWrapper
             condition={!canReset}
             wrapper={(children) => {
@@ -69,6 +68,10 @@ export const Actions = ({
               Reset integration
             </Button>
           </ConditionalWrapper>
+        ) : (
+          <Button onClick={handleClosePanel} size="small" color="inherit">
+            cancel
+          </Button>
         )}
       </Box>
       <Stack direction="row" spacing={2}>
@@ -86,7 +89,7 @@ export const Actions = ({
           <Button
             onClick={() => {
               submitAll(true);
-              handleCloseCreateDialog && handleCloseCreateDialog();
+              handleClosePanel && handleClosePanel();
             }}
             size={'small'}
             component={'button'}

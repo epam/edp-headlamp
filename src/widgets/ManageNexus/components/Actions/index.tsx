@@ -5,6 +5,7 @@ import { ConditionalWrapper } from '../../../../components/ConditionalWrapper';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { SecretKubeObject } from '../../../../k8s/groups/default/Secret';
 import { useDialogContext } from '../../../../providers/Dialog/hooks';
+import { FORM_MODES } from '../../../../types/forms';
 import { EDPKubeObjectInterface } from '../../../../types/k8s';
 import { DeleteKubeObjectDialog } from '../../../dialogs/DeleteKubeObject';
 import { useFormsContext } from '../../hooks/useFormsContext';
@@ -20,7 +21,7 @@ export const Actions = () => {
     isAnyFormForbiddenToSubmit,
   } = useFormsContext();
 
-  const { secret, ownerReference, permissions } = useDataContext();
+  const { secret, ownerReference, permissions, handleClosePanel } = useDataContext();
 
   const { setDialog } = useDialogContext();
 
@@ -48,20 +49,28 @@ export const Actions = () => {
         .reason
     : '';
 
+  const mode = !!secret ? FORM_MODES.EDIT : FORM_MODES.CREATE;
+
   return (
     <Stack direction="row" alignItems="center" spacing={2} sx={{ justifyContent: 'space-between' }}>
-      <ConditionalWrapper
-        condition={!canDelete}
-        wrapper={(children) => (
-          <Tooltip title={deleteDisabledTooltip}>
-            <div>{children}</div>
-          </Tooltip>
-        )}
-      >
-        <IconButton onClick={handleDelete} disabled={!canDelete} size="large">
-          <Icon icon={ICONS.BUCKET} width="20" />
-        </IconButton>
-      </ConditionalWrapper>
+      {mode === FORM_MODES.EDIT ? (
+        <ConditionalWrapper
+          condition={!canDelete}
+          wrapper={(children) => (
+            <Tooltip title={deleteDisabledTooltip}>
+              <div>{children}</div>
+            </Tooltip>
+          )}
+        >
+          <IconButton onClick={handleDelete} disabled={!canDelete} size="large">
+            <Icon icon={ICONS.BUCKET} width="20" />
+          </IconButton>
+        </ConditionalWrapper>
+      ) : (
+        <Button onClick={handleClosePanel} size="small" color="inherit">
+          cancel
+        </Button>
+      )}
 
       <Button
         onClick={resetAll}

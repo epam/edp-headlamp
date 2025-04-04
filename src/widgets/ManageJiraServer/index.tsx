@@ -57,7 +57,7 @@ export const ManageJiraServer = ({
               <SecretForm />
             </Grid>
             <Grid item xs={12}>
-              <Actions handleCloseCreateDialog={handleClosePanel} />
+              <Actions />
             </Grid>
           </Grid>
         </MultiFormContextProvider>
