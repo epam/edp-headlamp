@@ -462,6 +462,7 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
             >
               <button
                 class="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
+                data-test-id="delete_button"
                 disabled=""
                 tabindex="-1"
                 type="button"
