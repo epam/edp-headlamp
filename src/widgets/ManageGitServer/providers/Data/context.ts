@@ -15,4 +15,7 @@ export const DataContext = React.createContext<DataContextProviderValue>({
     KubeObjectListInterface<CodebaseKubeObjectInterface>,
     Error
   >,
+  handleClosePanel: () => {
+    //
+  },
 });
