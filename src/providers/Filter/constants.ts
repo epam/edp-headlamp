@@ -5,16 +5,22 @@ export const DEFAULT_CONTROLS = {
   NAMESPACE: 'namespace',
 } as const;
 
-export const searchFunction = (item: KubeObjectInterface, value: string): boolean => {
-  if (!item || !value) {
+export const searchFunction = (item: KubeObjectInterface, _value: string): boolean => {
+  if (!item || !_value) {
     return true;
   }
+
+  const value = _value.toLowerCase().trim();
 
   if (value.includes(':')) {
     const _value = value.replaceAll(' ', '');
     const [key, searchValue] = _value.split(':');
 
     return !!item?.metadata.labels?.[key]?.includes(searchValue);
+  }
+
+  if (item.spec?.displayName) {
+    return item.spec.displayName.toLowerCase().trim().includes(value);
   }
 
   return (
