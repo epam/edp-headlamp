@@ -9,7 +9,7 @@
     "plugins"
   ],
   "scripts": {
-    "build:prod": "headlamp-plugin build",
+    "build:prod": "cross-env GENERATE_SOURCEMAP=false headlamp-plugin build",
     "format": "headlamp-plugin format",
     "lint": "headlamp-plugin lint & headlamp-plugin tsc",
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx ./src",

@@ -32,7 +32,7 @@ export const PipelineActionsMenu = ({
       ? (triggerTemplates || []).find(
           (triggerTemplate) => triggerTemplate.metadata.name === pipelineTriggerTemplate
         )
-      : null;
+      : undefined;
 
   const pipelineRunCreateMutation = useResourceCRUDMutation<
     PipelineRunKubeObjectInterface,
@@ -137,10 +137,6 @@ export const PipelineActionsMenu = ({
           reason: permissions.create.PipelineRun.reason,
         },
         callback: (pipeline: PipelineKubeObjectInterface) => {
-          if (!pipelineTriggerTemplateByName) {
-            return;
-          }
-
           const newPipelineRun = createPipelineRunInstanceFromPipeline(
             pipelineTriggerTemplateByName,
             pipeline
