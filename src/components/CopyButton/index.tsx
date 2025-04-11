@@ -5,7 +5,7 @@ import { ICONS } from '../../icons/iconify-icons-mapping';
 
 export const CopyButton = ({
   text,
-  size = 'medium',
+  size = 'small',
 }: {
   text: string;
   size?: 'medium' | 'small';

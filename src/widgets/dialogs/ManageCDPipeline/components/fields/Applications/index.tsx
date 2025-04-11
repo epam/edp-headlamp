@@ -126,7 +126,7 @@ export const Applications = () => {
                     <Tooltip
                       title={'Specify the branch of the selected applications for deployment.'}
                     >
-                      <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+                      <Icon icon={ICONS.INFO_CIRCLE} width={15} />
                     </Tooltip>
                   </Grid>
                 </Grid>

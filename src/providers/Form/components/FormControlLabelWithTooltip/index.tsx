@@ -20,7 +20,7 @@ export const FormControlLabelWithTooltip = ({
       </Typography>
       {title ? (
         <Tooltip title={title}>
-          <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+          <Icon icon={ICONS.INFO_CIRCLE} width={15} />
         </Tooltip>
       ) : (
         <Box style={{ height: rem(20) }} />

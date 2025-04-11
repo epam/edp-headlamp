@@ -45,7 +45,7 @@ export const FormTextFieldEncoded = React.forwardRef(
             {title && (
               <InputAdornment position="end">
                 <Tooltip title={title}>
-                  <Icon icon={ICONS.INFO_CIRCLE} width={18} color={theme.palette.action.active} />
+                  <Icon icon={ICONS.INFO_CIRCLE} width={15} color={theme.palette.action.active} />
                 </Tooltip>
               </InputAdornment>
             )}
