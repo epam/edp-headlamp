@@ -68,7 +68,7 @@ export const QualityGates = () => {
         <Tooltip
           title={'Define quality gates before promoting applications to the next environment.'}
         >
-          <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+          <Icon icon={ICONS.INFO_CIRCLE} width={15} />
         </Tooltip>
       </Stack>
       <Stack spacing={2}>
