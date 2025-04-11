@@ -1,8 +1,26 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="v0.22.0"></a>
+## [v0.22.0] - 2025-04-11
+### Features
+
+- Add test id for cluster delete btn ([#712](https://github.com/epam/edp-headlamp/issues/712))
+- Add ability to add custom widgets ([#709](https://github.com/epam/edp-headlamp/issues/709)) ([#710](https://github.com/epam/edp-headlamp/issues/710))
+- Add new docs links, update others ([#704](https://github.com/epam/edp-headlamp/issues/704))
+
 ### Bug Fixes
 
+- Prod source maps ([#720](https://github.com/epam/edp-headlamp/issues/720))
+- Prod source maps ([#720](https://github.com/epam/edp-headlamp/issues/720))
+- Filter search function ([#718](https://github.com/epam/edp-headlamp/issues/718))
+- Gitserver create cancel btn ([#714](https://github.com/epam/edp-headlamp/issues/714))
+- Integration edit popup actions ([#714](https://github.com/epam/edp-headlamp/issues/714))
+- Autocomplete numtag spacing ([#710](https://github.com/epam/edp-headlamp/issues/710))
+- Kubecfg show on first try ([#672](https://github.com/epam/edp-headlamp/issues/672))
+- Pipelinerun create from pipeline ([#706](https://github.com/epam/edp-headlamp/issues/706)) ([#707](https://github.com/epam/edp-headlamp/issues/707))
+- Last strict ts errors ([#696](https://github.com/epam/edp-headlamp/issues/696))
 - Pipelinerun page conditional rendering ([#696](https://github.com/epam/edp-headlamp/issues/696))
 - Sonar error ([#693](https://github.com/epam/edp-headlamp/issues/693))
 - Some of ts errors ([#686](https://github.com/epam/edp-headlamp/issues/686))
@@ -11,6 +29,7 @@
 
 ### Routine
 
+- Update current development version ([#699](https://github.com/epam/edp-headlamp/issues/699))
 - Update current development version ([#699](https://github.com/epam/edp-headlamp/issues/699))
 - Update image version ([#696](https://github.com/epam/edp-headlamp/issues/696))
 - Update image version ([#693](https://github.com/epam/edp-headlamp/issues/693))
@@ -759,7 +778,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.21.2...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.22.0...HEAD
+[v0.22.0]: https://github.com/epam/edp-headlamp/compare/v0.21.2...v0.22.0
 [v0.21.2]: https://github.com/epam/edp-headlamp/compare/v0.21.1...v0.21.2
 [v0.21.1]: https://github.com/epam/edp-headlamp/compare/v0.21.0...v0.21.1
 [v0.21.0]: https://github.com/epam/edp-headlamp/compare/v0.20.0...v0.21.0
