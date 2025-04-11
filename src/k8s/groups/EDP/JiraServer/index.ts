@@ -4,7 +4,7 @@ import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { KubeObjectListInterface } from '../../../../types/k8s';
 import { JiraServerKubeObjectConfig } from './config';
 import { JIRA_SERVER_STATUS } from './constants';
-import { JiraServerKubeObjectInterface, JiraServerSpec, JiraServerStatus } from './types';
+import { JiraServerKubeObjectInterface } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -21,11 +21,11 @@ export class JiraServerKubeObject extends K8s.cluster.makeKubeObject<JiraServerK
     return singularForm;
   }
 
-  get spec(): JiraServerSpec {
+  get spec(): JiraServerKubeObjectInterface['spec'] {
     return this.jsonData!.spec;
   }
 
-  get status(): JiraServerStatus {
+  get status(): JiraServerKubeObjectInterface['status'] {
     return this.jsonData!.status;
   }
 

@@ -10,11 +10,7 @@ import {
   CODEBASE_LABEL_SELECTOR_CODEBASE_TYPE,
   CODEBASE_LABEL_SELECTOR_GIT_SERVER,
 } from './labels';
-import {
-  CodebaseKubeObjectInterface,
-  CodebaseSpecInterface,
-  CodebaseStatusInterface,
-} from './types';
+import { CodebaseKubeObjectInterface } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -31,11 +27,11 @@ export class CodebaseKubeObject extends K8s.cluster.makeKubeObject<CodebaseKubeO
     return singularForm;
   }
 
-  get spec(): CodebaseSpecInterface {
+  get spec(): CodebaseKubeObjectInterface['spec'] {
     return this.jsonData!.spec;
   }
 
-  get status(): CodebaseStatusInterface {
+  get status(): CodebaseKubeObjectInterface['status'] {
     return this.jsonData!.status;
   }
 

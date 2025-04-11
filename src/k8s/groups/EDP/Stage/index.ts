@@ -9,8 +9,6 @@ import { EDP_CDPIPELINE_STAGE_STATUS } from './constants';
 import { STAGE_LABEL_SELECTOR_CD_PIPELINE_NAME } from './labels';
 import {
   StageKubeObjectInterface,
-  StageSpecInterface,
-  StageStatusInterface,
   StreamCDPipelineStageProps,
   StreamCDPipelineStagesByCDPipelineNameProps,
 } from './types';
@@ -30,15 +28,15 @@ export class StageKubeObject extends K8s.cluster.makeKubeObject<StageKubeObjectI
     return singularForm;
   }
 
-  get spec(): StageSpecInterface {
+  get spec(): StageKubeObjectInterface['spec'] {
     return this.jsonData!.spec;
   }
 
-  get status(): StageStatusInterface {
+  get status(): StageKubeObjectInterface['status'] {
     return this.jsonData!.status;
   }
 
-  static getStatusIcon(status: string): [string, string, boolean?] {
+  static getStatusIcon(status: string | undefined): [string, string, boolean?] {
     if (status === undefined) {
       return [ICONS.UNKNOWN, STATUS_COLOR.UNKNOWN];
     }

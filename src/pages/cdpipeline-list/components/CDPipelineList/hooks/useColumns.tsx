@@ -186,6 +186,7 @@ export const useColumns = () => {
           label: 'Actions',
           data: {
             render: ({ data }) => (
+              //@ts-ignore
               <Actions resource={data?.jsonData ?? data} permissions={permissions} />
             ),
           },

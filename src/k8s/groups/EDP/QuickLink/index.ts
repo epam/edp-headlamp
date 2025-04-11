@@ -1,7 +1,7 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectListInterface } from '../../../../types/k8s';
 import { QuickLinkKubeObjectConfig } from './config';
-import { QuickLinkKubeObjectInterface, QuickLinkSpec } from './types';
+import { QuickLinkKubeObjectInterface } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -18,12 +18,8 @@ export class QuickLinkKubeObject extends K8s.cluster.makeKubeObject<QuickLinkKub
     return singularForm;
   }
 
-  get spec(): QuickLinkSpec {
+  get spec(): QuickLinkKubeObjectInterface['spec'] {
     return this.jsonData!.spec;
-  }
-
-  get status(): string {
-    return this.jsonData!.status;
   }
 
   static getList(

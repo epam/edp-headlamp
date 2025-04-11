@@ -9,7 +9,7 @@ import { ActionsProps } from './types';
 
 export const Actions = ({ codebaseBranchData }: ActionsProps) => {
   const buttonRef = React.createRef<HTMLButtonElement>();
-  const [anchor, setAnchor] = React.useState<EventTarget & HTMLButtonElement | null>(null);
+  const [anchor, setAnchor] = React.useState<(EventTarget & HTMLButtonElement) | null>(null);
 
   const permissions = useTypedPermissions();
 
@@ -19,6 +19,7 @@ export const Actions = ({ codebaseBranchData }: ActionsProps) => {
     pipelines: { data: pipelines },
   } = useDynamicDataContext();
 
+  //@ts-ignore
   const defaultBranch = codebaseBranches?.[0]?.jsonData ?? codebaseBranches?.[0];
 
   return (

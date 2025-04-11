@@ -108,7 +108,7 @@ export const useInfoColumns = () => {
         },
         {
           label: 'Clean Pipeline',
-          text: (
+          text: stage.spec?.cleanTemplate && (
             <Pipeline
               pipelineName={stage.spec.cleanTemplate}
               namespace={stage.metadata.namespace!}

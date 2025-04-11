@@ -3,6 +3,7 @@ import { useDeleteKubeObject } from '../../../k8s/common/hooks/useDeleteKubeObje
 import { SecretKubeObject } from '../../../k8s/groups/default/Secret';
 import { SecretKubeObjectInterface } from '../../../k8s/groups/default/Secret/types';
 import { JiraServerKubeObject } from '../../../k8s/groups/EDP/JiraServer';
+import { JiraServerKubeObjectInterface } from '../../../k8s/groups/EDP/JiraServer/types';
 
 export const useResetIntegration = () => {
   const {
@@ -16,7 +17,7 @@ export const useResetIntegration = () => {
     jiraServer,
     jiraServerSecret,
   }: {
-    jiraServer: JiraServerKubeObject | undefined;
+    jiraServer: JiraServerKubeObjectInterface | undefined;
     jiraServerSecret: SecretKubeObjectInterface | undefined;
   }) => {
     if (!jiraServer) {

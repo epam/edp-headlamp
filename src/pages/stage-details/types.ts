@@ -2,7 +2,7 @@ import React from 'react';
 import { ApplicationKubeObjectInterface } from '../../k8s/groups/ArgoCD/Application/types';
 import { EnrichedApplicationWithItsImageStreams } from '../../k8s/groups/EDP/Codebase/hooks/useEnrichedApplicationsWithImageStreamsQuery';
 import { CodebaseImageStreamKubeObjectInterface } from '../../k8s/groups/EDP/CodebaseImageStream/types';
-import { StageSpecQualityGatesInterface } from '../../k8s/groups/EDP/Stage/types';
+import { StageQualityGate } from '../../k8s/groups/EDP/Stage/schema';
 import { PipelineRunKubeObjectInterface } from '../../k8s/groups/Tekton/PipelineRun/types';
 
 export interface EDPStageDetailsRouteParams {
@@ -17,7 +17,7 @@ export type EnrichedApplicationWithArgoApplication = EnrichedApplicationWithItsI
 };
 
 export interface EnrichedQualityGateWithAutotestPipelineRun {
-  qualityGate: StageSpecQualityGatesInterface;
+  qualityGate: StageQualityGate;
   autotestPipelineRun: PipelineRunKubeObjectInterface;
 }
 

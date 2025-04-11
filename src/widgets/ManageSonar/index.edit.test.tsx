@@ -27,12 +27,11 @@ test('renders ManageSonar Edit component', () => {
             uid: '',
           },
           spec: {
-            type: SYSTEM_QUICK_LINKS.SONAR,
+            type: 'system',
             url: 'https://test-sonar.com',
             visible: true,
             icon: '',
           },
-          status: '',
         }}
         ownerReference={undefined}
         mode={FORM_MODES.EDIT}

@@ -46,6 +46,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       return null;
     }
 
+    //@ts-ignore
     return stages.sort((a, b) => a.spec.order - b.spec.order).map((el) => el.jsonData);
   }, [stages]);
 

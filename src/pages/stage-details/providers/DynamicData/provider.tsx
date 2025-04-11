@@ -222,6 +222,7 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const DataContextValue = React.useMemo(
     () => ({
       stage: {
+        //@ts-ignore
         data: stage?.jsonData,
         isLoading: stage === null,
         error,

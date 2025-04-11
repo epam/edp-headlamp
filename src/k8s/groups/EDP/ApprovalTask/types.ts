@@ -1,11 +1,6 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { ApprovalTask } from './schema';
 
-export interface ApprovalTaskKubeObjectInterface extends KubeObjectInterface {
-  spec: {
-    action: string;
-    description: string;
-  };
-}
+export type ApprovalTaskKubeObjectInterface = ApprovalTask;
 
 export interface StreamApprovalTaskListByPipelineNameProps {
   pipelineRunName: string;

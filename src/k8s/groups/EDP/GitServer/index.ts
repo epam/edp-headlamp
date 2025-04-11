@@ -3,7 +3,7 @@ import { STATUS_COLOR } from '../../../../constants/colors';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { KubeObjectListInterface } from '../../../../types/k8s';
 import { GitServerKubeObjectConfig } from './config';
-import { GitServerKubeObjectInterface, GitServerSpec, GitServerStatus } from './types';
+import { GitServerKubeObjectInterface } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -20,11 +20,11 @@ export class GitServerKubeObject extends K8s.cluster.makeKubeObject<GitServerKub
     return singularForm;
   }
 
-  get spec(): GitServerSpec {
+  get spec(): GitServerKubeObjectInterface['spec'] {
     return this.jsonData!.spec;
   }
 
-  get status(): GitServerStatus {
+  get status(): GitServerKubeObjectInterface['status'] {
     return this.jsonData!.status;
   }
 

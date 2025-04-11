@@ -29,6 +29,10 @@ type DeepPartial<T> = T extends object
     }
   : T;
 
+declare module '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster.d' {
+  function makeKubeObject<T extends KubeObjectInterface>(objectName: string): KubeObjectIface<T>;
+}
+
 declare module '@mui/material/styles/createPalette.d' {
   interface Palette {
     success: PaletteColor;

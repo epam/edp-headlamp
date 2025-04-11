@@ -1,25 +1,3 @@
-import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
+import { CodemieProjectSettings } from './schema';
 
-export interface CodemieProjectSettingsKubeObjectInterface extends KubeObjectInterface {
-  spec: {
-    alias: string;
-    codemieRef: {
-      kind: string;
-      name: string;
-    };
-    gitCredential: {
-      secretRef: {
-        name: string;
-        secretKey: string;
-      };
-      tokenName: string;
-      url: string;
-    };
-    projectName: string;
-    type: string;
-  };
-  status: {
-    value: string;
-    error?: string;
-  };
-}
+export type CodemieProjectSettingsKubeObjectInterface = CodemieProjectSettings;

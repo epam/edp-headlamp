@@ -27,12 +27,11 @@ test('renders ManageNexus Edit component', () => {
             uid: '',
           },
           spec: {
-            type: SYSTEM_QUICK_LINKS.NEXUS,
+            type: 'system',
             url: 'https://test-nexus.com',
             visible: true,
             icon: '',
           },
-          status: '',
         }}
         permissions={{
           create: {

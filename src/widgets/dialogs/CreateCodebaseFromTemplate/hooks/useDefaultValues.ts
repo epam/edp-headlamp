@@ -12,7 +12,7 @@ const [defaultEDPVersioningVersion, defaultEDPVersioningVersionPostfix] =
 
 export const useDefaultValues = (template: TemplateKubeObjectInterface) => {
   const { data: gitServers } = useGitServerListQuery();
-  const firstValidGitServer = gitServers?.items.find((gitServer) => gitServer.status.connected);
+  const firstValidGitServer = gitServers?.items.find((gitServer) => gitServer?.status?.connected);
 
   return React.useMemo(() => {
     return {
