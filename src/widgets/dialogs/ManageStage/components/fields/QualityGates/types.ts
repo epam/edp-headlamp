@@ -1,4 +1,4 @@
-import { StageSpecQualityGatesInterface } from '../../../../../../k8s/groups/EDP/Stage/types';
+import { StageQualityGate } from '../../../../../../k8s/groups/EDP/Stage/schema';
 
 export interface AutotestWithBranchesOption {
   name: string;
@@ -6,6 +6,6 @@ export interface AutotestWithBranchesOption {
   disabled?: boolean;
 }
 
-export interface QualityGate extends StageSpecQualityGatesInterface {
+export interface QualityGate extends StageQualityGate {
   id: number;
 }

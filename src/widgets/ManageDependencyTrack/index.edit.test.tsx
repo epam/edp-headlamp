@@ -27,12 +27,11 @@ test('renders ManageDependencyTrack Edit component', () => {
             uid: '',
           },
           spec: {
-            type: SYSTEM_QUICK_LINKS.DEPENDENCY_TRACK,
+            type: 'system',
             url: 'https://test-deptrack.com',
             visible: true,
             icon: '',
           },
-          status: '',
         }}
         ownerReference={undefined}
         mode={FORM_MODES.EDIT}

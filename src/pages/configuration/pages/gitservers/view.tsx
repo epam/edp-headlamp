@@ -86,6 +86,7 @@ export const PageView = () => {
       <LoadingWrapper isLoading={isLoading}>
         <Grid container spacing={2}>
           {gitServers.data?.map((el) => {
+            // @ts-ignore
             const gitServer = el?.jsonData;
             const connected = gitServer?.status?.connected;
             const error = gitServer?.status?.error;

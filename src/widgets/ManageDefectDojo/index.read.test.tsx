@@ -28,12 +28,11 @@ test('renders ManageDefectDojo Edit component (read-only)', () => {
             uid: '',
           },
           spec: {
-            type: SYSTEM_QUICK_LINKS.DEFECT_DOJO,
+            type: 'system',
             url: 'https://test-defectdojo.com',
             visible: true,
             icon: '',
           },
-          status: '',
         }}
         ownerReference={ownerReference}
         mode={FORM_MODES.EDIT}

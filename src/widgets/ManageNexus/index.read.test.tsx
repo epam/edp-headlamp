@@ -29,12 +29,11 @@ test('renders ManageNexus Edit component (read-only)', () => {
             uid: '',
           },
           spec: {
-            type: SYSTEM_QUICK_LINKS.NEXUS,
+            type: 'system',
             url: 'https://test-nexus.com',
             visible: true,
             icon: '',
           },
-          status: '',
         }}
         ownerReference={ownerReference}
         mode={FORM_MODES.EDIT}

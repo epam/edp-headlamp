@@ -34,6 +34,7 @@ export const CodemieProjectSettings = ({
         ) : codemieProjectSettings.data?.length ? (
           <Grid container spacing={2}>
             {codemieProjectSettings.data?.map((_setting) => {
+              //@ts-ignore
               const setting = _setting.jsonData;
               const status = setting?.status?.value;
               const statusError = setting?.status?.error;

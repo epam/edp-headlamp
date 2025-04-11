@@ -34,6 +34,7 @@ export const CodemieApplications = ({
         ) : codemieApplications.data?.length ? (
           <Grid container spacing={2}>
             {codemieApplications.data?.map((_application) => {
+              // @ts-ignore
               const application = _application.jsonData;
               const status = application?.status?.value;
               const statusError = application?.status?.error;

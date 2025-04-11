@@ -23,6 +23,7 @@ export const CodebaseBranchesList = () => {
     setExpandedPanel(isExpanded ? panel : null);
   };
 
+  //@ts-ignore
   const defaultBranch = codebaseBranches.data?.[0]?.jsonData ?? codebaseBranches.data?.[0];
 
   return (
@@ -43,6 +44,7 @@ export const CodebaseBranchesList = () => {
       {codebaseBranches.data && codebaseBranches.data.length ? (
         <>
           {codebaseBranches.data.map((codebaseBranchData: CodebaseBranchKubeObjectInterface) => {
+            // @ts-ignore
             const codebaseBranch = codebaseBranchData?.jsonData;
             const branchId = codebaseBranch.spec.branchName;
 

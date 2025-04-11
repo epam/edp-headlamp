@@ -44,12 +44,11 @@ test('renders ManageChatAssistant Edit component', () => {
             uid: '',
           },
           spec: {
-            type: SYSTEM_QUICK_LINKS.CODEMIE,
+            type: 'system',
             url: 'https://test-codemie.com',
             visible: true,
             icon: '',
           },
-          status: '',
         }}
         permissions={{
           create: {

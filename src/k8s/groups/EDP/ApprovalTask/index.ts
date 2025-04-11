@@ -29,10 +29,6 @@ export class ApprovalTaskKubeObject extends K8s.cluster.makeKubeObject<ApprovalT
     return this.jsonData!.spec;
   }
 
-  get status(): ApprovalTaskKubeObjectInterface['status'] {
-    return this.jsonData!.status;
-  }
-
   static streamListByPipelineRunName = ({
     namespace,
     pipelineRunName,

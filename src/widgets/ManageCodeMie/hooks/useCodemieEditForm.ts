@@ -40,10 +40,12 @@ export const useCodemieEditForm = ({
         return false;
       }
 
+      //@ts-ignore
       const updatedCodemieInstance = editResource(CODEMIE_FORM_NAMES, codemie?.jsonData, values);
 
       codemieEditMutation.mutate(updatedCodemieInstance, { onSuccess: handleClosePanel });
     },
+    //@ts-ignore
     [codemie?.jsonData, codemieEditMutation, handleClosePanel, permissions.update.Codemie.allowed]
   );
 

@@ -1,11 +1,6 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
-import { KubeObjectListInterface } from '../../../../types/k8s';
 import { CodebaseImageStreamKubeObjectConfig } from './config';
-import {
-  CodebaseImageStreamKubeObjectInterface,
-  CodebaseImageStreamSpecInterface,
-  CodebaseImageStreamStatusInterface,
-} from './types';
+import { CodebaseImageStreamKubeObjectInterface } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -22,19 +17,11 @@ export class CodebaseImageStreamKubeObject extends K8s.cluster.makeKubeObject<Co
     return singularForm;
   }
 
-  get spec(): CodebaseImageStreamSpecInterface {
+  get spec(): CodebaseImageStreamKubeObjectInterface['spec'] {
     return this.jsonData!.spec;
   }
 
-  get status(): CodebaseImageStreamStatusInterface {
+  get status(): CodebaseImageStreamKubeObjectInterface['status'] {
     return this.jsonData!.status;
-  }
-
-  static getList(
-    namespace: string
-  ): Promise<KubeObjectListInterface<CodebaseImageStreamKubeObjectInterface>> {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-
-    return ApiProxy.request(url);
   }
 }

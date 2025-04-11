@@ -6,11 +6,7 @@ import { streamResults } from '../../../common/streamResults';
 import { CodebaseBranchKubeObjectConfig } from './config';
 import { EDP_CODEBASE_BRANCH_STATUS } from './constants';
 import { CODEBASE_BRANCH_LABEL_SELECTOR_CODEBASE_NAME } from './labels';
-import {
-  CodebaseBranchKubeObjectInterface,
-  CodebaseBranchSpecInterface,
-  CodebaseBranchStatusInterface,
-} from './types';
+import { CodebaseBranchKubeObjectInterface } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -31,11 +27,11 @@ export class CodebaseBranchKubeObject extends K8s.cluster.makeKubeObject<Codebas
     return pluralForm;
   }
 
-  get spec(): CodebaseBranchSpecInterface {
+  get spec(): CodebaseBranchKubeObjectInterface['spec'] {
     return this.jsonData!.spec;
   }
 
-  get status(): CodebaseBranchStatusInterface {
+  get status(): CodebaseBranchKubeObjectInterface['status'] {
     return this.jsonData!.status;
   }
 

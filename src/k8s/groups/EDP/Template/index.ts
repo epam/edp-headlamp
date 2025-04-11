@@ -1,7 +1,7 @@
 import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { KubeObjectListInterface } from '../../../../types/k8s';
 import { TemplateKubeObjectConfig } from './config';
-import { TemplateKubeObjectInterface, TemplateSpec } from './types';
+import { TemplateKubeObjectInterface } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -18,7 +18,7 @@ export class TemplateKubeObject extends K8s.cluster.makeKubeObject<TemplateKubeO
     return singularForm;
   }
 
-  get spec(): TemplateSpec {
+  get spec(): TemplateKubeObjectInterface['spec'] {
     return this.jsonData!.spec;
   }
 

@@ -23,7 +23,7 @@ const quickLinkMock = {
     visible: true,
   },
   status: '',
-};
+} as const;
 
 describe('ManageQuickLinkDialog', () => {
   test('renders ManageQuickLinkDialog Create component', () => {

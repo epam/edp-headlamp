@@ -37,7 +37,7 @@ const mockCodebaseBranch = {
       review: 'test-review-pipeline',
     },
   },
-} as CodebaseBranchKubeObjectInterface;
+};
 
 const mockPipelineRunTemplate = {
   apiVersion: 'tekton.dev/v1',
@@ -140,7 +140,7 @@ describe('testing createBuildPipelineRunInstance', () => {
   it('should return valid build pipelinerun for Gerrit GitServer', () => {
     const object = createBuildPipelineRunInstance({
       codebase: mockCodebase,
-      codebaseBranch: mockCodebaseBranch,
+      codebaseBranch: mockCodebaseBranch as unknown as CodebaseBranchKubeObjectInterface,
       pipelineRunTemplate: mockPipelineRunTemplate,
       gitServer: {
         spec: {
@@ -214,7 +214,7 @@ describe('testing createBuildPipelineRunInstance', () => {
   it('should return valid build pipelinerun for Github GitServer', () => {
     const object = createBuildPipelineRunInstance({
       codebase: mockCodebase,
-      codebaseBranch: mockCodebaseBranch,
+      codebaseBranch: mockCodebaseBranch as unknown as CodebaseBranchKubeObjectInterface,
       pipelineRunTemplate: mockPipelineRunTemplate,
       gitServer: {
         spec: {
@@ -288,7 +288,7 @@ describe('testing createBuildPipelineRunInstance', () => {
   it('should return valid build pipelinerun for Gitlab GitServer', () => {
     const object = createBuildPipelineRunInstance({
       codebase: mockCodebase,
-      codebaseBranch: mockCodebaseBranch,
+      codebaseBranch: mockCodebaseBranch as unknown as CodebaseBranchKubeObjectInterface,
       pipelineRunTemplate: mockPipelineRunTemplate,
       gitServer: {
         spec: {
@@ -362,7 +362,7 @@ describe('testing createBuildPipelineRunInstance', () => {
   it('should return valid build pipelinerun for Bitbucket GitServer', () => {
     const object = createBuildPipelineRunInstance({
       codebase: mockCodebase,
-      codebaseBranch: mockCodebaseBranch,
+      codebaseBranch: mockCodebaseBranch as unknown as CodebaseBranchKubeObjectInterface,
       pipelineRunTemplate: mockPipelineRunTemplate,
       gitServer: {
         spec: {

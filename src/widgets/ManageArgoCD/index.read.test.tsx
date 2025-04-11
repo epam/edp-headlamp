@@ -28,12 +28,11 @@ test('renders ManageArgoCD Edit component (read-only)', () => {
             uid: '',
           },
           spec: {
-            type: SYSTEM_QUICK_LINKS.ARGOCD,
+            type: 'system',
             url: 'https://test-argocd.com',
             visible: true,
             icon: '',
           },
-          status: '',
         }}
         ownerReference={ownerReference}
         mode={FORM_MODES.EDIT}

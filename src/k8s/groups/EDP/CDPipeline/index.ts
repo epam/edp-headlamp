@@ -2,15 +2,9 @@ import { ApiProxy, K8s } from '@kinvolk/headlamp-plugin/lib';
 import { STATUS_COLOR } from '../../../../constants/colors';
 import { ICONS } from '../../../../icons/iconify-icons-mapping';
 import { KubeObjectListInterface } from '../../../../types/k8s';
-import { streamResult } from '../../../common/streamResult';
 import { CDPipelineKubeObjectConfig } from './config';
 import { EDP_CDPIPELINE_STATUS } from './constants';
-import {
-  CDPipelineKubeObjectInterface,
-  CDPipelineSpec,
-  CDPipelineStatus,
-  StreamCDPipelineProps,
-} from './types';
+import { CDPipelineKubeObjectInterface } from './types';
 
 const {
   name: { singularForm, pluralForm },
@@ -27,11 +21,11 @@ export class CDPipelineKubeObject extends K8s.cluster.makeKubeObject<CDPipelineK
     return singularForm;
   }
 
-  get spec(): CDPipelineSpec {
+  get spec(): CDPipelineKubeObjectInterface['spec'] {
     return this.jsonData!.spec;
   }
 
-  get status(): CDPipelineStatus {
+  get status(): CDPipelineKubeObjectInterface['status'] {
     return this.jsonData!.status;
   }
 
@@ -70,15 +64,5 @@ export class CDPipelineKubeObject extends K8s.cluster.makeKubeObject<CDPipelineK
   static getItemByName(namespace: string, name: string): Promise<CDPipelineKubeObjectInterface> {
     const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}/${name}`;
     return ApiProxy.request(url);
-  }
-
-  static streamCDPipeline({
-    namespace,
-    CDPipelineMetadataName,
-    dataHandler,
-    errorHandler,
-  }: StreamCDPipelineProps): () => void {
-    const url = `/apis/${group}/${version}/namespaces/${namespace}/${pluralForm}`;
-    return streamResult(url, CDPipelineMetadataName, dataHandler, errorHandler);
   }
 }

@@ -285,6 +285,7 @@ export const useColumns = (): TableColumn<CodebaseKubeObjectInterface>[] => {
           render: ({ data }) => {
             return (
               <Actions
+                //@ts-ignore
                 resource={data?.jsonData ?? data}
                 permissions={permissions}
                 disabled={{
