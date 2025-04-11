@@ -15,6 +15,7 @@ import {
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { CopyButton } from '../../../../../components/CopyButton';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { useTableSettings } from '../../../../../components/Table/components/TableSettings/hooks/useTableSettings';
@@ -64,12 +65,14 @@ export const useColumns = ({
   handleClickOverrideValuesAll,
   handleClickStable,
   buttonsHighlighted,
+  copyVersionsValue,
 }: {
   mode: ApplicationsTableMode;
   handleClickLatest: () => void;
   handleClickOverrideValuesAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleClickStable: () => void;
   buttonsHighlighted: Record<string, boolean>;
+  copyVersionsValue: string;
 }): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
   const theme = useTheme();
   const { namespace, CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
@@ -238,7 +241,7 @@ export const useColumns = ({
           <Stack direction="row" spacing={1} alignItems="center" flexWrap="nowrap">
             <div>Values override</div>
             <Tooltip title={'Override default deployment settings with custom configurations.'}>
-              <Icon icon={ICONS.INFO_CIRCLE} width={20} />
+              <Icon icon={ICONS.INFO_CIRCLE} width={15} />
             </Tooltip>
           </Stack>
         </Stack>
@@ -356,18 +359,16 @@ export const useColumns = ({
     const ingressColumn: TableColumn<EnrichedApplicationWithArgoApplication> = {
       id: columnNames.INGRESS,
       label: (
-        <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
-          <Grid item>Ingress</Grid>
-          <Grid item>
-            <Tooltip
-              title={
-                'The Ingress endpoint directs you to the deployed application. To view the link, ensure your application is deployed with an Ingress resource.'
-              }
-            >
-              <Icon icon={ICONS.INFO_CIRCLE} width={20} />
-            </Tooltip>
-          </Grid>
-        </Grid>
+        <Stack direction="row" spacing={1} alignItems="center" flexWrap="nowrap">
+          <div>Ingress</div>
+          <Tooltip
+            title={
+              'The Ingress endpoint directs you to the deployed application. To view the link, ensure your application is deployed with an Ingress resource.'
+            }
+          >
+            <Icon icon={ICONS.INFO_CIRCLE} width={15} />
+          </Tooltip>
+        </Stack>
       ),
       data: {
         render: ({ data }) => {
@@ -415,7 +416,16 @@ export const useColumns = ({
         ? [
             {
               id: columnNames.DEPLOYED_VERSION,
-              label: 'Deployed version',
+              label: (
+                <Stack spacing={1} alignItems="center" direction="row">
+                  Deployed Version
+                  <Tooltip title="Copy Environment Deployed Versions">
+                    <div>
+                      <CopyButton text={copyVersionsValue} size="small" />
+                    </div>
+                  </Tooltip>
+                </Stack>
+              ),
               data: {
                 render: ({
                   data: {
@@ -519,7 +529,7 @@ export const useColumns = ({
                       }
                       sx={{ lineHeight: 1 }}
                     >
-                      <Icon icon={ICONS.INFO_CIRCLE} width={20} />
+                      <Icon icon={ICONS.INFO_CIRCLE} width={15} />
                     </Tooltip>
                   </Stack>
                 </Stack>
@@ -550,6 +560,7 @@ export const useColumns = ({
     buttonsHighlighted.stable,
     buttonsHighlighted.valuesOverride,
     control,
+    copyVersionsValue,
     errors,
     gitOpsCodebase.data?.status.gitWebUrl,
     gitOpsGitServer?.spec.gitProvider,

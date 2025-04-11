@@ -27,7 +27,7 @@ export const Section: React.FC<SectionProps> = ({
             )}
             {titleTooltip && (
               <Tooltip title={titleTooltip}>
-                <Icon icon={ICONS.INFO_CIRCLE} width={18} />
+                <Icon icon={ICONS.INFO_CIRCLE} width={15} />
               </Tooltip>
             )}
             {enableCopyTitle && typeof title === 'string' && <CopyButton text={title} />}

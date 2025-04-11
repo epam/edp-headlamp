@@ -1,6 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import { TabSection } from '../../../../components/TabSection';
 import { useArgoApplicationCRUD } from '../../../../k8s/groups/ArgoCD/Application/hooks/useArgoApplicationCRUD';
 import { ApplicationKubeObjectInterface } from '../../../../k8s/groups/ArgoCD/Application/types';
@@ -9,7 +10,8 @@ import {
   IMAGE_TAG_POSTFIX,
   VALUES_OVERRIDE_POSTFIX,
 } from '../../constants';
-import { EnrichedApplicationWithArgoApplication } from '../../types';
+import { useDynamicDataContext } from '../../providers/DynamicData/hooks';
+import { EDPStageDetailsRouteParams, EnrichedApplicationWithArgoApplication } from '../../types';
 import { ConfigurationTable } from './components/ConfigurationTable';
 import { PreviewTable } from './components/PreviewTable';
 import { useButtonsEnabledMap } from './hooks/useButtonsEnabled';
@@ -100,12 +102,31 @@ export const Applications = ({
     };
   }, [values]);
 
+  const { CDPipelineName, namespace } = useParams<EDPStageDetailsRouteParams>();
+
+  const { stage } = useDynamicDataContext();
+
+  const copyVersionsValue = React.useMemo(() => {
+    const copyTextVersions = enrichedApplicationsWithArgoApplications.reduce((acc, cur) => {
+      const { application } = cur;
+      const { name } = application.metadata;
+      const deployedVersion = cur.argoApplication?.spec?.source?.targetRevision;
+
+      return acc + `${name}:${deployedVersion}\n`;
+    }, '');
+
+    return `flow: ${CDPipelineName}, env: ${
+      stage.data!.spec.name
+    }, ns: ${namespace}\n\n${copyTextVersions} \n\n`;
+  }, [CDPipelineName, enrichedApplicationsWithArgoApplications, namespace, stage.data]);
+
   const columns = useColumns({
     mode,
     handleClickLatest,
     handleClickOverrideValuesAll,
     handleClickStable,
     buttonsHighlighted,
+    copyVersionsValue,
   });
 
   const [deployBtnDisabled, setDeployBtnDisabled] = React.useState(false);
@@ -125,7 +146,7 @@ export const Applications = ({
   return (
     <TabSection
       title={
-        <Stack spacing={2} alignItems="center" direction="row" justifyContent="space-between">
+        <Stack spacing={1} alignItems="center" direction="row">
           <Typography fontSize={28} color="primary.dark">
             Applications
           </Typography>
