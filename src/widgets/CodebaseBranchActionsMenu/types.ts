@@ -9,6 +9,7 @@ export interface CodebaseBranchActionsProps {
     branch: CodebaseBranchKubeObjectInterface;
     defaultBranch: CodebaseBranchKubeObjectInterface;
     codebaseData: CodebaseKubeObjectInterface;
+    codebaseBranches: CodebaseBranchKubeObjectInterface[];
     pipelines: {
       review: string;
       build: string;

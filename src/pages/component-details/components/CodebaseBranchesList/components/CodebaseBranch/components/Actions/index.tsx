@@ -35,6 +35,7 @@ export const Actions = ({ codebaseBranchData }: ActionsProps) => {
       <CodebaseBranchActionsMenu
         variant="menu"
         data={{
+          codebaseBranches: codebaseBranches!,
           branch: codebaseBranchData,
           defaultBranch,
           codebaseData: codebaseData!,

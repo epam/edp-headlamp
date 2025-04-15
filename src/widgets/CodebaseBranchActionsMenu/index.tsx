@@ -15,7 +15,7 @@ import { useConflictedCDPipeline } from './hooks/useConflictedCDPipeline';
 import { CodebaseBranchActionsProps } from './types';
 
 export const CodebaseBranchActionsMenu = ({
-  data: { defaultBranch, codebaseData, branch, pipelines },
+  data: { defaultBranch, codebaseData, codebaseBranches, branch, pipelines },
   variant,
   handleCloseResourceActionListMenu,
   anchorEl,
@@ -69,6 +69,7 @@ export const CodebaseBranchActionsMenu = ({
           }
 
           setNewDialog(ManageCodebaseBranchDialog, {
+            codebaseBranches,
             codebase: codebaseData,
             defaultBranch,
             codebaseBranch: branch,
@@ -107,13 +108,16 @@ export const CodebaseBranchActionsMenu = ({
     ];
   }, [
     branch,
+    codebaseBranches,
     codebaseData,
     defaultBranch,
     handleCloseResourceActionListMenu,
     isDefaultBranch,
     onBeforeSubmit,
-    permissions.delete,
-    permissions.update,
+    permissions?.delete?.CodebaseBranch.allowed,
+    permissions?.delete?.CodebaseBranch.reason,
+    permissions.update.CodebaseBranch.allowed,
+    permissions.update.CodebaseBranch.reason,
     pipelines?.build,
     pipelines?.review,
     setNewDialog,

@@ -12,27 +12,31 @@ export const TableHeaderActions = ({ codebase, defaultBranch }: TableHeaderActio
   const { setDialog } = useDialogContext();
   const {
     pipelines: { data: pipelines },
+    codebaseBranches: { data: codebaseBranches },
   } = useDynamicDataContext();
   const permissions = useTypedPermissions();
 
   return (
-    <ButtonWithPermission
-      ButtonProps={{
-        startIcon: <Icon icon={ICONS.PLUS} />,
-        color: 'primary',
-        variant: 'contained',
-        onClick: () => {
-          setDialog(ManageCodebaseBranchDialog, {
-            codebase,
-            defaultBranch,
-            pipelines,
-          });
-        },
-      }}
-      disabled={!permissions.create.CodebaseBranch.allowed}
-      reason={permissions.create.CodebaseBranch.reason}
-    >
-      Create branch
-    </ButtonWithPermission>
+    codebaseBranches && (
+      <ButtonWithPermission
+        ButtonProps={{
+          startIcon: <Icon icon={ICONS.PLUS} />,
+          color: 'primary',
+          variant: 'contained',
+          onClick: () => {
+            setDialog(ManageCodebaseBranchDialog, {
+              codebaseBranches,
+              codebase,
+              defaultBranch,
+              pipelines,
+            });
+          },
+        }}
+        disabled={!permissions.create.CodebaseBranch.allowed}
+        reason={permissions.create.CodebaseBranch.reason}
+      >
+        Create branch
+      </ButtonWithPermission>
+    )
   );
 };

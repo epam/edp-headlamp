@@ -57,6 +57,7 @@ export const useEnrichedApplicationsWithImageStreamsQuery = (
       cacheTime: 0,
       select: (data) => {
         return data.items.reduce<EnrichedApplicationWithItsImageStreams[]>((acc, cur) => {
+          //vp-t-app-1
           const {
             metadata: { name },
           } = cur;
@@ -66,6 +67,7 @@ export const useEnrichedApplicationsWithImageStreamsQuery = (
           }
 
           const codebaseImageStreamsByCodebaseName = _codebaseImageStreams?.filter(
+            // all codebaseimagestreams
             ({ spec: { codebase } }) => codebase === name
           );
 

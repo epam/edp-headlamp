@@ -18,6 +18,7 @@ const dialogInitialState = {
 
 export const CurrentDialogContext = React.createContext<CurrentDialogContextProviderValue>({
   props: {
+    codebaseBranches: null as unknown as CodebaseBranchKubeObjectInterface[],
     codebase: null as unknown as CodebaseKubeObjectInterface,
     codebaseBranch: null as unknown as CodebaseBranchKubeObjectInterface,
     defaultBranch: null as unknown as CodebaseBranchKubeObjectInterface,
