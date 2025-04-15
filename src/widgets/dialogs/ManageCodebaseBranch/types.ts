@@ -6,6 +6,7 @@ import { CODEBASE_BRANCH_FORM_NAMES } from './names';
 
 export interface ManageCodebaseBranchDialogProps
   extends DialogProps<{
+    codebaseBranches: CodebaseBranchKubeObjectInterface[];
     codebase: CodebaseKubeObjectInterface;
     defaultBranch: CodebaseBranchKubeObjectInterface;
     pipelines: {

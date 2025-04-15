@@ -64,6 +64,7 @@ describe('ManageCodebaseBranchDialog', () => {
       <TestWrapper>
         <ManageCodebaseBranchDialog
           props={{
+            codebaseBranches: [],
             codebase: mockCodebase as CodebaseKubeObjectInterface,
             defaultBranch: mockDefaultBranch as CodebaseBranchKubeObjectInterface,
             codebaseBranch: mockCodebaseBranch as CodebaseBranchKubeObjectInterface,
@@ -87,6 +88,7 @@ describe('ManageCodebaseBranchDialog', () => {
       <TestWrapper>
         <ManageCodebaseBranchDialog
           props={{
+            codebaseBranches: [],
             codebase: mockCodebase as CodebaseKubeObjectInterface,
             defaultBranch: mockDefaultBranch as CodebaseBranchKubeObjectInterface,
             codebaseBranch: undefined,

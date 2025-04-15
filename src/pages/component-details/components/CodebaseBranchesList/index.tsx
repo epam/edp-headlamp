@@ -46,7 +46,7 @@ export const CodebaseBranchesList = () => {
           {codebaseBranches.data.map((codebaseBranchData: CodebaseBranchKubeObjectInterface) => {
             // @ts-ignore
             const codebaseBranch = codebaseBranchData?.jsonData;
-            const branchId = codebaseBranch.spec.branchName;
+            const branchId = codebaseBranch.metadata.name;
 
             return (
               <CodebaseBranch
@@ -64,6 +64,7 @@ export const CodebaseBranchesList = () => {
           missingItemName={'branches'}
           handleClick={() =>
             setDialog(ManageCodebaseBranchDialog, {
+              codebaseBranches: codebaseBranches.data!,
               codebase: component.data!,
               defaultBranch,
               pipelines: pipelines.data,

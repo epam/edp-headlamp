@@ -6,6 +6,7 @@ import { createVersioningString } from '../../../../../../utils/createVersioning
 import { getVersionAndPostfixFromVersioningString } from '../../../../../../utils/getVersionAndPostfixFromVersioningString';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
 import { CODEBASE_BRANCH_FORM_NAMES } from '../../../names';
+import { useCurrentDialog } from '../../../providers/CurrentDialog/hooks';
 import { BranchNameProps } from './types';
 
 export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
@@ -17,6 +18,14 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
     setValue,
     getValues,
   } = useTypedFormContext();
+
+  const {
+    props: { codebaseBranches },
+  } = useCurrentDialog();
+
+  const existingCodebaseBranchs = codebaseBranches.map(
+    (codebaseBranch) => codebaseBranch.spec.branchName
+  );
 
   const releaseFieldValue = watch(CODEBASE_BRANCH_FORM_NAMES.release.name);
 
@@ -44,17 +53,19 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
       <FormTextField
         {...register(CODEBASE_BRANCH_FORM_NAMES.branchName.name, {
           pattern: {
-            value: /^[a-z0-9][a-z0-9\/\-.]*[a-z0-9]$/,
-            message: `Branch name may contain only: lower-case letters, numbers, slashes, dashes and dots.
-                        Can start and end only with lower-case letters and numbers. Minimum 2 characters.
-                    `,
+            value: /^(?![\/\.\-])[A-Za-z0-9\/\._\-]*(?<![\/\.\-])$/,
+            message: `Branch name may contain: upper-case and lower-case letters, numbers, slashes (/), dashes (-), dots (.), and underscores (_).
+                      It cannot start or end with a slash (/), dot (.), or dash (-). Consecutive special characters are not allowed.
+                      Minimum 2 characters.`,
+          },
+          validate: (value) => {
+            if (existingCodebaseBranchs.includes(value)) {
+              return `Branch name "${value}" already exists`;
+            }
+            return true;
           },
           required: 'Enter branch name',
           onChange: handleReleaseBranchNameFieldValueChange,
-          maxLength: {
-            value: 30,
-            message: `Branch name must be less than 30 characters long`,
-          },
         })}
         label={'Branch Name'}
         title={'Type the branch name that will be created in the Version Control System.'}
