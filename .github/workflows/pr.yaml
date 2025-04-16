@@ -15,7 +15,7 @@ env:
 jobs:
 
   check-commit-message:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       COMMIT_MESSAGE_PATTERN: '^(feat|fix|docs|style|refactor|test|chore){1}(!)?:\s[A-Z][a-z]([\/\.\w\-\s]+)\(\#\d+\)$'
       MAX_LINE_LENGTH: '80'
@@ -48,7 +48,7 @@ jobs:
 
   helm-docs:
     needs: [check-commit-message]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -62,7 +62,7 @@ jobs:
 
   helm-lint:
     needs: [helm-docs]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
      CHART_DIR: "deploy-templates"
      CT_CONFIGS_DIR: "."
@@ -99,7 +99,7 @@ jobs:
 
   build-lint-kaniko:
     needs: [helm-lint]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         node-version: [16.x]
@@ -154,7 +154,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
   docker-lint:
     needs: [build-lint-kaniko]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
