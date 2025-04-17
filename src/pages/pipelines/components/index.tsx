@@ -3,6 +3,7 @@ import { Link as MuiLink, Stack, Tab, Tabs, Typography } from '@mui/material';
 import React from 'react';
 import { PageWrapper } from '../../../components/PageWrapper';
 import { pageDescription as pipelineListPageDescription } from '../pages/pipeline-list/constants';
+import { pageDescription as pipelineRunHistoryListPageDescription } from '../pages/pipeline-run-history-list/constants';
 import { pageDescription as pipelineRunListPageDescription } from '../pages/pipeline-run-list/constants';
 import { pageDescription as taskListPageDescription } from '../pages/task-list/constants';
 
@@ -10,6 +11,7 @@ const pages = [
   pipelineRunListPageDescription,
   pipelineListPageDescription,
   taskListPageDescription,
+  pipelineRunHistoryListPageDescription,
 ];
 
 export const PipelinesPageWrapper = ({ children }: React.PropsWithChildren<{}>) => {
