@@ -43,6 +43,8 @@ import RoutePipelineListPage from '../pages/pipelines/pages/pipeline-list/page';
 import { routePipelineList } from '../pages/pipelines/pages/pipeline-list/route';
 import RoutePipelineRunDetailsPage from '../pages/pipelines/pages/pipeline-run-details/page';
 import { routePipelineRunDetails } from '../pages/pipelines/pages/pipeline-run-details/route';
+import RoutePipelineRunHistoryListPage from '../pages/pipelines/pages/pipeline-run-history-list/page';
+import { routePipelineRunHistoryList } from '../pages/pipelines/pages/pipeline-run-history-list/route';
 import RoutePipelineRunListPage from '../pages/pipelines/pages/pipeline-run-list/page';
 import { routePipelineRunList } from '../pages/pipelines/pages/pipeline-run-list/route';
 import RouteTaskDetailsPage from '../pages/pipelines/pages/task-details/page';
@@ -58,6 +60,7 @@ export default [
 
   // Pipelines
   { ...routePipelineRunList, component: () => <RoutePipelineRunListPage /> },
+  { ...routePipelineRunHistoryList, component: () => <RoutePipelineRunHistoryListPage /> },
   { ...routePipelineRunDetails, component: () => <RoutePipelineRunDetailsPage /> },
   {
     ...routePipelineList,
