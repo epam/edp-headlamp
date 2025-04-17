@@ -1,5 +1,5 @@
 import { Utils } from '@kinvolk/headlamp-plugin/lib';
-import { getToken } from '@kinvolk/headlamp-plugin/lib/lib/auth';
+import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { Table } from '../../../../components/Table';
@@ -11,6 +11,10 @@ import { useColumns } from './hooks/useColumns';
 import { getLogsAllQuery } from './logs.query';
 import { NormalizedLogs, OpensearchResponse } from './types';
 import { normalizeLogs } from './utils';
+
+function getToken(cluster: string) {
+  return JSON.parse(localStorage.tokens || '{}')?.[cluster];
+}
 
 export const PageView = () => {
   const columns = useColumns();
@@ -43,7 +47,8 @@ export const PageView = () => {
       <Table
         id={'pipeline-run-history'}
         isLoading={query.isLoading}
-        data={query.data!}
+        data={query.data! || []}
+        blockerError={query.error as ApiError}
         columns={columns}
         settings={{
           show: false,
