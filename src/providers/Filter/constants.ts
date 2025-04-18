@@ -13,19 +13,18 @@ export const searchFunction = (item: KubeObjectInterface, _value: string): boole
   const value = _value.toLowerCase().trim();
 
   if (value.includes(':')) {
-    const _value = value.replaceAll(' ', '');
-    const [key, searchValue] = _value.split(':');
+    const cleanedValue = value.replaceAll(' ', '');
+    const [key, searchValue] = cleanedValue.split(':');
 
-    return !!item?.metadata.labels?.[key]?.includes(searchValue);
-  }
-
-  if (item.spec?.displayName) {
-    return item.spec.displayName.toLowerCase().trim().includes(value);
+    return !!item?.metadata?.labels?.[key]?.toLowerCase()?.includes(searchValue);
   }
 
   return (
-    item?.metadata?.name?.includes(value) ||
-    Object.keys(item?.metadata?.labels || {}).includes(value)
+    Object.keys(item?.metadata?.labels || {}).some((labelKey) =>
+      labelKey.toLowerCase().includes(value)
+    ) ||
+    item?.metadata?.name?.toLowerCase().includes(value) ||
+    item.spec?.displayName?.toLowerCase().includes(value)
   );
 };
 
