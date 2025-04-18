@@ -16,14 +16,17 @@ export const LogsByTask = ({ logs }: LogsByTaskProps) => {
 
   const setQueryParams = React.useCallback(
     (taskRun: string) => {
-      const queryParams = new URLSearchParams();
-      if (taskRun) {
-        queryParams.set('taskRun', taskRun);
+      const currentQueryParams = new URLSearchParams(location.search);
+      if (currentQueryParams.get('taskRun') === taskRun) {
+        return; 
       }
-
-      history.push({ search: queryParams.toString() });
+      const newQueryParams = new URLSearchParams();
+      if (taskRun) {
+        newQueryParams.set('taskRun', taskRun);
+      }
+      history.push({ search: newQueryParams.toString() });
     },
-    [history]
+    [history, location.search]
   );
 
   const queryParamTaskRun = queryParams.get('taskRun');
@@ -36,9 +39,9 @@ export const LogsByTask = ({ logs }: LogsByTaskProps) => {
 
   React.useEffect(() => {
     if (!queryParamTaskRun) {
-      setQueryParams(initialTaskRunName);
+      history.replace({ search: new URLSearchParams({ taskRun: initialTaskRunName }).toString() });
     }
-  }, [initialTaskRunName, queryParamTaskRun, setQueryParams]);
+  }, [initialTaskRunName, queryParamTaskRun, history]);
 
   const theme = useTheme();
 
