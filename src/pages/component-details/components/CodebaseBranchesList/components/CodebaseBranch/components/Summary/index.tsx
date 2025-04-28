@@ -86,7 +86,7 @@ export const Summary = ({
             }
           />
 
-          <Stack direction="row" alignItems="center" spacing={0.5}>
+          <Stack direction="row" alignItems="center" spacing={0}>
             <TextWithTooltip
               text={codebaseBranchData.spec.branchName}
               textSX={{

@@ -51,7 +51,7 @@ export const CDPipelineList = ({ blockerComponent }: CDPipelineListProps) => {
         )
       }
       slots={{
-        header: <Filter controls={controls} hideFilter={false} />,
+        header: <Filter controls={controls} />,
       }}
     />
   );

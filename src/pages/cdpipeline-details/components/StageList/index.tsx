@@ -24,47 +24,49 @@ export const StageList = () => {
     return stagesWithApplicationsData.data.filter(filterFunction);
   }, [stagesWithApplicationsData, filterFunction]);
 
-
   const { setDialog } = useDialogContext();
 
   const renderPageContent = React.useCallback(() => {
-    if (filteredStages?.length === 0) {
+    const isLoading =
+      CDPipeline.isLoading || stages.isLoading || stagesWithApplicationsData.isLoading;
+
+    if (filteredStages?.length === 0 && !isLoading) {
       return (
-        <LoadingWrapper isLoading={CDPipeline.isLoading || stages.isLoading}>
-          <EmptyList
-            missingItemName="Environments"
-            icon={
-              <Icon
-                icon="majesticons:table-plus-line"
-                color="#A2A7B7"
-                width={theme.typography.pxToRem(128)}
-              />
-            }
-            linkText={'by adding a new one here.'}
-            beforeLinkText="Take the first step towards managing your Environment"
-            handleClick={() => {
-              setDialog(ManageStageDialog, {
-                CDPipelineData: CDPipeline.data!,
-                otherStages: stages.data!,
-              });
-            }}
-          />
-        </LoadingWrapper>
+        <EmptyList
+          missingItemName="Environments"
+          icon={
+            <Icon
+              icon="majesticons:table-plus-line"
+              color="#A2A7B7"
+              width={theme.typography.pxToRem(128)}
+            />
+          }
+          linkText={'by adding a new one here.'}
+          beforeLinkText="Take the first step towards managing your Environment"
+          handleClick={() => {
+            setDialog(ManageStageDialog, {
+              CDPipelineData: CDPipeline.data!,
+              otherStages: stages.data!,
+            });
+          }}
+        />
       );
     }
 
     return (
-      <HorizontalScrollContainer>
-        <Grid container spacing={6} wrap="nowrap" sx={{ pb: theme.typography.pxToRem(50) }}>
-          {filteredStages.map((stageWithApplicationsData) => {
-            return (
-              <Grid item xs={6} flexShrink="0" key={stageWithApplicationsData.stage.spec.name}>
-                <EnvironmentStage stageWithApplicationsData={stageWithApplicationsData} />
-              </Grid>
-            );
-          })}
-        </Grid>
-      </HorizontalScrollContainer>
+      <LoadingWrapper isLoading={isLoading}>
+        <HorizontalScrollContainer>
+          <Grid container spacing={6} wrap="nowrap" sx={{ pb: theme.typography.pxToRem(50) }}>
+            {filteredStages.map((stageWithApplicationsData) => {
+              return (
+                <Grid item xs={6} flexShrink="0" key={stageWithApplicationsData.stage.spec.name}>
+                  <EnvironmentStage stageWithApplicationsData={stageWithApplicationsData} />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </HorizontalScrollContainer>
+      </LoadingWrapper>
     );
   }, [
     CDPipeline.data,
@@ -73,6 +75,7 @@ export const StageList = () => {
     setDialog,
     stages.data,
     stages.isLoading,
+    stagesWithApplicationsData.isLoading,
     theme.typography,
   ]);
 

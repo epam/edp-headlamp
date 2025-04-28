@@ -1,7 +1,14 @@
-import { Autocomplete, FormHelperText, TextField } from '@mui/material';
+import {
+  Autocomplete,
+  FormHelperText,
+  ListItemText,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { PIPELINE_TYPE, PipelineType } from '../../../constants/pipelineTypes';
+import { FORM_CONTROL_LABEL_HEIGHT } from '../../../constants/ui';
 import { PIPELINE_RUN_STATUS_SELECT_OPTIONS } from '../../../k8s/groups/Tekton/PipelineRun/constants';
 import { PIPELINE_RUN_LABEL_SELECTOR_CODEBASE } from '../../../k8s/groups/Tekton/PipelineRun/labels';
 import { PipelineRunKubeObjectInterface } from '../../../k8s/groups/Tekton/PipelineRun/types';
@@ -9,7 +16,6 @@ import { NamespaceControl } from '../../../providers/Filter/components/Filter/co
 import { SearchControl } from '../../../providers/Filter/components/Filter/components/SearchControl';
 import { FilterControls } from '../../../providers/Filter/components/Filter/types';
 import { useFilterContext } from '../../../providers/Filter/hooks';
-import { FormSelect } from '../../../providers/Form/components/FormSelect';
 import { FieldEvent } from '../../../types/forms';
 import { capitalizeFirstLetter } from '../../../utils/format/capitalizeFirstLetter';
 import { getClusterSettings } from '../../../utils/getClusterSettings';
@@ -38,11 +44,6 @@ export const useFilter = ({
     );
   }, [pipelineRuns]);
 
-  const {
-    register,
-    control,
-    formState: { errors: formErrors },
-  } = useForm();
   const { filter, setFilterItem, filterFunction } = useFilterContext<
     PipelineRunKubeObjectInterface,
     PipelineRunFilterAllControlNames
@@ -99,22 +100,23 @@ export const useFilter = ({
               gridXs: 2,
               component: (
                 <>
-                  <FormSelect
-                    {...register('type', {
-                      onChange: handleTypeChange,
-                    })}
-                    control={control}
-                    errors={formErrors}
-                    name={'type'}
+                  <Select
+                    onChange={handleTypeChange}
+                    name="type"
+                    value={(filter.values.pipelineType as string) ?? PIPELINE_TYPE.ALL}
                     label={'Type'}
-                    options={pipelineRunTypes.map((value) => ({
-                      label: capitalizeFirstLetter(value),
-                      value: value,
-                    }))}
-                    // TODO: fix types
-                    // @ts-ignore
-                    defaultValue={(filter.values.pipelineType as string) ?? PIPELINE_TYPE.ALL}
-                  />
+                    fullWidth
+                    sx={{
+                      height: (t) => t.typography.pxToRem(32),
+                      mt: (t) => t.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT),
+                    }}
+                  >
+                    {pipelineRunTypes.map((value) => (
+                      <MenuItem value={value} key={value}>
+                        <ListItemText>{capitalizeFirstLetter(value)}</ListItemText>
+                      </MenuItem>
+                    ))}
+                  </Select>
                   <FormHelperText>{typesLabel}</FormHelperText>
                 </>
               ),
@@ -127,25 +129,29 @@ export const useFilter = ({
               gridXs: 2,
               component: (
                 <>
-                  <FormSelect
-                    {...register('status', {
-                      onChange: handleStatusChange,
-                    })}
-                    control={control}
-                    errors={formErrors}
-                    name={'status'}
+                  <Select
+                    onChange={handleStatusChange}
+                    name="status"
+                    value={(filter.values.status as string) ?? 'All'}
                     label={'Status'}
-                    options={[
+                    fullWidth
+                    sx={{
+                      height: (t) => t.typography.pxToRem(32),
+                      mt: (t) => t.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT),
+                    }}
+                  >
+                    {[
                       {
                         label: 'All',
                         value: 'All',
                       },
                       ...PIPELINE_RUN_STATUS_SELECT_OPTIONS,
-                    ]}
-                    // TODO: fix types
-                    // @ts-ignore
-                    defaultValue={(filter.values.status as string) ?? 'All'}
-                  />
+                    ].map((value) => (
+                      <MenuItem value={value.value} key={value.value}>
+                        <ListItemText>{capitalizeFirstLetter(value.value)}</ListItemText>
+                      </MenuItem>
+                    ))}
+                  </Select>
                   <FormHelperText>Success/Failure/Unknown</FormHelperText>
                 </>
               ),
@@ -193,10 +199,7 @@ export const useFilter = ({
     };
   }, [
     filterControls,
-    register,
     handleTypeChange,
-    control,
-    formErrors,
     pipelineRunTypes,
     filter.values.pipelineType,
     filter.values.status,

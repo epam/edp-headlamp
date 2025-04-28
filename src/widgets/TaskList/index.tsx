@@ -28,7 +28,6 @@ export const TaskList = ({ tasks, isLoading, error, permissions }: TaskListProps
       slots={{
         header: (
           <Filter
-            hideFilter={false}
             controls={{
               search: {
                 component: <SearchControl />,
