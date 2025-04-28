@@ -1,8 +1,9 @@
 import { Icon } from '@iconify/react';
-import { Chip, Grid, Typography } from '@mui/material';
+import { Chip, Grid, Stack, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx';
 import React from 'react';
+import { CopyButton } from '../../../components/CopyButton';
 import { StatusIcon } from '../../../components/StatusIcon';
 import { STATUS_COLOR } from '../../../constants/colors';
 import { TRIGGER_TYPE } from '../../../constants/triggerTypes';
@@ -95,7 +96,11 @@ export const useInfoColumns = () => {
         },
         {
           label: 'Namespace',
-          text: stage.spec.namespace,
+          text: (
+            <Stack direction="row" alignItems="center">
+              {stage.spec.namespace} <CopyButton text={stage.spec.namespace} />
+            </Stack>
+          ),
         },
         {
           label: 'Deploy Pipeline',

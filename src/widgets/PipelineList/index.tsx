@@ -35,7 +35,6 @@ export const PipelineList = ({ pipelines, triggerTemplates, permissions }: Pipel
         slots={{
           header: (
             <Filter
-              hideFilter={false}
               controls={{
                 search: {
                   component: <SearchControl />,

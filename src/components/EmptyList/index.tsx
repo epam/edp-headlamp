@@ -13,7 +13,7 @@ export const EmptyList = ({
   handleClick,
   isSearch = false,
   icon,
-  iconSize = 128,
+  iconSize = 96,
 }: EmptyListProps) => {
   const theme = useTheme();
   return (

@@ -1,5 +1,6 @@
 import { Button, Grid, Tooltip } from '@mui/material';
 import React from 'react';
+import { FORM_CONTROL_LABEL_HEIGHT } from '../../../../constants/ui';
 import { useFilterContext } from '../../hooks';
 import { ControlComponent } from '../../types';
 import { FilterProps } from './types';
@@ -41,19 +42,24 @@ export const Filter = <ControlNames extends string>({
   };
 
   return (
-    <Grid container spacing={2} alignItems={'flex-end'} wrap="nowrap">
+    <Grid container spacing={2} wrap="nowrap">
       {hideFilter ? (
         <>
           {controlsRenderer()}
-          {hasValues ? (
-            <Grid item sx={{ mt: '12px' }}>
-              <Tooltip title={'Reset Filter'}>
-                <Button variant="outlined" onClick={resetFilters}>
-                  Clear
-                </Button>
-              </Tooltip>
-            </Grid>
-          ) : null}
+          <Grid
+            item
+            sx={{
+              mt: (t) => t.typography.pxToRem(FORM_CONTROL_LABEL_HEIGHT),
+              visibility: hasValues ? 'visible' : 'hidden',
+              pointerEvents: hasValues ? 'auto' : 'none',
+            }}
+          >
+            <Tooltip title={'Reset Filter'}>
+              <Button variant="outlined" onClick={resetFilters} size="small">
+                Clear
+              </Button>
+            </Tooltip>
+          </Grid>
         </>
       ) : (
         controlsRenderer()

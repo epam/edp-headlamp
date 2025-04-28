@@ -53,6 +53,7 @@ export const DataGrid = <DataType extends unknown>({
     return !!data?.length && !readyData?.length;
   }, [data, isLoading, isReadyDataLoading, readyData]);
 
+
   const renderGrid = React.useCallback(() => {
     if (blockerError) {
       return (
@@ -62,6 +63,7 @@ export const DataGrid = <DataType extends unknown>({
       );
     }
 
+
     if (isLoading) {
       return (
         <Box display="flex" justifyContent={'center'}>
@@ -70,7 +72,7 @@ export const DataGrid = <DataType extends unknown>({
       );
     }
 
-    if (readyData !== null) {
+    if (readyData !== null && readyData.length > 0) {
       return (
         <Stack spacing={2}>
           <div>
@@ -98,6 +100,7 @@ export const DataGrid = <DataType extends unknown>({
     if (hasEmptyResult) {
       return <EmptyList customText={'No results found!'} isSearch />;
     }
+
 
     return <>{emptyListComponent}</>;
   }, [

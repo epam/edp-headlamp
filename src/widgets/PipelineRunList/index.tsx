@@ -123,9 +123,7 @@ export const PipelineRunList = ({
           ),
         }}
         slots={{
-          header: (
-            <Filter<PipelineRunFilterAllControlNames> hideFilter={false} controls={controls} />
-          ),
+          header: <Filter<PipelineRunFilterAllControlNames> controls={controls} />,
         }}
       />
       {deleteDialogOpen && (
