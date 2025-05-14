@@ -36,7 +36,7 @@ export const createCodebaseBranchInstance = (
 
   const namePostfix = `-${createRandomString(5)}`;
 
-  const truncatedName = truncateName(codebaseBranchName, codebaseName.length + namePostfix.length);
+  const truncatedName = truncateName(codebaseBranchName, namePostfix.length);
 
   const finalMetadataName = `${truncatedName}${namePostfix}`;
 
