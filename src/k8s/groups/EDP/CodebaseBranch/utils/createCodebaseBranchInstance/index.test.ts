@@ -19,13 +19,13 @@ describe('testing createCodebaseBranchInstanceBasedOnFormValues', () => {
         reviewPipeline: 'test-review-pipeline',
         buildPipeline: 'test-build-pipeline',
       },
-      'test-codebase-name'
+      'java8-gr-create-branch6-def-ui'
     );
     expect(object).toEqual({
       apiVersion: 'v2.edp.epam.com/v1',
       kind: 'CodebaseBranch',
       spec: {
-        codebaseName: 'test-codebase-name',
+        codebaseName: 'java8-gr-create-branch6-def-ui',
         branchName: 'test',
         fromCommit: 'com',
         release: false,
@@ -35,8 +35,8 @@ describe('testing createCodebaseBranchInstanceBasedOnFormValues', () => {
         },
       },
       metadata: {
-        name: 'test-codebase-name-test-1234',
-        labels: { 'app.edp.epam.com/codebaseName': 'test-codebase-name' },
+        name: 'java8-gr-create-branch6-def-ui-test-1234',
+        labels: { 'app.edp.epam.com/codebaseName': 'java8-gr-create-branch6-def-ui' },
       },
     });
   });
