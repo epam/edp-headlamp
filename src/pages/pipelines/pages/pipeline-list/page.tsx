@@ -4,6 +4,7 @@ import { DialogContextProvider } from '../../../../providers/Dialog/provider';
 import { FilterContextProvider } from '../../../../providers/Filter/provider';
 import { PermissionsContextProvider } from '../../../../providers/Permissions/provider';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
+import { matchFunctions } from '../../../../widgets/PipelineList/constants';
 import { permissionsToCheckConfig } from './constants';
 import { PageView } from './view';
 
@@ -14,7 +15,7 @@ export default function () {
         <DialogContextProvider>
           <FilterContextProvider
             entityID={`PIPELINE_LIST::${getDefaultNamespace()}`}
-            matchFunctions={null}
+            matchFunctions={matchFunctions}
           >
             <PageView />
           </FilterContextProvider>

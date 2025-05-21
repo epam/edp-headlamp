@@ -70,7 +70,11 @@ export const useFilter = ({
     [setFilterItem]
   );
 
-  const typesLabel = pipelineRunTypes.map((el) => capitalizeFirstLetter(el)).join('/');
+  const typesLabel = pipelineRunTypes
+    .slice(0, 5)
+    .map((el) => capitalizeFirstLetter(el))
+    .join('/')
+    .concat('...');
 
   const controls: FilterControlsType = React.useMemo(() => {
     return {
