@@ -30,6 +30,9 @@ export const PipelineRunList = ({
     PIPELINE_TYPE.BUILD,
     PIPELINE_TYPE.DEPLOY,
     PIPELINE_TYPE.CLEAN,
+    PIPELINE_TYPE.SECURITY,
+    PIPELINE_TYPE.RELEASE,
+    PIPELINE_TYPE.TESTS,
   ],
   filterControls = [
     pipelineRunFilterControlNames.CODEBASES,
