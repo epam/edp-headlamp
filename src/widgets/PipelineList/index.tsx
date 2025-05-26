@@ -1,4 +1,4 @@
-import { FormHelperText, ListItemText, MenuItem, Select } from '@mui/material';
+import { FormHelperText, ListItemText, MenuItem, Select, Tooltip } from '@mui/material';
 import React from 'react';
 import { EmptyList } from '../../components/EmptyList';
 import { LoadingWrapper } from '../../components/LoadingWrapper';
@@ -29,6 +29,14 @@ const pipelineTypes = [
   PIPELINE_TYPE.TESTS,
 ];
 
+const allPipelineTypes = pipelineTypes.map((el) => capitalizeFirstLetter(el)).join(' / ');
+
+const pipelineTypeSelectHelperText = allPipelineTypes
+  .split(' / ')
+  .slice(0, 5)
+  .join(' / ')
+  .concat('...');
+
 export const PipelineList = ({ pipelines, triggerTemplates, permissions }: PipelineListProps) => {
   const columns = useColumns({ permissions, triggerTemplates: triggerTemplates.data });
 
@@ -44,12 +52,6 @@ export const PipelineList = ({ pipelines, triggerTemplates, permissions }: Pipel
     },
     [setFilterItem]
   );
-
-  const typesLabel = pipelineTypes
-    .slice(0, 5)
-    .map((el) => capitalizeFirstLetter(el))
-    .join('/')
-    .concat('...');
 
   return (
     <LoadingWrapper isLoading={triggerTemplates.isLoading}>
@@ -97,7 +99,11 @@ export const PipelineList = ({ pipelines, triggerTemplates, permissions }: Pipel
                           </MenuItem>
                         ))}
                       </Select>
-                      <FormHelperText>{typesLabel}</FormHelperText>
+                      <FormHelperText>
+                        <Tooltip title={allPipelineTypes}>
+                          <span>{pipelineTypeSelectHelperText}</span>
+                        </Tooltip>
+                      </FormHelperText>
                     </>
                   ),
                 },
