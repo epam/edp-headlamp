@@ -5,6 +5,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Tooltip,
 } from '@mui/material';
 import React from 'react';
 import { PIPELINE_TYPE, PipelineType } from '../../../constants/pipelineTypes';
@@ -70,10 +71,12 @@ export const useFilter = ({
     [setFilterItem]
   );
 
-  const typesLabel = pipelineRunTypes
+  const allPipelineTypes = pipelineRunTypes.map((el) => capitalizeFirstLetter(el)).join(' / ');
+
+  const pipelineTypeSelectHelperText = allPipelineTypes
+    .split(' / ')
     .slice(0, 5)
-    .map((el) => capitalizeFirstLetter(el))
-    .join('/')
+    .join(' / ')
     .concat('...');
 
   const controls: FilterControlsType = React.useMemo(() => {
@@ -121,7 +124,11 @@ export const useFilter = ({
                       </MenuItem>
                     ))}
                   </Select>
-                  <FormHelperText>{typesLabel}</FormHelperText>
+                  <FormHelperText>
+                    <Tooltip title={allPipelineTypes}>
+                      <span>{pipelineTypeSelectHelperText}</span>
+                    </Tooltip>
+                  </FormHelperText>
                 </>
               ),
             },
@@ -156,7 +163,7 @@ export const useFilter = ({
                       </MenuItem>
                     ))}
                   </Select>
-                  <FormHelperText>Success/Failure/Unknown</FormHelperText>
+                  <FormHelperText>Success / Failure / Unknown</FormHelperText>
                 </>
               ),
             },
@@ -204,11 +211,12 @@ export const useFilter = ({
   }, [
     filterControls,
     handleTypeChange,
-    pipelineRunTypes,
     filter.values.pipelineType,
     filter.values.status,
     filter.values.codebases,
-    typesLabel,
+    pipelineRunTypes,
+    allPipelineTypes,
+    pipelineTypeSelectHelperText,
     handleStatusChange,
     pipelineCodebases,
     handleCodebasesChange,
