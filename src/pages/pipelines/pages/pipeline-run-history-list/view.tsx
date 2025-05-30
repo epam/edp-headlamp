@@ -6,15 +6,12 @@ import { Table } from '../../../../components/Table';
 import { useEDPConfigMapQuery } from '../../../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
 import { ApiServiceBase, OpensearchApiService } from '../../../../services/api';
 import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
+import { getToken } from '../../../../utils/getToken';
 import { PipelinesPageWrapper } from '../../components';
 import { useColumns } from './hooks/useColumns';
 import { getLogsAllQuery } from './logs.query';
 import { NormalizedLogs, OpensearchResponse } from './types';
 import { normalizeLogs } from './utils';
-
-function getToken(cluster: string) {
-  return JSON.parse(localStorage.tokens || '{}')?.[cluster];
-}
 
 export const PageView = () => {
   const columns = useColumns();

@@ -1,7 +1,8 @@
-import { Box, Grid, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { CODEBASE_TYPE } from '../../../../../../../../../../../constants/codebaseTypes';
 import { CODEBASE_CREATION_STRATEGY } from '../../../../../../../../../../../constants/creationStrategies';
+import { GIT_PROVIDER } from '../../../../../../../../../../../constants/gitProviders';
 import { Resources } from '../../../../../../../../../../../icons/sprites/Resources';
 import { useTypedFormContext } from '../../../../../../../../hooks/useFormContext';
 import { CODEBASE_FORM_NAMES } from '../../../../../../../../names';
@@ -16,7 +17,9 @@ import {
   GitUrlPath,
   Lang,
   Name,
+  Owner,
   Private,
+  Repository,
   RepositoryLogin,
   RepositoryPasswordOrApiToken,
   RepositoryUrl,
@@ -31,11 +34,15 @@ export const Info = () => {
   const typeFieldValue = watch(CODEBASE_FORM_NAMES.type.name);
   const strategyFieldValue = watch(CODEBASE_FORM_NAMES.strategy.name);
   const hasCodebaseAuthFieldValue = watch(CODEBASE_FORM_NAMES.hasCodebaseAuth.name);
+  const gitServerFieldValue = watch(CODEBASE_FORM_NAMES.gitServer.name);
 
   return (
     <>
       <Resources />
       <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <GitServer />
+        </Grid>
         {isCloneStrategy(strategyFieldValue) ? (
           <>
             <Grid item xs={12}>
@@ -43,17 +50,28 @@ export const Info = () => {
             </Grid>
           </>
         ) : null}
-        <Grid item xs={12}>
-          <Stack direction="row" spacing={2}>
-            <Box flexGrow={1} flexShrink={0}>
-              <GitServer />
-            </Box>
-            <Typography sx={{ pt: theme.typography.pxToRem(18) }}>/</Typography>
-            <Box flexGrow={1} flexShrink={0}>
-              <GitUrlPath />
-            </Box>
-          </Stack>
-        </Grid>
+        {gitServerFieldValue.includes(GIT_PROVIDER.GERRIT) ? (
+          <Grid item xs={12}>
+            <GitUrlPath />
+          </Grid>
+        ) : (
+          <Grid item xs={12}>
+            <Grid container spacing={1} alignItems="center">
+              <Grid item xs={4}>
+                <Owner />
+              </Grid>
+              <Grid item xs={1} display="flex" justifyContent="center">
+                <Typography sx={{ pt: theme.typography.pxToRem(8) }}>/</Typography>
+              </Grid>
+              <Grid item xs={7}>
+                <Box flexGrow={1} flexShrink={0}>
+                  <Repository />
+                </Box>
+              </Grid>
+            </Grid>
+          </Grid>
+        )}
+
         {isCloneStrategy(strategyFieldValue) ? (
           <>
             <Grid item xs={12}>

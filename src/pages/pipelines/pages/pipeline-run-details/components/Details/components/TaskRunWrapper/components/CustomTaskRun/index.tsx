@@ -15,6 +15,7 @@ import { useDialogContext } from '../../../../../../../../../../providers/Dialog
 import { Tabs } from '../../../../../../../../../../providers/Tabs/components/Tabs';
 import { useTabsContext } from '../../../../../../../../../../providers/Tabs/hooks';
 import { humanize } from '../../../../../../../../../../utils/date/humanize';
+import { getToken } from '../../../../../../../../../../utils/getToken';
 import { StyledDetailsBody, StyledDetailsHeader } from '../../../../styles';
 import { ChoiceButtonGroup } from './components/ChoiceButtonGroup';
 import { CommentDialog } from './components/CommentDialog';
@@ -46,10 +47,6 @@ const updateApprovalTask = ({
 
   return updatedApprovalTask;
 };
-
-function getToken(cluster: string) {
-  return JSON.parse(localStorage.tokens || '{}')?.[cluster];
-}
 
 function getUserInfo(cluster: string) {
   const user = getToken(cluster)?.split('.')[1];

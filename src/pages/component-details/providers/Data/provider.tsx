@@ -11,13 +11,10 @@ import {
   DependencyTrackApiService,
   SonarApiService,
 } from '../../../../services/api';
+import { getToken } from '../../../../utils/getToken';
 import { MetricKey, SonarQubeMetricsResponse } from '../../../../widgets/SonarQubeMetrics/types';
 import { ComponentDetailsRouteParams } from '../../types';
 import { DataContext } from './context';
-
-function getToken(cluster: string) {
-  return JSON.parse(localStorage.tokens || '{}')?.[cluster];
-}
 
 const getDepTrackProjectDefaultVersion = (projectCollection: {
   collection: {

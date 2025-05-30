@@ -28,7 +28,7 @@ export const NAMES = {
   JIRA_ISSUE_METADATA_PAYLOAD: 'jiraIssueMetadataPayload',
   CODEMIE_INTEGRATION_LABEL: 'codemieIntegrationLabel',
 
-  // NOT USED IN RESOURCE DATA
+  // NOT DIRECTLY USED IN RESOURCE DATA
   HAS_CODEBASE_AUTH: 'hasCodebaseAuth',
   REPOSITORY_LOGIN: 'repositoryLogin',
   REPOSITORY_PASSWORD_OR_API_TOKEN: 'repositoryPasswordOrApiToken',
@@ -38,6 +38,8 @@ export const NAMES = {
   VERSIONING_START_FROM_SNAPSHOT: 'versioningStartFromSnapshot',
   ADVANCED_MAPPING_FIELD_NAME: 'advancedMappingFieldName',
   ADVANCED_MAPPING_JIRA_PATTERN: 'advancedMappingJiraPattern',
+  REPOSITORY_NAME: 'repositoryName',
+  REPOSITORY_OWNER: 'repositoryOwner',
 } as const;
 
 export const CODEBASE_FORM_NAMES = {
@@ -197,6 +199,16 @@ export const CODEBASE_FORM_NAMES = {
   },
   [NAMES.ADVANCED_MAPPING_JIRA_PATTERN]: {
     name: NAMES.ADVANCED_MAPPING_JIRA_PATTERN,
+    notUsedInFormData: true,
+  },
+  [NAMES.REPOSITORY_NAME]: {
+    name: NAMES.REPOSITORY_NAME,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
+    notUsedInFormData: true,
+  },
+  [NAMES.REPOSITORY_OWNER]: {
+    name: NAMES.REPOSITORY_OWNER,
+    formPart: CONFIGURATION_STEPS.CODEBASE_INFO,
     notUsedInFormData: true,
   },
 };
