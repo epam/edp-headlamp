@@ -50,6 +50,36 @@ export class SonarApiService {
   }
 }
 
+export class GitFusionApiService {
+  apiService: ApiServiceBase;
+
+  constructor(apiService: ApiServiceBase) {
+    this.apiService = apiService;
+  }
+
+  getRepoListEndpoint(gitServer: string, owner: string) {
+    const params = new URLSearchParams({
+      gitServer: gitServer,
+      owner,
+    });
+
+    return new URL(
+      `/gitfusion/repositories?${params.toString()}`,
+      this.apiService.apiBaseURL
+    ).toString();
+  }
+
+  getOrganizationsEndpoint(gitServer: string) {
+    const params = new URLSearchParams({
+      gitServer: gitServer,
+    });
+    return new URL(
+      `/gitfusion/organizations?${params.toString()}`,
+      this.apiService.apiBaseURL
+    ).toString();
+  }
+}
+
 export class DependencyTrackApiService {
   apiService: ApiServiceBase;
 

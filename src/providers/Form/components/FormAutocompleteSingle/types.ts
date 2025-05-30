@@ -1,3 +1,4 @@
+import { InputProps, StandardTextFieldProps } from '@mui/material';
 import { Control, FieldErrors } from 'react-hook-form';
 
 export interface FormAutocompleteSingleProps<T> {
@@ -10,7 +11,7 @@ export interface FormAutocompleteSingleProps<T> {
   disabled?: boolean;
   options: T[];
   errors: FieldErrors;
-  InputProps?: {};
   AutocompleteProps?: {};
-  TextFieldProps?: {};
+  InputProps?: InputProps;
+  TextFieldProps?: StandardTextFieldProps;
 }

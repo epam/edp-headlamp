@@ -14,15 +14,12 @@ import { TaskKubeObjectInterface } from '../../../../../../k8s/groups/Tekton/Tas
 import { TaskRunKubeObject } from '../../../../../../k8s/groups/Tekton/TaskRun';
 import { TaskRunKubeObjectInterface } from '../../../../../../k8s/groups/Tekton/TaskRun/types';
 import { ApiServiceBase, OpensearchApiService } from '../../../../../../services/api';
+import { getToken } from '../../../../../../utils/getToken';
 import { PipelineRouteParams } from '../../types';
 import { DynamicDataContext } from './context';
 import { getLogsQuery } from './logs.query';
 import { NormalizedLogs, OpensearchResponse } from './types';
 import { normalizeLogs } from './utils';
-
-function getToken(cluster: string) {
-  return JSON.parse(localStorage.tokens || '{}')?.[cluster];
-}
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const { namespace, name } = useParams<PipelineRouteParams>();
