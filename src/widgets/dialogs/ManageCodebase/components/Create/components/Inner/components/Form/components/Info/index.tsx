@@ -56,12 +56,12 @@ export const Info = () => {
           </Grid>
         ) : (
           <Grid item xs={12}>
-            <Grid container spacing={1} alignItems="center">
+            <Grid container spacing={1} alignItems="flex-start">
               <Grid item xs={4}>
                 <Owner />
               </Grid>
               <Grid item xs={1} display="flex" justifyContent="center">
-                <Typography sx={{ pt: theme.typography.pxToRem(8) }}>/</Typography>
+                <Typography sx={{ pt: theme.typography.pxToRem(24) }}>/</Typography>
               </Grid>
               <Grid item xs={7}>
                 <Box flexGrow={1} flexShrink={0}>

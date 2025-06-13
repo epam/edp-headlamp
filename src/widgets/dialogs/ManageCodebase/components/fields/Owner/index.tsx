@@ -65,9 +65,9 @@ export const Owner = () => {
       TextFieldProps={{
         helperText: query.error ? query.error.toString() : ' ',
         error: !!query.error,
-      }}
-      InputProps={{
-        endAdornment: query.isLoading ? <CircularProgress size={15} /> : null,
+        InputProps: {
+          endAdornment: query.isLoading ? <CircularProgress size={15} /> : null,
+        },
       }}
     />
   );

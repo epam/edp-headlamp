@@ -78,6 +78,19 @@ export class GitFusionApiService {
       this.apiService.apiBaseURL
     ).toString();
   }
+
+  getBranchListEndpoint(gitServer: string, owner: string, repoName: string) {
+    const params = new URLSearchParams({
+      gitServer: gitServer,
+      owner,
+      repoName,
+    });
+
+    return new URL(
+      `/gitfusion/branches?${params.toString()}`,
+      this.apiService.apiBaseURL
+    ).toString();
+  }
 }
 
 export class DependencyTrackApiService {

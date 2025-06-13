@@ -43,7 +43,6 @@ export const FormAutocompleteSingle = <T extends SelectOption>(
   const errorMessage = error?.message as string;
   const helperText = hasError ? errorMessage : TextFieldProps?.helperText;
 
-
   return (
     <FormControl fullWidth>
       <Controller
@@ -65,8 +64,9 @@ export const FormAutocompleteSingle = <T extends SelectOption>(
                     ..._InputProps,
                     endAdornment: (
                       <Stack direction="row" alignItems="center" sx={{ pt: '2px' }}>
-                        {InputProps.endAdornment}
                         {_InputProps.endAdornment}
+                        {TextFieldProps?.InputProps?.endAdornment}
+                        {params.InputProps.endAdornment}
                       </Stack>
                     ),
                   }}

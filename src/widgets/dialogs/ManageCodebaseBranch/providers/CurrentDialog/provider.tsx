@@ -1,7 +1,11 @@
+import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
 import { PIPELINE_TYPE } from '../../../../../constants/pipelineTypes';
+import { useEDPConfigMapQuery } from '../../../../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
 import { usePipelineByTypeListQuery } from '../../../../../k8s/groups/Tekton/Pipeline/hooks/usePipelineByTypeListQuery';
+import { ApiServiceBase, GitFusionApiService } from '../../../../../services/api';
+import { getToken } from '../../../../../utils/getToken';
 import { CurrentDialogContext } from './context';
 import { CurrentDialogContextProviderProps } from './types';
 
@@ -22,8 +26,18 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
     isLoading: reviewPipelinesIsLoading,
   } = usePipelineByTypeListQuery(PIPELINE_TYPE.REVIEW);
 
-  const CurrentDialogContextValue = React.useMemo(
-    () => ({
+  const cluster = Utils.getCluster() || '';
+  const token = getToken(cluster);
+  const { data: EDPConfigMap } = useEDPConfigMapQuery();
+
+  const apiGatewayUrl = EDPConfigMap?.data?.api_gateway_url;
+
+  const CurrentDialogContextValue = React.useMemo(() => {
+    const apiServiceBase = new ApiServiceBase(apiGatewayUrl, token);
+
+    const gitFusionApiService = new GitFusionApiService(apiServiceBase);
+
+    return {
       props,
       state,
       extra: {
@@ -37,19 +51,22 @@ export const CurrentDialogContextProvider: React.FC<CurrentDialogContextProvider
           error: reviewPipelinesError as ApiError,
           isLoading: reviewPipelinesIsLoading,
         },
+        apiServiceBase,
+        gitFusionApiService,
       },
-    }),
-    [
-      props,
-      state,
-      buildPipelines,
-      buildPipelinesError,
-      buildPipelinesIsLoading,
-      reviewPipelines,
-      reviewPipelinesError,
-      reviewPipelinesIsLoading,
-    ]
-  );
+    };
+  }, [
+    apiGatewayUrl,
+    token,
+    props,
+    state,
+    buildPipelines,
+    buildPipelinesError,
+    buildPipelinesIsLoading,
+    reviewPipelines,
+    reviewPipelinesError,
+    reviewPipelinesIsLoading,
+  ]);
 
   return (
     <CurrentDialogContext.Provider value={CurrentDialogContextValue}>

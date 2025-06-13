@@ -1,6 +1,7 @@
-import { Grid } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import React from 'react';
-import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
+import { useQuery } from 'react-query';
+import { FormAutocompleteSingle } from '../../../../../../providers/Form/components/FormAutocompleteSingle';
 import { FieldEvent } from '../../../../../../types/forms';
 import { createVersioningString } from '../../../../../../utils/createVersioningString';
 import { getVersionAndPostfixFromVersioningString } from '../../../../../../utils/getVersionAndPostfixFromVersioningString';
@@ -20,8 +21,46 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
   } = useTypedFormContext();
 
   const {
-    props: { codebaseBranches },
+    props: { codebaseBranches, codebase },
+    extra: { apiServiceBase, gitFusionApiService },
   } = useCurrentDialog();
+
+  const codebaseGitUrlPath = codebase.spec.gitUrlPath;
+  const codebaseGitServer = codebase.spec.gitServer;
+  const codebaseRepoName = codebaseGitUrlPath.split('/').at(-1) || '';
+  const codebaseOwner = codebaseGitUrlPath.split('/').filter(Boolean).slice(0, -1).join('/');
+
+  const query = useQuery<{
+    data: {
+      name: string;
+    }[];
+  }>(
+    ['branchList', codebaseGitServer, codebaseOwner, codebaseRepoName],
+    () =>
+      apiServiceBase.createFetcher(
+        gitFusionApiService.getBranchListEndpoint(
+          codebaseGitServer,
+          codebaseOwner,
+          codebaseRepoName
+        )
+      ),
+    {
+      enabled:
+        !!apiServiceBase.apiBaseURL && !!codebaseGitServer && !!codebaseOwner && !!codebaseRepoName,
+    }
+  );
+
+  const branchesOptions = React.useMemo(() => {
+    if (query.isLoading || query.isError) {
+      return [];
+    }
+    return (
+      query.data?.data.map((branch) => ({
+        label: branch.name,
+        value: branch.name,
+      })) || []
+    );
+  }, [query.isLoading, query.isError, query.data]);
 
   const existingCodebaseBranchs = codebaseBranches.map(
     (codebaseBranch) => codebaseBranch.spec.branchName
@@ -50,7 +89,8 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
 
   return (
     <Grid item xs={12}>
-      <FormTextField
+      <FormAutocompleteSingle
+        placeholder={'Owner'}
         {...register(CODEBASE_BRANCH_FORM_NAMES.branchName.name, {
           pattern: {
             value: /^(?![\/\.\-])[A-Za-z0-9\/\._\-]*(?<![\/\.\-])$/,
@@ -67,12 +107,19 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
           required: 'Enter branch name',
           onChange: handleReleaseBranchNameFieldValueChange,
         })}
-        label={'Branch Name'}
+        label="Branch Name"
         title={'Type the branch name that will be created in the Version Control System.'}
-        placeholder={'Enter Branch Name'}
         control={control}
         errors={errors}
-        disabled={releaseFieldValue}
+        options={branchesOptions}
+        disabled={query.isLoading || query.isError || releaseFieldValue}
+        TextFieldProps={{
+          helperText: query.error ? query.error.toString() : ' ',
+          error: !!query.error,
+        }}
+        InputProps={{
+          endAdornment: query.isLoading ? <CircularProgress size={15} /> : null,
+        }}
       />
     </Grid>
   );

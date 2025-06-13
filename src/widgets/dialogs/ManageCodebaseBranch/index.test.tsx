@@ -22,6 +22,7 @@ const mockCodebase = {
       type: 'edp',
       startFrom: '0.0.0-SNAPSHOT',
     },
+    gitUrlPath: '/test-owner/test-repo-name',
   },
 };
 const mockPipelines = {
