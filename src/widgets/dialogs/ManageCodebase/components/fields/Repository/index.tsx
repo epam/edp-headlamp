@@ -76,9 +76,9 @@ export const Repository = () => {
       options={repositoryOptions}
       TextFieldProps={{
         helperText: ' ',
-      }}
-      InputProps={{
-        endAdornment: query.isLoading ? <CircularProgress size={15} /> : null,
+        InputProps: {
+          endAdornment: query.isLoading ? <CircularProgress size={15} /> : null,
+        },
       }}
     />
   ) : (
