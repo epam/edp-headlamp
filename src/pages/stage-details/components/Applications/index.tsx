@@ -102,7 +102,7 @@ export const Applications = ({
     };
   }, [values]);
 
-  const { CDPipelineName, namespace } = useParams<EDPStageDetailsRouteParams>();
+  const { CDPipelineName } = useParams<EDPStageDetailsRouteParams>();
 
   const { stage } = useDynamicDataContext();
 
@@ -115,10 +115,10 @@ export const Applications = ({
       return acc + `${name}:${deployedVersion}\n`;
     }, '');
 
-    return `flow: ${CDPipelineName}, env: ${
-      stage.data!.spec.name
-    }, ns: ${namespace}\n\n${copyTextVersions} \n\n`;
-  }, [CDPipelineName, enrichedApplicationsWithArgoApplications, namespace, stage.data]);
+    return `flow: ${CDPipelineName}, env: ${stage.data!.spec.name}, ns: ${
+      stage.data!.spec.namespace
+    }\n\n${copyTextVersions} \n\n`;
+  }, [CDPipelineName, enrichedApplicationsWithArgoApplications, stage.data]);
 
   const columns = useColumns({
     mode,

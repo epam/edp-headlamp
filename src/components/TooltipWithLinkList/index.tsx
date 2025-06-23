@@ -16,7 +16,12 @@ export const TooltipWithLinkList = ({
     <Tooltip
       title={
         <Paper elevation={8}>
-          <MenuList>
+          <MenuList
+            sx={{
+              maxHeight: '40vh',
+              overflowY: 'auto',
+            }}
+          >
             {urls.map((el) => (
               <MenuItem
                 key={el}

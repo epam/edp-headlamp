@@ -2,6 +2,7 @@ import React from 'react';
 import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
 import { CodebaseBranchKubeObjectInterface } from '../../../../../k8s/groups/EDP/CodebaseBranch/types';
 import { PipelineKubeObjectInterface } from '../../../../../k8s/groups/Tekton/Pipeline/types';
+import { ApiServiceBase, GitFusionApiService } from '../../../../../services/api';
 import { KubeObjectListInterface } from '../../../../../types/k8s';
 import { DataProviderValue } from '../../../../../types/pages';
 import { CurrentDialogContextProviderValue } from './types';
@@ -35,5 +36,7 @@ export const CurrentDialogContext = React.createContext<CurrentDialogContextProv
     reviewPipelines: null as unknown as DataProviderValue<
       KubeObjectListInterface<PipelineKubeObjectInterface>
     >,
+    apiServiceBase: undefined as unknown as ApiServiceBase,
+    gitFusionApiService: undefined as unknown as GitFusionApiService,
   },
 });

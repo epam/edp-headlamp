@@ -224,18 +224,20 @@ export const useColumns = ({
       label: (
         <Stack spacing={2}>
           {mode === APPLICATIONS_TABLE_MODE.CONFIGURATION && (
-            <div>
-              <FormSwitch
-                label={<></>}
-                {...register(ALL_VALUES_OVERRIDE_KEY, {
-                  onChange: handleClickOverrideValuesAll,
-                })}
-                align={'flex-start'}
-                control={control}
-                errors={errors}
-                defaultValue={buttonsHighlighted.valuesOverride}
-              />
-            </div>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <div>
+                <FormSwitch
+                  label={<></>}
+                  {...register(ALL_VALUES_OVERRIDE_KEY, {
+                    onChange: handleClickOverrideValuesAll,
+                  })}
+                  align={'flex-start'}
+                  control={control}
+                  errors={errors}
+                  defaultValue={buttonsHighlighted.valuesOverride}
+                />
+              </div>
+            </Stack>
           )}
 
           <Stack direction="row" spacing={1} alignItems="center" flexWrap="nowrap">
@@ -255,7 +257,7 @@ export const useColumns = ({
           } = data;
 
           return (
-            <Stack direction="row" alignItems="center">
+            <Stack direction="row" alignItems="center" spacing={1}>
               <ValuesOverrideSwitch enrichedApplicationWithArgoApplication={data} mode={mode} />
               {gitOpsCodebase.data?.status.gitWebUrl && stage!.spec.name && (
                 <ResourceIconLink
