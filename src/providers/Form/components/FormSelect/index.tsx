@@ -94,7 +94,7 @@ export const FormSelect = React.forwardRef(
                         <Tooltip title={title}>
                           <Icon
                             icon={ICONS.INFO_CIRCLE}
-                            width={18}
+                            width={15}
                             color={theme.palette.action.active}
                           />
                         </Tooltip>

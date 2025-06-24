@@ -22,6 +22,7 @@ export const FormAutocompleteSingle = <T extends SelectOption>(
     options,
     TextFieldProps,
     AutocompleteProps,
+    allowCustomInput = false,
     ...otherProps
   } = props;
 
@@ -55,6 +56,7 @@ export const FormAutocompleteSingle = <T extends SelectOption>(
               {...AutocompleteProps}
               options={options}
               disabled={disabled}
+              freeSolo={allowCustomInput}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -64,9 +66,9 @@ export const FormAutocompleteSingle = <T extends SelectOption>(
                     ..._InputProps,
                     endAdornment: (
                       <Stack direction="row" alignItems="center" sx={{ pt: '2px' }}>
+                        {params.InputProps.endAdornment}
                         {_InputProps.endAdornment}
                         {TextFieldProps?.InputProps?.endAdornment}
-                        {params.InputProps.endAdornment}
                       </Stack>
                     ),
                   }}
@@ -79,10 +81,30 @@ export const FormAutocompleteSingle = <T extends SelectOption>(
                   helperText={helperText}
                 />
               )}
-              isOptionEqualToValue={(option, value) => option.value === value.value}
-              getOptionLabel={(option) => option.label || ''}
+              isOptionEqualToValue={(option, value) => {
+                return option.value === value.value;
+              }}
+              getOptionLabel={(option) => {
+                if (typeof option === 'string') {
+                  return option;
+                }
+                if (typeof option === 'object' && 'label' in option) {
+                  return option.label || '';
+                }
+
+                return '';
+              }}
               onChange={(event, newValue) => {
-                field.onChange(newValue ? newValue.value : '');
+                if (typeof newValue === 'string') {
+                  field.onChange(newValue);
+                } else if (newValue && typeof newValue === 'object' && 'value' in newValue) {
+                  field.onChange(newValue.value || '');
+                } else {
+                  field.onChange('');
+                }
+              }}
+              onInputChange={(event, newInputValue) => {
+                field.onChange(newInputValue || '');
               }}
               value={options.find((option) => option.value === field.value) || null}
             />

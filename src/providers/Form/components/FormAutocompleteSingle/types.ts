@@ -11,6 +11,7 @@ export interface FormAutocompleteSingleProps<T> {
   disabled?: boolean;
   options: T[];
   errors: FieldErrors;
+  allowCustomInput?: boolean;
   AutocompleteProps?: {};
   InputProps?: InputProps;
   TextFieldProps?: StandardTextFieldProps;
