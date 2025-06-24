@@ -5,6 +5,7 @@ import { CONFIGURATION_STEPS } from '../../dialogs/ManageCodebase/constants';
 const NAMES = {
   NAME: 'name',
   FROM_COMMIT: 'fromCommit',
+  FROM_TYPE: 'fromType',
   RELEASE: 'release',
   VERSION: 'version',
   CODEBASE_NAME_LABEL: 'codebaseNameLabel',
@@ -41,6 +42,10 @@ export const CODEBASE_BRANCH_FORM_NAMES = {
   [NAMES.FROM_COMMIT]: {
     name: NAMES.FROM_COMMIT,
     path: ['spec', 'fromCommit'],
+  },
+  [NAMES.FROM_TYPE]: {
+    name: NAMES.FROM_TYPE,
+    notUsedInFormData: true,
   },
   [NAMES.RELEASE]: {
     name: NAMES.RELEASE,
