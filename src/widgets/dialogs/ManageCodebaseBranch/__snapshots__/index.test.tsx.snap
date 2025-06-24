@@ -441,10 +441,10 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                       style="display: inline-block; margin-top: 0.125rem;"
                     >
                       <span
-                        class="makeStyles-labelWrap-3"
+                        class="makeStyles-labelWrap-4"
                       >
                         <span
-                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-4 css-1ezega9-MuiTypography-root"
+                          class="MuiTypography-root MuiTypography-body1 makeStyles-label-5 css-1ezega9-MuiTypography-root"
                         >
                           Release branch
                         </span>
@@ -469,7 +469,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                 class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
               >
                 <div
-                  class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon css-clttge-MuiAutocomplete-root"
+                  class="MuiAutocomplete-root css-clttge-MuiAutocomplete-root"
                 >
                   <div
                     class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
@@ -488,7 +488,6 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                     >
                       <input
                         aria-autocomplete="list"
-                        aria-describedby="mui-9-helper-text"
                         aria-expanded="false"
                         aria-invalid="false"
                         autocapitalize="none"
@@ -505,44 +504,9 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                         class="MuiStack-root css-1iec9nd-MuiStack-root"
                       >
                         <span />
-                        <div
-                          class="MuiAutocomplete-endAdornment css-p1olib-MuiAutocomplete-endAdornment"
-                        >
-                          <button
-                            aria-label="Open"
-                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-popupIndicator css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator"
-                            tabindex="-1"
-                            title="Open"
-                            type="button"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-                              data-testid="ArrowDropDownIcon"
-                              focusable="false"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                d="M7 10l5 5 5-5z"
-                              />
-                            </svg>
-                            <span
-                              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                            />
-                          </button>
-                        </div>
                       </div>
                     </div>
-                    <p
-                      class="MuiFormHelperText-root MuiFormHelperText-sizeMedium css-nnd8o8-MuiFormHelperText-root"
-                      id="mui-9-helper-text"
-                    >
-                      <span
-                        class="notranslate"
-                      >
-                        ​
-                      </span>
-                    </p>
+                    
                   </div>
                 </div>
               </div>
@@ -552,50 +516,150 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
           >
             <div
-              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 css-1idn90j-MuiGrid-root"
+              class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 css-jhdc2n-MuiGrid-root"
             >
               <div
-                class="MuiStack-root css-jfdv4h-MuiStack-root"
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
               >
                 <div
-                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                  class="MuiStack-root css-jfdv4h-MuiStack-root"
                 >
                   <div
-                    class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+                    class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
                   >
                     <label
-                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-8dtgre-MuiFormLabel-root-MuiInputLabel-root"
-                      data-shrink="false"
-                      for="mui-11"
-                      id="mui-11-label"
+                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
+                      data-shrink="true"
                     >
-                      From Commit Hash 
+                      From
                     </label>
                     <div
-                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
+                      class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd  css-p2czvz-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
                     >
+                      <div
+                        aria-controls="mui-10"
+                        aria-expanded="false"
+                        aria-haspopup="listbox"
+                        aria-labelledby="mui-component-select-fromType"
+                        class="MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-14oa7yt-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+                        id="mui-component-select-fromType"
+                        role="combobox"
+                        tabindex="0"
+                      >
+                        Branch
+                      </div>
                       <input
+                        aria-hidden="true"
                         aria-invalid="false"
-                        class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                        id="mui-11"
-                        name="fromCommit"
-                        placeholder="Enter Commit"
-                        type="text"
-                        value=""
+                        class="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+                        name="fromType"
+                        tabindex="-1"
+                        value="branch"
                       />
-                      <span />
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
+                        data-testid="ArrowDropDownIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M7 10l5 5 5-5z"
+                        />
+                      </svg>
+                      <div
+                        class="MuiBox-root css-3avfg1"
+                      >
+                        <span />
+                      </div>
                       <fieldset
                         aria-hidden="true"
                         class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
                       >
                         <legend
-                          class="css-yjsfm1"
+                          class="css-ihdtdm"
                         >
-                          <span>
-                            From Commit Hash 
+                          <span
+                            class="notranslate"
+                          >
+                            ​
                           </span>
                         </legend>
                       </fieldset>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 css-1osj8n2-MuiGrid-root"
+              >
+                <div
+                  class="MuiFormControl-root MuiFormControl-fullWidth css-q8hpuo-MuiFormControl-root"
+                >
+                  <div
+                    class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon css-clttge-MuiAutocomplete-root"
+                  >
+                    <div
+                      class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
+                      style="margin-top: 0px;"
+                    >
+                      <label
+                        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-standard css-1m6rpgr-MuiFormLabel-root-MuiInputLabel-root"
+                        data-shrink="false"
+                        for="mui-13"
+                        id="mui-13-label"
+                      >
+                        Branch name
+                      </label>
+                      <div
+                        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiAutocomplete-inputRoot css-1fnx1rt-MuiInputBase-root-MuiInput-root"
+                      >
+                        <input
+                          aria-autocomplete="list"
+                          aria-expanded="false"
+                          aria-invalid="false"
+                          autocapitalize="none"
+                          autocomplete="off"
+                          class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
+                          id="mui-13"
+                          placeholder="Select branch name"
+                          role="combobox"
+                          spellcheck="false"
+                          type="text"
+                          value=""
+                        />
+                        <div
+                          class="MuiStack-root css-1iec9nd-MuiStack-root"
+                        >
+                          <div
+                            class="MuiAutocomplete-endAdornment css-p1olib-MuiAutocomplete-endAdornment"
+                          >
+                            <button
+                              aria-label="Open"
+                              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium MuiAutocomplete-popupIndicator css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator"
+                              tabindex="-1"
+                              title="Open"
+                              type="button"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                                data-testid="ArrowDropDownIcon"
+                                focusable="false"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  d="M7 10l5 5 5-5z"
+                                />
+                              </svg>
+                              <span
+                                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -623,24 +687,23 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                       <label
                         class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                         data-shrink="true"
-                        for="mui-13"
-                        id="mui-13-label"
+                        for="mui-14"
+                        id="mui-14-label"
                       >
                         Branch version
                       </label>
                       <div
-                        class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedEnd css-1wqgp0s-MuiInputBase-root-MuiOutlinedInput-root"
+                        class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1k0n0u9-MuiInputBase-root-MuiOutlinedInput-root"
                       >
                         <input
                           aria-invalid="false"
-                          class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd css-nxo287-MuiInputBase-input-MuiOutlinedInput-input"
-                          id="mui-13"
+                          class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                          id="mui-14"
                           name="releaseBranchVersionStart"
                           placeholder="0.0.0"
                           type="text"
                           value="0.0.0"
                         />
-                        <span />
                         <fieldset
                           aria-hidden="true"
                           class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
@@ -676,7 +739,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                         <input
                           aria-invalid="false"
                           class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                          id="mui-14"
+                          id="mui-15"
                           name="releaseBranchVersionPostfix"
                           placeholder="SNAPSHOT"
                           type="text"
@@ -725,8 +788,8 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                       <label
                         class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard css-njj7m9-MuiFormLabel-root-MuiInputLabel-root"
                         data-shrink="true"
-                        for="mui-16"
-                        id="mui-16-label"
+                        for="mui-17"
+                        id="mui-17-label"
                       >
                         Review pipeline
                       </label>
@@ -740,7 +803,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                           autocapitalize="none"
                           autocomplete="off"
                           class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
-                          id="mui-16"
+                          id="mui-17"
                           placeholder="Select Review pipeline"
                           role="combobox"
                           spellcheck="false"
@@ -855,8 +918,8 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                       <label
                         class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard css-njj7m9-MuiFormLabel-root-MuiInputLabel-root"
                         data-shrink="true"
-                        for="mui-18"
-                        id="mui-18-label"
+                        for="mui-19"
+                        id="mui-19-label"
                       >
                         Build pipeline
                       </label>
@@ -870,7 +933,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                           autocapitalize="none"
                           autocomplete="off"
                           class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
-                          id="mui-18"
+                          id="mui-19"
                           placeholder="Select Build pipeline"
                           role="combobox"
                           spellcheck="false"

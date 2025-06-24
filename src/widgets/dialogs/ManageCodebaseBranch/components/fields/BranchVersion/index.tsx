@@ -68,7 +68,6 @@ export const BranchVersion = () => {
             },
           })}
           label={'Branch version'}
-          title={'Valid identifiers are in the set [A-Za-z0-9]'}
           placeholder={'0.0.0'}
           control={control}
           errors={errors}
