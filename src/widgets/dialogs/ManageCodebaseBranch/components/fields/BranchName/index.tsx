@@ -114,12 +114,13 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
         options={branchesOptions}
         disabled={query.isLoading || query.isError || releaseFieldValue}
         TextFieldProps={{
-          helperText: query.error ? query.error.toString() : ' ',
+          helperText: query.error ? query.error.toString() : '',
           error: !!query.error,
         }}
         InputProps={{
           endAdornment: query.isLoading ? <CircularProgress size={15} /> : null,
         }}
+        allowCustomInput
       />
     </Grid>
   );

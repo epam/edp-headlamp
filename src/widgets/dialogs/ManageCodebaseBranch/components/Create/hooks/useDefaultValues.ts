@@ -15,7 +15,8 @@ export const useDefaultValues = () => {
 
   return React.useMemo(() => {
     let base: Partial<ManageCodebaseBranchFormValues> = {
-      [CODEBASE_BRANCH_FORM_NAMES.fromCommit.name]: '',
+      [CODEBASE_BRANCH_FORM_NAMES.fromCommit.name]: codebase?.spec.defaultBranch,
+      [CODEBASE_BRANCH_FORM_NAMES.fromType.name]: 'branch',
       [CODEBASE_BRANCH_FORM_NAMES.release.name]: false,
       [CODEBASE_BRANCH_FORM_NAMES.reviewPipeline.name]: pipelines?.review,
       [CODEBASE_BRANCH_FORM_NAMES.buildPipeline.name]: pipelines?.build,
@@ -42,5 +43,11 @@ export const useDefaultValues = () => {
     };
 
     return base;
-  }, [pipelines?.review, pipelines?.build, defaultBranchVersion, versioningType]);
+  }, [
+    codebase?.spec.defaultBranch,
+    pipelines?.review,
+    pipelines?.build,
+    defaultBranchVersion,
+    versioningType,
+  ]);
 };
