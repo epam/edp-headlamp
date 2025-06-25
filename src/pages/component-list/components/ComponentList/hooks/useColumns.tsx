@@ -7,16 +7,11 @@ import { getSyncedColumnData } from '../../../../../components/Table/components/
 import { TableColumn } from '../../../../../components/Table/types';
 import { TextWithTooltip } from '../../../../../components/TextWithTooltip';
 import { CodebaseInterface } from '../../../../../configs/codebase-mappings/types';
-import {
-  BUILD_TOOL_ICON_MAPPING,
-  FRAMEWORK_ICON_MAPPING,
-  LANGUAGE_ICON_MAPPING,
-} from '../../../../../configs/icon-mappings';
+import { getIconByPattern } from '../../../../../configs/icon-mappings';
 import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
 import { MAIN_COLOR } from '../../../../../constants/colors';
 import { CUSTOM_RESOURCE_STATUS } from '../../../../../constants/statuses';
 import { TABLE } from '../../../../../constants/tables';
-import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { CodebaseKubeObject } from '../../../../../k8s/groups/EDP/Codebase';
 import { CodebaseKubeObjectInterface } from '../../../../../k8s/groups/EDP/Codebase/types';
@@ -169,14 +164,7 @@ export const useColumns = (): TableColumn<CodebaseKubeObjectInterface>[] => {
             return (
               <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                 <Grid item>
-                  <UseSpriteSymbol
-                    name={
-                      LANGUAGE_ICON_MAPPING?.[lang as keyof typeof LANGUAGE_ICON_MAPPING] ||
-                      RESOURCE_ICON_NAMES.OTHER
-                    }
-                    width={20}
-                    height={20}
-                  />
+                  <UseSpriteSymbol name={getIconByPattern(_lang)} width={20} height={20} />
                 </Grid>
                 <Grid item>
                   {codebaseMappingByLang?.language?.name || capitalizeFirstLetter(_lang)}
@@ -210,14 +198,7 @@ export const useColumns = (): TableColumn<CodebaseKubeObjectInterface>[] => {
             return (
               <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                 <Grid item>
-                  <UseSpriteSymbol
-                    name={
-                      FRAMEWORK_ICON_MAPPING?.[framework as keyof typeof FRAMEWORK_ICON_MAPPING] ||
-                      RESOURCE_ICON_NAMES.OTHER
-                    }
-                    width={20}
-                    height={20}
-                  />
+                  <UseSpriteSymbol name={getIconByPattern(framework)} width={20} height={20} />
                 </Grid>
                 <Grid item>
                   {framework
@@ -255,15 +236,7 @@ export const useColumns = (): TableColumn<CodebaseKubeObjectInterface>[] => {
             return (
               <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                 <Grid item>
-                  <UseSpriteSymbol
-                    name={
-                      BUILD_TOOL_ICON_MAPPING?.[
-                        buildTool as keyof typeof BUILD_TOOL_ICON_MAPPING
-                      ] || RESOURCE_ICON_NAMES.OTHER
-                    }
-                    width={20}
-                    height={20}
-                  />
+                  <UseSpriteSymbol name={getIconByPattern(buildTool)} width={20} height={20} />
                 </Grid>
                 <Grid item>
                   {codebaseMappingByLang?.buildTools?.[buildTool]?.name ||
