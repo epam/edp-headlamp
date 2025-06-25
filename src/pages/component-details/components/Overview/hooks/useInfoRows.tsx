@@ -5,16 +5,10 @@ import { InfoRow } from '../../../../../components/InfoColumns/types';
 import { LoadingWrapper } from '../../../../../components/LoadingWrapper';
 import { StatusIcon } from '../../../../../components/StatusIcon';
 import { CodebaseInterface } from '../../../../../configs/codebase-mappings/types';
-import {
-  BUILD_TOOL_ICON_MAPPING,
-  CI_TOOL_ICON_MAPPING,
-  FRAMEWORK_ICON_MAPPING,
-  LANGUAGE_ICON_MAPPING,
-} from '../../../../../configs/icon-mappings';
+import { getIconByPattern } from '../../../../../configs/icon-mappings';
 import { CODEBASE_TYPE } from '../../../../../constants/codebaseTypes';
 import { CODEBASE_VERSIONING_TYPE } from '../../../../../constants/codebaseVersioningTypes';
 import { MAIN_COLOR } from '../../../../../constants/colors';
-import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
 import { CodebaseKubeObject } from '../../../../../k8s/groups/EDP/Codebase';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
@@ -142,9 +136,7 @@ export const useInfoRows = () => {
         {
           label: 'Language',
           text: codebaseMappingByLang?.language?.name || capitalizeFirstLetter(_lang),
-          icon:
-            LANGUAGE_ICON_MAPPING?.[lang as keyof typeof LANGUAGE_ICON_MAPPING] ||
-            RESOURCE_ICON_NAMES.OTHER,
+          icon: getIconByPattern(_lang),
         },
         {
           label: 'Framework',
@@ -153,25 +145,19 @@ export const useInfoRows = () => {
               (_framework && capitalizeFirstLetter(_framework)) ||
               'N/A'
             : 'N/A',
-          icon:
-            FRAMEWORK_ICON_MAPPING?.[framework as keyof typeof FRAMEWORK_ICON_MAPPING] ||
-            RESOURCE_ICON_NAMES.OTHER,
+          icon: getIconByPattern(_framework),
         },
         {
           label: 'Build Tool',
           text:
             codebaseMappingByLang?.buildTools?.[buildTool]?.name ||
             capitalizeFirstLetter(_buildTool),
-          icon:
-            BUILD_TOOL_ICON_MAPPING?.[buildTool as keyof typeof BUILD_TOOL_ICON_MAPPING] ||
-            RESOURCE_ICON_NAMES.OTHER,
+          icon: getIconByPattern(_buildTool),
         },
         {
           label: 'CI Tool',
           text: capitalizeFirstLetter(ciTool),
-          icon:
-            CI_TOOL_ICON_MAPPING?.[ciTool as keyof typeof CI_TOOL_ICON_MAPPING] ||
-            RESOURCE_ICON_NAMES.OTHER,
+          icon: getIconByPattern(ciTool),
         },
       ],
       [

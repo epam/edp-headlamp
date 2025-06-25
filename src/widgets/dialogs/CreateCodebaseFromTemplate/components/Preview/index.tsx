@@ -3,12 +3,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import React from 'react';
 import { MappedProperties } from '../../../../../components/MappedProperties';
 import { CodebaseInterface } from '../../../../../configs/codebase-mappings/types';
-import {
-  BUILD_TOOL_ICON_MAPPING,
-  FRAMEWORK_ICON_MAPPING,
-  LANGUAGE_ICON_MAPPING,
-} from '../../../../../configs/icon-mappings';
-import { RESOURCE_ICON_NAMES } from '../../../../../icons/sprites/Resources/names';
+import { getIconByPattern } from '../../../../../configs/icon-mappings';
 import { UseSpriteSymbol } from '../../../../../icons/UseSpriteSymbol';
 import { capitalizeFirstLetter } from '../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../utils/getCodebaseMappingByCodebaseType';
@@ -92,14 +87,7 @@ export const Preview = () => {
                 </Typography>
                 <Grid container spacing={1} alignItems={'center'}>
                   <Grid item>
-                    <UseSpriteSymbol
-                      name={
-                        LANGUAGE_ICON_MAPPING?.[lang as keyof typeof LANGUAGE_ICON_MAPPING] ||
-                        RESOURCE_ICON_NAMES.OTHER
-                      }
-                      width={20}
-                      height={20}
-                    />
+                    <UseSpriteSymbol name={getIconByPattern(language)} width={20} height={20} />
                   </Grid>
                   <Grid item>
                     {codebaseMappingByLang?.language?.name || capitalizeFirstLetter(lang)}
@@ -112,15 +100,7 @@ export const Preview = () => {
                 </Typography>
                 <Grid container spacing={1} alignItems={'center'}>
                   <Grid item>
-                    <UseSpriteSymbol
-                      name={
-                        FRAMEWORK_ICON_MAPPING?.[
-                          framework as keyof typeof FRAMEWORK_ICON_MAPPING
-                        ] || RESOURCE_ICON_NAMES.OTHER
-                      }
-                      width={20}
-                      height={20}
-                    />
+                    <UseSpriteSymbol name={getIconByPattern(_framework)} width={20} height={20} />
                   </Grid>
                   <Grid item>
                     {framework
@@ -137,15 +117,7 @@ export const Preview = () => {
                 </Typography>
                 <Grid container spacing={1} alignItems={'center'}>
                   <Grid item>
-                    <UseSpriteSymbol
-                      name={
-                        BUILD_TOOL_ICON_MAPPING?.[
-                          buildTool as keyof typeof BUILD_TOOL_ICON_MAPPING
-                        ] || RESOURCE_ICON_NAMES.OTHER
-                      }
-                      width={20}
-                      height={20}
-                    />
+                    <UseSpriteSymbol name={getIconByPattern(_buildTool)} width={20} height={20} />
                   </Grid>
                   <Grid item>
                     {codebaseMappingByLang?.buildTools?.[buildTool]?.name ||

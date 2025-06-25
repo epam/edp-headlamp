@@ -3,12 +3,7 @@ import React from 'react';
 import { ButtonWithPermission } from '../../../../../../components/ButtonWithPermission';
 import { TextWithTooltip } from '../../../../../../components/TextWithTooltip';
 import { CodebaseInterface } from '../../../../../../configs/codebase-mappings/types';
-import {
-  BUILD_TOOL_ICON_MAPPING,
-  FRAMEWORK_ICON_MAPPING,
-  LANGUAGE_ICON_MAPPING,
-} from '../../../../../../configs/icon-mappings';
-import { RESOURCE_ICON_NAMES } from '../../../../../../icons/sprites/Resources/names';
+import { getIconByPattern } from '../../../../../../configs/icon-mappings';
 import { UseSpriteSymbol } from '../../../../../../icons/UseSpriteSymbol';
 import { capitalizeFirstLetter } from '../../../../../../utils/format/capitalizeFirstLetter';
 import { getCodebaseMappingByCodebaseType } from '../../../../../../utils/getCodebaseMappingByCodebaseType';
@@ -73,14 +68,7 @@ export const TemplateCard = ({ template, handleTemplateClick, permissions }: Tem
                 <Stack spacing={0.5}>
                   <Typography variant={'caption'}>Language:</Typography>
                   <Stack direction="row" spacing={0.5}>
-                    <UseSpriteSymbol
-                      name={
-                        LANGUAGE_ICON_MAPPING?.[lang as keyof typeof LANGUAGE_ICON_MAPPING] ||
-                        RESOURCE_ICON_NAMES.OTHER
-                      }
-                      width={16}
-                      height={16}
-                    />
+                    <UseSpriteSymbol name={getIconByPattern(_language)} width={16} height={16} />
                     <Typography variant={'caption'} color={theme.palette.secondary.dark}>
                       {codebaseMappingByLang?.language?.name || capitalizeFirstLetter(_language)}
                     </Typography>
@@ -91,15 +79,7 @@ export const TemplateCard = ({ template, handleTemplateClick, permissions }: Tem
                 <Stack spacing={0.5}>
                   <Typography variant={'caption'}>Framework:</Typography>
                   <Stack direction="row" spacing={0.5}>
-                    <UseSpriteSymbol
-                      name={
-                        FRAMEWORK_ICON_MAPPING?.[
-                          framework as keyof typeof FRAMEWORK_ICON_MAPPING
-                        ] || RESOURCE_ICON_NAMES.OTHER
-                      }
-                      width={16}
-                      height={16}
-                    />
+                    <UseSpriteSymbol name={getIconByPattern(_framework)} width={16} height={16} />
                     <Typography variant={'caption'} color={theme.palette.secondary.dark}>
                       {framework
                         ? codebaseMappingByLang?.frameworks?.[framework]?.name ||
@@ -114,15 +94,7 @@ export const TemplateCard = ({ template, handleTemplateClick, permissions }: Tem
                 <Stack spacing={0.5}>
                   <Typography variant={'caption'}>Build Tool:</Typography>
                   <Stack direction="row" spacing={0.5}>
-                    <UseSpriteSymbol
-                      name={
-                        BUILD_TOOL_ICON_MAPPING?.[
-                          buildTool as keyof typeof BUILD_TOOL_ICON_MAPPING
-                        ] || RESOURCE_ICON_NAMES.OTHER
-                      }
-                      width={16}
-                      height={16}
-                    />
+                    <UseSpriteSymbol name={getIconByPattern(_buildTool)} width={16} height={16} />
                     <Typography variant={'caption'} color={theme.palette.secondary.dark}>
                       {codebaseMappingByLang?.buildTools?.[buildTool]?.name ||
                         capitalizeFirstLetter(_buildTool)}

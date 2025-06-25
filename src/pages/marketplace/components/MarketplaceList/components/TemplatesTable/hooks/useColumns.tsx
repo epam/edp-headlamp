@@ -5,13 +5,8 @@ import { getSyncedColumnData } from '../../../../../../../components/Table/compo
 import { TableColumn } from '../../../../../../../components/Table/types';
 import { TextWithTooltip } from '../../../../../../../components/TextWithTooltip';
 import { CodebaseInterface } from '../../../../../../../configs/codebase-mappings/types';
-import {
-  BUILD_TOOL_ICON_MAPPING,
-  FRAMEWORK_ICON_MAPPING,
-  LANGUAGE_ICON_MAPPING,
-} from '../../../../../../../configs/icon-mappings';
+import { getIconByPattern } from '../../../../../../../configs/icon-mappings';
 import { TABLE } from '../../../../../../../constants/tables';
-import { RESOURCE_ICON_NAMES } from '../../../../../../../icons/sprites/Resources/names';
 import { UseSpriteSymbol } from '../../../../../../../icons/UseSpriteSymbol';
 import { TemplateKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/Template/types';
 import { capitalizeFirstLetter } from '../../../../../../../utils/format/capitalizeFirstLetter';
@@ -130,14 +125,7 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
             return (
               <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                 <Grid item>
-                  <UseSpriteSymbol
-                    name={
-                      LANGUAGE_ICON_MAPPING?.[lang as keyof typeof LANGUAGE_ICON_MAPPING] ||
-                      RESOURCE_ICON_NAMES.OTHER
-                    }
-                    width={20}
-                    height={20}
-                  />
+                  <UseSpriteSymbol name={getIconByPattern(_language)} width={20} height={20} />
                 </Grid>
                 <Grid item>
                   {codebaseMappingByLang?.language?.name || capitalizeFirstLetter(_language)}
@@ -171,14 +159,7 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
             return (
               <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                 <Grid item>
-                  <UseSpriteSymbol
-                    name={
-                      FRAMEWORK_ICON_MAPPING?.[framework as keyof typeof FRAMEWORK_ICON_MAPPING] ||
-                      RESOURCE_ICON_NAMES.OTHER
-                    }
-                    width={20}
-                    height={20}
-                  />
+                  <UseSpriteSymbol name={getIconByPattern(_framework)} width={20} height={20} />
                 </Grid>
                 <Grid item>
                   {framework
@@ -216,15 +197,7 @@ export const useColumns = (): TableColumn<TemplateKubeObjectInterface>[] => {
             return (
               <Grid container spacing={1} alignItems={'center'} wrap={'nowrap'}>
                 <Grid item>
-                  <UseSpriteSymbol
-                    name={
-                      BUILD_TOOL_ICON_MAPPING?.[
-                        buildTool as keyof typeof BUILD_TOOL_ICON_MAPPING
-                      ] || RESOURCE_ICON_NAMES.OTHER
-                    }
-                    width={20}
-                    height={20}
-                  />
+                  <UseSpriteSymbol name={getIconByPattern(_buildTool)} width={20} height={20} />
                 </Grid>
                 <Grid item>
                   {codebaseMappingByLang?.buildTools?.[buildTool]?.name ||
