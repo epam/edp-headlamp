@@ -17,9 +17,9 @@ import {
 export const Form = () => {
   const theme = useTheme();
   const { watch } = useFormContext();
+  const [clusterType, setClusterType] = React.useState<string>(CLUSTER_TYPE.BEARER);
 
   const skipTLSVerify = watch(CLUSTER_FORM_NAMES.SKIP_TLS_VERIFY);
-  const typeFieldValue = watch(CLUSTER_FORM_NAMES.CLUSTER_TYPE);
 
   const renderBearerFormPart = React.useCallback(() => {
     return (
@@ -59,7 +59,7 @@ export const Form = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <ClusterType />
+        <ClusterType onChange={setClusterType} />
       </Grid>
       <Grid item xs={6}>
         <ClusterName />
@@ -67,7 +67,7 @@ export const Form = () => {
       <Grid item xs={6}>
         <ClusterHost />
       </Grid>
-      {typeFieldValue === CLUSTER_TYPE.BEARER ? renderBearerFormPart() : renderIRSAFormPart()}
+      {clusterType === CLUSTER_TYPE.BEARER ? renderBearerFormPart() : renderIRSAFormPart()}
     </Grid>
   );
 };

@@ -1,19 +1,22 @@
 import { Icon } from '@iconify/react';
 import React from 'react';
-import { useFormContext as useReactHookFormContext } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { FormRadioGroup } from '../../../../../providers/Form/components/FormRadioGroup';
 import { useFormContext } from '../../../../../providers/Form/hooks';
 import { FORM_MODES } from '../../../../../types/forms';
 import { CLUSTER_TYPE } from '../../../constants';
-import { CLUSTER_FORM_NAMES } from '../../../names';
-import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../types';
+import { ManageClusterSecretDataContext } from '../../../types';
 
-export const ClusterType = () => {
+interface ClusterTypeProps {
+  onChange?: (value: string) => void;
+}
+
+export const ClusterType = ({ onChange }: ClusterTypeProps = {}) => {
   const {
     control,
     formState: { errors },
-  } = useReactHookFormContext<ManageClusterSecretValues>();
+  } = useForm();
 
   const {
     formData: { mode },
@@ -21,7 +24,7 @@ export const ClusterType = () => {
 
   return (
     <FormRadioGroup
-      name={CLUSTER_FORM_NAMES.CLUSTER_TYPE}
+      name="clusterType"
       control={control}
       errors={errors}
       options={[
@@ -40,6 +43,8 @@ export const ClusterType = () => {
       ]}
       label="Cluster Type"
       disabled={mode === FORM_MODES.EDIT}
+      onChange={onChange}
     />
   );
 };
+

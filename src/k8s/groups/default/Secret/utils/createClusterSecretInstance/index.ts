@@ -48,13 +48,13 @@ export const createBearerClusterSecretInstance = (
                 ...(clusterCertificate &&
                   !skipTLSVerify && { 'certificate-authority-data': clusterCertificate }),
               },
-              name: 'default-cluster',
+              name: clusterName,
             },
           ],
           contexts: [
             {
               context: {
-                cluster: 'default-cluster',
+                cluster: clusterName,
                 user: 'default-user',
               },
               name: 'default-context',

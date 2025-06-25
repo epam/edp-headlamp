@@ -58,7 +58,7 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
                         role="radiogroup"
                       >
                         <button
-                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-2 makeStyles-radioControlButtonActive-3 css-10d1a0h-MuiButtonBase-root"
+                          class="MuiButtonBase-root Mui-disabled makeStyles-radioControlButton-2 css-10d1a0h-MuiButtonBase-root"
                           disabled=""
                           tabindex="-1"
                           type="button"
@@ -67,10 +67,9 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
                             class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd makeStyles-radioControlLabel-4 makeStyles-radioControlLabelDisabled-5 css-j204z7-MuiFormControlLabel-root"
                           >
                             <span
-                              class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary Mui-checked MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
+                              class="MuiButtonBase-root MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-root MuiRadio-root MuiRadio-colorPrimary MuiRadio-root MuiRadio-colorPrimary css-1k79v9o-MuiButtonBase-root-MuiRadio-root"
                             >
                               <input
-                                checked=""
                                 class="PrivateSwitchBase-input css-1m9pwf3"
                                 name="clusterType"
                                 type="radio"
@@ -151,7 +150,7 @@ exports[`renders ManageClusterSecret Edit component 1`] = `
                       name="clusterName"
                       placeholder="Enter cluster name"
                       type="text"
-                      value="test-cluster-name"
+                      value="default-cluster"
                     />
                     <span />
                     <fieldset
