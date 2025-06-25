@@ -4,6 +4,7 @@ import { safeDecode } from '../../../../../utils/decodeEncode';
 import { CLUSTER_TYPE } from '../../../constants';
 import { CLUSTER_FORM_NAMES } from '../../../names';
 import { ManageClusterSecretDataContext } from '../../../types';
+import { getClusterName } from '../../../utils';
 
 const parseConfigJson = (configJson: string) => {
   const decodedConfigJson = safeDecode(configJson);
@@ -23,12 +24,14 @@ export const useDefaultValues = ({ formData }: { formData: ManageClusterSecretDa
     const clusterType =
       currentElement.metadata?.labels?.[SECRET_LABEL_CLUSTER_TYPE] ?? CLUSTER_TYPE.BEARER;
 
+    const clusterName = getClusterName(currentElement);
+
     if (clusterType === CLUSTER_TYPE.BEARER) {
       const config = parseConfigJson(currentElement.data?.config);
 
       return {
         [CLUSTER_FORM_NAMES.CLUSTER_TYPE]: CLUSTER_TYPE.BEARER,
-        [CLUSTER_FORM_NAMES.CLUSTER_NAME]: currentElement.metadata.name,
+        [CLUSTER_FORM_NAMES.CLUSTER_NAME]: clusterName,
         [CLUSTER_FORM_NAMES.CLUSTER_HOST]: config?.clusters[0]?.cluster?.server,
         [CLUSTER_FORM_NAMES.CLUSTER_CERTIFICATE]:
           config?.clusters[0]?.cluster?.['certificate-authority-data'],
@@ -41,7 +44,7 @@ export const useDefaultValues = ({ formData }: { formData: ManageClusterSecretDa
 
       return {
         [CLUSTER_FORM_NAMES.CLUSTER_TYPE]: CLUSTER_TYPE.IRSA,
-        [CLUSTER_FORM_NAMES.CLUSTER_NAME]: safeDecode(currentElement.data.name),
+        [CLUSTER_FORM_NAMES.CLUSTER_NAME]: clusterName,
         [CLUSTER_FORM_NAMES.CLUSTER_HOST]: safeDecode(currentElement.data.server),
         [CLUSTER_FORM_NAMES.ROLE_ARN]: parsedData?.awsAuthConfig?.roleARN,
         [CLUSTER_FORM_NAMES.CA_DATA]: parsedData?.tlsClientConfig?.caData,

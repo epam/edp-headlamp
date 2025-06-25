@@ -39,6 +39,7 @@ import { getDefaultNamespace } from '../../../../utils/getDefaultNamespace';
 import { getForbiddenError } from '../../../../utils/getForbiddenError';
 import { rem } from '../../../../utils/styling/rem';
 import { ManageClusterSecret } from '../../../../widgets/ManageClusterSecret';
+import { getClusterName } from '../../../../widgets/ManageClusterSecret/utils';
 import { ConfigurationPageContent } from '../../components/ConfigurationPageContent';
 import { pageDescription } from './constants';
 import { useTypedPermissions } from './hooks/useTypedPermissions';
@@ -143,6 +144,7 @@ export const PageView = () => {
             const ownerReference = secret?.metadata?.ownerReferences?.[0]?.kind;
 
             const secretName = secret?.metadata.name;
+            const clusterName = getClusterName(el);
 
             const isExpanded = expandedPanel === secretName || singleItem;
 
@@ -184,7 +186,7 @@ export const PageView = () => {
                     </Grid>
                     <Grid item>
                       <Typography variant={'h6'} component="div">
-                        {secret.metadata.name}
+                        {clusterName}
                       </Typography>
                     </Grid>
                     {!!ownerReference && (

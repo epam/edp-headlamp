@@ -19,7 +19,17 @@ import { FormRadioProps } from './types';
 
 export const FormRadioGroup = React.forwardRef(
   (
-    { name, control, errors, label, title, options, disabled = false, ...props }: FormRadioProps,
+    {
+      name,
+      control,
+      errors,
+      label,
+      title,
+      options,
+      disabled = false,
+      onChange,
+      ...props
+    }: FormRadioProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const hasError = !!errors[name];
@@ -36,7 +46,15 @@ export const FormRadioGroup = React.forwardRef(
               <Grid item xs={12}>
                 <Controller
                   render={({ field }) => (
-                    <RadioGroup {...field} row className={classes.radioGroup}>
+                    <RadioGroup
+                      {...field}
+                      row
+                      className={classes.radioGroup}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        onChange?.(e.target.value);
+                      }}
+                    >
                       {options.map(
                         (
                           {

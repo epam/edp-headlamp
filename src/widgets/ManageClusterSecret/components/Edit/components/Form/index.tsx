@@ -1,8 +1,11 @@
 import { Grid, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { SECRET_LABEL_CLUSTER_TYPE } from '../../../../../../k8s/groups/default/Secret/labels';
+import { useFormContext as useCustomFormContext } from '../../../../../../providers/Form/hooks';
 import { CLUSTER_TYPE } from '../../../../constants';
 import { CLUSTER_FORM_NAMES } from '../../../../names';
+import { ManageClusterSecretDataContext } from '../../../../types';
 import {
   CaData,
   ClusterCertificate,
@@ -17,9 +20,21 @@ import {
 export const Form = () => {
   const theme = useTheme();
   const { watch } = useFormContext();
+  const { formData } = useCustomFormContext<ManageClusterSecretDataContext>();
+
+  // Initialize clusterType based on current element
+  const initialClusterType = React.useMemo(() => {
+    if (formData.currentElement && typeof formData.currentElement !== 'string') {
+      return (
+        formData.currentElement.metadata?.labels?.[SECRET_LABEL_CLUSTER_TYPE] ?? CLUSTER_TYPE.BEARER
+      );
+    }
+    return CLUSTER_TYPE.BEARER;
+  }, [formData.currentElement]);
+
+  const [clusterType, setClusterType] = React.useState(initialClusterType);
 
   const skipTLSVerify = watch(CLUSTER_FORM_NAMES.SKIP_TLS_VERIFY);
-  const typeFieldValue = watch(CLUSTER_FORM_NAMES.CLUSTER_TYPE);
 
   const renderBearerFormPart = React.useCallback(() => {
     return (
@@ -59,7 +74,7 @@ export const Form = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <ClusterType />
+        <ClusterType onChange={setClusterType} />
       </Grid>
       <Grid item xs={6}>
         <ClusterName />
@@ -67,7 +82,7 @@ export const Form = () => {
       <Grid item xs={6}>
         <ClusterHost />
       </Grid>
-      {typeFieldValue === CLUSTER_TYPE.BEARER ? renderBearerFormPart() : renderIRSAFormPart()}
+      {clusterType === CLUSTER_TYPE.BEARER ? renderBearerFormPart() : renderIRSAFormPart()}
     </Grid>
   );
 };
