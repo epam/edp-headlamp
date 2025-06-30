@@ -91,7 +91,12 @@ export const FormActions = () => {
         <Grid item>
           <Grid container spacing={2} alignItems={'center'}>
             <Grid item>
-              <Button onClick={() => reset()} size="small" component={'button'} disabled={!isDirty}>
+              <Button
+                onClick={() => reset({}, { keepDirty: false })}
+                size="small"
+                component={'button'}
+                disabled={!isDirty}
+              >
                 undo changes
               </Button>
             </Grid>

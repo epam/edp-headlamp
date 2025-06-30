@@ -23,7 +23,7 @@ exports[`ManageCodebaseDialog renders ManageCodebaseDialog Create component 1`] 
   >
     <div
       aria-labelledby="mui-1"
-      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-1wv64i4-MuiPaper-root-MuiDialog-paper"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthMd MuiDialog-paperFullWidth css-1ntld2w-MuiPaper-root-MuiDialog-paper"
       role="dialog"
     >
       <div
@@ -487,7 +487,7 @@ exports[`ManageCodebaseDialog renders ManageCodebaseDialog Edit component 1`] = 
   >
     <div
       aria-labelledby="mui-2"
-      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-1wv64i4-MuiPaper-root-MuiDialog-paper"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthMd MuiDialog-paperFullWidth css-1ntld2w-MuiPaper-root-MuiDialog-paper"
       role="dialog"
     >
       <h2

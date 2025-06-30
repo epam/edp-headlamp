@@ -10,9 +10,10 @@ import { ManageClusterSecretDataContext } from '../../../types';
 
 interface ClusterTypeProps {
   onChange?: (value: string) => void;
+  value?: string;
 }
 
-export const ClusterType = ({ onChange }: ClusterTypeProps = {}) => {
+export const ClusterType = ({ onChange, value }: ClusterTypeProps) => {
   const {
     control,
     formState: { errors },
@@ -44,7 +45,7 @@ export const ClusterType = ({ onChange }: ClusterTypeProps = {}) => {
       label="Cluster Type"
       disabled={mode === FORM_MODES.EDIT}
       onChange={onChange}
+      defaultValue={value}
     />
   );
 };
-

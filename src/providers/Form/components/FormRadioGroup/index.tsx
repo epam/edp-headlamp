@@ -28,6 +28,7 @@ export const FormRadioGroup = React.forwardRef(
       options,
       disabled = false,
       onChange,
+      defaultValue,
       ...props
     }: FormRadioProps,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -111,6 +112,7 @@ export const FormRadioGroup = React.forwardRef(
                   )}
                   control={control}
                   name={name}
+                  defaultValue={defaultValue}
                   {...props}
                 />
               </Grid>
