@@ -4,6 +4,7 @@ import { ViewYAML } from '../../../../../components/Editor';
 import { LoadingWrapper } from '../../../../../components/LoadingWrapper';
 import { PipelineKubeObjectInterface } from '../../../../../k8s/groups/Tekton/Pipeline/types';
 import { PipelineGraph } from '../../../../../widgets/PipelineGraph';
+import { History } from '../components/History';
 import { Overview } from '../components/Overview';
 
 export const useTabs = ({
@@ -37,6 +38,20 @@ export const useTabs = ({
               }}
             >
               <ViewYAML item={pipeline?.jsonData} />
+            </Box>
+          </LoadingWrapper>
+        ),
+      },
+      {
+        label: 'History',
+        component: (
+          <LoadingWrapper isLoading={pipeline === null}>
+            <Box
+              sx={{
+                pt: (t) => t.typography.pxToRem(24),
+              }}
+            >
+              <History />
             </Box>
           </LoadingWrapper>
         ),

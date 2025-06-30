@@ -20,4 +20,5 @@ export interface FormRadioProps {
   title?: string;
   disabled?: boolean;
   onChange?: (value: string) => void;
+  defaultValue?: string;
 }

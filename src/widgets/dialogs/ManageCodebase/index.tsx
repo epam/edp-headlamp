@@ -1,4 +1,4 @@
-import { Dialog, useTheme } from '@mui/material';
+import { Dialog } from '@mui/material';
 import React from 'react';
 import { FORM_MODES } from '../../../types/forms';
 import { Create } from './components/Create';
@@ -8,7 +8,6 @@ import { CurrentDialogContextProvider } from './providers/CurrentDialog/provider
 import { ManageCodebaseDialogProps } from './types';
 
 export const ManageCodebaseDialog: React.FC<ManageCodebaseDialogProps> = ({ props, state }) => {
-  const theme = useTheme();
   const { codebaseData } = props;
 
   const { open } = state;
@@ -16,13 +15,7 @@ export const ManageCodebaseDialog: React.FC<ManageCodebaseDialogProps> = ({ prop
   const mode = !!codebaseData ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
   return (
-    <Dialog
-      open={open}
-      maxWidth={'sm'}
-      fullWidth
-      data-testid="dialog"
-      PaperProps={{ sx: { maxWidth: theme.typography.pxToRem(648) } }}
-    >
+    <Dialog open={open} maxWidth={'md'} fullWidth data-testid="dialog">
       <CurrentDialogContextProvider props={props} state={state}>
         {mode === FORM_MODES.CREATE ? <Create /> : mode === FORM_MODES.EDIT ? <Edit /> : null}
       </CurrentDialogContextProvider>

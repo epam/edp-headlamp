@@ -22,7 +22,6 @@ export const Form = () => {
   const { watch } = useFormContext();
   const { formData } = useCustomFormContext<ManageClusterSecretDataContext>();
 
-  // Initialize clusterType based on current element
   const initialClusterType = React.useMemo(() => {
     if (formData.currentElement && typeof formData.currentElement !== 'string') {
       return (
@@ -74,7 +73,7 @@ export const Form = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <ClusterType onChange={setClusterType} />
+        <ClusterType onChange={setClusterType} value={clusterType} />
       </Grid>
       <Grid item xs={6}>
         <ClusterName />

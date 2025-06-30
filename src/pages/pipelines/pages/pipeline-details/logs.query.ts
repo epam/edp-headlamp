@@ -1,4 +1,4 @@
-export const getLogsAllQuery = (namespace: string) => ({
+export const getLogsQuery = (namespace: string, pipelineName: string) => ({
   size: 0,
   query: {
     bool: {
@@ -18,7 +18,7 @@ export const getLogsAllQuery = (namespace: string) => ({
         },
         {
           term: {
-            'kubernetes.labels.tekton_dev/pipeline.keyword': 'bitbucket-opa-opa-lib-build-semver',
+            'kubernetes.labels.tekton_dev/pipeline.keyword': pipelineName,
           },
         },
       ],
