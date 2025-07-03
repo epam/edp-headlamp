@@ -112,8 +112,8 @@ export const FromCommit = () => {
         <FormTextField
           {...register(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name, {
             pattern: {
-              value: /^[a-fA-F0-9]{7,40}$/,
-              message: 'Commit hash must be a valid Git commit hash (7-40 hexadecimal characters)',
+              value: /^[a-fA-F0-9]{40}$/,
+              message: 'Commit hash must be a full Git commit hash (40 hexadecimal characters)',
             },
             validate: (value) => {
               if (!value || value.trim() === '') {
