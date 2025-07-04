@@ -7,7 +7,7 @@ export const validationRules: Record<string, ValidationRule[]> = {
   // TODO: to extend
   GIT_URL_PATH: [
     {
-      pattern: /^[^/].*[^/]$/, // same: no leading/trailing slash
+      pattern: /^[^/].*[^/]$/, // no leading/trailing slash
       message: 'String cannot start or end with a slash symbol',
     },
     {
@@ -15,9 +15,38 @@ export const validationRules: Record<string, ValidationRule[]> = {
       message: 'String has to start with an alphabet letter or a number',
     },
     {
-      pattern: /^(?!.*[.]{2})(?!.*[\/]{2})[a-zA-Z0-9._-]+(\/[a-zA-Z0-9._-]+)*$/,
-      message:
-        'Only alphanumeric characters, dot, dash, underscore and slashes are allowed. Consecutive slashes or dots are not allowed.',
+      pattern: /^[a-zA-Z0-9._-]+(\/[a-zA-Z0-9._-]+)*$/, // only alphanumeric, dot, dash, underscore and slashes
+      message: 'Only alphanumeric characters, dot, dash, underscore and slashes are allowed',
+    },
+    {
+      pattern: /^(?!.*[.]{2})/, // no consecutive dots
+      message: 'Consecutive dots are not allowed',
+    },
+    {
+      pattern: /^(?!.*[\/]{2})/, // no consecutive slashes
+      message: 'Consecutive slashes are not allowed',
+    },
+  ],
+  REPOSITORY_NAME: [
+    {
+      pattern: /^[^/].*[^/]$/, // no leading/trailing slash
+      message: 'Repository name cannot start or end with a slash symbol',
+    },
+    {
+      pattern: /^[a-zA-Z0-9]/, // must start with alphanumeric
+      message: 'Repository name has to start with an alphabet letter or a number',
+    },
+    {
+      pattern: /^[a-zA-Z0-9._-]+$/, // only alphanumeric, dot, dash, underscore
+      message: 'Only alphanumeric characters, dot, dash, and underscore are allowed',
+    },
+    {
+      pattern: /^(?!.*[.]{2})/, // no consecutive dots
+      message: 'Consecutive dots are not allowed',
+    },
+    {
+      pattern: /^(?!.*[\/]{2})/, // no consecutive slashes
+      message: 'Consecutive slashes are not allowed',
     },
   ],
 };

@@ -12,7 +12,7 @@ import { useFormContext } from '../../../../../../providers/Form/hooks';
 import { CLUSTER_TYPE } from '../../../../constants';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../../types';
 
-export const FormActions = () => {
+export const FormActions = ({ clusterType }: { clusterType: string }) => {
   const {
     formData: { handleClosePlaceholder, permissions },
   } = useFormContext<ManageClusterSecretDataContext>();
@@ -44,7 +44,6 @@ export const FormActions = () => {
       }
 
       const {
-        clusterType,
         clusterName,
         clusterHost,
         clusterToken,
@@ -77,7 +76,7 @@ export const FormActions = () => {
 
       reset();
     },
-    [createSecret, permissions.create.Secret.allowed, reset]
+    [clusterType, createSecret, permissions.create.Secret.allowed, reset]
   );
 
   return (

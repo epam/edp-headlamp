@@ -97,19 +97,21 @@ export const FormActions = () => {
             cancel
           </Button>
         </Box>
+      </Stack>
+      <Stack direction="row" spacing={1}>
         <Button onClick={handleResetFields} size="small" disabled={!isDirty}>
           undo changes
         </Button>
+        <Button
+          onClick={handleSubmit(onSubmit)}
+          variant={'contained'}
+          color={'primary'}
+          size="small"
+          disabled={!isDirty || isLoading}
+        >
+          create
+        </Button>
       </Stack>
-      <Button
-        onClick={handleSubmit(onSubmit)}
-        variant={'contained'}
-        color={'primary'}
-        size="small"
-        disabled={!isDirty || isLoading}
-      >
-        create
-      </Button>
     </Stack>
   );
 };

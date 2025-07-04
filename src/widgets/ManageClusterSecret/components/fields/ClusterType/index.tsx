@@ -4,12 +4,12 @@ import { useForm } from 'react-hook-form';
 import { ICONS } from '../../../../../icons/iconify-icons-mapping';
 import { FormRadioGroup } from '../../../../../providers/Form/components/FormRadioGroup';
 import { useFormContext } from '../../../../../providers/Form/hooks';
-import { FORM_MODES } from '../../../../../types/forms';
+import { FieldEvent, FORM_MODES } from '../../../../../types/forms';
 import { CLUSTER_TYPE } from '../../../constants';
 import { ManageClusterSecretDataContext } from '../../../types';
 
 interface ClusterTypeProps {
-  onChange?: (value: string) => void;
+  onChange?: (event: FieldEvent) => void;
   value?: string;
 }
 

@@ -3,6 +3,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { SECRET_LABEL_CLUSTER_TYPE } from '../../../../../../k8s/groups/default/Secret/labels';
 import { useFormContext as useCustomFormContext } from '../../../../../../providers/Form/hooks';
+import { FieldEvent } from '../../../../../../types/forms';
 import { CLUSTER_TYPE } from '../../../../constants';
 import { CLUSTER_FORM_NAMES } from '../../../../names';
 import { ManageClusterSecretDataContext } from '../../../../types';
@@ -70,10 +71,14 @@ export const Form = () => {
     );
   }, []);
 
+  const onClusterChange = React.useCallback((event: FieldEvent) => {
+    setClusterType(event.target.value);
+  }, []);
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <ClusterType onChange={setClusterType} value={clusterType} />
+        <ClusterType onChange={onClusterChange} value={clusterType} />
       </Grid>
       <Grid item xs={6}>
         <ClusterName />

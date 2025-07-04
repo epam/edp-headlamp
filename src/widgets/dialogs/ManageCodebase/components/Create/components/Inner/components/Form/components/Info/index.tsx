@@ -57,15 +57,15 @@ export const Info = () => {
         ) : (
           <Grid item xs={12}>
             <Stack spacing={1} direction="row" alignItems="flex-start">
-              <Box sx={{ flexShrink: 0, flexGrow: 1 }}>
+              <Box sx={{ flex: '1 0 50%' }}>
                 <Owner />
               </Box>
-              <Typography sx={{ pt: theme.typography.pxToRem(24) }}>/</Typography>
-              <Box sx={{ flexShrink: 0, flexGrow: 1 }}>
+              <Stack spacing={1} direction="row" sx={{ flex: '1 0 50%' }}>
+                <Typography sx={{ pt: theme.typography.pxToRem(24) }}>/</Typography>
                 <Box flexGrow={1} flexShrink={0}>
                   <Repository />
                 </Box>
-              </Box>
+              </Stack>
             </Stack>
           </Grid>
         )}

@@ -40,6 +40,7 @@ export interface FieldEventTarget {
 
 export interface FieldEvent {
   target: FieldEventTarget;
+  type: string;
 }
 
 export const FORM_MODES = {

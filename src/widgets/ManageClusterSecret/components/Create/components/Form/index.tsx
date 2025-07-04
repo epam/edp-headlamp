@@ -1,6 +1,7 @@
 import { Grid, useTheme } from '@mui/material';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import { FieldEvent } from '../../../../../../types/forms';
 import { CLUSTER_TYPE } from '../../../../constants';
 import { CLUSTER_FORM_NAMES } from '../../../../names';
 import {
@@ -14,10 +15,15 @@ import {
   SkipTLSVerify,
 } from '../../../fields';
 
-export const Form = () => {
+export const Form = ({
+  clusterType,
+  setClusterType,
+}: {
+  clusterType: string;
+  setClusterType: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const theme = useTheme();
   const { watch } = useFormContext();
-  const [clusterType, setClusterType] = React.useState<string>(CLUSTER_TYPE.BEARER);
 
   const skipTLSVerify = watch(CLUSTER_FORM_NAMES.SKIP_TLS_VERIFY);
 
@@ -56,10 +62,17 @@ export const Form = () => {
     );
   }, []);
 
+  const onClusterChange = React.useCallback(
+    (event: FieldEvent) => {
+      setClusterType(event.target.value);
+    },
+    [setClusterType]
+  );
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <ClusterType value={clusterType} onChange={setClusterType} />
+        <ClusterType value={clusterType} onChange={onClusterChange} />
       </Grid>
       <Grid item xs={6}>
         <ClusterName />

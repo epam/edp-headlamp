@@ -53,7 +53,7 @@ export const FormRadioGroup = React.forwardRef(
                       className={classes.radioGroup}
                       onChange={(e) => {
                         field.onChange(e);
-                        onChange?.(e.target.value);
+                        onChange?.(e);
                       }}
                     >
                       {options.map(

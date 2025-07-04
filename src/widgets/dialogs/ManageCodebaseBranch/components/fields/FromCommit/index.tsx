@@ -76,6 +76,7 @@ export const FromCommit = () => {
       return (
         <FormAutocompleteSingle
           {...register(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name, {
+            required: 'Enter branch name',
             pattern: {
               value: /^(?![\/\.\-])[A-Za-z0-9\/\._\-]*(?<![\/\.\-])$/,
               message: `Branch name may contain: upper-case and lower-case letters, numbers, slashes (/), dashes (-), dots (.), and underscores (_).
@@ -111,6 +112,7 @@ export const FromCommit = () => {
       return (
         <FormTextField
           {...register(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name, {
+            required: 'Enter commit hash',
             pattern: {
               value: /^[a-fA-F0-9]{40}$/,
               message: 'Commit hash must be a full Git commit hash (40 hexadecimal characters)',
@@ -132,7 +134,7 @@ export const FromCommit = () => {
   };
 
   return (
-    <Grid container spacing={2} alignItems="flex-end">
+    <Grid container spacing={2} alignItems="flex-start">
       <Grid item xs={6}>
         <FormSelect
           name={CODEBASE_BRANCH_FORM_NAMES.fromType.name}
