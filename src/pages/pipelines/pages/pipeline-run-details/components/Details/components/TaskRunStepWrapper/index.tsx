@@ -27,18 +27,21 @@ export const TaskRunStepWrapper = ({ pipelineRunTaskData, stepName }: TaskRunSte
   const status = getTaskRunStepStatus(step);
   const reason = getTaskRunStepReason(step);
 
-  const completionTime = step?.terminated?.finishedAt || new Date().toISOString();
+  const completionTime = step?.terminated?.finishedAt;
   const startTime = step?.terminated?.startedAt;
 
-  const duration = humanize(new Date(completionTime).getTime() - new Date(startTime).getTime(), {
-    language: 'en-mini',
-    spacer: '',
-    delimiter: ' ',
-    fallbacks: ['en'],
-    largest: 2,
-    round: true,
-    units: ['d', 'h', 'm', 's'],
-  });
+  const duration =
+    startTime && completionTime
+      ? humanize(new Date(completionTime).getTime() - new Date(startTime).getTime(), {
+          language: 'en-mini',
+          spacer: '',
+          delimiter: ' ',
+          fallbacks: ['en'],
+          largest: 2,
+          round: true,
+          units: ['d', 'h', 'm', 's'],
+        })
+      : null;
 
   const [pods] = PodKubeObject.useList({
     labelSelector: `tekton.dev/taskRun=${pipelineRunTaskData?.taskRun.metadata.name || ''}`,
@@ -93,7 +96,9 @@ export const TaskRunStepWrapper = ({ pipelineRunTaskData, stepName }: TaskRunSte
                 component="span"
                 color="secondary.dark"
               >
-                {step && Object.hasOwn(step, 'terminated') ? duration : 'In progress'}
+                {step && Object.hasOwn(step, 'terminated')
+                  ? duration || 'Not started'
+                  : 'In progress'}
               </Typography>
             </Typography>
           </Stack>

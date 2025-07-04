@@ -16,7 +16,7 @@ export const ManageCodebaseBranchDialog: React.FC<ManageCodebaseBranchDialogProp
   const mode = !!codebaseBranch ? FORM_MODES.EDIT : FORM_MODES.CREATE;
 
   return (
-    <Dialog open={open} fullWidth data-testid="dialog">
+    <Dialog open={open} fullWidth data-testid="dialog" maxWidth="md">
       <CurrentDialogContextProvider {...props}>
         {mode === FORM_MODES.CREATE ? <Create /> : mode === FORM_MODES.EDIT ? <Edit /> : null}
       </CurrentDialogContextProvider>

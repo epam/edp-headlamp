@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { FormAutocompleteSingle } from '../../../../../../providers/Form/components/FormAutocompleteSingle';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
 import { FieldEvent } from '../../../../../../types/forms';
+import { validateField, validationRules } from '../../../../../../utils/formFieldValidation';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
 import { CODEBASE_FORM_NAMES } from '../../../names';
 import { useCurrentDialog } from '../../../providers/CurrentDialog/hooks';
@@ -97,6 +98,11 @@ export const Repository = () => {
           }
           if (value.length < 3) {
             return 'Repository name must be at least 3 characters long';
+          }
+
+          const validationResult = validateField(value, validationRules.REPOSITORY_NAME);
+          if (validationResult !== true) {
+            return validationResult;
           }
 
           if (

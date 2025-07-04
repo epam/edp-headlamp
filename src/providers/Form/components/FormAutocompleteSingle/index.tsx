@@ -104,7 +104,9 @@ export const FormAutocompleteSingle = <T extends SelectOption>(
                 }
               }}
               onInputChange={(event, newInputValue) => {
-                field.onChange(newInputValue || '');
+                if (allowCustomInput) {
+                  field.onChange(newInputValue || '');
+                }
               }}
               value={options.find((option) => option.value === field.value) || null}
             />
