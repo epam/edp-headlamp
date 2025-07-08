@@ -17,6 +17,7 @@ export const ClusterType = ({ onChange, value }: ClusterTypeProps) => {
   const {
     control,
     formState: { errors },
+    register,
   } = useForm();
 
   const {
@@ -25,6 +26,10 @@ export const ClusterType = ({ onChange, value }: ClusterTypeProps) => {
 
   return (
     <FormRadioGroup
+      {...register('clusterType', {
+        required: `Select codebase language`,
+        onChange: onChange,
+      })}
       name="clusterType"
       control={control}
       errors={errors}
@@ -44,7 +49,6 @@ export const ClusterType = ({ onChange, value }: ClusterTypeProps) => {
       ]}
       label="Cluster Type"
       disabled={mode === FORM_MODES.EDIT}
-      onChange={onChange}
       defaultValue={value}
     />
   );
