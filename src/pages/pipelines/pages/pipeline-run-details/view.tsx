@@ -77,12 +77,7 @@ export const PageView = () => {
     }
 
     return (
-      <LoadingWrapper
-        isLoading={
-          (pipelineRun.isLoading || pipelineRunDataIsLoading || logs.isLoading) &&
-          !pipelineRun.error
-        }
-      >
+      <LoadingWrapper isLoading={pipelineRunDataIsLoading || logs.isLoading}>
         <Tabs tabs={tabs} activeTabIdx={activeTab} handleChangeTab={handleChangeTab} />
       </LoadingWrapper>
     );

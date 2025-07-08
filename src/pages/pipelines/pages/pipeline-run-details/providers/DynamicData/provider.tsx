@@ -164,11 +164,12 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       },
       logs: {
         data: logs,
-        isLoading: !isLogsFetched,
+        isLoading: !!apiService.apiBaseURL && !isLogsFetched && !logsError,
         error: logsError as ApiError,
       },
     }),
     [
+      apiService.apiBaseURL,
       approvalTasksError,
       isLogsFetched,
       logs,
