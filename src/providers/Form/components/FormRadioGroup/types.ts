@@ -1,7 +1,6 @@
 import React from 'react';
 import { Control } from 'react-hook-form/dist/types';
 import { FieldErrors } from 'react-hook-form/dist/types/errors';
-import { FieldEvent } from '../../../../types/forms';
 
 export interface FormRadioOption {
   value: string;
@@ -20,6 +19,5 @@ export interface FormRadioProps {
   label: string;
   title?: string;
   disabled?: boolean;
-  onChange?: ({ target, type }: FieldEvent) => void;
   defaultValue?: string;
 }

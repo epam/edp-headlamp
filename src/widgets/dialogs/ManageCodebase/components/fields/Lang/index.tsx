@@ -56,7 +56,7 @@ export const Lang = () => {
     return resultOptions;
   }, [strategyValue, typeFieldValue]);
 
-  const onLangChange = React.useCallback(async () => {
+  const onLangChange = React.useCallback(() => {
     resetField(CODEBASE_FORM_NAMES.framework.name);
     resetField(CODEBASE_FORM_NAMES.buildTool.name);
     unregister(CODEBASE_FORM_NAMES.framework.name);
