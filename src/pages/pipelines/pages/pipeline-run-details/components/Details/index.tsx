@@ -43,10 +43,6 @@ export const Details = () => {
       queryParamTaskRun || initialTaskRunName
     );
 
-    if (!activePipelineRunTaskData) {
-      return null;
-    }
-
     if (!queryParamTaskRun || (queryParamTaskRun && !queryParamStep)) {
       return <TaskRunWrapper pipelineRunTaskData={activePipelineRunTaskData} />;
     } else if (queryParamTaskRun && queryParamStep) {
