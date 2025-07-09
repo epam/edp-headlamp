@@ -29,7 +29,7 @@ export const usePipelineRunData = ({
   }, [pipelineRun]);
 
   const pipelineRunTasksByNameMap = React.useMemo(() => {
-    if (taskRuns === null || tasks === null || approvalTasks === null) {
+    if (taskRuns === null || tasks === null) {
       return;
     }
 
