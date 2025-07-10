@@ -1,4 +1,4 @@
-import { CircularProgress, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { FormAutocompleteSingle } from '../../../../../../providers/Form/components/FormAutocompleteSingle';
@@ -103,8 +103,8 @@ export const FromCommit = () => {
             helperText: query.error ? query.error.toString() : '',
             error: !!query.error,
           }}
-          InputProps={{
-            endAdornment: query.isLoading ? <CircularProgress size={15} /> : null,
+          AutocompleteProps={{
+            loading: query.isLoading,
           }}
         />
       );
