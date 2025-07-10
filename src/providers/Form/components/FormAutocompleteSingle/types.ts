@@ -1,18 +1,29 @@
-import { InputProps, StandardTextFieldProps } from '@mui/material';
-import { Control, FieldErrors } from 'react-hook-form';
+import { AutocompleteProps, StandardTextFieldProps } from '@mui/material';
+import {
+  Control,
+  FieldErrors,
+  FieldPath,
+  FieldValues,
+  Path,
+  UseFormRegisterReturn,
+} from 'react-hook-form';
+import { SelectOption } from '../../../../types/forms';
 
-export interface FormAutocompleteSingleProps<T> {
-  name: string;
-  control: Control<any>;
-  defaultValue?: T;
+export interface FormAutocompleteSingleProps<
+  TOption extends SelectOption = SelectOption,
+  TFieldValues extends FieldValues = FieldValues
+> extends Partial<UseFormRegisterReturn<Path<TFieldValues>>> {
+  name: FieldPath<TFieldValues>;
+  control: Control<TFieldValues>;
+  errors: FieldErrors<TFieldValues>;
+  options: TOption[];
   label?: string;
-  title?: string;
-  placeholder: string;
+  tooltipText?: string;
+  defaultValue?: string;
+  placeholder?: string;
   disabled?: boolean;
-  options: T[];
-  errors: FieldErrors;
-  allowCustomInput?: boolean;
-  AutocompleteProps?: {};
-  InputProps?: InputProps;
   TextFieldProps?: StandardTextFieldProps;
+  AutocompleteProps?: Partial<
+    Omit<AutocompleteProps<TOption, boolean, boolean, boolean>, 'renderInput' | 'options'>
+  >;
 }

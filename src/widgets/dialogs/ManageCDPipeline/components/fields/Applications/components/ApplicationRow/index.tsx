@@ -186,10 +186,6 @@ export const ApplicationRow = ({ application, index, removeRow }: ApplicationRow
               errors={{
                 [appBranchError?.ref?.name]: appBranchError,
               }}
-              defaultValue={{
-                label: '',
-                value: '',
-              }}
               options={
                 applicationBranchesList
                   ? applicationBranchesList.map((el) => ({

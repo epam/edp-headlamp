@@ -83,4 +83,5 @@ export enum ICONS {
   OPENSEARCH = 'simple-icons:opensearch',
   GRAFANA = 'devicon-plain:grafana',
   COPY = 'mdi:content-copy',
+  REFRESH = 'mdi:refresh',
 }

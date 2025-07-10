@@ -52,7 +52,7 @@ export const PageView = () => {
       }
 
       const webhookURL = ingresses.data?.find(
-        (el) => el.metadata.labels['app.edp.epam.com/gitServer'] === gitServerName
+        (el) => el.metadata.labels?.['app.edp.epam.com/gitServer'] === gitServerName
       )?.spec.rules?.[0]?.host;
 
       return webhookURL ? `https://${webhookURL}` : '';

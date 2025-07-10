@@ -11,11 +11,16 @@ export class ApiServiceBase {
   }
 
   createFetcher(url: string, body?: RequestInit['body'], method: RequestInit['method'] = 'GET') {
-    return fetch(url, {
+    const requestInit: RequestInit = {
       method: method,
       headers: this.headers,
-      ...(body && { body }),
-    })
+    };
+
+    if (body && method && ['POST', 'PUT', 'PATCH'].includes(method.toUpperCase())) {
+      requestInit.body = body;
+    }
+
+    return fetch(url, requestInit)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -88,6 +93,17 @@ export class GitFusionApiService {
 
     return new URL(
       `/gitfusion/branches?${params.toString()}`,
+      this.apiService.apiBaseURL
+    ).toString();
+  }
+
+  getInvalidateBranchListCache() {
+    const params = new URLSearchParams({
+      endpoint: 'branches',
+    });
+
+    return new URL(
+      `/gitfusion/invalidate?${params.toString()}`,
       this.apiService.apiBaseURL
     ).toString();
   }
