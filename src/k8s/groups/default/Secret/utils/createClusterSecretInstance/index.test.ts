@@ -3,6 +3,7 @@ import { createBearerClusterSecretInstance, createIRSAClusterSecretInstance } fr
 describe('testing createBearerClusterSecretInstance', () => {
   it('should create correct object when skipTLSVerify is off', () => {
     const object = createBearerClusterSecretInstance({
+      clusterMetadataName: 'test-cluster-name-cluster',
       clusterName: 'test-cluster-name',
       clusterToken: 'test-cluster-token',
       clusterHost: 'test-cluster-host',
@@ -14,7 +15,7 @@ describe('testing createBearerClusterSecretInstance', () => {
       apiVersion: 'v1',
       kind: 'Secret',
       metadata: {
-        name: 'test-cluster-name',
+        name: 'test-cluster-name-cluster',
         labels: {
           'app.edp.epam.com/secret-type': 'cluster',
           'app.edp.epam.com/cluster-type': 'bearer',
@@ -29,6 +30,7 @@ describe('testing createBearerClusterSecretInstance', () => {
 
   it('should create correct object when skipTLSVerify is on', () => {
     const object = createBearerClusterSecretInstance({
+      clusterMetadataName: 'test-cluster-name-cluster',
       clusterName: 'test-cluster-name',
       clusterToken: 'test-cluster-token',
       clusterHost: 'test-cluster-host',
@@ -39,7 +41,7 @@ describe('testing createBearerClusterSecretInstance', () => {
       apiVersion: 'v1',
       kind: 'Secret',
       metadata: {
-        name: 'test-cluster-name',
+        name: 'test-cluster-name-cluster',
         labels: {
           'app.edp.epam.com/secret-type': 'cluster',
           'app.edp.epam.com/cluster-type': 'bearer',
@@ -54,8 +56,9 @@ describe('testing createBearerClusterSecretInstance', () => {
 });
 
 describe('testing createIRSAClusterSecretInstance', () => {
-  it('should create correct object when isEdit is false', () => {
+  it('should create correct object', () => {
     const object = createIRSAClusterSecretInstance({
+      clusterMetadataName: 'test-cluster-name-cluster',
       clusterName: 'test-cluster-name',
       clusterHost: 'test-cluster-host',
       roleARN: 'test-role-arn',
@@ -67,35 +70,6 @@ describe('testing createIRSAClusterSecretInstance', () => {
       kind: 'Secret',
       metadata: {
         name: 'test-cluster-name-cluster',
-        labels: {
-          'app.edp.epam.com/secret-type': 'cluster',
-          'app.edp.epam.com/cluster-type': 'irsa',
-          'argocd.argoproj.io/secret-type': 'cluster',
-        },
-      },
-      data: {
-        config:
-          'eyJzZXJ2ZXIiOiJ0ZXN0LWNsdXN0ZXItaG9zdCIsImF3c0F1dGhDb25maWciOnsiY2x1c3Rlck5hbWUiOiJ0ZXN0LWNsdXN0ZXItbmFtZSIsInJvbGVBUk4iOiJ0ZXN0LXJvbGUtYXJuIn0sInRsc0NsaWVudENvbmZpZyI6eyJpbnNlY3VyZSI6ZmFsc2UsImNhRGF0YSI6InRlc3QtY2EtZGF0YSJ9fQ==',
-        name: 'dGVzdC1jbHVzdGVyLW5hbWU=',
-        server: 'dGVzdC1jbHVzdGVyLWhvc3Q=',
-      },
-    });
-  });
-
-  it('should create correct object when isEdit is true', () => {
-    const object = createIRSAClusterSecretInstance({
-      clusterName: 'test-cluster-name',
-      clusterHost: 'test-cluster-host',
-      roleARN: 'test-role-arn',
-      caData: 'test-ca-data',
-      isEdit: true,
-    });
-
-    expect(object).toEqual({
-      apiVersion: 'v1',
-      kind: 'Secret',
-      metadata: {
-        name: 'test-cluster-name',
         labels: {
           'app.edp.epam.com/secret-type': 'cluster',
           'app.edp.epam.com/cluster-type': 'irsa',

@@ -3,12 +3,14 @@ import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { Grid, IconButton } from '@mui/material';
 import React from 'react';
 import { useMutation, useQuery } from 'react-query';
+import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { useEDPConfigMapQuery } from '../../../../../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
 import { FormAutocompleteSingle } from '../../../../../../providers/Form/components/FormAutocompleteSingle';
 import { ApiServiceBase, GitFusionApiService } from '../../../../../../services/api';
 import { FieldEvent } from '../../../../../../types/forms';
 import { createVersioningString } from '../../../../../../utils/createVersioningString';
+import { validateField, validationRules } from '../../../../../../utils/formFieldValidation';
 import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace';
 import { getToken } from '../../../../../../utils/getToken';
 import { getVersionAndPostfixFromVersioningString } from '../../../../../../utils/getVersionAndPostfixFromVersioningString';
@@ -32,7 +34,6 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
     extra: { apiServiceBase, gitFusionApiService },
   } = useCurrentDialog();
 
-  // Cache invalidation logic
   const { data: EDPConfigMap } = useEDPConfigMapQuery();
   const cluster = Utils.getCluster() || '';
   const token = getToken(cluster);
@@ -56,6 +57,12 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
   const codebaseRepoName = codebaseGitUrlPath.split('/').at(-1) || '';
   const codebaseOwner = codebaseGitUrlPath.split('/').filter(Boolean).slice(0, -1).join('/');
 
+  const canLoadBranches = React.useMemo(() => {
+    return (
+      !!apiServiceBase.apiBaseURL && !!codebaseGitServer && !!codebaseOwner && !!codebaseRepoName
+    );
+  }, [apiServiceBase.apiBaseURL, codebaseGitServer, codebaseOwner, codebaseRepoName]);
+
   const query = useQuery<{
     data: {
       name: string;
@@ -71,8 +78,7 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
         )
       ),
     {
-      enabled:
-        !!apiServiceBase.apiBaseURL && !!codebaseGitServer && !!codebaseOwner && !!codebaseRepoName,
+      enabled: canLoadBranches,
     }
   );
 
@@ -80,13 +86,29 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
     if (query.isLoading || query.isError) {
       return [];
     }
+
+    if (codebaseGitServer === GIT_PROVIDER.GERRIT) {
+      return [
+        {
+          label: codebase.spec.defaultBranch,
+          value: codebase.spec.defaultBranch,
+        },
+      ];
+    }
+
     return (
       query.data?.data.map((branch) => ({
         label: branch.name,
         value: branch.name,
       })) || []
     );
-  }, [query.isLoading, query.isError, query.data]);
+  }, [
+    query.isLoading,
+    query.isError,
+    query.data?.data,
+    codebaseGitServer,
+    codebase.spec.defaultBranch,
+  ]);
 
   const existingCodebaseBranchs = codebaseBranches.map(
     (codebaseBranch) => codebaseBranch.spec.branchName
@@ -126,19 +148,13 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
       <FormAutocompleteSingle
         placeholder={'Owner'}
         {...register(CODEBASE_BRANCH_FORM_NAMES.branchName.name, {
-          pattern: {
-            value: /^(?![\/\.\-])[A-Za-z0-9\/\._\-]*(?<![\/\.\-])$/,
-            message: `Branch name may contain: upper-case and lower-case letters, numbers, slashes (/), dashes (-), dots (.), and underscores (_).
-                      It cannot start or end with a slash (/), dot (.), or dash (-). Consecutive special characters are not allowed.
-                      Minimum 2 characters.`,
-          },
+          required: 'Enter branch name',
           validate: (value) => {
             if (existingCodebaseBranchs.includes(value)) {
               return `Branch name "${value}" already exists`;
             }
-            return true;
+            return validateField(value, validationRules.BRANCH_NAME);
           },
-          required: 'Enter branch name',
           onChange: handleReleaseBranchNameFieldValueChange,
         })}
         label="Branch Name"
@@ -155,7 +171,7 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
           helperText: query.error ? query.error.toString() : '',
           error: !!query.error,
           InputProps: {
-            endAdornment: (
+            endAdornment: canLoadBranches ? (
               <>
                 <IconButton
                   size="small"
@@ -169,7 +185,7 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
                   <Icon icon={ICONS.REFRESH} color="inherit" />
                 </IconButton>
               </>
-            ),
+            ) : null,
           },
         }}
       />

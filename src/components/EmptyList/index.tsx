@@ -13,7 +13,7 @@ export const EmptyList = ({
   handleClick,
   isSearch = false,
   icon,
-  iconSize = 96,
+  iconSize = 48,
 }: EmptyListProps) => {
   const theme = useTheme();
   return (
@@ -36,7 +36,7 @@ export const EmptyList = ({
           borderRadius: theme.typography.pxToRem(4),
         }}
       >
-        <Box sx={{ mb: theme.typography.pxToRem(16) }}>
+        <Box sx={{ mb: theme.typography.pxToRem(8) }}>
           {icon ? (
             icon
           ) : (

@@ -138,7 +138,7 @@ export const TableBody = <DataType extends unknown>({
     return (
       <MuiTableRow>
         <TableCell colSpan={columnsLength} align={'center'} sx={{ px: 0, pb: 0, borderBottom: 0 }}>
-          <>{emptyListComponent}</>
+          <>{emptyListComponent || <EmptyList customText={'No results to display.'} />}</>
         </TableCell>
       </MuiTableRow>
     );

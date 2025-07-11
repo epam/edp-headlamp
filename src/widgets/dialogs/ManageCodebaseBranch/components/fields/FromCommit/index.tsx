@@ -1,6 +1,7 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { useQuery } from 'react-query';
+import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { FormAutocompleteSingle } from '../../../../../../providers/Form/components/FormAutocompleteSingle';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
@@ -61,13 +62,29 @@ export const FromCommit = () => {
     if (query.isLoading || query.isError) {
       return [];
     }
+
+    if (codebaseGitServer === GIT_PROVIDER.GERRIT) {
+      return [
+        {
+          label: codebase.spec.defaultBranch,
+          value: codebase.spec.defaultBranch,
+        },
+      ];
+    }
+
     return (
       query.data?.data.map((branch) => ({
         label: branch.name,
         value: branch.name,
       })) || []
     );
-  }, [query.isLoading, query.isError, query.data]);
+  }, [
+    query.isLoading,
+    query.isError,
+    query.data?.data,
+    codebaseGitServer,
+    codebase.spec.defaultBranch,
+  ]);
 
   const fromType = watch(CODEBASE_BRANCH_FORM_NAMES.fromType.name) || 'branch';
 

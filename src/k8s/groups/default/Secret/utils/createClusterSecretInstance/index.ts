@@ -5,12 +5,14 @@ import { SecretKubeObjectInterface } from '../../types';
 export const createBearerClusterSecretInstance = (
   props:
     | {
+        clusterMetadataName: string;
         clusterName: string;
         clusterHost: string;
         clusterToken: string;
         skipTLSVerify: true;
       }
     | {
+        clusterMetadataName: string;
         clusterName: string;
         clusterHost: string;
         clusterToken: string;
@@ -18,7 +20,7 @@ export const createBearerClusterSecretInstance = (
         clusterCertificate: string;
       }
 ): SecretKubeObjectInterface => {
-  const { clusterName, clusterHost, clusterToken, skipTLSVerify } = props;
+  const { clusterMetadataName, clusterName, clusterHost, clusterToken, skipTLSVerify } = props;
 
   const clusterCertificate = 'clusterCertificate' in props ? props.clusterCertificate : undefined;
 
@@ -27,7 +29,7 @@ export const createBearerClusterSecretInstance = (
     kind: 'Secret',
     // @ts-ignore
     metadata: {
-      name: clusterName,
+      name: clusterMetadataName,
       labels: {
         [SECRET_LABEL_SECRET_TYPE]: 'cluster',
         [SECRET_LABEL_CLUSTER_TYPE]: 'bearer',
@@ -75,12 +77,13 @@ export const createBearerClusterSecretInstance = (
 };
 
 export const createIRSAClusterSecretInstance = ({
+  clusterMetadataName,
   clusterName,
   clusterHost,
   roleARN,
   caData,
-  isEdit = false,
 }: {
+  clusterMetadataName: string;
   clusterName: string;
   clusterHost: string;
   roleARN: string;
@@ -92,7 +95,7 @@ export const createIRSAClusterSecretInstance = ({
     kind: 'Secret',
     // @ts-ignore
     metadata: {
-      name: isEdit ? clusterName : `${clusterName}-cluster`,
+      name: clusterMetadataName,
       labels: {
         [SECRET_LABEL_SECRET_TYPE]: 'cluster',
         [SECRET_LABEL_CLUSTER_TYPE]: 'irsa',

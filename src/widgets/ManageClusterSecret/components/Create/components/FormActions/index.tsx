@@ -3,7 +3,6 @@ import React from 'react';
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
 import { ConditionalWrapper } from '../../../../../../components/ConditionalWrapper';
 import { useSecretCRUD } from '../../../../../../k8s/groups/default/Secret/hooks/useSecretCRUD';
-// import { createClusterSecretInstance } from '../../../../../../k8s/groups/default/Secret/utils/createClusterSecretInstance';
 import {
   createBearerClusterSecretInstance,
   createIRSAClusterSecretInstance,
@@ -53,9 +52,12 @@ export const FormActions = ({ clusterType }: { clusterType: string }) => {
         caData,
       } = values;
 
+      const clusterMetadataName = `${clusterName}-cluster`;
+
       if (clusterType === CLUSTER_TYPE.BEARER) {
         createSecret({
           secretData: createBearerClusterSecretInstance({
+            clusterMetadataName,
             clusterName,
             clusterHost,
             clusterToken,
@@ -66,6 +68,7 @@ export const FormActions = ({ clusterType }: { clusterType: string }) => {
       } else {
         createSecret({
           secretData: createIRSAClusterSecretInstance({
+            clusterMetadataName,
             clusterName,
             clusterHost,
             roleARN,
@@ -73,10 +76,8 @@ export const FormActions = ({ clusterType }: { clusterType: string }) => {
           }),
         });
       }
-
-      reset();
     },
-    [clusterType, createSecret, permissions.create.Secret.allowed, reset]
+    [clusterType, createSecret, permissions.create.Secret.allowed]
   );
 
   return (
