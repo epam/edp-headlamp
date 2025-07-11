@@ -70,7 +70,7 @@ describe('testing link-creation GitURLService', () => {
         'https://test-gerrit.com/gitweb?p=test-repo',
         'test-branch'
       )
-    ).toEqual('https://test-gerrit.com/gitweb?p=test-repo&a=refs%2Fheads%2Ftest-branch');
+    ).toEqual('https://test-gerrit.com/gitweb?p=test-repo&a=tree&h=refs%2Fheads%2Ftest-branch');
     expect(
       GitURLService.createRepoBranchLink(
         GIT_PROVIDER.BITBUCKET,

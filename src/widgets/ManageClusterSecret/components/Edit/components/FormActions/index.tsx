@@ -15,7 +15,6 @@ import { useFormContext } from '../../../../../../providers/Form/hooks';
 import { DeleteKubeObjectDialog } from '../../../../../dialogs/DeleteKubeObject';
 import { CLUSTER_TYPE } from '../../../../constants';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../../types';
-import { getClusterName } from '../../../../utils';
 import { ClusterCDPipelineConflictError } from './components/ClusterCDPipelineConflictError';
 import { useConflictedStageQuery } from './hooks/useConflictedStage';
 
@@ -51,8 +50,8 @@ export const FormActions = () => {
       }
 
       const {
-        clusterType,
         clusterName,
+        clusterType,
         clusterHost,
         clusterToken,
         clusterCertificate,
@@ -64,6 +63,7 @@ export const FormActions = () => {
       if (clusterType === CLUSTER_TYPE.BEARER) {
         editSecret({
           secretData: createBearerClusterSecretInstance({
+            clusterMetadataName: currentElement!.metadata.name,
             clusterName,
             clusterHost,
             clusterToken,
@@ -74,7 +74,7 @@ export const FormActions = () => {
       } else {
         editSecret({
           secretData: createIRSAClusterSecretInstance({
-            isEdit: true,
+            clusterMetadataName: currentElement!.metadata.name,
             clusterName,
             clusterHost,
             roleARN,
@@ -83,7 +83,7 @@ export const FormActions = () => {
         });
       }
     },
-    [editSecret, permissions.update.Secret.allowed]
+    [currentElement, editSecret, permissions.update.Secret.allowed]
   );
 
   const clusterName = currentElement?.metadata.name;
@@ -114,10 +114,8 @@ export const FormActions = () => {
       return;
     }
 
-    const clusterName = getClusterName(currentElement);
-
     setDialog(DeleteKubeObjectDialog, {
-      objectName: clusterName,
+      objectName: currentElement.metadata.name,
       kubeObject: SecretKubeObject,
       kubeObjectData: currentElement,
       description: `Confirm the deletion of the cluster`,

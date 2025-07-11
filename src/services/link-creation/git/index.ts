@@ -39,7 +39,8 @@ export const GitURLService = {
 
     switch (gitServer.toLowerCase()) {
       case GIT_PROVIDER.GERRIT:
-        updatedUrl.searchParams.set('a', 'refs/heads/' + branch);
+        updatedUrl.searchParams.set('a', 'tree');
+        updatedUrl.searchParams.set('h', `refs/heads/${branch}`);
         break;
       case GIT_PROVIDER.GITHUB:
         updatedUrl.pathname += `/tree/${branch}`;

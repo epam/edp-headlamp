@@ -540,17 +540,6 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                               />
                             </button>
                           </div>
-                          <button
-                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-yo6ymh-MuiButtonBase-root-MuiIconButton-root"
-                            tabindex="0"
-                            title="Refresh branches"
-                            type="button"
-                          >
-                            <span />
-                            <span
-                              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                            />
-                          </button>
                           <span />
                         </div>
                       </div>
