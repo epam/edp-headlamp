@@ -8,8 +8,8 @@ export const MultiFormContext = React.createContext<MultiFormContextProviderValu
   resetAll: () => {
     //
   },
-  submitAll: () => {
-    //
+  submitAll: async () => {
+    return false;
   },
   isAnyFormDirty: false,
   isAnyFormSubmitting: false,
