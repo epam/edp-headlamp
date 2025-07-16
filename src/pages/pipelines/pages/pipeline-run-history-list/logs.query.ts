@@ -16,11 +16,6 @@ export const getLogsAllQuery = (namespace: string) => ({
             'kubernetes.namespace_name.keyword': namespace,
           },
         },
-        {
-          term: {
-            'kubernetes.labels.tekton_dev/pipeline.keyword': 'bitbucket-opa-opa-lib-build-semver',
-          },
-        },
       ],
     },
   },
