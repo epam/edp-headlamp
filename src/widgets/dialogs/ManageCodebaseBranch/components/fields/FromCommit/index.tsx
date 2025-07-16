@@ -5,6 +5,7 @@ import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { FormAutocompleteSingle } from '../../../../../../providers/Form/components/FormAutocompleteSingle';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
+import { validateField, validationRules } from '../../../../../../utils/formFieldValidation';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
 import { CODEBASE_BRANCH_FORM_NAMES } from '../../../names';
 import { useCurrentDialog } from '../../../providers/CurrentDialog/hooks';
@@ -94,20 +95,8 @@ export const FromCommit = () => {
         <FormAutocompleteSingle
           {...register(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name, {
             required: 'Enter branch name',
-            pattern: {
-              value: /^(?![\/\.\-])[A-Za-z0-9\/\._\-]*(?<![\/\.\-])$/,
-              message: `Branch name may contain: upper-case and lower-case letters, numbers, slashes (/), dashes (-), dots (.), and underscores (_).
-                        It cannot start or end with a slash (/), dot (.), or dash (-). Consecutive special characters are not allowed.
-                        Minimum 2 characters.`,
-            },
             validate: (value) => {
-              if (!value || value.trim() === '') {
-                return true;
-              }
-              if (value.length < 2) {
-                return 'Branch name must be at least 2 characters long';
-              }
-              return true;
+              return validateField(value, validationRules.BRANCH_NAME);
             },
           })}
           label="Branch name"

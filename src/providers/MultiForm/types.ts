@@ -17,7 +17,7 @@ export interface MultiFormContextProviderValue<FormName extends string> {
   forms: { [formName in FormName]: FormItem };
   sharedForm: UseFormReturn<any, any, undefined>;
   resetAll: () => void;
-  submitAll: (dirty?: boolean) => void;
+  submitAll: (dirty?: boolean) => Promise<boolean>;
   isAnyFormDirty: boolean;
   isAnyFormForbiddenToSubmit: boolean;
   isAnyFormSubmitting: boolean;

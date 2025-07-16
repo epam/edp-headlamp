@@ -9,6 +9,7 @@ import { FORM_MODES } from '../../../../types/forms';
 import { ConfirmResourcesUpdatesDialog } from '../../../dialogs/ConfirmResourcesUpdates';
 import { useRegistryFormsContext } from '../../hooks/useRegistryFormsContext';
 import { useResetRegistry } from '../../hooks/useResetRegistry';
+import { SHARED_FORM_NAMES } from '../../names';
 import { useDataContext } from '../../providers/Data/hooks';
 
 export const Actions = ({
@@ -23,6 +24,7 @@ export const Actions = ({
     isAnyFormDirty,
     isAnyFormSubmitting,
     isAnyFormForbiddenToSubmit,
+    sharedForm,
   } = useRegistryFormsContext();
 
   const { EDPConfigMap, pushAccountSecret, pullAccountSecret, tektonServiceAccount, permissions } =
@@ -38,7 +40,7 @@ export const Actions = ({
     },
   });
 
-  const registryType = EDPConfigMap?.data.container_registry_type;
+  const registryType = sharedForm.watch(SHARED_FORM_NAMES.registryType.name);
 
   const someOfTheSecretsHasExternalOwner = React.useMemo(() => {
     switch (registryType) {
@@ -108,7 +110,15 @@ export const Actions = ({
         )}
       </Box>
       <Stack direction="row" spacing={2}>
-        <Button onClick={resetAll} size="small" component={'button'} disabled={!isAnyFormDirty}>
+        <Button
+          onClick={() => {
+            resetAll();
+            sharedForm.reset();
+          }}
+          size="small"
+          component={'button'}
+          disabled={!isAnyFormDirty}
+        >
           undo changes
         </Button>
         <ConditionalWrapper
@@ -120,9 +130,11 @@ export const Actions = ({
           )}
         >
           <Button
-            onClick={() => {
-              submitAll(true);
-              handleCloseCreateDialog && handleCloseCreateDialog();
+            onClick={async () => {
+              const success = await submitAll(true);
+              if (success && handleCloseCreateDialog) {
+                handleCloseCreateDialog();
+              }
             }}
             size={'small'}
             component={'button'}

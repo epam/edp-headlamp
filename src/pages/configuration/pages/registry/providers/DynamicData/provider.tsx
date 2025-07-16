@@ -1,6 +1,7 @@
-import { ApiError } from '@kinvolk/headlamp-plugin/lib/lib/k8s/apiProxy';
 import React from 'react';
-import { useEDPConfigMapQuery } from '../../../../../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
+import { ConfigMapKubeObject } from '../../../../../../k8s/groups/default/ConfigMap';
+import { EDP_CONFIG_CONFIG_MAP_NAMES } from '../../../../../../k8s/groups/default/ConfigMap/constants';
+import { ConfigMapKubeObjectInterface } from '../../../../../../k8s/groups/default/ConfigMap/types';
 import { SecretKubeObject } from '../../../../../../k8s/groups/default/Secret';
 import { REGISTRY_SECRET_NAMES } from '../../../../../../k8s/groups/default/Secret/constants';
 import { SECRET_LABEL_SECRET_TYPE } from '../../../../../../k8s/groups/default/Secret/labels';
@@ -9,11 +10,9 @@ import { getDefaultNamespace } from '../../../../../../utils/getDefaultNamespace
 import { DynamicDataContext } from './context';
 
 export const DynamicDataContextProvider: React.FC = ({ children }) => {
-  const {
-    data: EDPConfigMap,
-    isLoading: isEDPConfigMapLoading,
-    error: EDPConfigMapError,
-  } = useEDPConfigMapQuery();
+  const [configMaps, configMapsError] = ConfigMapKubeObject.useList({
+    namespace: getDefaultNamespace(),
+  });
 
   const [serviceAccounts, serviceAccountsError] = ServiceAccountKubeObject.useList({
     namespace: getDefaultNamespace(),
@@ -31,9 +30,11 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
   const DataContextValue = React.useMemo(
     () => ({
       EDPConfigMap: {
-        data: EDPConfigMap,
-        isLoading: isEDPConfigMapLoading,
-        error: EDPConfigMapError as ApiError,
+        data: (configMaps as ConfigMapKubeObjectInterface[])?.find((el) =>
+          EDP_CONFIG_CONFIG_MAP_NAMES.includes(el.metadata.name)
+        )?.jsonData,
+        isLoading: configMaps === null,
+        error: configMapsError,
       },
       pushAccountSecret: {
         data: registrySecrets?.find(
@@ -55,9 +56,8 @@ export const DynamicDataContextProvider: React.FC = ({ children }) => {
       },
     }),
     [
-      EDPConfigMap,
-      EDPConfigMapError,
-      isEDPConfigMapLoading,
+      configMaps,
+      configMapsError,
       registrySecrets,
       registrySecretsError,
       serviceAccounts,

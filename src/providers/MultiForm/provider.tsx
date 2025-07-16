@@ -44,15 +44,21 @@ export const MultiFormContextProvider = <FormName extends string>({
     [forms]
   );
 
-  const resetAll = React.useCallback(async () => {
-    const resetPromises = Object.values<FormItem>(forms).map((formItem) =>
-      formItem.form.reset({}, { keepDirty: false })
-    );
-    await Promise.all(resetPromises);
-  }, [forms]);
+  const resetAll = React.useCallback(
+    async (resetSharedForm?: () => void) => {
+      const resetPromises = Object.values<FormItem>(forms).map((formItem) =>
+        formItem.form.reset({}, { keepDirty: false })
+      );
+      await Promise.all(resetPromises);
+      if (resetSharedForm) {
+        resetSharedForm();
+      }
+    },
+    [forms]
+  );
 
   const submitAll = React.useCallback(
-    async (onlyDirty: boolean = true) => {
+    async (onlyDirty: boolean = true): Promise<boolean> => {
       for (const formName in forms) {
         const formItem = forms[formName];
         const form = formItem.form;
@@ -60,7 +66,7 @@ export const MultiFormContextProvider = <FormName extends string>({
         const valid = await form.trigger();
 
         if (!valid) {
-          return;
+          return false;
         }
       }
 
@@ -76,6 +82,7 @@ export const MultiFormContextProvider = <FormName extends string>({
           formItem.form.reset({}, { keepDirty: false, keepValues: true });
         }
       }
+      return true;
     },
     [forms]
   );

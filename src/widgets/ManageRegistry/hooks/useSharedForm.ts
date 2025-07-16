@@ -52,7 +52,7 @@ export const useSharedForm = ({
   });
 
   React.useEffect(() => {
-    form.reset(defaultValues, { keepDirty: false });
+    form.reset(defaultValues, { keepDirty: true });
   }, [defaultValues, form]);
 
   return React.useMemo(() => ({ form }), [form]);
