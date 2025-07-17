@@ -7,6 +7,7 @@ export class ApiServiceBase {
     this.headers = new Headers({
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
     });
   }
 
