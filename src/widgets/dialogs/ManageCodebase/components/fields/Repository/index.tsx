@@ -1,4 +1,3 @@
-import { CircularProgress } from '@mui/material';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { FormAutocompleteSingle } from '../../../../../../providers/Form/components/FormAutocompleteSingle';
@@ -73,13 +72,16 @@ export const Repository = () => {
       label={'Repository'}
       control={control}
       errors={errors}
-      disabled={!ownerFieldValue || query.isLoading}
+      disabled={!ownerFieldValue}
       options={repositoryOptions}
+      AutocompleteProps={{
+        freeSolo: true,
+        loading: !!apiServiceBase.apiBaseURL && query.isLoading,
+      }}
       TextFieldProps={{
-        helperText: ' ',
-        InputProps: {
-          endAdornment: query.isLoading ? <CircularProgress size={15} /> : null,
-        },
+        helperText: !apiServiceBase.apiBaseURL
+          ? 'Repositories auto-discovery cannot be performed.'
+          : ' ',
       }}
     />
   ) : (

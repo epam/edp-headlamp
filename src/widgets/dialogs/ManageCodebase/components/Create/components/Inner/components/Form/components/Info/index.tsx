@@ -6,6 +6,7 @@ import { GIT_PROVIDER } from '../../../../../../../../../../../constants/gitProv
 import { Resources } from '../../../../../../../../../../../icons/sprites/Resources';
 import { useTypedFormContext } from '../../../../../../../../hooks/useFormContext';
 import { CODEBASE_FORM_NAMES } from '../../../../../../../../names';
+import { useCurrentDialog } from '../../../../../../../../providers/CurrentDialog/hooks';
 import { isCloneStrategy } from '../../../../../../../../utils';
 import {
   BuildTool,
@@ -29,6 +30,7 @@ import {
 export const Info = () => {
   const theme = useTheme();
   const { watch } = useTypedFormContext();
+  const { apiServiceBase } = useCurrentDialog();
 
   const langFieldValue = watch(CODEBASE_FORM_NAMES.lang.name);
   const typeFieldValue = watch(CODEBASE_FORM_NAMES.type.name);
@@ -50,7 +52,7 @@ export const Info = () => {
             </Grid>
           </>
         ) : null}
-        {gitServerFieldValue.includes(GIT_PROVIDER.GERRIT) ? (
+        {gitServerFieldValue.includes(GIT_PROVIDER.GERRIT) || !apiServiceBase.apiBaseURL ? (
           <Grid item xs={12}>
             <GitUrlPath />
           </Grid>

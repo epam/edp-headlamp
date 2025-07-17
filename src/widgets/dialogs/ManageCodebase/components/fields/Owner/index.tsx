@@ -1,4 +1,3 @@
-import { CircularProgress } from '@mui/material';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { FormAutocompleteSingle } from '../../../../../../providers/Form/components/FormAutocompleteSingle';
@@ -51,6 +50,7 @@ export const Owner = () => {
     );
   }, [query.data, query.isError, query.isLoading]);
 
+
   return (
     <FormAutocompleteSingle
       placeholder={'Owner'}
@@ -61,13 +61,12 @@ export const Owner = () => {
       control={control}
       errors={errors}
       options={organizationsOptions}
-      disabled={query.isLoading || query.isError}
+      AutocompleteProps={{
+        freeSolo: true,
+        loading: !!apiServiceBase.apiBaseURL && query.isLoading,
+      }}
       TextFieldProps={{
-        helperText: query.error ? query.error.toString() : ' ',
-        error: !!query.error,
-        InputProps: {
-          endAdornment: query.isLoading ? <CircularProgress size={15} /> : null,
-        },
+        helperText: !apiServiceBase.apiBaseURL ? 'Owners auto-discovery cannot be performed.' : ' ',
       }}
     />
   );
