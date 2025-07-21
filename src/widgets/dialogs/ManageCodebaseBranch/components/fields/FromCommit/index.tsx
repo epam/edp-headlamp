@@ -111,6 +111,7 @@ export const FromCommit = () => {
           }}
           AutocompleteProps={{
             loading: query.isLoading,
+            freeSolo: true,
           }}
         />
       );
