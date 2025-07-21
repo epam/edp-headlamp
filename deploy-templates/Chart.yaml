@@ -3,8 +3,8 @@ description: A Helm chart for KubeRocketCI Headlamp
 home: https://docs.kuberocketci.io/
 name: edp-headlamp
 type: application
-version: 0.23.0-SNAPSHOT
-appVersion: 0.23.0-SNAPSHOT
+version: 0.24.0-SNAPSHOT
+appVersion: 0.24.0-SNAPSHOT
 icon: https://docs.kuberocketci.io/img/logo.svg
 keywords:
   - edp
@@ -26,10 +26,10 @@ annotations:
   artifacthub.io/license: Apache-2.0
   artifacthub.io/operator: "true"
   artifacthub.io/images: |
-    - name: epamedp/headlamp:0.22.70
-      image: epamedp/headlamp:0.22.70
-    - name: edp-headlamp:0.22.0
-      image: epamedp/edp-headlamp:0.22.0
+    - name: epamedp/headlamp:0.22.73
+      image: epamedp/headlamp:0.22.73
+    - name: edp-headlamp:0.23.0
+      image: epamedp/edp-headlamp:0.23.0
   artifacthub.io/operatorCapabilities: Full Lifecycle
   artifacthub.io/links: |
     - name: KubeRocketCI Documentation

@@ -2,6 +2,56 @@
 ## [Unreleased]
 
 
+<a name="v0.23.0"></a>
+## [v0.23.0] - 2025-07-21
+### Features
+
+- Add refresh button ([#789](https://github.com/epam/edp-headlamp/issues/789))
+- Add pipelinerun history of pipeline ([#777](https://github.com/epam/edp-headlamp/issues/777))
+- Add pattern based icon mapping ([#773](https://github.com/epam/edp-headlamp/issues/773))
+- Add base branch selection ([#769](https://github.com/epam/edp-headlamp/issues/769)) ([#772](https://github.com/epam/edp-headlamp/issues/772))
+- Add base branch selection ([#769](https://github.com/epam/edp-headlamp/issues/769))
+- Add branch selection ([#762](https://github.com/epam/edp-headlamp/issues/762))
+- Add repository selection ([#758](https://github.com/epam/edp-headlamp/issues/758))
+- Update pipelinetype field tooltip ([#755](https://github.com/epam/edp-headlamp/issues/755)) ([#757](https://github.com/epam/edp-headlamp/issues/757))
+- Add pipelinetype select for pipeline list ([#755](https://github.com/epam/edp-headlamp/issues/755))
+- Add pipeline history ([#740](https://github.com/epam/edp-headlamp/issues/740)) ([#741](https://github.com/epam/edp-headlamp/issues/741))
+- Update branch name validation ([#732](https://github.com/epam/edp-headlamp/issues/732))
+- Add copy deployed versions btn ([#730](https://github.com/epam/edp-headlamp/issues/730))
+
+### Bug Fixes
+
+- Fromcommit field free solo mode ([#791](https://github.com/epam/edp-headlamp/issues/791))
+- Cover no apibaseurl case for codebases onboarding ([#791](https://github.com/epam/edp-headlamp/issues/791))
+- Issues for release 0.23 ([#791](https://github.com/epam/edp-headlamp/issues/791))
+- Query for pipelineruns history ([#791](https://github.com/epam/edp-headlamp/issues/791))
+- Issues for release 0.23([#791](https://github.com/epam/edp-headlamp/issues/791))
+- Pipelinerun page white if no approval tasks ([#784](https://github.com/epam/edp-headlamp/issues/784))
+- Pipelinerun page with no available api url ([#784](https://github.com/epam/edp-headlamp/issues/784))
+- Form radio group component ([#782](https://github.com/epam/edp-headlamp/issues/782))
+- Multiple issues ([#780](https://github.com/epam/edp-headlamp/issues/780))
+- Update commit hash regexp ([#769](https://github.com/epam/edp-headlamp/issues/769)) ([#779](https://github.com/epam/edp-headlamp/issues/779))
+- Cluster integration page issues ([#775](https://github.com/epam/edp-headlamp/issues/775))
+- Improve deployment page features ([#766](https://github.com/epam/edp-headlamp/issues/766))
+- Branch truncation ([#573](https://github.com/epam/edp-headlamp/issues/573))
+- Git url path regexp ([#750](https://github.com/epam/edp-headlamp/issues/750))
+- Filter issues ([#748](https://github.com/epam/edp-headlamp/issues/748))
+- Reserve logs page history functionality ([#745](https://github.com/epam/edp-headlamp/issues/745))
+- Filter by label function in search ([#743](https://github.com/epam/edp-headlamp/issues/743))
+- Pipeline history query error ([#740](https://github.com/epam/edp-headlamp/issues/740))
+- Pipeline page filter context ([#738](https://github.com/epam/edp-headlamp/issues/738))
+
+### Code Refactoring
+
+- Add k8s crds zod schemas ([#728](https://github.com/epam/edp-headlamp/issues/728))
+
+### Routine
+
+- Update codeql and codecov scan gh actions ([#764](https://github.com/epam/edp-headlamp/issues/764))
+- Bump GitHub Actions runner image to 22.04([#735](https://github.com/epam/edp-headlamp/issues/735))
+- Update current development version ([#725](https://github.com/epam/edp-headlamp/issues/725))
+
+
 <a name="v0.22.0"></a>
 ## [v0.22.0] - 2025-04-11
 ### Features
@@ -778,7 +828,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.22.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.23.0...HEAD
+[v0.23.0]: https://github.com/epam/edp-headlamp/compare/v0.22.0...v0.23.0
 [v0.22.0]: https://github.com/epam/edp-headlamp/compare/v0.21.2...v0.22.0
 [v0.21.2]: https://github.com/epam/edp-headlamp/compare/v0.21.1...v0.21.2
 [v0.21.1]: https://github.com/epam/edp-headlamp/compare/v0.21.0...v0.21.1
