@@ -50,6 +50,17 @@ export const Owner = () => {
     );
   }, [query.data, query.isError, query.isLoading]);
 
+  const helperText = React.useMemo(() => {
+    if (!apiServiceBase.apiBaseURL) {
+      return 'Owners auto-discovery cannot be performed.';
+    }
+
+    if (query.isError) {
+      return 'Owners auto-discovery could not be performed.';
+    }
+
+    return ' ';
+  }, [apiServiceBase.apiBaseURL, query.isError]);
 
   return (
     <FormAutocompleteSingle
@@ -66,7 +77,7 @@ export const Owner = () => {
         loading: !!apiServiceBase.apiBaseURL && query.isLoading,
       }}
       TextFieldProps={{
-        helperText: !apiServiceBase.apiBaseURL ? 'Owners auto-discovery cannot be performed.' : ' ',
+        helperText,
       }}
     />
   );

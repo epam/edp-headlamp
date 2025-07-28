@@ -57,6 +57,18 @@ export const Repository = () => {
     );
   }, [query.data, query.isError, query.isLoading]);
 
+  const helperText = React.useMemo(() => {
+    if (!apiServiceBase.apiBaseURL) {
+      return 'Repositories auto-discovery cannot be performed.';
+    }
+
+    if (query.isError) {
+      return 'Repositories auto-discovery could not be performed.';
+    }
+
+    return ' ';
+  }, [apiServiceBase.apiBaseURL, query.isError]);
+
   return isImportStrategy(strategyFieldValue) ? (
     <FormAutocompleteSingle
       placeholder={'repository_name'}
@@ -79,9 +91,7 @@ export const Repository = () => {
         loading: !!apiServiceBase.apiBaseURL && query.isLoading,
       }}
       TextFieldProps={{
-        helperText: !apiServiceBase.apiBaseURL
-          ? 'Repositories auto-discovery cannot be performed.'
-          : ' ',
+        helperText,
       }}
     />
   ) : (

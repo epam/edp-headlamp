@@ -143,10 +143,22 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
     });
   }, [invalidateBranchListCacheMutation, query]);
 
+  const helperText = React.useMemo(() => {
+    if (!apiServiceBase.apiBaseURL) {
+      return 'Branches auto-discovery cannot be performed.';
+    }
+
+    if (query.isError) {
+      return 'Branches auto-discovery could not be performed.';
+    }
+
+    return ' ';
+  }, [apiServiceBase.apiBaseURL, query.isError]);
+
   return (
     <Grid item xs={12}>
       <FormAutocompleteSingle
-        placeholder={'Owner'}
+        placeholder="Branch name"
         {...register(CODEBASE_BRANCH_FORM_NAMES.branchName.name, {
           required: 'Enter branch name',
           validate: (value) => {
@@ -168,8 +180,7 @@ export const BranchName = ({ defaultBranchVersion }: BranchNameProps) => {
           loading: query.isLoading,
         }}
         TextFieldProps={{
-          helperText: query.error ? query.error.toString() : '',
-          error: !!query.error,
+          helperText,
           InputProps: {
             endAdornment: canLoadBranches ? (
               <>
