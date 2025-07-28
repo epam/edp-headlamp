@@ -45,3 +45,4 @@ export * from './Make';
 export * from './Cmake';
 export * from './C';
 export * from './CPP';
+export * from './Pnpm';

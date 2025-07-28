@@ -208,8 +208,8 @@ describe('getIconByPattern', () => {
       expect(getIconByPattern('NPM')).toBe(RESOURCE_ICON_NAMES.NPM);
       expect(getIconByPattern('yarn')).toBe(RESOURCE_ICON_NAMES.NPM);
       expect(getIconByPattern('Yarn')).toBe(RESOURCE_ICON_NAMES.NPM);
-      expect(getIconByPattern('pnpm')).toBe(RESOURCE_ICON_NAMES.NPM);
-      expect(getIconByPattern('PNPM')).toBe(RESOURCE_ICON_NAMES.NPM);
+      expect(getIconByPattern('pnpm')).toBe(RESOURCE_ICON_NAMES.PNPM);
+      expect(getIconByPattern('PNPM')).toBe(RESOURCE_ICON_NAMES.PNPM);
     });
 
     test('should match gradle correctly', () => {
@@ -331,7 +331,7 @@ describe('getIconByPattern', () => {
     test('should handle build tool variations', () => {
       expect(getIconByPattern('npm')).toBe(RESOURCE_ICON_NAMES.NPM);
       expect(getIconByPattern('yarn')).toBe(RESOURCE_ICON_NAMES.NPM);
-      expect(getIconByPattern('pnpm')).toBe(RESOURCE_ICON_NAMES.NPM);
+      expect(getIconByPattern('pnpm')).toBe(RESOURCE_ICON_NAMES.PNPM);
       expect(getIconByPattern('webpack')).toBe(RESOURCE_ICON_NAMES.OTHER); // Not in patterns
     });
 

@@ -42,7 +42,8 @@ export const CODEBASE_ICON_PATTERNS = [
   { pattern: /^ansible$/i, icon: RESOURCE_ICON_NAMES.ANSIBLE },
 
   { pattern: /^cmake$/i, icon: RESOURCE_ICON_NAMES.C_MAKE },
-  { pattern: /^npm$|^yarn$|^pnpm$/i, icon: RESOURCE_ICON_NAMES.NPM },
+  { pattern: /^npm$|^yarn$/i, icon: RESOURCE_ICON_NAMES.NPM },
+  { pattern: /^pnpm$/i, icon: RESOURCE_ICON_NAMES.PNPM },
   { pattern: /^gradle$/i, icon: RESOURCE_ICON_NAMES.GRADLE },
   { pattern: /^maven$/i, icon: RESOURCE_ICON_NAMES.MAVEN },
   { pattern: /^kaniko$/i, icon: RESOURCE_ICON_NAMES.KANIKO },
@@ -126,6 +127,7 @@ export const BUILD_TOOL_ICON_MAPPING = {
   helm: RESOURCE_ICON_NAMES.HELM,
   make: RESOURCE_ICON_NAMES.MAKE,
   cmake: RESOURCE_ICON_NAMES.C_MAKE,
+  pnpm: RESOURCE_ICON_NAMES.PNPM,
 } as const;
 
 export const CI_TOOL_ICON_MAPPING = {

@@ -46,5 +46,6 @@ export const RESOURCE_ICON_NAMES = {
   MAKE: 'make',
   C_MAKE: 'cmake',
   NONE: 'none',
+  PNPM: 'pnpm',
   OTHER: 'other',
 } as const;
