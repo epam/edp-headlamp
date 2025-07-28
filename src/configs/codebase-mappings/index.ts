@@ -60,4 +60,5 @@ export const CODEBASE_COMMON_BUILD_TOOLS = {
   HELM: 'helm',
   MAKE: 'make',
   C_MAKE: 'cmake',
+  PNPM: 'pnpm',
 } as const;

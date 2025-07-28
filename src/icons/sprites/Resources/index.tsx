@@ -42,6 +42,7 @@ import {
   Openshift,
   OperatorSDK,
   Other,
+  Pnpm,
   Python,
   ReactSymbol,
   Tekton,
@@ -103,6 +104,7 @@ export const Resources = () => {
       <CMake />
       <C />
       <CPP />
+      <Pnpm />
     </svg>
   );
 };
