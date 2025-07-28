@@ -499,13 +499,14 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                       >
                         <input
                           aria-autocomplete="list"
+                          aria-describedby="mui-9-helper-text"
                           aria-expanded="false"
                           aria-invalid="false"
                           autocapitalize="none"
                           autocomplete="off"
                           class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
                           id="mui-9"
-                          placeholder="Owner"
+                          placeholder="Branch name"
                           role="combobox"
                           spellcheck="false"
                           type="text"
@@ -543,7 +544,12 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                           <span />
                         </div>
                       </div>
-                      
+                      <p
+                        class="MuiFormHelperText-root MuiFormHelperText-sizeMedium css-nnd8o8-MuiFormHelperText-root"
+                        id="mui-9-helper-text"
+                      >
+                        Branches auto-discovery cannot be performed.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -657,6 +663,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                         >
                           <input
                             aria-autocomplete="list"
+                            aria-describedby="mui-13-helper-text"
                             aria-expanded="false"
                             aria-invalid="false"
                             autocapitalize="none"
@@ -700,7 +707,12 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                             </div>
                           </div>
                         </div>
-                        
+                        <p
+                          class="MuiFormHelperText-root MuiFormHelperText-sizeMedium css-nnd8o8-MuiFormHelperText-root"
+                          id="mui-13-helper-text"
+                        >
+                          Branches auto-discovery cannot be performed.
+                        </p>
                       </div>
                     </div>
                   </div>

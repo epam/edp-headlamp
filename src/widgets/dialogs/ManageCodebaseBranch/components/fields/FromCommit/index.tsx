@@ -89,6 +89,18 @@ export const FromCommit = () => {
 
   const fromType = watch(CODEBASE_BRANCH_FORM_NAMES.fromType.name) || 'branch';
 
+  const helperText = React.useMemo(() => {
+    if (!apiServiceBase.apiBaseURL) {
+      return 'Branches auto-discovery cannot be performed.';
+    }
+
+    if (query.isError) {
+      return 'Branches auto-discovery could not be performed.';
+    }
+
+    return ' ';
+  }, [apiServiceBase.apiBaseURL, query.isError]);
+
   const renderInputField = () => {
     if (fromType === 'branch') {
       return (
@@ -104,10 +116,9 @@ export const FromCommit = () => {
           control={control}
           errors={errors}
           options={branchesOptions}
-          disabled={query.isLoading || query.isError}
+          disabled={query.isLoading}
           TextFieldProps={{
-            helperText: query.error ? query.error.toString() : '',
-            error: !!query.error,
+            helperText,
           }}
           AutocompleteProps={{
             loading: query.isLoading,
