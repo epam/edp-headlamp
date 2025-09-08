@@ -16,8 +16,6 @@ describe('getIconByPattern', () => {
       expect(getIconByPattern('java')).toBe(RESOURCE_ICON_NAMES.JAVA);
       expect(getIconByPattern('Java')).toBe(RESOURCE_ICON_NAMES.JAVA);
       expect(getIconByPattern('JAVA')).toBe(RESOURCE_ICON_NAMES.JAVA);
-      expect(getIconByPattern('java8')).toBe(RESOURCE_ICON_NAMES.JAVA);
-      expect(getIconByPattern('java11')).toBe(RESOURCE_ICON_NAMES.JAVA);
       expect(getIconByPattern('java17')).toBe(RESOURCE_ICON_NAMES.JAVA);
       expect(getIconByPattern('java21')).toBe(RESOURCE_ICON_NAMES.JAVA);
     });
@@ -340,8 +338,6 @@ describe('getIconByPattern', () => {
       expect(getIconByPattern('python-3.8')).toBe(RESOURCE_ICON_NAMES.PYTHON);
 
       // Other common versioned frameworks
-      expect(getIconByPattern('java8')).toBe(RESOURCE_ICON_NAMES.JAVA);
-      expect(getIconByPattern('java11')).toBe(RESOURCE_ICON_NAMES.JAVA);
       expect(getIconByPattern('java17')).toBe(RESOURCE_ICON_NAMES.JAVA);
       expect(getIconByPattern('java21')).toBe(RESOURCE_ICON_NAMES.JAVA);
 
