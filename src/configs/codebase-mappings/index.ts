@@ -15,8 +15,6 @@ export const CODEBASE_COMMON_LANGUAGES = {
 } as const;
 
 export const CODEBASE_COMMON_FRAMEWORKS = {
-  JAVA8: 'java8',
-  JAVA11: 'java11',
   JAVA17: 'java17',
   JAVA21: 'java21',
   REACT: 'react',
