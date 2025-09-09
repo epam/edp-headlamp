@@ -101,7 +101,13 @@ export const FilterContextProvider = <
   );
 
   const resetFilter = React.useCallback(() => {
-    setFilter(defaultInitialFilterState as FilterState<Item, ControlNames>);
+    setFilter({
+      ...defaultInitialFilterState,
+      matchFunctions: {
+        ...defaultInitialFilterState.matchFunctions,
+        ...matchFunctions,
+      },
+    } as FilterState<Item, ControlNames>);
 
     if (saveToLocalStorage) {
       LOCAL_STORAGE_SERVICE.removeItem(LS_FILTER_ENTITY_KEY);
@@ -116,7 +122,7 @@ export const FilterContextProvider = <
     );
 
     addQuery({ ...newQueryParams }, { ...newQueryParams });
-  }, [LS_FILTER_ENTITY_KEY, addQuery, filter.values, saveToLocalStorage]);
+  }, [LS_FILTER_ENTITY_KEY, addQuery, filter.values, saveToLocalStorage, matchFunctions]);
 
   return (
     <FilterContext.Provider

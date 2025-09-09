@@ -42,9 +42,6 @@ export const Info = () => {
     <>
       <Resources />
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <GitServer />
-        </Grid>
         {isCloneStrategy(strategyFieldValue) ? (
           <>
             <Grid item xs={12}>
@@ -52,25 +49,31 @@ export const Info = () => {
             </Grid>
           </>
         ) : null}
-        {gitServerFieldValue.includes(GIT_PROVIDER.GERRIT) || !apiServiceBase.apiBaseURL ? (
-          <Grid item xs={12}>
-            <GitUrlPath />
-          </Grid>
-        ) : (
-          <Grid item xs={12}>
-            <Stack spacing={1} direction="row" alignItems="flex-start">
-              <Box sx={{ flex: '1 0 50%' }}>
-                <Owner />
+
+        <Grid item xs={12}>
+          <Stack spacing={1} direction="row" alignItems="flex-start">
+            <Box sx={{ maxWidth: '25%', width: '100%' }}>
+              <GitServer />
+            </Box>
+            {gitServerFieldValue.includes(GIT_PROVIDER.GERRIT) || !apiServiceBase.apiBaseURL ? (
+              <Box sx={{ maxWidth: '75%', width: '100%' }}>
+                <GitUrlPath />
               </Box>
-              <Stack spacing={1} direction="row" sx={{ flex: '1 0 50%' }}>
-                <Typography sx={{ pt: theme.typography.pxToRem(24) }}>/</Typography>
-                <Box flexGrow={1} flexShrink={0}>
-                  <Repository />
+            ) : (
+              <>
+                <Box sx={{ maxWidth: '30%', width: '100%' }}>
+                  <Owner />
                 </Box>
-              </Stack>
-            </Stack>
-          </Grid>
-        )}
+                <Stack spacing={1} direction="row" sx={{ maxWidth: '45%', width: '100%' }}>
+                  <Typography sx={{ pt: theme.typography.pxToRem(24) }}>/</Typography>
+                  <Box flexGrow={1} flexShrink={0}>
+                    <Repository />
+                  </Box>
+                </Stack>
+              </>
+            )}
+          </Stack>
+        </Grid>
 
         {isCloneStrategy(strategyFieldValue) ? (
           <>
