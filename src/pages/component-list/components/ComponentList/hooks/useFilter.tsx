@@ -17,7 +17,8 @@ export const useFilter = (): {
   controls: FilterControlsType;
   filterFunction: (...args: CodebaseKubeObjectInterface[]) => boolean;
 } => {
-  const { filterFunction, setFilterItem } = usePageFilterContext();
+  const { filterFunction, setFilterItem, filter } = usePageFilterContext();
+
 
   const controls = React.useMemo(
     () => ({
@@ -44,6 +45,9 @@ export const useFilter = (): {
               }
               defaultValue={CODEBASE_TYPE.ALL}
               fullWidth
+              value={
+                filter.values[codebaseListFilterControlNames.CODEBASE_TYPE] || CODEBASE_TYPE.ALL
+              }
             >
               {codebaseTypeSelectOptions.map(({ label, value, disabled = false }, idx) => {
                 const key = `${label}::${idx}`;
@@ -59,7 +63,7 @@ export const useFilter = (): {
         ),
       },
     }),
-    [setFilterItem]
+    [setFilterItem, filter.values]
   );
 
   return { controls, filterFunction };

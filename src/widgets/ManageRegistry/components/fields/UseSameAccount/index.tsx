@@ -8,8 +8,10 @@ import {
   PUSH_ACCOUNT_FORM_NAMES,
   SHARED_FORM_NAMES,
 } from '../../../names';
+import { useDataContext } from '../../../providers/Data/hooks';
 
 export const UseSameAccount = () => {
+  const { pushAccountSecret, pullAccountSecret } = useDataContext();
   const {
     forms: { pushAccount, pullAccount },
     sharedForm,
@@ -21,6 +23,13 @@ export const UseSameAccount = () => {
   const pushAccountPasswordFieldValue = pushAccount.form.watch(
     PUSH_ACCOUNT_FORM_NAMES.pushAccountPassword.name
   );
+
+  const someOfTheSecretsHasExternalOwner = React.useMemo(() => {
+    return (
+      !!pushAccountSecret?.metadata?.ownerReferences ||
+      !!pullAccountSecret?.metadata?.ownerReferences
+    );
+  }, [pushAccountSecret, pullAccountSecret]);
 
   return (
     <FormCheckbox
@@ -52,6 +61,7 @@ export const UseSameAccount = () => {
       }
       control={sharedForm.control}
       errors={sharedForm.formState.errors}
+      disabled={someOfTheSecretsHasExternalOwner}
     />
   );
 };

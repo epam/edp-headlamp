@@ -5,6 +5,7 @@ import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { FormAutocompleteSingle } from '../../../../../../providers/Form/components/FormAutocompleteSingle';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
+import { FieldEvent } from '../../../../../../types/forms';
 import { validateField, validationRules } from '../../../../../../utils/formFieldValidation';
 import { useTypedFormContext } from '../../../hooks/useFormContext';
 import { CODEBASE_BRANCH_FORM_NAMES } from '../../../names';
@@ -26,6 +27,8 @@ export const FromCommit = () => {
     register,
     control,
     watch,
+    resetField,
+    unregister,
     formState: { errors },
   } = useTypedFormContext();
 
@@ -105,6 +108,7 @@ export const FromCommit = () => {
     if (fromType === 'branch') {
       return (
         <FormAutocompleteSingle
+          key="branch"
           {...register(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name, {
             required: 'Enter branch name',
             validate: (value) => {
@@ -129,6 +133,7 @@ export const FromCommit = () => {
     } else {
       return (
         <FormTextField
+          key="commitHash"
           {...register(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name, {
             required: 'Enter commit hash',
             pattern: {
@@ -155,7 +160,20 @@ export const FromCommit = () => {
     <Grid container spacing={2} alignItems="flex-start">
       <Grid item xs={6}>
         <FormSelect
-          name={CODEBASE_BRANCH_FORM_NAMES.fromType.name}
+          {...register(CODEBASE_BRANCH_FORM_NAMES.fromType.name, {
+            required: 'Select from type',
+            onChange: ({ target: { value } }: FieldEvent) => {
+              unregister(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name);
+
+              if (value === 'commit') {
+                resetField(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name, {
+                  defaultValue: '',
+                });
+              } else {
+                resetField(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name);
+              }
+            },
+          })}
           control={control}
           errors={errors}
           label="From"
