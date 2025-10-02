@@ -1,6 +1,31 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+### Features
+
+- Remove old java versions ([#810](https://github.com/epam/edp-headlamp/issues/810))
+- Add pnpm to libs ([#801](https://github.com/epam/edp-headlamp/issues/801))
+- Add pnpm build tool option ([#801](https://github.com/epam/edp-headlamp/issues/801))
+
+### Bug Fixes
+
+- Auth test 3 ([#815](https://github.com/epam/edp-headlamp/issues/815))
+- Auto test 2 ([#815](https://github.com/epam/edp-headlamp/issues/815)) ([#817](https://github.com/epam/edp-headlamp/issues/817))
+- Auth test ([#815](https://github.com/epam/edp-headlamp/issues/815)) ([#816](https://github.com/epam/edp-headlamp/issues/816))
+- List of issues for mini release ([#812](https://github.com/epam/edp-headlamp/issues/812))
+- Branch dialog discovery errors ([#791](https://github.com/epam/edp-headlamp/issues/791))
+
+### Routine
+
+- Update current development version ([#798](https://github.com/epam/edp-headlamp/issues/798))
+
+
+<a name="v0.23.1"></a>
+## [v0.23.1] - 2025-10-02
+### Bug Fixes
+
+- Auth test 3 ([#815](https://github.com/epam/edp-headlamp/issues/815))
+
 
 <a name="v0.23.0"></a>
 ## [v0.23.0] - 2025-07-21
@@ -828,7 +853,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.23.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.23.1...HEAD
+[v0.23.1]: https://github.com/epam/edp-headlamp/compare/v0.23.0...v0.23.1
 [v0.23.0]: https://github.com/epam/edp-headlamp/compare/v0.22.0...v0.23.0
 [v0.22.0]: https://github.com/epam/edp-headlamp/compare/v0.21.2...v0.22.0
 [v0.21.2]: https://github.com/epam/edp-headlamp/compare/v0.21.1...v0.21.2
