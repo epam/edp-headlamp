@@ -2,8 +2,8 @@
 ## [Unreleased]
 
 
-<a name="v0.23.0"></a>
-## v0.23.0 - 2025-07-21
+<a name="v0.23.1"></a>
+## v0.23.1 - 2025-09-29
 ### Features
 
 - Add refresh button ([#789](https://github.com/epam/edp-headlamp/issues/789))
@@ -296,6 +296,7 @@
 
 ### Bug Fixes
 
+- Auth test 3 ([#815](https://github.com/epam/edp-headlamp/issues/815))
 - Fromcommit field free solo mode ([#791](https://github.com/epam/edp-headlamp/issues/791))
 - Cover no apibaseurl case for codebases onboarding ([#791](https://github.com/epam/edp-headlamp/issues/791))
 - Issues for release 0.23 ([#791](https://github.com/epam/edp-headlamp/issues/791))
@@ -588,4 +589,4 @@
 - Fix link to gitservers documentation([#63](https://github.com/epam/edp-headlamp/issues/63))
 
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.23.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.23.1...HEAD
