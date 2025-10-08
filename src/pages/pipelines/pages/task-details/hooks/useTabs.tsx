@@ -12,7 +12,6 @@ export const useTabs = ({ task }: { task: TaskKubeObjectInterface }) => {
         label: 'Overview',
         component: (
           <LoadingWrapper isLoading={task === null}>
-            <Overview task={task} />
             <Box
               sx={{
                 pt: (t) => t.typography.pxToRem(24),
@@ -27,7 +26,6 @@ export const useTabs = ({ task }: { task: TaskKubeObjectInterface }) => {
         label: 'View YAML',
         component: (
           <LoadingWrapper isLoading={task === null}>
-            <Overview task={task} />
             <Box
               sx={{
                 pt: (t) => t.typography.pxToRem(24),
