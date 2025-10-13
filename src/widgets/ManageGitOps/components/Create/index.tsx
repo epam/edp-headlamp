@@ -7,7 +7,7 @@ import { useGitServerListQuery } from '../../../../k8s/groups/EDP/GitServer/hook
 import { MainRadioGroup } from '../../../../providers/Form/components/MainRadioGroup';
 import { CODEBASE_FORM_NAMES } from '../../names';
 import { ManageGitOpsValues } from '../../types';
-import { GitRepoPath, GitServer, Name } from '../fields';
+import { CiTool, GitRepoPath, GitServer, Name } from '../fields';
 
 const codebaseCreationStrategies = [
   {
@@ -71,11 +71,14 @@ export const Create = () => {
 
       <Box sx={{ p: `${theme.typography.pxToRem(24)} ${theme.typography.pxToRem(8)}` }}>
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <GitServer />
           </Grid>
+          <Grid item xs={6}>
+            <CiTool />
+          </Grid>
           {gitServerProvider !== GIT_PROVIDER.GERRIT && !!isFetched && (
-            <Grid item xs={5}>
+            <Grid item xs={9}>
               <GitRepoPath />
             </Grid>
           )}

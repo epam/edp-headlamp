@@ -10,6 +10,7 @@ import { useCurrentDialog } from '../../../../../../../../providers/CurrentDialo
 import { isCloneStrategy } from '../../../../../../../../utils';
 import {
   BuildTool,
+  CiTool,
   CodebaseAuth,
   Description,
   EmptyProject,
@@ -73,6 +74,10 @@ export const Info = () => {
               </>
             )}
           </Stack>
+        </Grid>
+
+        <Grid item xs={12}>
+          <CiTool />
         </Grid>
 
         {isCloneStrategy(strategyFieldValue) ? (
