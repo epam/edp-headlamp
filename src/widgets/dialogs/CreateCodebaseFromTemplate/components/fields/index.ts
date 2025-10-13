@@ -1,3 +1,4 @@
+export * from './CiTool';
 export * from './CodebaseVersioning';
 export * from './Description';
 export * from './GitServer';

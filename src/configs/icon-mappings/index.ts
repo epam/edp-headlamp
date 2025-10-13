@@ -33,6 +33,7 @@ export const CODEBASE_ICON_PATTERNS = [
   { pattern: /^opa$/i, icon: RESOURCE_ICON_NAMES.OPA },
   { pattern: /^docker$/i, icon: RESOURCE_ICON_NAMES.DOCKER },
   { pattern: /^pipeline$|^tekton$/i, icon: RESOURCE_ICON_NAMES.TEKTON },
+  { pattern: /^gitlab$/i, icon: RESOURCE_ICON_NAMES.GITLAB },
   { pattern: /^beego$/i, icon: RESOURCE_ICON_NAMES.BEEGO },
   { pattern: /^flask$/i, icon: RESOURCE_ICON_NAMES.FLASK },
   { pattern: /^charts$/i, icon: RESOURCE_ICON_NAMES.HELM },
@@ -132,6 +133,7 @@ export const BUILD_TOOL_ICON_MAPPING = {
 
 export const CI_TOOL_ICON_MAPPING = {
   [CI_TOOL.TEKTON]: RESOURCE_ICON_NAMES.TEKTON,
+  [CI_TOOL.GITLAB]: RESOURCE_ICON_NAMES.GITLAB,
 } as const;
 
 export const GIT_PROVIDER_ICON_MAPPING = {

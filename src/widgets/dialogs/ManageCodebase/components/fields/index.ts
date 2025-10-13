@@ -1,5 +1,6 @@
 export * from './AdvancedJiraMapping';
 export * from './BuildTool';
+export * from './CiTool';
 export * from './CodebaseAuth';
 export * from './CodebaseVersioning';
 export * from './CommitMessagePattern';
