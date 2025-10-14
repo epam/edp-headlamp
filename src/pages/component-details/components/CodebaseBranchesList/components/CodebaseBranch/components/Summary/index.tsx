@@ -23,10 +23,13 @@ export const Summary = ({
   codebaseBranchData,
   latestBuildPipelineRun,
   handleOpenEditor,
+  handleOpenGitLabParamsDialog,
+  handleDirectGitLabBuild,
   menuAnchorEl,
   handleClickMenu,
   handleCloseMenu,
   createBuildPipelineRun,
+  isGitLabLoading,
 }: SummaryProps) => {
   const {
     component: { data: codebaseData },
@@ -203,8 +206,11 @@ export const Summary = ({
                 handleClickMenu={handleClickMenu}
                 handleCloseMenu={handleCloseMenu}
                 handleOpenEditor={handleOpenEditor}
+                handleOpenGitLabParamsDialog={handleOpenGitLabParamsDialog}
+                handleDirectGitLabBuild={handleDirectGitLabBuild}
                 codebaseBranch={codebaseBranchData}
                 latestBuildPipelineRun={latestBuildPipelineRun}
+                isGitLabLoading={isGitLabLoading}
               />
             </Grid>
 

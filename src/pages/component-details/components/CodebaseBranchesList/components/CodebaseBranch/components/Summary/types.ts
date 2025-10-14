@@ -6,8 +6,11 @@ export interface SummaryProps {
   codebaseBranchData: CodebaseBranchKubeObjectInterface;
   latestBuildPipelineRun: PipelineRunKubeObjectInterface | null | undefined;
   handleOpenEditor: (data: KubeObjectInterface) => void;
+  handleOpenGitLabParamsDialog: () => void;
+  handleDirectGitLabBuild: () => void;
   menuAnchorEl: HTMLElement | null;
   handleClickMenu: (event: React.MouseEvent<HTMLElement>) => void;
   handleCloseMenu: () => void;
   createBuildPipelineRun: (data: PipelineRunKubeObjectInterface) => void;
+  isGitLabLoading: boolean;
 }
