@@ -2,6 +2,7 @@ import { Utils } from '@kinvolk/headlamp-plugin/lib';
 import { useSnackbar } from 'notistack';
 import React, { useCallback } from 'react';
 import { useMutation } from 'react-query';
+import { Snackbar } from '../../components/Snackbar';
 import { useEDPConfigMapQuery } from '../../k8s/groups/default/ConfigMap/hooks/useEDPConfigMap';
 import { ApiServiceBase, GitFusionApiService } from '../../services/api';
 import { getToken } from '../../utils/getToken';
@@ -59,17 +60,22 @@ export const useCreateGitLabPipeline = ({
       onSuccess: (response) => {
         enqueueSnackbar('GitLab pipeline triggered successfully!', {
           variant: 'success',
-          autoHideDuration: 5000,
-          action: response.web_url ? (
-            <a
-              href={response.web_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: 'white', textDecoration: 'underline' }}
-            >
-              View Pipeline
-            </a>
-          ) : undefined,
+          autoHideDuration: 8000,
+          content: (key, message) => (
+            <Snackbar
+              text={String(message)}
+              snackbarKey={key}
+              externalLink={
+                response.web_url
+                  ? {
+                      url: response.web_url,
+                      text: 'View Pipeline',
+                    }
+                  : undefined
+              }
+              variant={'success'}
+            />
+          ),
         });
         invokeOnSuccessCallback(response);
       },

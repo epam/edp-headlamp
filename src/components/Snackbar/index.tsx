@@ -25,10 +25,14 @@ export const Snackbar = React.forwardRef<
       };
       text?: string;
     };
+    externalLink?: {
+      url: string;
+      text?: string;
+    };
     handleClose?: () => void;
   }
 >((props, ref) => {
-  const { text, variant, snackbarKey, pushLocation } = props;
+  const { text, variant, snackbarKey, pushLocation, externalLink } = props;
   const { closeSnackbar } = useSnackbar();
 
   const theme = React.useMemo(() => {
@@ -98,6 +102,20 @@ export const Snackbar = React.forwardRef<
               onClick={handleClose}
             >
               {pushLocation.text || 'Go to page'}
+            </Button>
+          )}
+          {externalLink && (
+            <Button
+              component="a"
+              size="small"
+              variant="outlined"
+              color="inherit"
+              href={externalLink.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleClose}
+            >
+              {externalLink.text || 'View'}
             </Button>
           )}
           <IconButton size="small" onClick={handleClose}>
