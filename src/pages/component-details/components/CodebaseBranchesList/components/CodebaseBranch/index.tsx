@@ -3,7 +3,10 @@ import { EditorDialog } from '@kinvolk/headlamp-plugin/lib/CommonComponents';
 import { KubeObjectInterface } from '@kinvolk/headlamp-plugin/lib/lib/k8s/cluster';
 import { Accordion, AccordionDetails, AccordionSummary, alpha } from '@mui/material';
 import React from 'react';
+import { CI_TOOL } from '../../../../../../constants/ciTools';
 import { PIPELINE_TYPE } from '../../../../../../constants/pipelineTypes';
+import { useCreateGitLabPipeline } from '../../../../../../hooks/useCreateGitLabPipeline';
+import { GitLabPipelineTriggerData } from '../../../../../../hooks/useCreateGitLabPipeline/types';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { PipelineRunKubeObject } from '../../../../../../k8s/groups/Tekton/PipelineRun';
 import { useCreateBuildPipelineRun } from '../../../../../../k8s/groups/Tekton/PipelineRun/hooks/useCreateBuildPipelineRun';
@@ -14,6 +17,7 @@ import {
 import { PipelineRunKubeObjectInterface } from '../../../../../../k8s/groups/Tekton/PipelineRun/types';
 import { sortKubeObjectByCreationTimestamp } from '../../../../../../utils/sort/sortKubeObjectsByCreationTimestamp';
 import { rem } from '../../../../../../utils/styling/rem';
+import { GitLabBuildWithParamsDialog } from '../../../../../../widgets/dialogs/GitLabBuildWithParams';
 import { useDynamicDataContext } from '../../../../providers/DynamicData/hooks';
 import { Details } from './components/Details';
 import { Summary } from './components/Summary';
@@ -77,6 +81,16 @@ export const CodebaseBranch = ({
 
   const { createBuildPipelineRun } = useCreateBuildPipelineRun({});
 
+  // GitLab CI pipeline hook
+  const { createGitLabPipeline, isLoading: isGitLabLoading } = useCreateGitLabPipeline({
+    onSuccess: () => {
+      handleCloseGitLabParamsDialog();
+    },
+    onError: () => {
+      // Error handled by hook
+    },
+  });
+
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClickMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -85,6 +99,7 @@ export const CodebaseBranch = ({
 
   const handleCloseMenu = () => setMenuAnchorEl(null);
 
+  // Tekton editor state
   const [editor, setEditor] = React.useState<{
     open: boolean;
     data: KubeObjectInterface | undefined;
@@ -110,6 +125,44 @@ export const CodebaseBranch = ({
 
     handleCloseEditor();
   };
+
+  // GitLab params dialog state
+  const [gitLabParamsDialog, setGitLabParamsDialog] = React.useState<{
+    open: boolean;
+  }>({
+    open: false,
+  });
+
+  const handleOpenGitLabParamsDialog = () => {
+    setGitLabParamsDialog({ open: true });
+  };
+
+  const handleCloseGitLabParamsDialog = () => {
+    setGitLabParamsDialog({ open: false });
+  };
+
+  const handleGitLabParamsDialogSubmit = (data: GitLabPipelineTriggerData) => {
+    handleCloseMenu();
+    createGitLabPipeline(data);
+  };
+
+  const handleDirectGitLabBuild = () => {
+    if (!codebaseData || !codebaseBranchData) {
+      return;
+    }
+
+    createGitLabPipeline({
+      gitServer: codebaseData.spec.gitServer,
+      gitUrlPath: codebaseData.spec.gitUrlPath,
+      branchName: codebaseBranchData.spec.branchName,
+      gitWebUrl: codebaseData.status?.gitWebUrl,
+      variables: [],
+    });
+  };
+
+  // Determine CI tool type
+  const ciTool = codebaseData?.spec.ciTool || CI_TOOL.TEKTON;
+  const isGitLabCI = ciTool === CI_TOOL.GITLAB;
 
   return (
     <>
@@ -137,6 +190,9 @@ export const CodebaseBranch = ({
               handleClickMenu={handleClickMenu}
               handleCloseMenu={handleCloseMenu}
               handleOpenEditor={handleOpenEditor}
+              handleOpenGitLabParamsDialog={handleOpenGitLabParamsDialog}
+              handleDirectGitLabBuild={handleDirectGitLabBuild}
+              isGitLabLoading={isGitLabLoading}
             />
           </AccordionSummary>
           <AccordionDetails>
@@ -150,6 +206,20 @@ export const CodebaseBranch = ({
           item={editor.data}
           onClose={handleCloseEditor}
           onSave={handleEditorSave}
+        />
+      )}
+      {isGitLabCI && codebaseData && gitLabParamsDialog.open && (
+        <GitLabBuildWithParamsDialog
+          open={gitLabParamsDialog.open}
+          onClose={handleCloseGitLabParamsDialog}
+          onSubmit={handleGitLabParamsDialogSubmit}
+          triggerData={{
+            gitServer: codebaseData.spec.gitServer,
+            gitUrlPath: codebaseData.spec.gitUrlPath,
+            branchName: codebaseBranchData.spec.branchName,
+            gitWebUrl: codebaseData.status?.gitWebUrl,
+          }}
+          isLoading={isGitLabLoading}
         />
       )}
     </>

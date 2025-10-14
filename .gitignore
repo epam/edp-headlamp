@@ -202,3 +202,5 @@ $RECYCLE.BIN/
 
 # Editors
 .vscode
+
+.claude/settings.local.json

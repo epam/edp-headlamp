@@ -108,6 +108,37 @@ export class GitFusionApiService {
       this.apiService.apiBaseURL
     ).toString();
   }
+
+  /**
+   * Triggers a GitLab CI/CD pipeline via GitFusion backend
+   * @param gitServer - Git server name from codebase (e.g., 'gitlab')
+   * @param project - Project path from codebase.spec.gitUrlPath without leading slash
+   * @param ref - Branch name from codebaseBranch.spec.branchName
+   * @param variables - Optional pipeline variables (environment variables only)
+   * @returns API endpoint URL for triggering pipeline
+   */
+  getTriggerGitLabPipelineEndpoint(
+    gitServer: string,
+    project: string,
+    ref: string,
+    variables?: Array<{ key: string; value: string }>
+  ) {
+    const params = new URLSearchParams({
+      gitServer,
+      project,
+      ref,
+    });
+
+    // Optionally include variables as JSON string
+    if (variables && variables.length > 0) {
+      params.append('variables', JSON.stringify(variables));
+    }
+
+    return new URL(
+      `/gitfusion/trigger-pipeline?${params.toString()}`,
+      this.apiService.apiBaseURL
+    ).toString();
+  }
 }
 
 export class DependencyTrackApiService {
