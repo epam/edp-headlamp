@@ -4,6 +4,7 @@ import React from 'react';
 import { CODEBASE_VERSIONING_TYPE } from '../../../../../../../constants/codebaseVersioningTypes';
 import { CUSTOM_RESOURCE_STATUS } from '../../../../../../../constants/statuses';
 import { useHandleEditorSave } from '../../../../../../../hooks/useHandleEditorSave';
+import { RESOURCE_LABEL_SELECTOR_PROTECTED } from '../../../../../../../k8s/common/labels';
 import { CodebaseBranchKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/CodebaseBranch/types';
 import { getUsedValues } from '../../../../../../../utils/forms/getUsedValues';
 import { useTypedFormContext } from '../../../../hooks/useFormContext';
@@ -63,12 +64,19 @@ export const Form = ({ editorOpen, setEditorOpen, editorData }: FormProps) => {
     [getValues, handleCloseEditor, handleEditorSave]
   );
 
+  const isDefaultBranchProtected = React.useMemo(() => {
+    return !!defaultBranch?.metadata?.labels?.[RESOURCE_LABEL_SELECTOR_PROTECTED];
+  }, [defaultBranch]);
+
   return (
     <>
       <Grid container spacing={2}>
         {canCreateReleaseBranch && (
           <Grid item xs={12}>
-            <ReleaseBranch defaultBranchVersion={defaultBranchVersion!} />
+            <ReleaseBranch
+              isDefaultBranchProtected={isDefaultBranchProtected}
+              defaultBranchVersion={defaultBranchVersion!}
+            />
           </Grid>
         )}
         {!!releaseFieldValue ? (
