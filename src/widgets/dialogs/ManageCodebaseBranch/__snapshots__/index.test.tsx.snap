@@ -653,8 +653,8 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                         <label
                           class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-standard css-1m6rpgr-MuiFormLabel-root-MuiInputLabel-root"
                           data-shrink="false"
-                          for="mui-13"
-                          id="mui-13-label"
+                          for="mui-14"
+                          id="mui-14-label"
                         >
                           Branch name
                         </label>
@@ -663,13 +663,13 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                         >
                           <input
                             aria-autocomplete="list"
-                            aria-describedby="mui-13-helper-text"
+                            aria-describedby="mui-14-helper-text"
                             aria-expanded="false"
                             aria-invalid="false"
                             autocapitalize="none"
                             autocomplete="off"
                             class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
-                            id="mui-13"
+                            id="mui-14"
                             placeholder="Select branch name"
                             role="combobox"
                             spellcheck="false"
@@ -705,11 +705,12 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                                 />
                               </button>
                             </div>
+                            <span />
                           </div>
                         </div>
                         <p
                           class="MuiFormHelperText-root MuiFormHelperText-sizeMedium css-nnd8o8-MuiFormHelperText-root"
-                          id="mui-13-helper-text"
+                          id="mui-14-helper-text"
                         >
                           Branches auto-discovery cannot be performed.
                         </p>
@@ -741,8 +742,8 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                       <label
                         class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-98a9yt-MuiFormLabel-root-MuiInputLabel-root"
                         data-shrink="true"
-                        for="mui-14"
-                        id="mui-14-label"
+                        for="mui-15"
+                        id="mui-15-label"
                       >
                         Branch version
                       </label>
@@ -752,7 +753,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                         <input
                           aria-invalid="false"
                           class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                          id="mui-14"
+                          id="mui-15"
                           name="releaseBranchVersionStart"
                           placeholder="0.0.0"
                           type="text"
@@ -793,7 +794,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                         <input
                           aria-invalid="false"
                           class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                          id="mui-15"
+                          id="mui-16"
                           name="releaseBranchVersionPostfix"
                           placeholder="SNAPSHOT"
                           type="text"
@@ -845,8 +846,8 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                         <label
                           class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard css-njj7m9-MuiFormLabel-root-MuiInputLabel-root"
                           data-shrink="true"
-                          for="mui-17"
-                          id="mui-17-label"
+                          for="mui-18"
+                          id="mui-18-label"
                         >
                           Review pipeline
                         </label>
@@ -860,7 +861,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                             autocapitalize="none"
                             autocomplete="off"
                             class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
-                            id="mui-17"
+                            id="mui-18"
                             placeholder="Select Review pipeline"
                             role="combobox"
                             spellcheck="false"
@@ -979,8 +980,8 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                         <label
                           class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-standard css-njj7m9-MuiFormLabel-root-MuiInputLabel-root"
                           data-shrink="true"
-                          for="mui-19"
-                          id="mui-19-label"
+                          for="mui-20"
+                          id="mui-20-label"
                         >
                           Build pipeline
                         </label>
@@ -994,7 +995,7 @@ exports[`ManageCodebaseBranchDialog renders ManageCodebaseBranchDialog Edit comp
                             autocapitalize="none"
                             autocomplete="off"
                             class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused css-1x51dt5-MuiInputBase-input-MuiInput-input"
-                            id="mui-19"
+                            id="mui-20"
                             placeholder="Select Build pipeline"
                             role="combobox"
                             spellcheck="false"

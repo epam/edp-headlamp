@@ -1,7 +1,6 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import { useQuery } from 'react-query';
-import { GIT_PROVIDER } from '../../../../../../constants/gitProviders';
 import { FormAutocompleteSingle } from '../../../../../../providers/Form/components/FormAutocompleteSingle';
 import { FormSelect } from '../../../../../../providers/Form/components/FormSelect';
 import { FormTextField } from '../../../../../../providers/Form/components/FormTextField';
@@ -32,8 +31,11 @@ export const FromCommit = () => {
     formState: { errors },
   } = useTypedFormContext();
 
+  const releaseValue = watch(CODEBASE_BRANCH_FORM_NAMES.release.name);
+  const fromType = watch(CODEBASE_BRANCH_FORM_NAMES.fromType.name) || 'branch';
+
   const {
-    props: { codebase },
+    props: { codebase, defaultBranch },
     extra: { apiServiceBase, gitFusionApiService },
   } = useCurrentDialog();
 
@@ -62,35 +64,38 @@ export const FromCommit = () => {
     }
   );
 
+  const defaultBranchName = defaultBranch?.spec.branchName;
+
+  const defaultBranchOption = React.useMemo(() => {
+    return {
+      label: defaultBranchName,
+      value: defaultBranchName,
+    };
+  }, [defaultBranchName]);
+
   const branchesOptions = React.useMemo(() => {
-    if (query.isLoading || query.isError) {
-      return [];
+    if (releaseValue && defaultBranch) {
+      return [defaultBranchOption];
     }
 
-    if (codebaseGitServer === GIT_PROVIDER.GERRIT) {
-      return [
-        {
-          label: codebase.spec.defaultBranch,
-          value: codebase.spec.defaultBranch,
-        },
-      ];
+    if (query.isLoading || query.isError || !query.data) {
+      return [defaultBranchOption];
     }
 
     return (
-      query.data?.data.map((branch) => ({
+      query.data.data?.map((branch: { name: string }) => ({
         label: branch.name,
         value: branch.name,
-      })) || []
+      })) || [defaultBranchOption]
     );
   }, [
+    releaseValue,
+    defaultBranch,
     query.isLoading,
     query.isError,
-    query.data?.data,
-    codebaseGitServer,
-    codebase.spec.defaultBranch,
+    query.data,
+    defaultBranchOption,
   ]);
-
-  const fromType = watch(CODEBASE_BRANCH_FORM_NAMES.fromType.name) || 'branch';
 
   const helperText = React.useMemo(() => {
     if (!apiServiceBase.apiBaseURL) {
@@ -105,18 +110,27 @@ export const FromCommit = () => {
   }, [apiServiceBase.apiBaseURL, query.isError]);
 
   const renderInputField = () => {
-    if (fromType === 'branch') {
+    if (releaseValue || fromType === 'branch') {
       return (
         <FormAutocompleteSingle
           key="branch"
           {...register(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name, {
-            required: 'Enter branch name',
             validate: (value) => {
-              return validateField(value, validationRules.BRANCH_NAME);
+              if (!value || value === '') {
+                return true;
+              }
+              if (validationRules.BRANCH_NAME && typeof value === 'string') {
+                const validationResult = validateField(value, validationRules.BRANCH_NAME);
+                if (validationResult !== true) {
+                  return validationResult;
+                }
+              }
+              return true;
             },
           })}
           label="Branch name"
           placeholder="Select branch name"
+          tooltipText="The new branch will be created starting from the selected branch. If this field is empty, the Default branch will be used."
           control={control}
           errors={errors}
           options={branchesOptions}
@@ -125,7 +139,7 @@ export const FromCommit = () => {
             helperText,
           }}
           AutocompleteProps={{
-            loading: query.isLoading,
+            loading: !!apiServiceBase.apiBaseURL && query.isLoading,
             freeSolo: true,
           }}
         />
@@ -135,7 +149,6 @@ export const FromCommit = () => {
         <FormTextField
           key="commitHash"
           {...register(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name, {
-            required: 'Enter commit hash',
             pattern: {
               value: /^[a-fA-F0-9]{40}$/,
               message: 'Commit hash must be a full Git commit hash (40 hexadecimal characters)',
@@ -149,6 +162,7 @@ export const FromCommit = () => {
           })}
           label="Commit hash"
           placeholder="Enter commit hash"
+          title="The new branch will be created starting from the selected commit hash. If this field is empty, the Default branch will be used."
           control={control}
           errors={errors}
         />
@@ -156,12 +170,18 @@ export const FromCommit = () => {
     }
   };
 
+  const fromTypeOptions = React.useMemo(() => {
+    return FROM_TYPE_OPTIONS.map((option) => ({
+      ...option,
+      disabled: releaseValue && option.value === 'commit',
+    }));
+  }, [releaseValue]);
+
   return (
     <Grid container spacing={2} alignItems="flex-start">
       <Grid item xs={6}>
         <FormSelect
           {...register(CODEBASE_BRANCH_FORM_NAMES.fromType.name, {
-            required: 'Select from type',
             onChange: ({ target: { value } }: FieldEvent) => {
               unregister(CODEBASE_BRANCH_FORM_NAMES.fromCommit.name);
 
@@ -178,7 +198,7 @@ export const FromCommit = () => {
           errors={errors}
           label="From"
           title="Choose whether to create the branch from an existing branch or a specific commit hash"
-          options={FROM_TYPE_OPTIONS}
+          options={fromTypeOptions}
           defaultValue="branch"
         />
       </Grid>
