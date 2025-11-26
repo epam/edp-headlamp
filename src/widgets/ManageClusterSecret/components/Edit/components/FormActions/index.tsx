@@ -15,6 +15,7 @@ import { useFormContext } from '../../../../../../providers/Form/hooks';
 import { DeleteKubeObjectDialog } from '../../../../../dialogs/DeleteKubeObject';
 import { CLUSTER_TYPE } from '../../../../constants';
 import { ManageClusterSecretDataContext, ManageClusterSecretValues } from '../../../../types';
+import { getClusterName } from '../../../../utils';
 import { ClusterCDPipelineConflictError } from './components/ClusterCDPipelineConflictError';
 import { useConflictedStageQuery } from './hooks/useConflictedStage';
 
@@ -114,8 +115,10 @@ export const FormActions = () => {
       return;
     }
 
+    const clusterName = getClusterName(currentElement);
+
     setDialog(DeleteKubeObjectDialog, {
-      objectName: currentElement.metadata.name,
+      objectName: clusterName,
       kubeObject: SecretKubeObject,
       kubeObjectData: currentElement,
       description: `Confirm the deletion of the cluster`,
