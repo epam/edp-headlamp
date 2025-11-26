@@ -52,12 +52,10 @@ export const FormActions = ({ clusterType }: { clusterType: string }) => {
         caData,
       } = values;
 
-      const clusterMetadataName = `${clusterName}-cluster`;
-
       if (clusterType === CLUSTER_TYPE.BEARER) {
         createSecret({
           secretData: createBearerClusterSecretInstance({
-            clusterMetadataName,
+            clusterMetadataName: clusterName,
             clusterName,
             clusterHost,
             clusterToken,
@@ -68,7 +66,7 @@ export const FormActions = ({ clusterType }: { clusterType: string }) => {
       } else {
         createSecret({
           secretData: createIRSAClusterSecretInstance({
-            clusterMetadataName,
+            clusterMetadataName: clusterName + '-cluster',
             clusterName,
             clusterHost,
             roleARN,
