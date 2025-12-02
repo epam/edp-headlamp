@@ -17,6 +17,7 @@ export const CODEBASE_COMMON_LANGUAGES = {
 export const CODEBASE_COMMON_FRAMEWORKS = {
   JAVA17: 'java17',
   JAVA21: 'java21',
+  JAVA25: 'java25',
   REACT: 'react',
   VUE: 'vue',
   NEXTJS: 'next',
