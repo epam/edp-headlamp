@@ -3,12 +3,19 @@
 
 ### Features
 
+- Add java 25 ([#837](https://github.com/epam/edp-headlamp/issues/837))
+- Add GitLab CI support to Portal UI ([#824](https://github.com/epam/edp-headlamp/issues/824))
+- Add GitLab CI support to Portal UI ([#824](https://github.com/epam/edp-headlamp/issues/824))
 - Remove old java versions ([#810](https://github.com/epam/edp-headlamp/issues/810))
 - Add pnpm to libs ([#801](https://github.com/epam/edp-headlamp/issues/801))
 - Add pnpm build tool option ([#801](https://github.com/epam/edp-headlamp/issues/801))
 
 ### Bug Fixes
 
+- Cluster secret create ([#834](https://github.com/epam/edp-headlamp/issues/834)) ([#835](https://github.com/epam/edp-headlamp/issues/835))
+- Job conditions type ([#832](https://github.com/epam/edp-headlamp/issues/832)) ([#833](https://github.com/epam/edp-headlamp/issues/833))
+- Release branch options ([#830](https://github.com/epam/edp-headlamp/issues/830))
+- Task details page ([#822](https://github.com/epam/edp-headlamp/issues/822))
 - Auth test 3 ([#815](https://github.com/epam/edp-headlamp/issues/815))
 - Auto test 2 ([#815](https://github.com/epam/edp-headlamp/issues/815)) ([#817](https://github.com/epam/edp-headlamp/issues/817))
 - Auth test ([#815](https://github.com/epam/edp-headlamp/issues/815)) ([#816](https://github.com/epam/edp-headlamp/issues/816))
@@ -17,7 +24,15 @@
 
 ### Routine
 
+- Update current development version ([#820](https://github.com/epam/edp-headlamp/issues/820))
 - Update current development version ([#798](https://github.com/epam/edp-headlamp/issues/798))
+
+
+<a name="v0.23.2"></a>
+## [v0.23.2] - 2025-12-12
+### Bug Fixes
+
+- Cluster secret create ([#834](https://github.com/epam/edp-headlamp/issues/834)) ([#835](https://github.com/epam/edp-headlamp/issues/835))
 
 
 <a name="v0.23.1"></a>
@@ -853,7 +868,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.23.1...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.23.2...HEAD
+[v0.23.2]: https://github.com/epam/edp-headlamp/compare/v0.23.1...v0.23.2
 [v0.23.1]: https://github.com/epam/edp-headlamp/compare/v0.23.0...v0.23.1
 [v0.23.0]: https://github.com/epam/edp-headlamp/compare/v0.22.0...v0.23.0
 [v0.22.0]: https://github.com/epam/edp-headlamp/compare/v0.21.2...v0.22.0
