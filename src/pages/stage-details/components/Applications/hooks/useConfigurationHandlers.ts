@@ -121,12 +121,12 @@ export const useConfigurationHandlers = ({
 
   const handleClickOverrideValuesAll = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const boolean = event.target.value;
+      const checked = event.target.checked;
 
       for (const application of enrichedApplicationsWithArgoApplications) {
         const selectFieldName = `${application.application.metadata.name}${VALUES_OVERRIDE_POSTFIX}`;
 
-        setValue(selectFieldName, boolean, {
+        setValue(selectFieldName, checked, {
           shouldValidate: true,
           shouldDirty: true,
         });

@@ -48,15 +48,9 @@ export const ConfigurationTable = ({
     formState: { dirtyFields },
   } = useFormContext();
 
-  const [key, setKey] = React.useState(0);
-
   const isDirty = Object.keys(dirtyFields).length > 0;
 
   const timer = React.useRef<number | null>(null);
-
-  React.useEffect(() => {
-    setKey((prev) => prev + 1);
-  }, [buttonsHighlighted]);
 
   return (
     <>
@@ -116,7 +110,6 @@ export const ConfigurationTable = ({
         </ConditionalWrapper>
       </Stack>
       <Table<EnrichedApplicationWithArgoApplication>
-        key={key}
         id={TABLE.STAGE_APPLICATION_LIST_CONFIGURATION.id}
         name={TABLE.STAGE_APPLICATION_LIST_CONFIGURATION.name}
         data={data}
@@ -129,3 +122,4 @@ export const ConfigurationTable = ({
     </>
   );
 };
+

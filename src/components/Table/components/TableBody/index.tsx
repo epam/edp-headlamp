@@ -104,9 +104,11 @@ export const TableBody = <DataType extends unknown>({
                 ? selection?.isRowSelectable(row)
                 : true;
 
+              const globalIndex = page * rowsPerPage + idx;
+
               return (
                 <TableRow
-                  key={`table-row-${idx}`}
+                  key={`table-row-${globalIndex}`}
                   item={row}
                   columns={columns}
                   isRowSelected={_isSelected}

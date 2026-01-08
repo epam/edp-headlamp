@@ -8,12 +8,13 @@ import {
   IconButton,
   Link as MuiLink,
   Stack,
+  Switch,
   Tooltip,
   Typography,
   useTheme,
 } from '@mui/material';
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { CopyButton } from '../../../../../components/CopyButton';
 import { ResourceIconLink } from '../../../../../components/ResourceIconLink';
@@ -45,12 +46,15 @@ import {
 } from '../../../../../k8s/groups/EDP/QuickLink/constants';
 import { useQuickLinksURLsQuery } from '../../../../../k8s/groups/EDP/QuickLink/hooks/useQuickLinksURLQuery';
 import { useDialogContext } from '../../../../../providers/Dialog/hooks';
-import { FormSwitch } from '../../../../../providers/Form/components/FormSwitch';
 import { LinkCreationService } from '../../../../../services/link-creation';
 import { PodsLogViewerDialog } from '../../../../../widgets/dialogs/PodsLogViewer';
 import { PodsTerminalDialog } from '../../../../../widgets/dialogs/PodsTerminal';
 import { routeComponentDetails } from '../../../../component-details/route';
-import { ALL_VALUES_OVERRIDE_KEY, APPLICATIONS_TABLE_MODE } from '../../../constants';
+import {
+  ALL_VALUES_OVERRIDE_KEY,
+  APPLICATIONS_TABLE_MODE,
+  IMAGE_TAG_POSTFIX,
+} from '../../../constants';
 import { useDataContext } from '../../../providers/Data/hooks';
 import { useDynamicDataContext } from '../../../providers/DynamicData/hooks';
 import { EDPStageDetailsRouteParams, EnrichedApplicationWithArgoApplication } from '../../../types';
@@ -59,19 +63,76 @@ import { ValuesOverrideSwitch } from '../components/ValuesOverrideSwitch';
 import { columnNames } from '../constants';
 import { ApplicationsTableMode } from '../types';
 
+const VersionButtonGroup = ({
+  handleClickLatest,
+  handleClickStable,
+}: {
+  handleClickLatest: () => void;
+  handleClickStable: () => void;
+}) => {
+  const { watch } = useFormContext();
+  const values = watch();
+
+  const imageTagsValues = Object.entries(values).filter(
+    ([key]) => key && key.includes(IMAGE_TAG_POSTFIX)
+  );
+
+  const buttonsHighlighted = React.useMemo(() => {
+    if (!imageTagsValues.length) {
+      return {
+        latest: false,
+        stable: false,
+      };
+    }
+
+    const allVersionsAreLatest = imageTagsValues.every(([, value]) => value?.includes('latest::'));
+    const allVersionsAreStable = imageTagsValues.every(([, value]) => value?.includes('stable::'));
+
+    return {
+      latest: allVersionsAreLatest,
+      stable: allVersionsAreStable,
+    };
+  }, [imageTagsValues]);
+
+  return (
+    <ButtonGroup>
+      <Tooltip title={'Set selected applications latest image stream version'}>
+        <Button
+          onClick={handleClickLatest}
+          variant={buttonsHighlighted.latest ? 'contained' : 'outlined'}
+          color={'primary'}
+          size="small"
+          fullWidth
+        >
+          latest
+        </Button>
+      </Tooltip>
+      <Tooltip title={'Set selected applications stable image stream version'}>
+        <Button
+          onClick={handleClickStable}
+          variant={buttonsHighlighted.stable ? 'contained' : 'outlined'}
+          color={'primary'}
+          size="small"
+          fullWidth
+        >
+          stable
+        </Button>
+      </Tooltip>
+    </ButtonGroup>
+  );
+};
+
 export const useColumns = ({
   mode,
   handleClickLatest,
   handleClickOverrideValuesAll,
   handleClickStable,
-  buttonsHighlighted,
   copyVersionsValue,
 }: {
   mode: ApplicationsTableMode;
   handleClickLatest: () => void;
   handleClickOverrideValuesAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleClickStable: () => void;
-  buttonsHighlighted: Record<string, boolean>;
   copyVersionsValue: string;
 }): TableColumn<EnrichedApplicationWithArgoApplication>[] => {
   const theme = useTheme();
@@ -109,11 +170,7 @@ export const useColumns = ({
 
   const { setDialog } = useDialogContext();
 
-  const {
-    register,
-    control,
-    formState: { errors },
-  } = useFormContext();
+  const { control } = useFormContext();
 
   const isPreviewMode = mode === APPLICATIONS_TABLE_MODE.PREVIEW;
   const isConfigurationMode = mode === APPLICATIONS_TABLE_MODE.CONFIGURATION;
@@ -225,18 +282,21 @@ export const useColumns = ({
         <Stack spacing={2}>
           {mode === APPLICATIONS_TABLE_MODE.CONFIGURATION && (
             <Stack direction="row" alignItems="center" spacing={1}>
-              <div>
-                <FormSwitch
-                  label={<></>}
-                  {...register(ALL_VALUES_OVERRIDE_KEY, {
-                    onChange: handleClickOverrideValuesAll,
-                  })}
-                  align={'flex-start'}
-                  control={control}
-                  errors={errors}
-                  defaultValue={buttonsHighlighted.valuesOverride}
-                />
-              </div>
+              <Controller
+                name={ALL_VALUES_OVERRIDE_KEY}
+                control={control}
+                render={({ field }) => (
+                  <Switch
+                    {...field}
+                    checked={!!field.value}
+                    onChange={(e) => {
+                      field.onChange(e.target.checked);
+                      handleClickOverrideValuesAll(e);
+                    }}
+                    color="primary"
+                  />
+                )}
+              />
             </Stack>
           )}
 
@@ -491,30 +551,10 @@ export const useColumns = ({
               id: columnNames.DEPLOYED_VERSION,
               label: (
                 <Stack spacing={2}>
-                  <ButtonGroup>
-                    <Tooltip title={'Set selected applications latest image stream version'}>
-                      <Button
-                        onClick={handleClickLatest}
-                        variant={buttonsHighlighted.latest ? 'contained' : 'outlined'}
-                        color={'primary'}
-                        size="small"
-                        fullWidth
-                      >
-                        latest
-                      </Button>
-                    </Tooltip>
-                    <Tooltip title={'Set selected applications stable image stream version'}>
-                      <Button
-                        onClick={handleClickStable}
-                        variant={buttonsHighlighted.stable ? 'contained' : 'outlined'}
-                        color={'primary'}
-                        size="small"
-                        fullWidth
-                      >
-                        stable
-                      </Button>
-                    </Tooltip>
-                  </ButtonGroup>
+                  <VersionButtonGroup
+                    handleClickLatest={handleClickLatest}
+                    handleClickStable={handleClickStable}
+                  />
                   <Stack direction="row" spacing={1} alignItems="center" flexWrap="nowrap">
                     <div>Deployed version</div>
                     <Tooltip
@@ -558,12 +598,8 @@ export const useColumns = ({
     CDPipelineName,
     _createArgoCDLink,
     applicationPodsMap,
-    buttonsHighlighted.latest,
-    buttonsHighlighted.stable,
-    buttonsHighlighted.valuesOverride,
     control,
     copyVersionsValue,
-    errors,
     gitOpsCodebase.data?.status.gitWebUrl,
     gitOpsGitServer?.spec.gitProvider,
     handleClickLatest,
@@ -575,7 +611,6 @@ export const useColumns = ({
     isPreviewMode,
     loadSettings,
     mode,
-    register,
     setDialog,
     stage,
     theme.palette.action.disabled,
