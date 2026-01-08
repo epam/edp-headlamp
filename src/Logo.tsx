@@ -28,3 +28,4 @@ export const Logo = () => {
     </svg>
   );
 };
+

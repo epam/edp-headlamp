@@ -125,7 +125,6 @@ export const Applications = ({
     handleClickLatest,
     handleClickOverrideValuesAll,
     handleClickStable,
-    buttonsHighlighted,
     copyVersionsValue,
   });
 

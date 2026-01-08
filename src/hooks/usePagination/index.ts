@@ -81,7 +81,8 @@ const updateValue = (
   fullKey: string,
   defaultValue: unknown,
   value: string | number,
-  setValue: (value: any) => void
+  setValue: (value: any) => void,
+  history: any
 ) => {
   const newValue = getURLValue(fullKey, defaultValue, history);
   if (newValue === null) {
@@ -140,7 +141,7 @@ export function useURLState<T extends string | number | undefined = string>(
 
   React.useEffect(
     () => {
-      value && updateValue(fullKey, defaultValue, value, setValue);
+      value && updateValue(fullKey, defaultValue, value, setValue, history);
     },
     // eslint-disable-next-line
     [history]
