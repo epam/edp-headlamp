@@ -45,6 +45,10 @@ export const Table = <DataType extends unknown>({
   outlined = true,
 }: TableProps<DataType>) => {
   const [columns, setColumns] = React.useState(_columns);
+
+  React.useEffect(() => {
+    setColumns(_columns);
+  }, [_columns]);
   const paginationSettings: TablePaginationType = React.useMemo(
     () => ({
       show: pagination?.show ?? PAGINATION_DEFAULTS.SHOW,
