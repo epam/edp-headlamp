@@ -36,8 +36,8 @@
     }
   },
   "dependencies": {
-    "@carbon/charts": "0.58.2",
-    "@carbon/charts-react": "0.58.2",
+    "@carbon/charts": "1.27.2",
+    "@carbon/charts-react": "1.27.2",
     "@hookform/error-message": "^2.0.0",
     "@iconify/react": "^3.2.1",
     "@monaco-editor/react": "^4.3.1",
