@@ -1,4 +1,5 @@
 module.exports = {
+  testEnvironment: 'jsdom',
   coverageDirectory: './analysis/coverage/',
   moduleNameMapper: {
     '^@kinvolk/headlamp-plugin/lib$': '<rootDir>/mocks/headlamp-plugin/lib/index.ts',

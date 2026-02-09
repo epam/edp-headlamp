@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { ICONS } from '../../icons/iconify-icons-mapping';
+import { sanitizeSvgBase64 } from '../../utils/sanitizeSvg';
 import { ResourceIconLinkProps } from './types';
 
 const stopPropagation = (e: React.SyntheticEvent) => e.stopPropagation();
@@ -36,6 +37,7 @@ const DisabledResourceIconLink = ({
   const theme = useTheme();
 
   const iconSize = iconSizeByBtnSize(size);
+  const sanitizedIcon = sanitizeSvgBase64(iconBase64);
 
   return isTextButton ? (
     <Button
@@ -53,7 +55,7 @@ const DisabledResourceIconLink = ({
         <IconButton disabled style={!withoutDisabledStyle ? { opacity: 0.5 } : {}} size={size}>
           {iconBase64 ? (
             <img
-              src={`data:image/svg+xml;base64,${iconBase64}`}
+              src={`data:image/svg+xml;base64,${sanitizedIcon}`}
               style={{ width: theme.typography.pxToRem(16), height: theme.typography.pxToRem(16) }}
               alt=""
             />
@@ -83,6 +85,7 @@ const EnabledResourceIconLink = ({
 }: ResourceIconLinkProps) => {
   const theme = useTheme();
   const iconSize = iconSizeByBtnSize(size);
+  const sanitizedIcon = sanitizeSvgBase64(iconBase64);
 
   return isTextButton ? (
     <Button
@@ -123,7 +126,7 @@ const EnabledResourceIconLink = ({
         <IconButton component={MuiLink} href={link} target={'_blank'} size={size}>
           {iconBase64 ? (
             <img
-              src={`data:image/svg+xml;base64,${iconBase64}`}
+              src={`data:image/svg+xml;base64,${sanitizedIcon}`}
               style={{ width: theme.typography.pxToRem(16), height: theme.typography.pxToRem(16) }}
               alt=""
             />

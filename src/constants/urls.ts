@@ -264,7 +264,7 @@ export const EDP_USER_GUIDE = {
   },
   QUICK_LINKS: {
     url: `${EDP_USER_GUIDE_ROOT_URL}/quick-links`,
-  }
+  },
 };
 
 export const EDP_OPERATOR_GUIDE = {

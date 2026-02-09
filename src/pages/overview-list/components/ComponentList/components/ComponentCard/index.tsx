@@ -5,6 +5,7 @@ import { TextWithTooltip } from '../../../../../../components/TextWithTooltip';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObjectInterface } from '../../../../../../k8s/groups/EDP/QuickLink/types';
 import { useResourceActionListContext } from '../../../../../../providers/ResourceActionList/hooks';
+import { sanitizeSvgBase64 } from '../../../../../../utils/sanitizeSvg';
 import { useStyles } from './styles';
 import { ComponentCardProps } from './types';
 
@@ -17,6 +18,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
   } = component;
 
   const _url = !/^https?:\/\//i.test(url) ? `https://${url}` : url;
+  const sanitizedIcon = sanitizeSvgBase64(icon);
   const buttonRef = React.createRef<HTMLButtonElement>();
   const { handleOpenResourceActionListMenu } =
     useResourceActionListContext<QuickLinkKubeObjectInterface>();
@@ -27,7 +29,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
         <MuiLink href={_url} target="_blank" rel="noopener" style={{ minWidth: 0 }}>
           <Stack direction="row" spacing={2} alignItems="center">
             <span className={classes.serviceItemIcon}>
-              <img src={`data:image/svg+xml;base64,${icon}`} alt="" />
+              <img src={`data:image/svg+xml;base64,${sanitizedIcon}`} alt="" />
             </span>
             <div style={{ minWidth: 0 }}>
               <TextWithTooltip text={name} />

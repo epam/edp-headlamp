@@ -283,4 +283,3 @@ export const QualityGateRow = ({
     </>
   );
 };
-

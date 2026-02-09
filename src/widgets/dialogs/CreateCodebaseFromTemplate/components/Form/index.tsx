@@ -1,6 +1,14 @@
 import { Grid } from '@mui/material';
 import React from 'react';
-import { CiTool, CodebaseVersioning, Description, GitServer, GitUrlPath, Name, Private } from '../fields';
+import {
+  CiTool,
+  CodebaseVersioning,
+  Description,
+  GitServer,
+  GitUrlPath,
+  Name,
+  Private,
+} from '../fields';
 import { useUpdateVersioningFields } from './hooks/useUpdateVersioningFields';
 
 export const Form = () => {

@@ -53,7 +53,6 @@ export const DataGrid = <DataType extends unknown>({
     return !!data?.length && !readyData?.length;
   }, [data, isLoading, isReadyDataLoading, readyData]);
 
-
   const renderGrid = React.useCallback(() => {
     if (blockerError) {
       return (
@@ -62,7 +61,6 @@ export const DataGrid = <DataType extends unknown>({
         </Box>
       );
     }
-
 
     if (isLoading) {
       return (
@@ -100,7 +98,6 @@ export const DataGrid = <DataType extends unknown>({
     if (hasEmptyResult) {
       return <EmptyList customText={'No results found!'} isSearch />;
     }
-
 
     return <>{emptyListComponent}</>;
   }, [

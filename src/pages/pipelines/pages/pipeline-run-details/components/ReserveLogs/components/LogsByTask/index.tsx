@@ -18,7 +18,7 @@ export const LogsByTask = ({ logs }: LogsByTaskProps) => {
     (taskRun: string) => {
       const currentQueryParams = new URLSearchParams(location.search);
       if (currentQueryParams.get('taskRun') === taskRun) {
-        return; 
+        return;
       }
       const newQueryParams = new URLSearchParams();
       if (taskRun) {

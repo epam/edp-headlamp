@@ -7,6 +7,7 @@ import { TableColumn } from '../../../../../../../components/Table/types';
 import { TABLE } from '../../../../../../../constants/tables';
 import { ICONS } from '../../../../../../../icons/iconify-icons-mapping';
 import { QuickLinkKubeObjectInterface } from '../../../../../../../k8s/groups/EDP/QuickLink/types';
+import { sanitizeSvgBase64 } from '../../../../../../../utils/sanitizeSvg';
 import { useTypedPermissions } from '../../../hooks/useTypedPermissions';
 import { Actions } from '../../Actions';
 import { columnNames } from '../constants';
@@ -31,11 +32,14 @@ export const useColumns = (): TableColumn<QuickLinkKubeObjectInterface>[] => {
             data: {
               spec: { icon },
             },
-          }) => (
-            <span className={classes.serviceItemIcon}>
-              <img src={`data:image/svg+xml;base64,${icon}`} alt="" />
-            </span>
-          ),
+          }) => {
+            const sanitizedIcon = sanitizeSvgBase64(icon);
+            return (
+              <span className={classes.serviceItemIcon}>
+                <img src={`data:image/svg+xml;base64,${sanitizedIcon}`} alt="" />
+              </span>
+            );
+          },
         },
         cell: {
           isFixed: true,

@@ -1,4 +1,3 @@
-
 export const DIALOG_NAME = 'ADD_NEW_WIDGET_DIALOG';
 
 export const WIDGET_TYPE = {

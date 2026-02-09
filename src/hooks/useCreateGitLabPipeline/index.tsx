@@ -25,10 +25,7 @@ export const useCreateGitLabPipeline = ({
     (response: GitLabPipelineResponse) => onSuccess && onSuccess(response),
     [onSuccess]
   );
-  const invokeOnErrorCallback = useCallback(
-    (error: Error) => onError && onError(error),
-    [onError]
-  );
+  const invokeOnErrorCallback = useCallback((error: Error) => onError && onError(error), [onError]);
 
   const mutation = useMutation<GitLabPipelineResponse, Error, GitLabPipelineTriggerData>(
     async (data: GitLabPipelineTriggerData) => {
@@ -40,9 +37,7 @@ export const useCreateGitLabPipeline = ({
       const gitFusionApiService = new GitFusionApiService(apiServiceBase);
 
       // Strip leading slash from gitUrlPath
-      const project = data.gitUrlPath.startsWith('/')
-        ? data.gitUrlPath.slice(1)
-        : data.gitUrlPath;
+      const project = data.gitUrlPath.startsWith('/') ? data.gitUrlPath.slice(1) : data.gitUrlPath;
 
       const endpoint = gitFusionApiService.getTriggerGitLabPipelineEndpoint(
         data.gitServer,
