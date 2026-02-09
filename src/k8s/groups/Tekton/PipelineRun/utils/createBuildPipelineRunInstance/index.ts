@@ -75,9 +75,10 @@ export const createBuildPipelineRunInstance = ({
     },
   ];
 
-  const gitUrlPathWithoutSlashAtStart = codebaseGitUrlPath && codebaseGitUrlPath.startsWith('/')
-    ? codebaseGitUrlPath.slice(1)
-    : codebaseGitUrlPath || '';
+  const gitUrlPathWithoutSlashAtStart =
+    codebaseGitUrlPath && codebaseGitUrlPath.startsWith('/')
+      ? codebaseGitUrlPath.slice(1)
+      : codebaseGitUrlPath || '';
 
   for (const param of base.spec.params) {
     switch (param.name) {

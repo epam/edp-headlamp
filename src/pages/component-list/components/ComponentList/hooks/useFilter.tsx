@@ -19,7 +19,6 @@ export const useFilter = (): {
 } => {
   const { filterFunction, setFilterItem, filter } = usePageFilterContext();
 
-
   const controls = React.useMemo(
     () => ({
       search: {

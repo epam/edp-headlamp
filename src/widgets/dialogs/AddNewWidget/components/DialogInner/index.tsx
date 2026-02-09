@@ -1,13 +1,13 @@
 import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    Stack,
-    Step,
-    StepLabel,
-    Stepper,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Stack,
+  Step,
+  StepLabel,
+  Stepper,
 } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';

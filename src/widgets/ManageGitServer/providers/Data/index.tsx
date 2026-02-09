@@ -8,7 +8,7 @@ export const DataContextProvider: React.FC<DataContextProviderProps> = ({
   gitServer,
   gitServerSecret,
   permissions,
-  handleClosePanel
+  handleClosePanel,
 }) => {
   const codebasesByGitServerQuery = useCodebasesByGitServerLabelQuery(gitServer?.spec.gitProvider);
 
@@ -19,7 +19,7 @@ export const DataContextProvider: React.FC<DataContextProviderProps> = ({
         gitServerSecret,
         permissions,
         codebasesByGitServerQuery,
-        handleClosePanel
+        handleClosePanel,
       }}
     >
       {children}

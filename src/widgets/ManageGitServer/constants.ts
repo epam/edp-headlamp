@@ -20,14 +20,23 @@ export const GIT_USER = {
 export const widgetPermissionsToCheck = {
   create: [
     { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
-    { instance: GitServerKubeObject as unknown as KubeObjectClass, config: GitServerKubeObjectConfig },
+    {
+      instance: GitServerKubeObject as unknown as KubeObjectClass,
+      config: GitServerKubeObjectConfig,
+    },
   ],
   update: [
     { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
-    { instance: GitServerKubeObject as unknown as KubeObjectClass, config: GitServerKubeObjectConfig },
+    {
+      instance: GitServerKubeObject as unknown as KubeObjectClass,
+      config: GitServerKubeObjectConfig,
+    },
   ],
   delete: [
     { instance: SecretKubeObject as unknown as KubeObjectClass, config: SecretKubeObjectConfig },
-    { instance: GitServerKubeObject as unknown as KubeObjectClass, config: GitServerKubeObjectConfig },
+    {
+      instance: GitServerKubeObject as unknown as KubeObjectClass,
+      config: GitServerKubeObjectConfig,
+    },
   ],
 };

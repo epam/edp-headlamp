@@ -19,11 +19,10 @@ export const useEditServiceAccount = ({
   const invokeOnSuccessCallback = React.useCallback(() => onSuccess && onSuccess(), [onSuccess]);
   const invokeOnErrorCallback = React.useCallback(() => onError && onError(), [onError]);
 
-  const serviceAccountEditMutation = useResourceCRUDMutation<KubeObjectInterface, typeof CRUD_TYPE.EDIT>(
-    'serviceAccountEditMutation',
-    ServiceAccountKubeObject,
-    CRUD_TYPE.EDIT
-  );
+  const serviceAccountEditMutation = useResourceCRUDMutation<
+    KubeObjectInterface,
+    typeof CRUD_TYPE.EDIT
+  >('serviceAccountEditMutation', ServiceAccountKubeObject, CRUD_TYPE.EDIT);
 
   const editServiceAccount = React.useCallback(
     async ({ serviceAccount }: EditServiceAccountProps) => {

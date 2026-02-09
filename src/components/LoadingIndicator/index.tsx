@@ -1,5 +1,5 @@
-import { CircularProgress, Grid } from "@mui/material";
-import React from "react";
+import { CircularProgress, Grid } from '@mui/material';
+import React from 'react';
 
 export const LoadingIndicator: React.FC<{ size?: number }> = ({ size = 40 }) => {
   return (

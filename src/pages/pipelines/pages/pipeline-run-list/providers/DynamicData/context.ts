@@ -6,6 +6,5 @@ export const DynamicDataContext = React.createContext<DynamicDataContextProvider
     data: null,
     isLoading: true,
     errors: null,
-    
   },
 });

@@ -9,9 +9,7 @@ import { TABLE } from '../../../../../../constants/tables';
 import { ICONS } from '../../../../../../icons/iconify-icons-mapping';
 import { ApplicationKubeObjectInterface } from '../../../../../../k8s/groups/ArgoCD/Application/types';
 import { useTypedPermissions } from '../../../../hooks/useTypedPermissions';
-import {
-  EnrichedApplicationWithArgoApplication
-} from '../../../../types';
+import { EnrichedApplicationWithArgoApplication } from '../../../../types';
 import { ApplicationsMultiDeletion } from '../../../ApplicationsMultiDeletion';
 import { useSelection } from '../../hooks/useSelection';
 
