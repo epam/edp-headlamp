@@ -36,7 +36,7 @@ export const CODEBASE_COMMON_FRAMEWORKS = {
   FASTAPI: 'fastapi',
   DOTNET_3_1: 'dotnet-3.1',
   DOTNET_6_0: 'dotnet-6.0',
-  PYTHON_3_8: 'python-3.8',
+  PYTHON_3_13: 'python-3.13',
   OPERATOR_SDK: 'operator-sdk',
   GIN: 'gin',
   AWS: 'aws',
