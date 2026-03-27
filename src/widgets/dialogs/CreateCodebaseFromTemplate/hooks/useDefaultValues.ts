@@ -1,4 +1,5 @@
 import React from 'react';
+import { CI_TOOL } from '../../../../constants/ciTools';
 import { CODEBASE_VERSIONING_TYPE } from '../../../../constants/codebaseVersioningTypes';
 import { CODEBASE_CREATION_STRATEGY } from '../../../../constants/creationStrategies';
 import { useGitServerListQuery } from '../../../../k8s/groups/EDP/GitServer/hooks/useGitServerListQuery';
@@ -26,6 +27,7 @@ export const useDefaultValues = (template: TemplateKubeObjectInterface) => {
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningType.name]: CODEBASE_VERSIONING_TYPE.SEMVER,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.emptyProject.name]: false,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.private.name]: true,
+      [CODEBASE_FROM_TEMPLATE_FORM_NAMES.ciTool.name]: CI_TOOL.TEKTON,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.gitServer.name]: firstValidGitServer?.metadata.name || '',
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFrom.name]: defaultEDPVersioningValue,
       [CODEBASE_FROM_TEMPLATE_FORM_NAMES.versioningStartFromVersion.name]:
