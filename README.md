@@ -1,3 +1,7 @@
+> [!WARNING]
+> This app is no longer being actively developed. It is still maintained and supported.
+> We recommend using the newest version of the portal: [KubeRocketCI Portal (krci-portal)](https://github.com/KubeRocketCI/krci-portal).
+
 [![codecov](https://codecov.io/gh/epam/edp-headlamp/branch/master/graph/badge.svg?token=14I4A446VF)](https://codecov.io/gh/epam/edp-headlamp)
 
 # KubeRocketCI Portal
