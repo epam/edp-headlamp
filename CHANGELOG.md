@@ -1,8 +1,12 @@
 <a name="unreleased"></a>
 ## [Unreleased]
 
+
+<a name="v0.24.0"></a>
+## [v0.24.0] - 2026-03-27
 ### Features
 
+- Update Python 3.13 version in frameworks ([#858](https://github.com/epam/edp-headlamp/issues/858))
 - Add java 25 ([#837](https://github.com/epam/edp-headlamp/issues/837))
 - Add GitLab CI support to Portal UI ([#824](https://github.com/epam/edp-headlamp/issues/824))
 - Add GitLab CI support to Portal UI ([#824](https://github.com/epam/edp-headlamp/issues/824))
@@ -12,6 +16,9 @@
 
 ### Bug Fixes
 
+- Marketplace codebase creation [#865](https://github.com/epam/edp-headlamp/issues/865) ([#866](https://github.com/epam/edp-headlamp/issues/866))
+- Base64 vulerability ([#856](https://github.com/epam/edp-headlamp/issues/856))
+- Autotests selection in qg stage ([#847](https://github.com/epam/edp-headlamp/issues/847)
 - Cluster secret create ([#834](https://github.com/epam/edp-headlamp/issues/834)) ([#835](https://github.com/epam/edp-headlamp/issues/835))
 - Job conditions type ([#832](https://github.com/epam/edp-headlamp/issues/832)) ([#833](https://github.com/epam/edp-headlamp/issues/833))
 - Release branch options ([#830](https://github.com/epam/edp-headlamp/issues/830))
@@ -24,6 +31,7 @@
 
 ### Routine
 
+- Update current development version ([#839](https://github.com/epam/edp-headlamp/issues/839))
 - Update current development version ([#820](https://github.com/epam/edp-headlamp/issues/820))
 - Update current development version ([#798](https://github.com/epam/edp-headlamp/issues/798))
 
@@ -868,7 +876,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.23.2...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.24.0...HEAD
+[v0.24.0]: https://github.com/epam/edp-headlamp/compare/v0.23.2...v0.24.0
 [v0.23.2]: https://github.com/epam/edp-headlamp/compare/v0.23.1...v0.23.2
 [v0.23.1]: https://github.com/epam/edp-headlamp/compare/v0.23.0...v0.23.1
 [v0.23.0]: https://github.com/epam/edp-headlamp/compare/v0.22.0...v0.23.0
