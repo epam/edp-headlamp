@@ -41,8 +41,7 @@ export const usePipelineRunGraphData = (
     approvalTasks,
   });
 
-  const isLoading =
-    taskRuns === null || pipelineRun === null || tasks === null || approvalTasks === null;
+  const isLoading = taskRuns === null || pipelineRun === null || tasks === null;
 
   const noTasks = React.useMemo(() => {
     return pipelineRunTasks.allTasks.length === 0 || !pipelineRunTasksByNameMap;
@@ -76,7 +75,7 @@ export const usePipelineRunGraphData = (
   }, [noTasks, isLoading, pipelineRunTasksByNameMap]);
 
   const edges = React.useMemo(() => {
-    if (noTasks) {
+    if (noTasks || isLoading) {
       return [];
     }
 
@@ -107,24 +106,27 @@ export const usePipelineRunGraphData = (
 
     const lastMainTask = pipelineRunTasks.mainTasks[pipelineRunTasks.mainTasks.length - 1];
 
-    for (const item of pipelineRunTasks.finallyTasks) {
-      const name = item.name;
+    if (lastMainTask) {
+      for (const item of pipelineRunTasks.finallyTasks) {
+        const name = item.name;
 
-      _edges = [
-        {
-          id: `edge::${name}::${lastMainTask.name}`,
-          source: `task::${lastMainTask.name}`,
-          color: 'transparent',
-          noArrow: true,
-          target: `task::${name}`,
-        },
-        ..._edges,
-      ];
+        _edges = [
+          {
+            id: `edge::${name}::${lastMainTask.name}`,
+            source: `task::${lastMainTask.name}`,
+            color: 'transparent',
+            noArrow: true,
+            target: `task::${name}`,
+          },
+          ..._edges,
+        ];
+      }
     }
 
     return _edges;
   }, [
     noTasks,
+    isLoading,
     pipelineRunTasks.finallyTasks,
     pipelineRunTasks.mainTasks,
     pipelineRunTasksByNameMap,
