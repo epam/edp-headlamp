@@ -36,7 +36,7 @@ export const usePipelineRunData = ({
     return pipelineRunTasks.allTasks?.reduce((acc, item) => {
       acc.set(item.name, {
         pipelineRunTask: item,
-        task: tasks.find((task) => task.metadata.name === item.taskRef.name),
+        task: tasks.find((task) => task.metadata.name === item.taskRef?.name),
         taskRun: taskRuns.find(
           (taskRun) =>
             taskRun.metadata?.labels?.[TASK_RUN_LABEL_SELECTOR_PIPELINE_TASK] === item.name
