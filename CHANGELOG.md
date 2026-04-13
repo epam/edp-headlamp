@@ -2,6 +2,18 @@
 ## [Unreleased]
 
 
+<a name="v0.25.0"></a>
+## [v0.25.0] - 2026-04-13
+### Bug Fixes
+
+- Pipeline run diagram [#870](https://github.com/epam/edp-headlamp/issues/870)
+
+### Routine
+
+- Update readme with newest portal link
+- Update current development version ([#867](https://github.com/epam/edp-headlamp/issues/867))
+
+
 <a name="v0.24.0"></a>
 ## [v0.24.0] - 2026-03-27
 ### Features
@@ -876,7 +888,8 @@
 <a name="v0.7.0"></a>
 ## [v0.7.0] - 2023-08-18
 
-[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.24.0...HEAD
+[Unreleased]: https://github.com/epam/edp-headlamp/compare/v0.25.0...HEAD
+[v0.25.0]: https://github.com/epam/edp-headlamp/compare/v0.24.0...v0.25.0
 [v0.24.0]: https://github.com/epam/edp-headlamp/compare/v0.23.2...v0.24.0
 [v0.23.2]: https://github.com/epam/edp-headlamp/compare/v0.23.1...v0.23.2
 [v0.23.1]: https://github.com/epam/edp-headlamp/compare/v0.23.0...v0.23.1
