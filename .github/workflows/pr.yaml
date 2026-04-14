@@ -16,9 +16,6 @@ jobs:
 
   check-commit-message:
     runs-on: ubuntu-22.04
-    env:
-      COMMIT_MESSAGE_PATTERN: '^(feat|fix|docs|style|refactor|test|chore){1}(!)?:\s[A-Z][a-z]([\/\.\w\-\s]+)\(\#\d+\)$'
-      MAX_LINE_LENGTH: '80'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,8 +25,8 @@ jobs:
       - name: Check Commit Format
         uses: gsactions/commit-message-checker@v2
         with:
-          pattern: '^(fix|feat|docs|style|refactor|test|chore){1}(\([\w\-\.]+\))?(!)?: .+( (#\d+))?$'
-          error: 'Your commit message should be in the format "type: Description (#issue)". Example: "fix: Update build (#33)"'
+          pattern: '^(EPMDEDP-\d+: (fix|feat|docs|style|refactor|test|chore)(!)?: .+|(chore|build)\(deps(-dev)?\): Bump .+)$'
+          error: 'Your commit message should be in the format "EPMDEDP-ID: type: Description". Example: "EPMDEDP-16058: feat: add feature"'
           excludeDescription: 'true'
           excludeTitle: 'true'
           checkAllCommitMessages: 'true'
@@ -38,8 +35,8 @@ jobs:
       - name: Check Line Length
         uses: gsactions/commit-message-checker@v2
         with:
-          pattern: '.{0,50}'
-          error: 'The maximum line length of 50 characters is exceeded.'
+          pattern: '^.{10,85}$'
+          error: 'Commit title must be between 10 and 85 characters long.'
           excludeDescription: 'true'
           excludeTitle: 'true'
           checkAllCommitMessages: 'true'
